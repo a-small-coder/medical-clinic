@@ -1,16 +1,10 @@
-# full-stack e-commerce проект - медицинская клиника
+# full-stack e-commerce проект - медицинская клиника (TedMed)
 
 ## Дизайн
 
 ### здесь будут приведены ссылки на ресурсы, которые были взяты в качестве примера дизайна:
 
-1) основой дизайн-макет главной страницы:
-https://www.figma.com/file/nLuO7y3i3cgh7BYJCr099k/FurnitureShope?node-id=4%3A1113
-2) https://gemotest.ru/ - неплохая идея сайд бара, раздела акции, раздел обратной связи, форма авторизации, раздел вакцинация ковид
-3) https://www.cmd-online.ru/ - полоса уникальных услуг на главной
-4) https://www.invitro.ru/ - секция о компании
-5) https://www.cmd-online.ru/analizy-i-tseny/katalog-analizov/ - каталог анализов
-6) https://www.cmd-online.ru/analizy-i-tseny/katalog-analizov/protrombin_prothrombin_mezhdunarodnoje_normalizovannoje_otnoshenije_mno_international_normalized_ratio_inr_100002/ - страница товара(анализа)
+https://www.mindmeister.com/1955379595?e=turtle - mindMap 
 
 ## Наполнение страниц контентом
 
@@ -70,3 +64,4 @@ NASBA
 
 ### Прогресс:
 1) день первый - проработка контентной части сайта. Работа над дизайном сайта и макетом главной страницы
+2) день второй - окончание проработки контентной части сайта. Сформирована предварительная карта сайта, определена стилистика и выбраны варианты ui компонентов. Составлена mindmap
