@@ -1,3 +1,4 @@
 *.md
 тедмед.mind
-
+node_modules
+medical-clinic
