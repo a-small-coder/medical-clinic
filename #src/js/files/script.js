@@ -6,10 +6,16 @@ window.onload = function (){
         const targetElement = e.target;
         if (window.innerWidth > 768 && isMobile.any()){
             if (targetElement.classList.contains('menu__arrow')){
-                if (document.querySelectorAll('.menu__item._hover').length > 0){
-                    _removeClasses(document.querySelectorAll('.menu__item._hover'), "_hover");
+                if (targetElement.closest('.menu__item').classList.contains('_hover')){
+                    targetElement.closest('.menu__item').classList.toggle('_hover');
                 }
-                targetElement.closest('.menu__item').classList.toggle('_hover');
+                else{
+                    if (document.querySelectorAll('.menu__item._hover').length > 0){
+                        _removeClasses(document.querySelectorAll('.menu__item._hover'), "_hover");
+                    }
+                    targetElement.closest('.menu__item').classList.toggle('_hover');
+                }
+                
             }
             if (!targetElement.closest('.menu__item') && document.querySelectorAll('.menu__item._hover').length > 0){
                 _removeClasses(document.querySelectorAll('.menu__item._hover'), "_hover");
@@ -23,4 +29,4 @@ window.onload = function (){
             _removeClasses(document.querySelectorAll('.search-form._active'), "_active");
         }
     }
-}
+};

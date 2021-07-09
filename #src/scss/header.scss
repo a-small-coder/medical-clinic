@@ -36,7 +36,7 @@
 
 	&__main {
 		display: flex;
-		flex: 0 0 39,7%;
+		flex: 0 0 42%;
 		align-items: center;
 		@media (max-width: $md2+px){
 			flex: 1 1 auto;
@@ -72,8 +72,7 @@
 .menu {
 
 	flex: 0 1 420px;
-	
-	@media (min-width: $md1 + px){
+	@media (min-width: $md2 + px){
 		min-width: 350px;
 	}
 
