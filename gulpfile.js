@@ -142,7 +142,7 @@ function images() {
 				optimizationLevel: 3 // 0 to 7
 			})
 		)
-		.pipe(dest(path.build.images))
+		.pipe(dest(path.build.images));
 }
 function favicon() {
 	return src(path.src.favicon)
@@ -152,12 +152,12 @@ function favicon() {
 				extname: ".ico"
 			})
 		)
-		.pipe(dest(path.build.html))
+		.pipe(dest(path.build.html));
 }
 function videos() {
 	return src(path.src.videos)
 		.pipe(plumber())
-		.pipe(dest(path.build.videos))
+		.pipe(dest(path.build.videos));
 }
 function fonts_otf() {
 	return src('./' + src_folder + '/fonts/*.otf')
