@@ -36,7 +36,7 @@
 
 	&__main {
 		display: flex;
-		flex: 0 0 42%;
+		flex: 0 0 math.div(494, 1240) * 100%;
 		align-items: center;
 		@media (max-width: $md2+px){
 			flex: 1 1 auto;
