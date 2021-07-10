@@ -18,7 +18,7 @@
 
     &__item {
         display: inline-grid;
-        padding: 15px 0;
+        padding: 15px 0px;
         grid-template: auto auto / 85px 1fr;
         @media (max-width: $md2+px){
             min-width: 280px;

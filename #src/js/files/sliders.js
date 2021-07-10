@@ -84,3 +84,67 @@ if (document.querySelector('.slider-main__body')) {
 		}
 	});
 }
+
+if (document.querySelector('.slider-sub-slider-big__body')) {
+	new Swiper('.slider-sub-slider-big__body', {
+		observer: true,
+		observeParents: true,
+		slidesPerView: 'auto',
+		spaceBetween: 24,
+		watchOverflow: true,
+		speed: 800,
+		loop: true,
+		loopAdditionalSlides: 5,
+		preloadImages: false,
+		parallax: true,
+		// Dotts
+		pagination: {
+			el: '.slider-sub-slider-big__dotts',
+			clickable: true,
+		},
+		// Arrows
+		navigation: {
+			nextEl: '.slider-sub-slider-big .slider-arrow_next',
+			prevEl: '.slider-sub-slider-big .slider-arrow_prev',
+		}
+	});
+}
+
+if (document.querySelector('.slider-stocks__body')) {
+	new Swiper('.slider-stocks__body', {
+		observer: true,
+		observeParents: true,
+		slidesPerView: 3,
+		spaceBetween: 32,
+		watchOverflow: true,
+		speed: 800,
+		loop: true,
+		loopAdditionalSlides: 5,
+		preloadImages: false,
+		parallax: true,
+		// Dotts
+		pagination: {
+			el: '.slider-stocks__dotts',
+			clickable: true,
+		},
+		// Arrows
+		navigation: {
+			nextEl: '.slider-stocks .slider-arrow_next',
+			prevEl: '.slider-stocks .slider-arrow_prev',
+		},
+		breakpoints: {
+			320: {
+				slidesPerView: 1.1,
+				spaceBetween: 15,
+			},
+			768: {
+				slidesPerView: 2,
+				spaceBetween: 20,
+			},
+			992: {
+				slidesPerView: 3,
+				spaceBetween: 32,
+			}
+		}
+	});
+}
