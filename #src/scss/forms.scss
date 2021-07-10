@@ -25,6 +25,17 @@
 	text-align: center;
 	transition: all 0.3s ease 0s;
 	min-height: 48px;
+
+	&_white{
+		color: $blueColor;
+		background-color: #fff;
+		@media (any-hover: hover){
+			&:hover{
+				background-color: $blueColor;
+				color: #fff;
+			}
+		}
+	}
 }
 //</BUTTONS>====================================================================================================
 
