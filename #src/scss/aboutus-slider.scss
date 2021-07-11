@@ -1,0 +1,110 @@
+@use "sass:math";
+
+.page {
+
+    &__aboutus {
+    }
+}
+.aboutus {
+    background-color: #DBF4FC;
+    @include adaptiv-value("padding-top", 30 , 15, 1); 
+    @include adaptiv-value("padding-bottom", 60 , 30, 1);
+
+    &__container {
+    }
+
+    &__slider {
+        min-width: 0;
+    }
+}
+.slider-aboutus {
+    position: relative;
+    @include adaptiv-value("padding-left", 128 , 64, 1);
+    @media (max-width: $md3+px){
+        padding-left: 15px;
+    }
+
+    &__body {
+        display: flex;
+        overflow: visible;
+        position: relative;
+        &::before{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100vw;
+            background-color: #DBF4FC;
+            z-index: 2;
+            transform: translate(-110%, 0px);
+        }
+    }
+
+    &__slide {
+        flex: 1 1 auto;
+        pointer-events: none;
+        opacity: 0.3;
+        flex-direction: column;
+        @include adaptiv-value("padding-top", 48, 30, 1);
+        transition: opacity 0.3s ease 0s;
+        @media (max-width: $md4+px){
+            display: none;
+        }
+        
+    }
+    .swiper-slide-active{
+        pointer-events: all;
+        opacity: 1;
+    }
+
+    &__title {
+        color: $darkGrayColor;
+        @include adaptiv-value("font-size", 32, 26, 1);
+        margin-bottom: math.div(15, 28) * 1em;
+        font-weight: 600;
+        line-height: 150%;
+    }
+
+    &__text {
+        max-width: 100%;
+        color: $darkGrayColor;
+        @include adaptiv-value("font-size", 20, 18, 1); 
+        font-weight: normal;
+        line-height: 150%;
+        &:not(:last-child){
+            margin-bottom: math.div(15, 18) * 1em;
+        }
+        @media (min-width: $md3+px){
+            max-width: 80%;
+        }
+    }
+
+    &__button {
+        border: 1px solid $blueColor;
+        min-width: 180px;
+    }
+
+    &__dotts {
+        @include adaptiv-value("padding-top", 8, 0, 1);
+        justify-content: flex-start;
+    }
+
+    &__arrows {
+        pointer-events: none;
+        position: absolute;
+        top: 50%;
+        transform: translate(0px, -50%);
+        width: calc(85% + 16px);
+        left: 32px;
+        z-index: 5;
+        justify-content: space-between;
+        @media (min-width: $md1+px){
+            width: calc(85%);
+            left: 12px;
+        }
+        @media (max-width: $md3+px){
+            display: none;
+        }
+    }
+}

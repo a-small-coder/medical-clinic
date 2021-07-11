@@ -148,3 +148,49 @@ if (document.querySelector('.slider-stocks__body')) {
 		}
 	});
 }
+if (document.querySelector('.slider-aboutus__body')) {
+	new Swiper('.slider-aboutus__body', {
+		observer: true,
+		observeParents: true,
+		slidesPerView: 1,
+		watchOverflow: true,
+		spaceBetween: 20,
+		speed: 800,
+		loop: false,
+		loopAdditionalSlides: 5,
+		preloadImages: false,
+		parallax: true,
+		// Dotts
+		pagination: {
+			el: '.slider-aboutus__dotts',
+			clickable: true,
+		},
+		// Arrows
+		navigation: {
+			nextEl: '.slider-aboutus .slider-arrow_next',
+			prevEl: '.slider-aboutus .slider-arrow_prev',
+		},
+		on: {
+			init: function() {
+				checkArrow(this);
+			},
+			slideChangeTransitionStart: function() {
+				checkArrow(this);
+			}
+		  }
+	});
+}
+
+function checkArrow(aboutusSwiper) {
+	var swiperPrev = document.querySelector('.slider-aboutus .slider-arrow_prev');
+	var swiperNext = document.querySelector('.slider-aboutus .slider-arrow_next');
+
+	swiperPrev.style.visibility = 'visible';
+	swiperNext.style.visibility = 'visible';
+	if (aboutusSwiper.isBeginning) {
+		swiperPrev.style.visibility = 'hidden';
+	}
+	if (aboutusSwiper.isEnd){
+		swiperNext.style.visibility = 'hidden';
+	}
+}
