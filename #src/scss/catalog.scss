@@ -1,0 +1,205 @@
+@use "sass:math";
+
+.page {
+
+    &__catalog {
+    }
+}
+.catalog {
+    padding-top: 150px;
+
+    &__container {
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__title {
+        align-self: flex-start;
+        margin-bottom: 45px;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        @media (min-width: $md2+px){
+            flex-direction: row;
+        }
+        
+
+    }
+
+    &__sidebar {
+        flex: 0 0 312px;
+        @media (min-width: $md3+px){
+            
+            margin-right: 30px;
+        }
+    }
+}
+.filter {
+
+    &__form {
+    }
+
+    &__btn-count {
+        max-width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: $blueColor;
+        color: #fff;
+        margin-right: 28px;
+    }
+}
+.filter-form {
+    
+
+    &__items {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        @media (max-width: $md2+px){
+            align-items: center;
+            flex-direction: row;
+            margin-left: -16px;
+        }
+        @media (max-width: $md3+px){
+            align-items: center;
+            flex-direction: column;
+        }
+        
+    }
+
+    &__item {
+        &:not(:last-child){
+            margin-bottom: 15px;
+        }
+        @media (max-width: $md2+px){
+            margin-left: 16px;
+            width: calc(50% - 16px);
+            max-width: calc(50% - 16px);
+            flex-basis: calc(50% - 16px);
+        }
+        @media (max-width: $md3+px){
+            margin-left: 16px;
+            width: calc(100% - 16px);
+            max-width: calc(100% - 16px);
+            flex-basis: calc(100% - 16px);
+        }
+    }
+
+    &__search{
+        border: 1px solid $grayColor;
+        
+        background-color: #fff;
+        color: $grayColor;
+        font-size: 18px;
+        padding: 0px 0px 0px 15px;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        &::before{
+            position: absolute;
+            height: 20px;
+            width: 20px;
+        }
+    }
+
+    &__filter {
+        cursor: pointer;
+        border: 1px solid $grayColor;
+        background-color: #fff;
+        padding: 15px;
+        font-size: 18px;
+        position: relative;
+        color: $darkGrayColor;
+        width: 100%;
+        //flex: 1 1 calc(50% - 16px);
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: center;
+        &::before{
+            position: absolute;
+            height: 20px;
+            width: 20px;
+        }        
+        span{
+            flex: 1 1 100%;
+            text-align: start;
+        }
+    }
+
+    &__radio {
+
+    }
+
+    &__btn{
+        flex: 0 0 45px;
+        height: 45px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 18;
+        background-color: $blueColor;
+        color: #fff;
+        transition: background-color 0.3s ease 0s;
+        margin: 0px 0px 0px 4px;
+        @media (any-hover: hover){
+            &:hover {
+                background-color: $buttonHoverColor;
+            }
+        }
+    }
+}
+.radio-double {
+    display: flex;
+    align-items: center;
+
+    &__btn {
+        flex: 1 1 auto;
+        border: 1px solid $grayColor;
+        background-color: #fff;
+        color: $darkGrayColor;
+        text-align: center;
+        padding: 15px;
+        input{
+            display: none;
+        }
+        &:first-child {
+            margin-right: -1px;
+        }
+        // input:checked {
+        //     color: $blueColor;
+        //     border-color: $blueColor;
+        // }
+        @media (any-hover: hover){
+            &:hover {
+                color: $blueColor;
+                border-color: $blueColor;
+                cursor: pointer;
+            }
+        }
+    }
+
+    &__btn-label {
+        font-size: 18px;
+    }
+}
+
+.search-form-filter{
+    &__btn {
+        
+    }
+
+    &__input {
+        color: $darkGrayColor;
+        width:100%
+    }
+}
+
