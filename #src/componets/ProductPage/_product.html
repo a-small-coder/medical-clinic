@@ -1,0 +1,25 @@
+<section class="page__product analyze-product">
+    <div class="analyze-product__container _container">
+        <div class="analyze-product__body">
+            <h1 class="analyze-product__title _title">Триглицериды</span></h1>
+            <div class="analyze-product__content">
+                <div class="analyze-product__main product-main">
+
+                    <div class="product-main__menu menu-product">
+                        
+						@@include('ProductMain/ProductMain.html', {})
+
+                        <div class="catalog__analyze analyze-section">
+                            <h2 class="analyze-section__title _title">Все анализы</h2>
+                            
+                            @@include('Content/Content.html',{})
+                            @@include('../base/Paggination/Paggination.html',{})
+                        </div>
+					</div>
+
+                </div>
+                @@include('ProductSide/_product-info-sidebar.html', {})
+            </div>
+        </div>
+    </div>
+</section>
