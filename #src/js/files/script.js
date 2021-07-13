@@ -33,7 +33,7 @@ window.onload = function (){
     // header
     const headerElement = document.querySelector('.header');
 
-    const callback = function (entries, observer){
+    const callbackHeader = function (entries, observer){
         if (entries[0].isIntersecting){
             headerElement.classList.remove('_scroll');
         }
@@ -42,6 +42,23 @@ window.onload = function (){
         }
     };
 
-    const headerObserver = new IntersectionObserver(callback);
+    const headerObserver = new IntersectionObserver(callbackHeader);
     headerObserver.observe(headerElement);
+
+
+    // product aside
+    const asideElement = document.querySelector('.product-info__fixed-wrapper');
+
+    const callbackAside = function (entries, observer){
+        if (entries[0].isIntersecting){
+            asideElement.classList.remove('_scroll');
+        }
+        else {
+            asideElement.classList.add('_scroll');
+        }
+        
+    };
+
+    const asideObserver = new IntersectionObserver(callbackAside);
+    asideObserver.observe(asideElement);
 };
