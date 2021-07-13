@@ -58,7 +58,9 @@ window.onload = function (){
         }
         
     };
-
-    const asideObserver = new IntersectionObserver(callbackAside);
-    asideObserver.observe(asideElement);
+    if (asideElement != null){
+        const asideObserver = new IntersectionObserver(callbackAside);
+        asideObserver.observe(asideElement);
+    }
+    
 };

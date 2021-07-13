@@ -58,13 +58,6 @@
     &__body {
     }
 
-    // &__wrapper{
-    //     position: relative;
-    //     @media (min-width: $md2+px){
-    //         height: 0;
-    //     }
-    // }
-
     &__list {
         @media (min-width: $md2+px){
             display: flex;
@@ -85,19 +78,17 @@
             flex-direction: column;
             flex: 1 1 90px;
             &:not(:last-child){
-                    margin-right: 10px;
+                margin-right: 10px;
             }
             
         }
     }
 
-    
-
     &__arrow {
         font-size: 16px;
         color: #000;
         transition: all 0.3s ease 0s;
-		@media (max-width: $md3 + px){
+		@media (max-width: $md2 + px){
 			font-size: 16px;
 			&._active {
 				transform: rotate(-180deg);
@@ -105,7 +96,7 @@
 		}
         @media (min-width: $md2+px){
             opacity: 0;
-            display: hidden;
+            visibility: hidden;
         }
     }
 
@@ -121,7 +112,7 @@
         flex: 1;
         @media (min-width: $md2+px){
             font-size: 16px;
-            flex: 0 0 ;
+            flex: 0 0;
             &._selected{
                 color: $blueColor;
                 padding-bottom: 15px;
@@ -147,11 +138,6 @@
     font-size: 18px;
     line-height: 120%;
     font-weight: 400;
-    // @media (min-width: $md2+px){
-    //     width: 0;
-    //     opacity: 0;
-    //     visibility: hidden;
-    // }
 
     &__title {
         color: $darkGrayColor;

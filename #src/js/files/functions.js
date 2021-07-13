@@ -266,11 +266,17 @@ if (spollersArray.length > 0) {
 				if (hideSpollerBody) {
 					spollerTitle.removeAttribute('tabindex');
 					if (!spollerTitle.classList.contains('_active')) {
-						spollerTitle.nextElementSibling.hidden = true;
+						if (spollerTitle.nextElementSibling != null){
+							spollerTitle.nextElementSibling.hidden = true;
+						}
+						
 					}
 				} else {
 					spollerTitle.setAttribute('tabindex', '-1');
-					spollerTitle.nextElementSibling.hidden = false;
+					if (spollerTitle.nextElementSibling != null){
+						spollerTitle.nextElementSibling.hidden = false;
+					}
+					
 				}
 			});
 		}
