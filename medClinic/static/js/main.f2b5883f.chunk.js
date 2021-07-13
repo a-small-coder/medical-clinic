@@ -1,0 +1,2 @@
+(this["webpackJsonpmainapp-ui"]=this["webpackJsonpmainapp-ui"]||[]).push([[0],{9:function(n,t,e){"use strict";e.r(t);var i=e(1),c=e.n(i),a=e(3),s=e.n(a),o=(e.p,e(0));var p=function(){return Object(o.jsx)("div",{className:"App"})},r=function(n){n&&n instanceof Function&&e.e(3).then(e.bind(null,10)).then((function(t){var e=t.getCLS,i=t.getFID,c=t.getFCP,a=t.getLCP,s=t.getTTFB;e(n),i(n),c(n),a(n),s(n)}))};s.a.render(Object(o.jsx)(c.a.StrictMode,{children:Object(o.jsx)(p,{})}),document.getElementById("root")),r()}},[[9,1,2]]]);
+//# sourceMappingURL=main.f2b5883f.chunk.js.map
