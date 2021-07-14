@@ -3,6 +3,7 @@ import HeaderMain from './HeaderMain';
 import HeaderActions from './HeaderActions';
 import HeaderSearch from './HeaderSearch';
 const Header = () => {
+    
     return(
         <header class="header">
             <div class="header__wrapper">

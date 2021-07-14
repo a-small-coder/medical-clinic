@@ -10,9 +10,9 @@ function App() {
     <div className="App">
       	<Header/>
         {/* <Route path="/catalog" component={}/>
-        <Route path="/product" component={}/> */}
-        <Route path="/home"component={MainPage}/>
-        <Route path=""component={MainPage}/>
+        <Route path="/product" component={}/> 
+        <Route path="/home"component={MainPage}/>*/}
+        <Route path="" component={MainPage}/>
         <Footer/>
     </div>
     </BrowserRouter>

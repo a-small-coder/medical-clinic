@@ -7,14 +7,16 @@ import Stocks from './Stocks/Stocks';
 import AboutUs from './AboutUs/AboutUs';
 
 const MainPage = () => {
+
+
     return (
         <main class="page">
-            <TopService/>
-            <Achivments/>
+             <TopService/>
+            {/*<Achivments/>
             <UnicProducts/>
             <AnalyzeComplexes/>
             <Stocks/>
-            <AboutUs/>
+            <AboutUs/> */}
         </main>
     );
 }
