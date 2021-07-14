@@ -6,7 +6,7 @@ const HeaderSearch = () => {
                 <button data-spoller type="button" class="search-form__icon _icon-search"></button>
                 <form action="#" class="search-form__item">
                     <button data-spoller type="button" class="search-form__btn _icon-search"></button>
-                    <input autocomplete="off" type="text" name="form[]" data-value="Поиск по сайту" class="search-form__input" />
+                    <input autoComplete="off" type="text" name="form[]" data-value="Поиск по сайту" class="search-form__input" />
                 </form>
             </div>
         </div>
