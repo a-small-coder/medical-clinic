@@ -1,10 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import img from "./../../../img/main-slider/blood_m.jpg"
+import img from "./../../../img/main-slider/pcr_test.webp"
 const Slide = () => {
     return (
         // slider-main__slide 
-        <div class="swiper-slide">
+        <div class="slider-main__slide">
             <div class="slider-main__image _ibg">
                 <img src={img} alt="vaccination" />
             </div>

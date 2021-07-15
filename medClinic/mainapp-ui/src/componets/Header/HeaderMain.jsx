@@ -2,6 +2,9 @@ import React from 'react';
 import MenuItem from './MenuItem';
 import { NavLink } from 'react-router-dom';
 const HeaderMain = () => {
+
+   
+
     return (
         <div class="header__main">
             <NavLink to="/home" class="header__logo">TedMed.</NavLink>

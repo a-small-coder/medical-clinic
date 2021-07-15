@@ -4,6 +4,9 @@ import Swiper from 'react-id-swiper';
 const Slider = () => {
 
     const swiperRef = useRef(null);
+
+
+
     const goNext = () => {
       if (swiperRef.current && swiperRef.current.swiper) {
         swiperRef.current.swiper.slideNext();
@@ -43,6 +46,7 @@ const Slider = () => {
 		// },
         wrapperClass: "swiper-wrapper",
         containerClass: "slider-main__body _swiper",
+        slideClass: "slider-main__slide"
       }
 
     // const [parallaxSwiper, setParallaxSwiper] = useState(null);
