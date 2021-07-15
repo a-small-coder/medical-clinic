@@ -7,7 +7,7 @@ const HeaderMain = () => {
 
     return (
         <div class="header__main">
-            <NavLink to="/home" class="header__logo">TedMed.</NavLink>
+            <NavLink to="/" class="header__logo">TedMed.</NavLink>
             <div class="header__menu menu">
                 <nav class="menu__body">
                     <ul data-spollers="768, max" class="menu__list">
