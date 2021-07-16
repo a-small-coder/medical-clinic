@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 const Item = () => {
     return (
-        <div data-swiper-parallax-opacity="0" data-swiper-parallax-x="-100%" class="slider-aboutus__slide">
+        <div data-swiper-parallax-opacity="0" data-swiper-parallax-x="-100%" class="swiper-slide">
             <h5 class="slider-aboutus__title">История компании</h5>
             <div class="slider-aboutus__text">
                 История компании - Компания была основана врачом-онкологом Павлом Крвцовым

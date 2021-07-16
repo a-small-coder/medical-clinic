@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import img from '../../../img/unic-products/unique_service_corona.webp'
 const UnicProduct = () => {
     return (
         <article data-pid="1" class="products__item item-product">
@@ -7,7 +8,7 @@ const UnicProduct = () => {
                 <div class="item-product__label item-product__label_new">New</div>
             </div>
             <NavLink to="" class="item-product__image _ibg">
-                <img src="img/unic-products/unique_service_nasba_1_.webp" alt="" />
+                <picture><img src={img} alt="" /></picture>
             </NavLink>
             <div class="item-product__body">
                 <div class="item-product__content">
