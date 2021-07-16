@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import img from './../../../img/complexes/blood_anl_s.webp';
 const Analyze = () => {
     return (
-        <div class="slider-sub-slider-big__slide">
+        <div class="swiper-slide">
             <div class="slider-sub-slider-big__image _ibg">
-                <img src="img/complexes/one_year_reserch_s.jpg" alt="one_year_reserch_s" />
+                <picture><img src={img} alt="one_year_reserch_s" /></picture>
             </div>
             <NavLink to="" data-swiper-parallax-opacity="0" data-swiper-parallax-y="-100%" class="slider-sub-slider-big__content _icon-arrow-link">
                 <div class="slider-sub-slider-big__label label-slider">

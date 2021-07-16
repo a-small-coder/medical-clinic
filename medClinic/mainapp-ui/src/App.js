@@ -7,7 +7,7 @@ import './css/style.css';
 function App() {
   return (
     <BrowserRouter>
-    <div className="App">
+    <div className="wrapper _loaded">
       	<Header/>
         {/* <Route path="/catalog" component={}/>
         <Route path="/product" component={}/> 

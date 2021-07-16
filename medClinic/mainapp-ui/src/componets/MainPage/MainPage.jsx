@@ -11,11 +11,11 @@ const MainPage = () => {
 
     return (
         <main class="page">
-             <TopService/>
-            {/*<Achivments/>
+             {/* <TopService/> */}
+            <Achivments/>
             <UnicProducts/>
             <AnalyzeComplexes/>
-            <Stocks/>
+            {/* <Stocks/>
             <AboutUs/> */}
         </main>
     );

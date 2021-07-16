@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import Slide from './Slide';
 import Swiper from 'react-id-swiper';
+
 const Slider = () => {
 
     const swiperRef = useRef(null);
@@ -45,8 +46,7 @@ const Slider = () => {
 		// 	prevEl: '.slider-main.slider-arrow_prev',
 		// },
         wrapperClass: "swiper-wrapper",
-        containerClass: "slider-main__body _swiper",
-        slideClass: "slider-main__slide"
+        containerClass: "slider-main__body _swiper"
       }
 
     // const [parallaxSwiper, setParallaxSwiper] = useState(null);
