@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 const Item = () => {
     return (
         <div data-swiper-parallax-opacity="0" data-swiper-parallax-x="-100%" class="swiper-slide">
@@ -12,7 +12,8 @@ const Item = () => {
                 Украине, Казахстане, Беларуси, Армении и Киргизии. Восемь центральных
                 лабораторий выполняют более 2 000 видов исследований.
             </div>
-            <NavLink to="" class="slider-aboutus__button btn btn_white">Explore More</NavLink>
+            <Link to="" class="slider-aboutus__button btn btn_white" 
+            activeClassName="slider-aboutus__button btn btn_white">Explore More</Link>
         </div>
     );
 }

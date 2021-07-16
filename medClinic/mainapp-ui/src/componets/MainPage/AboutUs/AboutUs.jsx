@@ -26,8 +26,6 @@ const AboutUs = () => {
 
     useEffect(() => {
         if (prefBtn.current != null) {
-            console.log(activeSlideIndex);
-            console.log(swiperRef.current.swiper);
             prefBtn.current.style.visibility = 'visible';
             nextBtn.current.style.visibility = 'visible';
             if (activeSlideIndex === 0) {

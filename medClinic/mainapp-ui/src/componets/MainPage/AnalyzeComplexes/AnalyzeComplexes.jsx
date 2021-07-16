@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Analyze from './Analyze';
 import Swiper from 'react-id-swiper';
 const AnalyzeComplexes = () => {
@@ -46,7 +46,7 @@ const AnalyzeComplexes = () => {
                         Our designer already made a lot of beautiful
                         prototipe of rooms that inspire you
                     </div>
-                    <NavLink to="" class="sub-slider-big__button btn">Explore More</NavLink>
+                    <Link to="" class="sub-slider-big__button btn" activeClassName="sub-slider-big__button btn">Explore More</Link>
                 </div>
                 <div class="sub-slider-big__slider slider-sub-slider-big">
                     <Swiper {...params} ref={sliderRef}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import UnicProduct from './UnicProduct';
 const UnicProducts = () => {
     return (
@@ -17,7 +17,7 @@ const UnicProducts = () => {
                     <UnicProduct />
                 </div>
                 <div class="products__footer">
-                    <NavLink to="" class="products__more btn btn_white">Show More</NavLink>
+                    <Link to="" class="products__more btn btn_white" activeClassName="products__more btn btn_white">Show More</Link>
                 </div>
             </div>
         </section>

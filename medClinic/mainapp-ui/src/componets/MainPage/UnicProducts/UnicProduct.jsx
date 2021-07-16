@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import img from '../../../img/unic-products/unique_service_corona.webp'
 const UnicProduct = () => {
     return (
@@ -7,9 +7,9 @@ const UnicProduct = () => {
             <div class="item-product__labels">
                 <div class="item-product__label item-product__label_new">New</div>
             </div>
-            <NavLink to="" class="item-product__image _ibg">
+            <Link to="" class="item-product__image _ibg" activeClassName="item-product__image _ibg">
                 <picture><img src={img} alt="" /></picture>
-            </NavLink>
+            </Link>
             <div class="item-product__body">
                 <div class="item-product__content">
                     <h5 class="item-product__title">Syltherine</h5>
