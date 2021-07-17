@@ -3947,6 +3947,8 @@ body.ie ._ibg img {
         -ms-transform: rotate(-180deg);
             transform: rotate(-180deg);
   }
+  
+
 }
 
 @media (max-width: 991.98px) and (max-width: 1270px) {
