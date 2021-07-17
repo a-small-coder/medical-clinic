@@ -1,8 +1,11 @@
 import React from 'react';
 import PopupItem from './PopupItem';
 
-const FilterPopup = () => {
+const FilterPopup = (props) => {
 
+    let category = props.items;
+    let popupElements = category.tags.map(
+        a => <PopupItem key={a.id} text={a.text} is_active={a.is_active}/>);
 
     return (
         <div class="popup popup_filter _full">
@@ -10,20 +13,14 @@ const FilterPopup = () => {
                 <div class="popup__body popup-filter">
                     <div class="popup-filter__header">
                         <div class="popup__close"></div>
-                        <div class="popup-filter__title">Group 1</div>
+                        <div class="popup-filter__title">{category.title}</div>
                     </div>
                     <div class="popup-filter__items">
-                        <PopupItem/>
-                        <PopupItem/>
-                        <PopupItem/>
-                        <PopupItem/>
-                        <PopupItem/>
-                        <PopupItem/>
-                        <PopupItem/>
+                    {popupElements}
                     </div>
                     <div class="popup-filter__footer">
-                        <button class="popup-filter__send btn">Show All</button>
-                        <button class="popup-filter__clear btn btn_white">Clear</button>
+                        <button class="popup-filter__send btn">Показать</button>
+                        <button class="popup-filter__clear btn btn_white">Очистить</button>
                     </div>
                 </div>
             </div>

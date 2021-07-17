@@ -22,7 +22,6 @@ const ProductMain = () => {
             {mainContent}
             {contentText}
             <div class="catalog__analyze analyze-section">
-                <h2 class="analyze-section__title _title">Все анализы</h2>
                 <Paggination/>
             </div>
         </div>

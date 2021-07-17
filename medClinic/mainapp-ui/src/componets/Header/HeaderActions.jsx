@@ -4,19 +4,15 @@ const HeaderActions = () => {
     return(
         <div class="header__actions actions-header">
             <Link to="" 
-            class="actions-header__item actions-header__item_feed-back _icon-feed-back" 
-            activeClassName="actions-header__item actions-header__item_feed-back _icon-feed-back"></Link>
+            class="actions-header__item actions-header__item_feed-back _icon-feed-back"></Link>
             <div class="actions-header__item cart-header">
-                <Link to="" 
-                lass="cart-header__icon _icon-cart" 
-                activeClassName="cart-header__icon _icon-cart"></Link>
+                <Link to="" class="cart-header__icon _icon-cart" ></Link>
                 <div class="cart-header__body">
                     <ul class="cart-header__list cart-list"></ul>
                 </div>
             </div>
             <Link to="" 
-            class="actions-header__item actions-header__item_user _icon-user" 
-            activeClassName="actions-header__item actions-header__item_user _icon-user"></Link>
+            class="actions-header__item actions-header__item_user _icon-user"></Link>
         </div>
     )
 }

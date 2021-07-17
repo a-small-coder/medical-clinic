@@ -66,19 +66,19 @@ const MenuItem = (props) => {
 
     return (
         <li class="menu__item" ref={menuItem} >
-            <Link to="/catalog" class="menu__link" activeClassName="menu__link">Аназизы</Link>
+            <Link to="/catalog" class="menu__link" >Аназизы</Link>
             <button data-spoller type="button" 
             className={spoilerActive ? buttonClassName + " _active" : buttonClassName}
             onClick={onClick}></button>
             <ul className={spoilerActive ? contentClassName + " _slide-up" : contentClassName + " _slide-down"} ref={contentRef}>
                 <li class="menu__sub-item">
-                    <Link to="/catalog" class="menu__sub-link" activeClassName="menu__sub-link">Каталог анализов</Link>
+                    <Link to="/catalog" class="menu__sub-link" >Каталог анализов</Link>
                 </li>
                 <li class="menu__sub-item">
-                    <Link to="/catalog" class="menu__sub-link" activeClassName="menu__sub-link">Комплексы анализов</Link>
+                    <Link to="/catalog" class="menu__sub-link" >Комплексы анализов</Link>
                 </li>
                 <li class="menu__sub-item">
-                    <Link to="/catalog" class="menu__sub-link" activeClassName="menu__sub-link">Уникальные анализы</Link>
+                    <Link to="/catalog" class="menu__sub-link" >Уникальные анализы</Link>
                 </li>
             </ul>
         </li>
