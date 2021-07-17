@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import Item from './Item';
 import Swiper from 'react-id-swiper';
-const AboutUs = () => {
+const AboutUs = (props) => {
+
+    let itemElements = props.aboutUs.map(a => <Item key={a.id} title={a.title} text={a.text} link={a.link}/>);
 
     const swiperRef = React.useRef(null);
     const prefBtn = React.useRef(null);
@@ -65,9 +67,7 @@ const AboutUs = () => {
                 <div class="aboutus__slider slider-aboutus">
                     <div class="slider-aboutus__dotts"></div>
                     <Swiper {...params} ref={swiperRef}>
-                        <Item />
-                        <Item />
-                        <Item />
+                        {itemElements}
                     </Swiper>
                     <div class="slider-aboutus__arrows slider-arrows">
                         <button type="button" class="slider-arrow slider-arrow_white slider-arrow_prev _icon-arrow-down" onClick={goPrev} ref={prefBtn}></button>

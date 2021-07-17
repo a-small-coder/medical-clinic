@@ -2,7 +2,9 @@ import React, {useRef} from 'react';
 import Swiper from 'react-id-swiper';
 import Stock from './Stock';
 
-const Stocks = () => {
+const Stocks = (props) => {
+
+  let stocksEkements = props.stocks.map(a => <Stock key={a.id} slogan={a.slogan} text={a.text} img={a.img} link={a.link}/>);
 
     const swiperRef = useRef(null);
     const goNext = () => {
@@ -56,9 +58,7 @@ const Stocks = () => {
                 <h2 class="stocks__title _title">Our Stocks</h2>
                 <div class="stocks__slider slider-stocks">
                     <Swiper {...params} ref={swiperRef}>
-                        <Stock />
-                        <Stock />
-                        <Stock />
+                        {stocksEkements}
                     </Swiper>
                     <div class="slider-stocks__dotts"></div>
                     <div class="slider-stocks__arrows slider-arrows">

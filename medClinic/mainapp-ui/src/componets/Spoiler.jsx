@@ -53,7 +53,7 @@ don't forgot to add onClick handle to spoiler's button, which will set spoiler s
 
 
 const slideDown = (contentRef, duration = 500) => {
-    if (contentRef != null) {
+    if (contentRef.current != null) {
         if (contentRef.current.hidden) {
             contentRef.current.hidden = false;
         }
@@ -82,7 +82,7 @@ const slideDown = (contentRef, duration = 500) => {
 };
 
 const slideUp = (contentRef, duration = 500) => {
-    if (contentRef != null) {
+    if (contentRef.current != null) {
         contentRef.current.style.transitionProperty = 'height, margin, padding';
         contentRef.current.style.transitionDuration = duration + 'ms';
         contentRef.current.style.height = contentRef.current.offsetHeight + 'px';

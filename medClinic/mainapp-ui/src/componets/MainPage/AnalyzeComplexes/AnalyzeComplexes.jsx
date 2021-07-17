@@ -2,9 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Analyze from './Analyze';
 import Swiper from 'react-id-swiper';
-const AnalyzeComplexes = () => {
+const AnalyzeComplexes = (props) => {
 
     const sliderRef = React.useRef(null);
+
+    let analyzeEkements = props.analyzes.map(a => <Analyze key={a.id} number={`0 ${a.id}`} title={a.title} text={a.text} img={a.img} link={a.link}/>)
 
     const goNext = () => {
       if (sliderRef.current && sliderRef.current.swiper) {
@@ -50,9 +52,7 @@ const AnalyzeComplexes = () => {
                 </div>
                 <div class="sub-slider-big__slider slider-sub-slider-big">
                     <Swiper {...params} ref={sliderRef}>
-                        <Analyze />
-                        <Analyze />
-                        <Analyze />
+                    {analyzeEkements}
                     </Swiper>
                     <div class="slider-sub-slider-big__arrows slider-arrows">
                         <button type="button" class="slider-arrow slider-arrow_white slider-arrow_prev _icon-arrow-down" onClick={goPrev}></button>

@@ -1,31 +1,34 @@
-import React, { useCallback, useRef, useEffect } from 'react';
+import React, { useCallback, useRef, useEffect, useState } from 'react';
 import HeaderMain from './HeaderMain';
 import HeaderActions from './HeaderActions';
 import HeaderSearch from './HeaderSearch';
 const Header = () => {
 
     const iconMenu = useRef();
-    
 
     const iconMenuContainer = useRef();
     const setIconMenuActive = useCallback(() => {
-        console.log("hey!");
         
-        iconMenuContainer.current.classList.toggle("_active");
+            iconMenuContainer.current.classList.toggle("_active");
+        
     }, []);
 
     const iconMenuClick = () => {
+        console.log("click");
+        console.log(iconMenuContainer.current.classList);
         if (iconMenu.current != null) {
             iconMenu.current.addEventListener("click", setIconMenuActive);
         };
     };
+    useEffect(()=>{
+        iconMenu.current.addEventListener("click", setIconMenuActive);
+    }, []);
 
 
 
     const headerRef = useRef();
 
     useEffect(() => {
-        console.log("add scroll");
         document.addEventListener("scroll", handleScroll);
     }, []);
 
