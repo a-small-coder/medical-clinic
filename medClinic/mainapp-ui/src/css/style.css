@@ -3228,6 +3228,7 @@ body.ie ._ibg img {
   }
 
   .slider-main__content {
+    max-width: 500px;
     position: absolute;
     min-width: 350px;
     right: 40px;
