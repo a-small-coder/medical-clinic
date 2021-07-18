@@ -1,65 +1,53 @@
-const UPDATE_NEW_SEARCH_TEXT = 'UPDATE-NEW-SEARCH-TEXT';
 const SWITCH_SPOILER_MODE = "SWITCH-SPOILER-MODE";
 const ACTIVETE_SPOILER = "ACTIVETE-SPOILER";
 const DISACTIVETE_SPOILER = "DISACTIVETE-SPOILER";
 
 let initialState = {
-    search: {
-        newSearchText: "Поиск по сайту",
-        defaultSearchText: "Поиск по сайту"
-    },
     nav: {
         initSpoiler: false,
         categories: [
             {
-                category: "анализы",
+                category: "Меню",
                 sub_categories: [
-                    {id: 1, sub_category: "каталог анализов", link: "/catalog"},
-                    {id: 2, sub_category: "уникальные анализы", link: "/catalog"},
-                    {id: 3, sub_category: "комплексы анализов", link: "/catalog"},
+                    {id: 1, sub_category: "Каталог анализов", link: "/catalog"},
+                    {id: 2, sub_category: "Наши услуги", link: "/service"},
+                    {id: 3, sub_category: "Вакцинация", link: "/service/vac"},
+                    {id: 4, sub_category: "Акции", link: "/stocks"},
                 ],
                 id: 1,
                 spoilerActive: false,
-                link: "/catalog"
             },
             {
-                category: "услуги",
+                category: "О Нас",
                 sub_categories: [
-                    {id: 1, sub_category: "каталоог услуг", link: "/service"},
-                    {id: 2, sub_category: "записаться к врачу", link: "/service"},
-                    {id: 3, sub_category: "вакцинация", link: "/service"},
+                    {id: 1, sub_category: "История компании", link: "/about-us"},
+                    {id: 2, sub_category: "Клиентам", link: "/forclients"},
+                    {id: 3, sub_category: "Партнеры", link: "/forpartners"},
+                    {id: 4, sub_category: "Лицензия", link: "/license"},
                 ],
                 id: 2,
                 spoilerActive: false,
-                link: "/service"
             },
             {
-                category: "акции",
-                sub_categories: [],
+                category: "Мы в соцсетях",
+                sub_categories: [
+                    {id: 1, sub_category: "Instagramm", link: "/brokelink"},
+                    {id: 2, sub_category: "Facebook", link: "/brokelink"},
+                    {id: 3, sub_category: "Twitter", link: "/brokelink"},
+                    {id: 4, sub_category: "Telegram", link: "/brokelink"},
+                    {id: 5, sub_category: "Вконтакте", link: "/brokelink"},
+                ],
                 id: 3,
                 spoilerActive: false,
-                link: "/stocks"
-            },
-            {
-                category: "о компании",
-                sub_categories: [],
-                id: 4,
-                spoilerActive: false,
-                link: "/aboutus"
-            },
+            }
         ]
     }
 }
 
-const headerReducer = (state = initialState, action) =>{
+const footerReducer = (state = initialState, action) =>{
     let stateCopy = {
         ...state};
     switch (action.type){
-        case UPDATE_NEW_SEARCH_TEXT: {
-            stateCopy.search = {...state.search};
-            stateCopy.search.newSearchText = action.searchText;
-            return stateCopy;
-        }
         case SWITCH_SPOILER_MODE: {
             stateCopy.nav = {...state.nav};
             stateCopy.nav.initSpoiler = action.spoilerMod;
@@ -89,8 +77,7 @@ const headerReducer = (state = initialState, action) =>{
             return state;
     }
 }
-export const updateNewSearchTextAC = (text) =>({type: UPDATE_NEW_SEARCH_TEXT, searchText: text});
 export const switchSpoilerModAC = (spoilerMod) =>({type: SWITCH_SPOILER_MODE, spoilerMod: spoilerMod});
 export const activateSpoilerAC = (id) =>({type: ACTIVETE_SPOILER, id: id});
 export const disactiveteSpoilerAC = (id) =>({type: DISACTIVETE_SPOILER, id: id});
-export default headerReducer;
+export default footerReducer;

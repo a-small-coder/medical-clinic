@@ -10,7 +10,7 @@ const FooterMain = () => {
                 excepturi corporis cumque nulla aliquid ad dolore ducimus laboriosam adipisci!
             </div>
             <div className="footer__contacts contacts-footer">
-                <Link to="" className="contacts-footer__item _icon-location" >Red Square Moscow, Russia </Link>
+                <Link to="/location" className="contacts-footer__item _icon-location" >Red Square Moscow, Russia </Link>
                 <Link to="tel:+88888888888" className="contacts-footer__item _icon-phone" >+8(888) 888 88 88</Link>
                 <Link to="/" target="_blank" className="contacts-footer__item" >www.tedmed.com</Link>
             </div>

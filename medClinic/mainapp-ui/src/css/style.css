@@ -1368,6 +1368,16 @@ body.ie ._ibg img {
   min-height: 50px;
 }
 
+.header._scroll .search-form__item{
+  border: 1px solid #dcdada;
+}
+
+.header._scroll .search-form__item:hover{
+  border: 1px solid #0FC0FC;
+}
+
+
+
 .header__wrapper {
   -webkit-transition: background-color 0.3s ease 0s;
   -o-transition: background-color 0.3s ease 0s;
@@ -1738,7 +1748,7 @@ body.ie ._ibg img {
 .subscribe__input {
   width: 100%;
   padding: 0px 12px;
-  background-color: #F4F5F7;
+  background-color: #DBF4FC;
   color: #828282;
 }
 
@@ -1762,7 +1772,6 @@ body.ie ._ibg img {
   -webkit-transition: background-color 0.3s ease 0s;
   -o-transition: background-color 0.3s ease 0s;
   transition: background-color 0.3s ease 0s;
-  margin: 0px 0px 0px 4px;
 }
 
 .page {

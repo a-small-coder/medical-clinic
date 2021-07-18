@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useEffect} from 'react';
-import HeaderMain from './HeaderMain';
+import HeaderMainContainer from './HeaderMainContainer';
 import HeaderActions from './HeaderActions';
 import HeaderSearchContainer from './HeaderSearchContainer';
 const Header = (props) => {
@@ -53,7 +53,7 @@ const Header = (props) => {
         <div className="header__wrapper">
             <div className="header__container _container">
                 <div className="header__body" ref={iconMenuContainer}>
-                    <HeaderMain />
+                    <HeaderMainContainer/>
                     <HeaderSearchContainer />
                     <HeaderActions />
                     <button className="icon-menu" ref={iconMenu} onClick={iconMenuClick}>
