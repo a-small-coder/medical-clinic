@@ -2027,6 +2027,7 @@ body.ie ._ibg img {
 }
 
 .item-product {
+  box-shadow: 0 8px 8px rgb(0 0 0 / 15%);
   background: #DBF4FC;
   display: -webkit-box;
   display: -ms-flexbox;
