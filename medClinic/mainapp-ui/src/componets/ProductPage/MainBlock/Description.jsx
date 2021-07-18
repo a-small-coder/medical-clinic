@@ -4,11 +4,11 @@ const Description = () => {
 
 
     return (
-        <div class="menu-product__content content-menu">
-            <h5 class="content-menu__title">
+        <div className="menu-product__content content-menu">
+            <h5 className="content-menu__title">
                 Краткая характеристика определяемого вещества Триглицериды
             </h5>
-            <div class="content-menu__text">
+            <div className="content-menu__text">
                 Триглицериды (ТГ) – источник получения энергии и основная форма ее
                 сохранения в организме. Молекулы ТГ содержат трехатомный спирт глицерол
                 и остатки жирных кислот. При необходимости получения энергии для различных

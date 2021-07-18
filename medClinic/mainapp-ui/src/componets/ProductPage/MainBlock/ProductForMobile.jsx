@@ -24,10 +24,10 @@ const ProductForMobile = () => {
     }, [spoilerActive]);
 
     return (
-        <nav class="menu-product__body">
-            <ul class="menu-product__list _init" >
-                <li class="menu-product__item">
-                    <Link to="#" class="menu-product__link menu-product__link _selected">Интерпритация результатов</Link>
+        <nav className="menu-product__body">
+            <ul className="menu-product__list _init" >
+                <li className="menu-product__item">
+                    <Link to="#" className="menu-product__link menu-product__link _selected">Интерпритация результатов</Link>
                     <button data-spoller type="button" 
                     class={spoilerActive ? buttonClassName + " _active" : buttonClassName}
                     onClick={() => setSpoilerActive(!spoilerActive)}></button>

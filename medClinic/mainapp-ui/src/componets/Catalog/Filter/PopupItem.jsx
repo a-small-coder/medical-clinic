@@ -4,10 +4,10 @@ const PopupItem = (props) => {
 
 
     return (
-        <div class="popup-filter__item">
-            <div class="checkbox">
-                <input type="checkbox" class="checkbox__input" />
-                <label class="checkbox__label"><span>{props.text}</span></label>
+        <div className="popup-filter__item">
+            <div className="checkbox">
+                <input type="checkbox" className="checkbox__input" />
+                <label className="checkbox__label"><span>{props.text}</span></label>
             </div>
         </div>
     );

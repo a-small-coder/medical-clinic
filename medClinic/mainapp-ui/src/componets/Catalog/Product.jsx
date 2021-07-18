@@ -5,20 +5,20 @@ const Product = (props) => {
 
 
     return (
-        <div class="analyze-section__item analyze-item">
-            <Link to={props.link + `/${props.id}`}class="analyze-item__title">{props.title}</Link>
-            <div class="analyze-item__specs">
-                <div class="analyze-item__spec">
-                    <div class="analyze-spec__title">Арт.</div>
-                    <div class="analyze-spec__text">{props.number}</div>
+        <div className="analyze-section__item analyze-item">
+            <Link to={props.link + `/${props.id}`}className="analyze-item__title">{props.title}</Link>
+            <div className="analyze-item__specs">
+                <div className="analyze-item__spec">
+                    <div className="analyze-spec__title">Арт.</div>
+                    <div className="analyze-spec__text">{props.number}</div>
                 </div>
-                <div class="analyze-item__spec">
-                    <div class="analyze-spec__title">Срок:</div>
-                    <div class="analyze-spec__text">{props.time} к.д.</div>
+                <div className="analyze-item__spec">
+                    <div className="analyze-spec__title">Срок:</div>
+                    <div className="analyze-spec__text">{props.time} к.д.</div>
                 </div>
             </div>
-            <div class="analyze-item__price">{props.price} р</div>
-            <button type="button" class="analyze-item__buy btn _icon-cart" title="Добавить в корзину"></button>
+            <div className="analyze-item__price">{props.price} р</div>
+            <button type="button" className="analyze-item__buy btn _icon-cart" title="Добавить в корзину"></button>
         </div>
     );
 }

@@ -62,16 +62,16 @@ const AboutUs = (props) => {
     }
 
     return (
-        <section class="page__aboutus aboutus">
-            <div class="aboutus__container _container">
-                <div class="aboutus__slider slider-aboutus">
-                    <div class="slider-aboutus__dotts"></div>
+        <section className="page__aboutus aboutus">
+            <div className="aboutus__container _container">
+                <div className="aboutus__slider slider-aboutus">
+                    <div className="slider-aboutus__dotts"></div>
                     <Swiper {...params} ref={swiperRef}>
                         {itemElements}
                     </Swiper>
-                    <div class="slider-aboutus__arrows slider-arrows">
-                        <button type="button" class="slider-arrow slider-arrow_white slider-arrow_prev _icon-arrow-down" onClick={goPrev} ref={prefBtn}></button>
-                        <button type="button" class="slider-arrow slider-arrow_white slider-arrow_next _icon-arrow-down" onClick={goNext} ref={nextBtn}></button>
+                    <div className="slider-aboutus__arrows slider-arrows">
+                        <button type="button" className="slider-arrow slider-arrow_white slider-arrow_prev _icon-arrow-down" onClick={goPrev} ref={prefBtn}></button>
+                        <button type="button" className="slider-arrow slider-arrow_white slider-arrow_next _icon-arrow-down" onClick={goNext} ref={nextBtn}></button>
                     </div>
                 </div>
             </div>

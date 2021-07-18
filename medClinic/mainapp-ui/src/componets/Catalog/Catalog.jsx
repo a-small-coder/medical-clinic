@@ -86,11 +86,11 @@ const Catalog = () => {
 
 
     return (
-        <section class="page__catalog catalog">
-            <div class="catalog__container _container">
-                <div class="catalog__body">
-                    <h1 class="catalog__title _title"><span>Catalog</span></h1>
-                    <div class="catalog__content">
+        <section className="page__catalog catalog">
+            <div className="catalog__container _container">
+                <div className="catalog__body">
+                    <h1 className="catalog__title _title"><span>Catalog</span></h1>
+                    <div className="catalog__content">
                         <CatalogFilter groups={groups}/>
                         <Products products={products} />
                     </div>

@@ -1,7 +1,11 @@
 import React from 'react';
-const HeaderSearch = () => {
+import {updateNewSearchTextAC} from '../../redux/header-reducer'
+const HeaderSearch = (props) => {
 
 
+    
+
+    const inputSearchRef = React.useRef();
     const iconSearchRef = React.useRef();
     const searchFormRef = React.useRef();
 
@@ -20,13 +24,35 @@ const HeaderSearch = () => {
         }
     };
 
+    const onSearchChange = () =>{
+        let text = inputSearchRef.current.value;
+        let action = updateNewSearchTextAC(text)
+        props.dispatch(action);
+    }
+    const onSearchClick = () =>{
+        
+        let text = inputSearchRef.current.value;
+        console.log(inputSearchRef.current);
+        console.log(props.search.defaultSearchText === text);
+        if (props.search.defaultSearchText === text){
+            let action = updateNewSearchTextAC("")
+            props.dispatch(action);
+        }
+        
+    }
+
+    // React.useEffect(() =>{
+    //     inputSearchRef.current.value = props.search.defaultSearchText;
+    // }, []);
+
     return(
-        <div class="header__search">
-            <div class="search-form" ref={searchFormRef}>
-                <button data-spoller type="button" class="search-form__icon _icon-search" ref={iconSearchRef} onClick={iconSearchClick}></button>
-                <form action="#" class="search-form__item">
-                    <button data-spoller type="button" class="search-form__btn _icon-search"></button>
-                    <input autoComplete="off" type="text" name="form[]" data-value="Поиск по сайту" class="search-form__input" />
+        <div className="header__search">
+            <div className="search-form" ref={searchFormRef}>
+                <button data-spoller type="button" className="search-form__icon _icon-search" ref={iconSearchRef} onClick={iconSearchClick}></button>
+                <form action="#" className="search-form__item">
+                    <button data-spoller type="button" className="search-form__btn _icon-search"></button>
+                    <input autoComplete="off" type="text" name="form[]" className="search-form__input" 
+                    value={props.search.newSearchText} onChange={onSearchChange} onClick={onSearchClick} ref={inputSearchRef}/>
                 </form>
             </div>
         </div>

@@ -23,16 +23,16 @@ const MenuColumn = (props) => {
 
 
     return (
-        <div class="menu-footer__column">
+        <div className="menu-footer__column">
             <button type="button"
                 className={spoilerActive ? buttonClassName + " _active" : buttonClassName}
                 onClick={() => setSpoilerActive(!spoilerActive)}>Menu</button>
             <ul className={spoilerActive ? contentClassName + " _slide-up" : contentClassName + " _slide-down"} ref={contentRef}>
-                <li><Link to="" class="menu-footer__link">Products</Link></li>
-                <li><Link to="" class="menu-footer__link" activeClassName="">Rooms</Link></li>
-                <li><Link to="" class="menu-footer__link" activeClassName="">Inspirations</Link></li>
-                <li><Link to="" class="menu-footer__link" activeClassName="">About us</Link></li>
-                <li><Link to="" class="menu-footer__link" activeClassName="">Terms {"&"} Policy</Link></li>
+                <li><Link to="" className="menu-footer__link">Products</Link></li>
+                <li><Link to="" className="menu-footer__link" >Rooms</Link></li>
+                <li><Link to="" className="menu-footer__link" >Inspirations</Link></li>
+                <li><Link to="" className="menu-footer__link" >About us</Link></li>
+                <li><Link to="" className="menu-footer__link" >Terms {"&"} Policy</Link></li>
             </ul>
         </div>
     );

@@ -5,7 +5,7 @@ const InculeProducts = () => {
 
 
     return (
-        <div class="analyze-section__items">
+        <div className="analyze-section__items">
             <Product />
             <Product />
             <Product />

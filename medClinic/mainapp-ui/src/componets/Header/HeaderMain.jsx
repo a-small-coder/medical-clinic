@@ -20,10 +20,10 @@ const HeaderMain = (props) => {
     }, [windowWidth]);
 
     return (
-        <div class="header__main">
-            <Link to="/" class="header__logo">TedMed.</Link>
-            <div class="header__menu menu">
-                <nav class="menu__body">
+        <div className="header__main">
+            <Link to="/" className="header__logo">TedMed.</Link>
+            <div className="header__menu menu">
+                <nav className="menu__body">
                     <ul data-spollers="768, max" className={isInit ? spoilerClassName + " _init" : spoilerClassName}>
                         <MenuItem isInit={isInit}/>
                     </ul>

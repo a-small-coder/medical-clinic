@@ -211,7 +211,7 @@ const MainPage = () => {
     }
 
     return (
-        <main class="page">
+        <main className="page">
              <TopService serviceData={topSevices}/>
             <Achivments achivments={achivmentsSmall}/>
             <UnicProducts products={products}/>

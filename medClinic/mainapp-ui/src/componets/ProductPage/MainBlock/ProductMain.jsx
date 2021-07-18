@@ -17,11 +17,11 @@ const ProductMain = () => {
         contentText = <Description/>;
     }
     return (
-        <div class="product-main__menu menu-product">
+        <div className="product-main__menu menu-product">
 
             {mainContent}
             {contentText}
-            <div class="catalog__analyze analyze-section">
+            <div className="catalog__analyze analyze-section">
                 <Paggination/>
             </div>
         </div>

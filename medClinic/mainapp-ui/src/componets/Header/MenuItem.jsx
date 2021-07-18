@@ -65,20 +65,20 @@ const MenuItem = (props) => {
     }, [spoilerActive, _slideDown, _slideUp]);
 
     return (
-        <li class="menu__item" ref={menuItem} >
-            <Link to="/catalog" class="menu__link" >Аназизы</Link>
+        <li className="menu__item" ref={menuItem} >
+            <Link to="/catalog" className="menu__link" >Аназизы</Link>
             <button data-spoller type="button" 
             className={spoilerActive ? buttonClassName + " _active" : buttonClassName}
             onClick={onClick}></button>
             <ul className={spoilerActive ? contentClassName + " _slide-up" : contentClassName + " _slide-down"} ref={contentRef}>
-                <li class="menu__sub-item">
-                    <Link to="/catalog" class="menu__sub-link" >Каталог анализов</Link>
+                <li className="menu__sub-item">
+                    <Link to="/catalog" className="menu__sub-link" >Каталог анализов</Link>
                 </li>
-                <li class="menu__sub-item">
-                    <Link to="/catalog" class="menu__sub-link" >Комплексы анализов</Link>
+                <li className="menu__sub-item">
+                    <Link to="/catalog" className="menu__sub-link" >Комплексы анализов</Link>
                 </li>
-                <li class="menu__sub-item">
-                    <Link to="/catalog" class="menu__sub-link" >Уникальные анализы</Link>
+                <li className="menu__sub-item">
+                    <Link to="/catalog" className="menu__sub-link" >Уникальные анализы</Link>
                 </li>
             </ul>
         </li>

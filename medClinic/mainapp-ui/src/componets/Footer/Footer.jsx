@@ -4,9 +4,9 @@ import FooterMenu from './FooterMenu';
 import FooterMain from './FooterMain';
 const Footer = () => {
     return (
-        <footer class="footer">
-            <div class="footer__container _container">
-                <div class="footer__body">
+        <footer className="footer">
+            <div className="footer__container _container">
+                <div className="footer__body">
                     <FooterMain/>
                     <FooterMenu/>
                     <FooterSubscribe/>

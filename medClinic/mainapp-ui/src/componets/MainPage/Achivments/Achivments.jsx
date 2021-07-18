@@ -5,8 +5,8 @@ const Achivments = (props) => {
     let achivmentElements = props.achivments.map(a => <Achivment key={a.id} title={a.title} text={a.text} img={a.img}/>)
 
     return (
-        <section class="page__advantages advantages">
-            <div class="advantages__container _container">
+        <section className="page__advantages advantages">
+            <div className="advantages__container _container">
                 {achivmentElements}
             </div>
         </section>

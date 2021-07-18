@@ -40,23 +40,23 @@ const AnalyzeComplexes = (props) => {
       }
 
     return (
-        <section class="page__sub-slider-big sub-slider-big">
-            <div class="sub-slider-big__container _container">
-                <div class="sub-slider-big__body">
-                    <h2 class="sub-slider-big__title _title">50+ Beautiful rooms inspiration</h2>
-                    <div class="sub-slider-big__text">
+        <section className="page__sub-slider-big sub-slider-big">
+            <div className="sub-slider-big__container _container">
+                <div className="sub-slider-big__body">
+                    <h2 className="sub-slider-big__title _title">50+ Beautiful rooms inspiration</h2>
+                    <div className="sub-slider-big__text">
                         Our designer already made a lot of beautiful
                         prototipe of rooms that inspire you
                     </div>
-                    <Link to="" class="sub-slider-big__button btn" activeClassName="sub-slider-big__button btn">Explore More</Link>
+                    <Link to="" className="sub-slider-big__button btn" >Explore More</Link>
                 </div>
-                <div class="sub-slider-big__slider slider-sub-slider-big">
+                <div className="sub-slider-big__slider slider-sub-slider-big">
                     <Swiper {...params} ref={sliderRef}>
                     {analyzeEkements}
                     </Swiper>
-                    <div class="slider-sub-slider-big__arrows slider-arrows">
-                        <button type="button" class="slider-arrow slider-arrow_white slider-arrow_prev _icon-arrow-down" onClick={goPrev}></button>
-                        <button type="button" class="slider-arrow slider-arrow_white slider-arrow_next _icon-arrow-down" onClick={goNext}></button>
+                    <div className="slider-sub-slider-big__arrows slider-arrows">
+                        <button type="button" className="slider-arrow slider-arrow_white slider-arrow_prev _icon-arrow-down" onClick={goPrev}></button>
+                        <button type="button" className="slider-arrow slider-arrow_white slider-arrow_next _icon-arrow-down" onClick={goNext}></button>
                     </div>
                 </div>
             </div>

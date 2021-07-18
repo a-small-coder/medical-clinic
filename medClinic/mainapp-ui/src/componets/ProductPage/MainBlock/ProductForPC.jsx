@@ -5,8 +5,8 @@ const ProductForPC = () => {
 
 
     return (
-        <nav class="menu-product__body">
-            <ul data-spollers="992, max" class="menu-product__list">
+        <nav className="menu-product__body">
+            <ul data-spollers="992, max" className="menu-product__list">
                 <NavItem/>
                 <NavItem/>
                 <NavItem/>

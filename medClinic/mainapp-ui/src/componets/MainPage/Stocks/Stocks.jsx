@@ -53,17 +53,17 @@ const Stocks = (props) => {
       }
 
     return (
-        <section class="page__stocks stocks">
-            <div class="stocks__container _container">
-                <h2 class="stocks__title _title">Our Stocks</h2>
-                <div class="stocks__slider slider-stocks">
+        <section className="page__stocks stocks">
+            <div className="stocks__container _container">
+                <h2 className="stocks__title _title">Our Stocks</h2>
+                <div className="stocks__slider slider-stocks">
                     <Swiper {...params} ref={swiperRef}>
                         {stocksEkements}
                     </Swiper>
-                    <div class="slider-stocks__dotts"></div>
-                    <div class="slider-stocks__arrows slider-arrows">
-                        <button type="button" class="slider-arrow slider-arrow_white slider-arrow_prev _icon-arrow-down" onClick={goPrev}></button>
-                        <button type="button" class="slider-arrow slider-arrow_white slider-arrow_next _icon-arrow-down" onClick={goNext}></button>
+                    <div className="slider-stocks__dotts"></div>
+                    <div className="slider-stocks__arrows slider-arrows">
+                        <button type="button" className="slider-arrow slider-arrow_white slider-arrow_prev _icon-arrow-down" onClick={goPrev}></button>
+                        <button type="button" className="slider-arrow slider-arrow_white slider-arrow_next _icon-arrow-down" onClick={goNext}></button>
                     </div>
                 </div>
             </div>

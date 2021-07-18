@@ -5,9 +5,9 @@ const NavItem = () => {
 
 
     return (
-        <li class="menu-product__item">
-            <Link to="#" class="menu-product__link">Описание</Link>
-            <button data-spoller type="button" class="menu-product__arrow _icon-arrow-down"></button>
+        <li className="menu-product__item">
+            <Link to="#" className="menu-product__link">Описание</Link>
+            <button data-spoller type="button" className="menu-product__arrow _icon-arrow-down"></button>
 
         </li>
     );
