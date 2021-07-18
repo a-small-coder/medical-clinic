@@ -13,7 +13,7 @@ function App(props) {
     <BrowserRouter>
     <div className="wrapper _loaded">
         <ScrollToTop/>
-      	<Header header={props.state.header} dispatch={props.dispatch}/>
+      	<Header/>
         <Switch>
         <Route exact path="/catalog" component={Catalog}/>
         <Route exact  path="/product/1" component={ProductPage}/> 

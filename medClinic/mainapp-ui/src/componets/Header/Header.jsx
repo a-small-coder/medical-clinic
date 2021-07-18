@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useEffect} from 'react';
 import HeaderMain from './HeaderMain';
 import HeaderActions from './HeaderActions';
-import HeaderSearch from './HeaderSearch';
+import HeaderSearchContainer from './HeaderSearchContainer';
 const Header = (props) => {
 
     const iconMenu = useRef();
@@ -49,23 +49,22 @@ const Header = (props) => {
     
 
     
-    return(
-        <header className="header" ref={headerRef}>
-            <div className="header__wrapper">
-                <div className="header__container _container">
-                    <div className="header__body" ref={iconMenuContainer}>
-                        <HeaderMain/>
-                        <HeaderSearch search={props.header.search} dispatch={props.dispatch}/>
-                        <HeaderActions/>
-                        <button className="icon-menu" ref={iconMenu} onClick={iconMenuClick}>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </button>
-                    </div>
+    return (<header className="header" ref={headerRef}>
+        <div className="header__wrapper">
+            <div className="header__container _container">
+                <div className="header__body" ref={iconMenuContainer}>
+                    <HeaderMain />
+                    <HeaderSearchContainer />
+                    <HeaderActions />
+                    <button className="icon-menu" ref={iconMenu} onClick={iconMenuClick}>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
                 </div>
             </div>
-        </header>
+        </div>
+    </header>
     )
 }
 

@@ -1,10 +1,8 @@
 import React from 'react';
-import {updateNewSearchTextAC} from '../../redux/header-reducer'
 const HeaderSearch = (props) => {
 
 
     
-
     const inputSearchRef = React.useRef();
     const iconSearchRef = React.useRef();
     const searchFormRef = React.useRef();
@@ -26,25 +24,15 @@ const HeaderSearch = (props) => {
 
     const onSearchChange = () =>{
         let text = inputSearchRef.current.value;
-        let action = updateNewSearchTextAC(text)
-        props.dispatch(action);
+        props.updateNewSearchText(text);
     }
     const onSearchClick = () =>{
-        
         let text = inputSearchRef.current.value;
-        console.log(inputSearchRef.current);
-        console.log(props.search.defaultSearchText === text);
         if (props.search.defaultSearchText === text){
-            let action = updateNewSearchTextAC("")
-            props.dispatch(action);
+            props.updateNewSearchText("");
         }
         
     }
-
-    // React.useEffect(() =>{
-    //     inputSearchRef.current.value = props.search.defaultSearchText;
-    // }, []);
-
     return(
         <div className="header__search">
             <div className="search-form" ref={searchFormRef}>

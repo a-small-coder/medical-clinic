@@ -10,11 +10,16 @@ let initialState = {
 
 const headerReducer = (state = initialState, action) =>{
 
-    if (action.type === UPDATE_NEW_SEARCH_TEXT){
-        state.search.newSearchText = action.searchText;
+    switch (action.type){
+        case UPDATE_NEW_SEARCH_TEXT: {
+            let stateCopy = {...state};
+            stateCopy.search = {...state.search};
+            stateCopy.search.newSearchText = action.searchText;
+            return stateCopy;
+        }
+        default:
+            return state;
     }
-
-    return state
 }
 export const updateNewSearchTextAC = (text) =>({type: UPDATE_NEW_SEARCH_TEXT, searchText: text});
 export default headerReducer;
