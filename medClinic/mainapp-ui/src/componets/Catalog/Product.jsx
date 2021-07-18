@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 
 const Product = (props) => {
 
+    
 
     return (
         <div className="analyze-section__item analyze-item">
-            <Link to={props.link + `/${props.id}`}className="analyze-item__title">{props.title}</Link>
+            <Link to={props.mainSlug + `/${props.slug}`}className="analyze-item__title">{props.title}</Link>
             <div className="analyze-item__specs">
                 <div className="analyze-item__spec">
                     <div className="analyze-spec__title">Арт.</div>

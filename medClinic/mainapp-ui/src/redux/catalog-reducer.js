@@ -6,13 +6,14 @@ const CHANGE_FILTER_POPUP_SHOW_STATE = "CHANGE_FILTER_POPUP_SHOW_STATE"
 
 let initialState = {
     products: {
-        count: 10,
-        category: null,
+        totalCount: 4,
+        category: "/product",
         title: "Все анализы",
         items: [
             {
                 id: 1,
                 search_group: "",
+                complex_type: "",
                 ispopular: false, 
                 title_min: "Экспресс-тест на COVID-19",
                 title: "Экспресс-тест на COVID-19",
@@ -21,11 +22,11 @@ let initialState = {
                 number: "0001",
                 price: "2750",
                 img: null,
-                link: "/product"
             },
             {
                 id: 2,
                 search_group: "",
+                complex_type: "",
                 ispopular: false,  
                 title_min: "Глюкоза",
                 title: "Глюкоза (в крови) (Glucose) ",
@@ -34,11 +35,11 @@ let initialState = {
                 number: "0002",
                 price: "360",
                 img: null,
-                link: "/product"
             },
             {
                 id: 3, 
                 search_group: "",
+                complex_type: "",
                 ispopular: false,  
                 title_min: "Общий белок",
                 title: "Общий белок (в крови) (Protein total) ",
@@ -47,11 +48,11 @@ let initialState = {
                 number: "0003",
                 price: "750",
                 img: null,
-                link: "/product"
             },
             {
                 id: 4, 
                 search_group: "",
+                complex_type: "",
                 ispopular: false,  
                 title_min: "Общий анализ крови",
                 title: "Анализ крови. Общий анализ крови (без лейкоцитарной формулы и СОЭ) (Complete Blood Count, CBC)",
@@ -60,12 +61,12 @@ let initialState = {
                 number: "0004",
                 price: "500",
                 img: null,
-                link: "/product"
             }
         ]
     },
     filter: {
         is_show: false,
+        current_category: "",
         categories: [
             {
                 slug: "search_groups",
@@ -76,10 +77,10 @@ let initialState = {
                     {slug: "blood-common", is_active: false, text: "общиехимические исследования крови", complex_type: "" },
                     {slug: "top-10", is_active: false, text: "ТОП-10", complex_type: "" },
                     {slug: "lab-search", is_active: false, text: "лабораторные исследования", complex_type: "" },
-                    {slug: "blood-beohim", is_active: false, text: "биохимические исследования крови", complex_type: ""},
-                    {slug: "blood-common", is_active: false, text: "общиехимические исследования крови", complex_type: ""},
-                    {slug: "top-10", is_active: false, text: "ТОП-10", complex_type: ""},
-                    {slug: "lab-search", is_active: false, text: "лабораторные исследования", complex_type: ""},
+                    {slug: "blood-beohim2", is_active: false, text: "биохимические исследования крови", complex_type: ""},
+                    {slug: "blood-common2", is_active: false, text: "общиехимические исследования крови", complex_type: ""},
+                    {slug: "top-102", is_active: false, text: "ТОП-10", complex_type: ""},
+                    {slug: "lab-search2", is_active: false, text: "лабораторные исследования", complex_type: ""},
                 ]
             },
             {
@@ -87,10 +88,10 @@ let initialState = {
                 title: "комплексы анализов", 
                 active_count: 0,
                 items: [
-                    {slug: "blood", is_active: false, title: "комплексные анализы крови",},
-                    {slug: "each-year-observe", is_active: false, title: "ежегодное обследование",},
-                    {slug: "diabet", is_active: false, title: "диагностика диабета",},
-                    {slug: "hurt-and-blood-stytem", is_active: false, title: "оценка риска заюолевание сердечно-сосудистой системы",},
+                    {slug: "blood", is_active: false, text: "комплексные анализы крови",},
+                    {slug: "each-year-observe", is_active: false, text: "ежегодное обследование",},
+                    {slug: "diabet", is_active: false, text: "диагностика диабета",},
+                    {slug: "hurt-and-blood-stytem", is_active: false, text: "оценка риска заюолевание сердечно-сосудистой системы",},
                 ]
             },
 
@@ -143,15 +144,17 @@ const catalogReducer = (state = initialState, action) =>{
             return stateCopy
         }
         case CHANGE_FILTER_POPUP_SHOW_STATE:{
-            stateCopy.filter = {...state.filter, is_show: !state.filtre.is_show};
+            stateCopy.filter = JSON.parse(JSON.stringify(state.filter));
+            stateCopy.filter.is_show = !state.filter.is_show;
+            stateCopy.filter.current_category = action.current_category
             return stateCopy;
         }
         default:
             return state;
     }
 }
-export const setProducts = (products) =>({type: SET_PRODUCTS, products: products});
+export const setProductsAC = (products) =>({type: SET_PRODUCTS, products: products});
 export const activateCheckBoxAC = (categorySlug, itemSlug) =>({type: ACTIVATE_CHECKBOX, categorySlug: categorySlug, itemSlug: itemSlug});
 export const disactiveteCheckBoxAC = (categorySlug, itemSlug) =>({type: DISACTIVATE_CHECKBOX, categorySlug: categorySlug, itemSlug: itemSlug});
-export const showHiddenPopupAC = () => ({type: CHANGE_FILTER_POPUP_SHOW_STATE});
+export const showHiddenPopupAC = (current_category) => ({type: CHANGE_FILTER_POPUP_SHOW_STATE, current_category: current_category});
 export default catalogReducer;
