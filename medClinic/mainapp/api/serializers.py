@@ -1,13 +1,46 @@
 from rest_framework import serializers
 
-from..models import NavigationCategory, SubNavigationCategory, Analyze
+from..models import NavigationCategory, SubNavigationCategory, Analyze, AnalyzeContentBlock, AnalyseContentCategory
 
 
 class AnalyzeRetrieveSerializer(serializers.ModelSerializer):
 
+    content = serializers.SerializerMethodField()
+
     class Meta:
         model = Analyze
-        fields = []
+        fields = ['title', 'title_min', 'price', 'time', 'is_popular', 'vendor_code', 'is_unic', 'content']
+
+    @staticmethod
+    def get_content(obj):
+        return AnalyseContentCategorySerializer(AnalyseContentCategory.objects.filter(analyze=obj), many=True).data
+
+
+class AnalyzeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Analyze
+        fields = '__all__'
+
+
+class AnalyseContentCategorySerializer(serializers.ModelSerializer):
+
+    items = serializers.SerializerMethodField()
+
+    class Meta:
+        model = AnalyseContentCategory
+        fields = ['title', 'items']
+
+    @staticmethod
+    def get_items(obj):
+        return AnalyzeContentBlockSerializer(AnalyzeContentBlock.objects.filter(analyze_content_category=obj), many=True).data
+
+
+class AnalyzeContentBlockSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AnalyzeContentBlock
+        fields = ['title', 'text', 'pos']
 
 
 class NavigationCategorySerializer(serializers.ModelSerializer):

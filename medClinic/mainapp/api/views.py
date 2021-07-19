@@ -4,9 +4,11 @@ from .serializers import (
     NavigationCategorySerializer,
     SubNavigationCategorySerializer,
     SubNavigationCategoryRetrieveSerializer,
-    NavigationCategoryDetailSerializer
+    NavigationCategoryDetailSerializer,
+    AnalyzeRetrieveSerializer, AnalyzeSerializer,
+    AnalyseContentCategorySerializer, AnalyzeContentBlockSerializer
 )
-from ..models import NavigationCategory, SubNavigationCategory
+from ..models import NavigationCategory, SubNavigationCategory, Analyze, AnalyseContentCategory, AnalyzeContentBlock
 
 
 class NavigationCategoryViewSet(viewsets.ModelViewSet):
@@ -43,6 +45,29 @@ class SubNavigationCategoryViewSet(viewsets.ModelViewSet):
         )
 
 
+class AnalyseViewSet(viewsets.ModelViewSet):
+
+    queryset = Analyze.objects.all()
+    serializer_class = AnalyzeSerializer
+
+    action_to_serializer = {
+        "retrieve": AnalyzeRetrieveSerializer
+    }
+
+    def get_serializer_class(self):
+        return self.action_to_serializer.get(
+            self.action,
+            self.serializer_class
+        )
 
 
+class AnalyseContentCategoryViewSet(viewsets.ModelViewSet):
 
+    queryset = AnalyseContentCategory.objects.all()
+    serializer_class = AnalyseContentCategorySerializer
+
+
+class AnalyzeContentBlockViewSet(viewsets.ModelViewSet):
+
+    queryset = AnalyzeContentBlock.objects.all()
+    serializer_class = AnalyzeContentBlockSerializer

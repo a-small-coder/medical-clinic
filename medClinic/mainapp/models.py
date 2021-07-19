@@ -93,7 +93,6 @@ class Analyze(models.Model):
     gender = models.ForeignKey(GenderType, verbose_name="Зависит от гендера", on_delete=models.CASCADE)
     time = models.CharField(max_length=31, verbose_name='Срок исполнения')
     is_popular = models.BooleanField(default=False, verbose_name="Популярный товар")
-    description = models.TextField(verbose_name='Описание', default="Описание появится позже")
     small_image = models.ImageField(verbose_name='Изображение для уникальных анализов на главной странице')
     vendor_code = models.CharField(verbose_name='Артикул', max_length=63)
     is_unic = models.BooleanField(default=False, verbose_name='Уникальный анализ')
