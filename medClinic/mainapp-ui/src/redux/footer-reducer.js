@@ -9,7 +9,7 @@ let initialState = {
             {
                 category: "Меню",
                 sub_categories: [
-                    {id: 1, sub_category: "Каталог анализов", link: "/catalog"},
+                    {id: 1, sub_category: "Каталог анализов", link: "/analyzes"},
                     {id: 2, sub_category: "Наши услуги", link: "/service"},
                     {id: 3, sub_category: "Вакцинация", link: "/service/vac"},
                     {id: 4, sub_category: "Акции", link: "/stocks"},

@@ -29,7 +29,7 @@ const MenuItem = (props) => {
     const _slideUp = useCallback(slideUp, []);
 
     let subMenuElements = props.category.sub_categories.map(s =>
-        <MenuSubItem key={s.id} title={s.sub_category} link={s.link} classLi={"menu__sub-item"} classLink={"menu__sub-link"}/>
+        <MenuSubItem key={s.id} title={s.sub_category} link={"/" + props.category.slug + "/" + s.slug} classLi={"menu__sub-item"} classLink={"menu__sub-link"}/>
     )
     
     const onSpoilerClick = () =>{
@@ -48,7 +48,7 @@ const MenuItem = (props) => {
 
     return (
         <li className="menu__item">
-            <Link to={props.category.link} className="menu__link" >{props.category.category}</Link>
+            <Link to={"/" + props.category.slug} className="menu__link" >{props.category.category}</Link>
             <button data-spoller type="button"
                 className={props.category.spoilerActive ? buttonClassName + " _active" : buttonClassName}
                 onClick={onSpoilerClick}></button>

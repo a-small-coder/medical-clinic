@@ -1,6 +1,13 @@
 from rest_framework import serializers
 
-from..models import NavigationCategory, SubNavigationCategory
+from..models import NavigationCategory, SubNavigationCategory, Analyze
+
+
+class AnalyzeRetrieveSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Analyze
+        fields = []
 
 
 class NavigationCategorySerializer(serializers.ModelSerializer):

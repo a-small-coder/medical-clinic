@@ -1,5 +1,5 @@
 import Header from './componets/Header/Header';
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import Footer from './componets/Footer/Footer';
 import MainPage from './componets/MainPage/MainPage';
 import './css/style.css';
@@ -15,11 +15,13 @@ function App(props) {
         <ScrollToTop/>
       	<Header/>
         <Switch>
+        <Redirect from={"/analyzes"} to={"/catalog"} ></Redirect>
         <Route exact path="/catalog" component={Catalog}/>
         <Route  path="/product/" component={ProductPage}/> 
         {/* <Route exact path="/home"component={MainPage}/> */}
         <Route exact path="/" component={MainPage}/>
         <Route component={InWork}/>
+        
         </Switch>
         <Footer/>
     </div>
