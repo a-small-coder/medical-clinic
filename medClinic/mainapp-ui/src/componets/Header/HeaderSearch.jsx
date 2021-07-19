@@ -9,7 +9,6 @@ const HeaderSearch = (props) => {
 
     const iconSearchClick = () => {
         if (iconSearchRef.current != null){
-            console.log("click!");
             
             if (!iconSearchRef.current.closest('.search-form') && document.querySelectorAll('.search-form._active').length > 0){
                 const activeForms = document.querySelectorAll('.search-form._active');

@@ -4,7 +4,6 @@ import App from './App';
 import { updateNewSearchText } from './redux/store';
 
 export let rerenderEntireTree = (state) => {
-    console.log(state);
 	ReactDOM.render(
 		<React.StrictMode>
 		  <App state={state} updateNewSearchText={updateNewSearchText}/>

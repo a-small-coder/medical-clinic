@@ -12,8 +12,6 @@ const Header = (props) => {
         
     }, []);
     const iconMenuClick = () => {
-        console.log("click");
-        console.log(iconMenuContainer.current.classList);
         if (iconMenu.current != null) {
             iconMenu.current.addEventListener("click", setIconMenuActive);
         };

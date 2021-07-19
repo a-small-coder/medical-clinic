@@ -2908,6 +2908,11 @@ body.ie ._ibg img {
   color: #616161;
   font-weight: 400;
   line-height: 120%;
+  cursor: pointer;
+}
+.paggination__page-number:hover{
+  color: #0B94C1;
+  font-weight: 600;
 }
 
 .paggination__page-number._active {

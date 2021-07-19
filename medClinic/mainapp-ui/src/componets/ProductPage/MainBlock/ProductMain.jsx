@@ -13,8 +13,6 @@ const ProductMain = (props) => {
                 contentBlock = c;
             }
         })
-        console.log(contentBlock);
-        console.log(props.product);
         descpitionsElements = contentBlock.items.map(i => <Description key={i.pos} title={i.title} text={i.text}/>)
     }
     return (

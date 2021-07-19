@@ -9,6 +9,7 @@ let initialState = {
     products: {
         totalCount: 8,
         currentPage: 1,
+        pageSize: 4,
         category: "/product",
         title: "Все анализы",
         items: [
@@ -63,6 +64,58 @@ let initialState = {
                 number: "0004",
                 price: "500",
                 img: null,
+            },
+            {
+                id: 5,
+                search_group: "",
+                complex_type: "",
+                ispopular: false, 
+                title_min: "Экспресс-тест на COVID-19",
+                title: "Экспресс-тест на COVID-19",
+                text: "Результат предоставляется через 15 минут. Исследование представляет собой функциональный аналог ПЦР-тестов",
+                time: 1,
+                number: "0001",
+                price: "2750",
+                img: null,
+            },
+            {
+                id: 6,
+                search_group: "",
+                complex_type: "",
+                ispopular: false,  
+                title_min: "Глюкоза",
+                title: "Глюкоза (в крови) (Glucose) ",
+                text: "Глюкоза – основной источник энергии для метаболических процессов в организме человека, является обязательным компонентом большинства внутриклеточных структур, участвует в синтезе нуклеиновых кислот (рибоза, дезоксирибоза), образует соединения с белками (гликопротеиды, протеогликаны) и липидами (гликолипиды).",
+                time: 3,
+                number: "0002",
+                price: "360",
+                img: null,
+            },
+            {
+                id: 7, 
+                search_group: "",
+                complex_type: "",
+                ispopular: false,  
+                title_min: "Общий белок",
+                title: "Общий белок (в крови) (Protein total) ",
+                text: "Общий белок выступает показателем белкового обмена, отражающим содержание всех фракций белков в сыворотке крови. Тест используется в комплексных биохимических обследованиях пациентов при различных заболеваниях.",
+                time: 2,
+                number: "0003",
+                price: "750",
+                img: null,
+            },
+            {
+                id: 8, 
+                search_group: "",
+                complex_type: "",
+                ispopular: false,  
+                title_min: "Общий анализ крови",
+                title: "Анализ крови. Общий анализ крови (без лейкоцитарной формулы и СОЭ) (Complete Blood Count, CBC)",
+                text: "Общий анализ крови – это комплексное исследование, в ходе которого проводится количественная оценка содержания форменных элементов крови (эритроцитов, лейкоцитов, тромбоцитов), гемоглобина, проводится подсчет гематокрита и эритроцитарных индексов (MCV, MCH, MCHC, RDW).",
+                time: 1,
+                number: "0004",
+                price: "500",
+                img: null,
             }
         ]
     },
@@ -107,8 +160,7 @@ const catalogReducer = (state = initialState, action) =>{
         ...state};
     switch (action.type){
         case SET_PRODUCTS: {
-            stateCopy.products = {...state.products}
-            stateCopy.products.items = {...state.products.items, ...action.products};
+            stateCopy.products = action.products;
             return stateCopy;
         }
         case ACTIVATE_CHECKBOX: {

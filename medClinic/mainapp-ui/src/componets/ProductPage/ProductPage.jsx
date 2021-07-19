@@ -17,8 +17,6 @@ const ProductPage = (props) => {
     // console.log(props);
     // console.log(productName);
     // console.log(product);
-    console.log(props.product.id);
-    console.log(productName);
     return isfalseProduct ? (
         <Redirect to={"/page-in-work"}/>
     ) : (

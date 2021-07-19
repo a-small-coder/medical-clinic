@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 const Paggination = (props) => {
     let pageNumbers = []
     for (let i= 1; i <= props.pagesCount; i++){
         pageNumbers.push(i);
     }
-    console.log(props);
-    console.log(pageNumbers);
     const onClickButtonPrev =()=>{
         props.setCurrentPage(props.totalPage - 1)
     }
@@ -27,7 +25,7 @@ const Paggination = (props) => {
                 <button className={props.totalPage > 1 ? buttonPrevClassName : buttonPrevClassName + anactiveClassName}
                 onClick={onClickButtonPrev}></button>
                 {pageNumbers.map(p => {
-                    return <span onClick={onClickPageNumber} className={props.totalPage === p ? "paggination__page-number _active" : "paggination__page-number"}>{p}</span>
+                    return <span key={p} onClick={onClickPageNumber} className={props.totalPage === p ? "paggination__page-number _active" : "paggination__page-number"}>{p}</span>
                 })}
                 <button className={props.totalPage <  props.pagesCount ? buttonNextClassName : buttonNextClassName + anactiveClassName}
                 onClick={onClickButtonNext}></button>
