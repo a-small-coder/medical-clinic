@@ -2,7 +2,6 @@ const UPDATE_NEW_SEARCH_TEXT = 'UPDATE-NEW-SEARCH-TEXT';
 const SWITCH_SPOILER_MODE = "SWITCH-SPOILER-MODE";
 const ACTIVETE_SPOILER = "ACTIVETE-SPOILER";
 const DISACTIVETE_SPOILER = "DISACTIVETE-SPOILER";
-
 let initialState = {
     search: {
         newSearchText: "Поиск по сайту",
