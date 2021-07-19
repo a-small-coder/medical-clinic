@@ -2,11 +2,13 @@ const SET_PRODUCTS = "SET-PRODUCTS";
 const ACTIVATE_CHECKBOX = "ACTIVATE_CHECKBOX";
 const DISACTIVATE_CHECKBOX = "DISACTIVATE_CHECKBOX";
 const CHANGE_FILTER_POPUP_SHOW_STATE = "CHANGE_FILTER_POPUP_SHOW_STATE"
+const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 
 
 let initialState = {
     products: {
-        totalCount: 4,
+        totalCount: 8,
+        currentPage: 1,
         category: "/product",
         title: "Все анализы",
         items: [
@@ -149,6 +151,10 @@ const catalogReducer = (state = initialState, action) =>{
             stateCopy.filter.current_category = action.current_category
             return stateCopy;
         }
+        case SET_CURRENT_PAGE: {
+            stateCopy.products = {...state.products, currentPage: action.currentPage}
+            return stateCopy;
+        }
         default:
             return state;
     }
@@ -157,4 +163,5 @@ export const setProductsAC = (products) =>({type: SET_PRODUCTS, products: produc
 export const activateCheckBoxAC = (categorySlug, itemSlug) =>({type: ACTIVATE_CHECKBOX, categorySlug: categorySlug, itemSlug: itemSlug});
 export const disactiveteCheckBoxAC = (categorySlug, itemSlug) =>({type: DISACTIVATE_CHECKBOX, categorySlug: categorySlug, itemSlug: itemSlug});
 export const showHiddenPopupAC = (current_category) => ({type: CHANGE_FILTER_POPUP_SHOW_STATE, current_category: current_category});
+export const setCurrentPageAC = (totalPage) =>({type: SET_CURRENT_PAGE, currentPage: totalPage});
 export default catalogReducer;

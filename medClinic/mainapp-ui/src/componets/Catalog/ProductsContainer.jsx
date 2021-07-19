@@ -2,7 +2,7 @@ import React from 'react';
 import Paggination from '../Paggination/Paggination';
 import Product from './Product';
 import { connect } from 'react-redux';
-import { setProductsAC } from '../../redux/catalog-reducer';
+import { setCurrentPageAC, setProductsAC } from '../../redux/catalog-reducer';
 
 const Products = (props) => {
 
@@ -62,7 +62,8 @@ const Products = (props) => {
             }
         ])
     }
-
+    const pageSize = 2
+    let pagesCount = Math.ceil(props.products.totalCount / pageSize);
     let productsElements = props.products.items.map(
         a => <Product key={a.id} title={a.title} time={a.time} number={a.number} slug={a.id} price={a.price} mainSlug={props.products.category}/>);
 
@@ -73,7 +74,7 @@ const Products = (props) => {
 
                 {productsElements}
             </div>
-            <Paggination/>
+            <Paggination pagesCount={pagesCount} totalPage={props.products.currentPage} setCurrentPage={props.setCurrentPage}/>
         </div>
     );
 }
@@ -88,7 +89,9 @@ let mapDispatchToProps = (dispatch)=>{
         setProducts: (products) => {
             dispatch(setProductsAC(products));
         },
-
+        setCurrentPage: (totalPage) =>{
+            dispatch(setCurrentPageAC(totalPage));
+        }
     }
 }
 const ProductsContainer = connect(mapStateToProps, mapDispatchToProps)(Products);
