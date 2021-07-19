@@ -2,6 +2,7 @@ const UPDATE_NEW_SEARCH_TEXT = 'UPDATE-NEW-SEARCH-TEXT';
 const SWITCH_SPOILER_MODE = "SWITCH-SPOILER-MODE";
 const ACTIVETE_SPOILER = "ACTIVETE-SPOILER";
 const DISACTIVETE_SPOILER = "DISACTIVETE-SPOILER";
+const SET_CATEGORIES = "SET_CATEGORIES";
 let initialState = {
     search: {
         newSearchText: "Поиск по сайту",
@@ -9,44 +10,7 @@ let initialState = {
     },
     nav: {
         initSpoiler: false,
-        categories: [
-            {
-                category: "анализы",
-                sub_categories: [
-                    {id: 1, sub_category: "каталог анализов", link: "/catalog"},
-                    {id: 2, sub_category: "уникальные анализы", link: "/catalog"},
-                    {id: 3, sub_category: "комплексы анализов", link: "/catalog"},
-                ],
-                id: 1,
-                spoilerActive: false,
-                link: "/catalog"
-            },
-            {
-                category: "услуги",
-                sub_categories: [
-                    {id: 1, sub_category: "каталоог услуг", link: "/service"},
-                    {id: 2, sub_category: "записаться к врачу", link: "/service"},
-                    {id: 3, sub_category: "вакцинация", link: "/service"},
-                ],
-                id: 2,
-                spoilerActive: false,
-                link: "/service"
-            },
-            {
-                category: "акции",
-                sub_categories: [],
-                id: 3,
-                spoilerActive: false,
-                link: "/stocks"
-            },
-            {
-                category: "о компании",
-                sub_categories: [],
-                id: 4,
-                spoilerActive: false,
-                link: "/aboutus"
-            },
-        ]
+        categories: []
     }
 }
 
@@ -84,6 +48,12 @@ const headerReducer = (state = initialState, action) =>{
             });
             return stateCopy
         }
+        case SET_CATEGORIES: {
+            stateCopy.nav = {...state.nav}
+            stateCopy.nav.categories = action.categories
+            stateCopy.nav.initSpoiler = false
+            return stateCopy
+        }
         default:
             return state;
     }
@@ -92,4 +62,5 @@ export const updateNewSearchTextAC = (text) =>({type: UPDATE_NEW_SEARCH_TEXT, se
 export const switchSpoilerModAC = (spoilerMod) =>({type: SWITCH_SPOILER_MODE, spoilerMod: spoilerMod});
 export const activateSpoilerAC = (id) =>({type: ACTIVETE_SPOILER, id: id});
 export const disactiveteSpoilerAC = (id) =>({type: DISACTIVETE_SPOILER, id: id});
+export const setCategoriesAC = (categories) =>({type: SET_CATEGORIES, categories: categories});
 export default headerReducer;

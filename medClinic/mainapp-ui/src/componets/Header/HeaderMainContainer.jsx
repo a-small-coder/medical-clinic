@@ -1,15 +1,24 @@
-import {disactiveteSpoilerAC, activateSpoilerAC, switchSpoilerModAC} from '../../redux/header-reducer'
+import {disactiveteSpoilerAC, activateSpoilerAC, switchSpoilerModAC, setCategoriesAC} from '../../redux/header-reducer'
 import {connect} from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import MenuItem from './MenuItem';
 import { Link } from 'react-router-dom';
+import * as axios from 'axios'
 const HeaderMain = (props) => {
 
     // props:
     // nav
+    // categories
     // disactivateSpoiler()
     // activateSpoiler()
     // switchSpoilerMod()
+
+    if (props.categories.length === 0){
+        axios.get('http://127.0.0.1:8000/api/navigation/').then(response => {
+            props.setCategories(response.data)
+        })
+    }
+
 
     const [windowWidth, setWindowWidth] = useState(0);
     const spoilerClassName = "menu__list";
@@ -48,6 +57,7 @@ const HeaderMain = (props) => {
 let mapStateToProps = (state)=>{
     return {
         nav: state.header.nav,
+        categories: state.header.nav.categories
     }
 }
 let mapDispatchToProps = (dispatch)=>{
@@ -60,6 +70,9 @@ let mapDispatchToProps = (dispatch)=>{
         },
         switchSpoilerMod: (mode) =>{
             dispatch(switchSpoilerModAC(mode));
+        },
+        setCategories: (categories) =>{
+            dispatch(setCategoriesAC(categories));
         }
 
     }
