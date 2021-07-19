@@ -9,7 +9,7 @@ class AnalyzeRetrieveSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Analyze
-        fields = ['title', 'title_min', 'price', 'time', 'is_popular', 'vendor_code', 'is_unic', 'content']
+        fields = ['id', 'title', 'title_min', 'price', 'time', 'is_popular', 'vendor_code', 'is_unic', 'content']
 
     @staticmethod
     def get_content(obj):
@@ -29,7 +29,7 @@ class AnalyseContentCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AnalyseContentCategory
-        fields = ['title', 'items']
+        fields = ['title', 'items', 'slug']
 
     @staticmethod
     def get_items(obj):

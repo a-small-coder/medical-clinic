@@ -7,7 +7,7 @@ const ProductMain = (props) => {
     const isMobile = /Mobile|webOS|BlackBerry|IEMobile|MeeGo|mini|Fennec|Windows Phone|Android|iP(ad|od|hone)/i.test(navigator.userAgent);
     let descpitionsElements
     let contentBlock;
-    if (!isMobile){
+    if (!isMobile && props.product.content != null){
         props.product.content.forEach(c => {
             if (c.active_block){
                 contentBlock = c;
