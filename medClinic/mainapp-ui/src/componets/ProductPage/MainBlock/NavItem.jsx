@@ -1,12 +1,15 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-const NavItem = () => {
+const NavItem = (props) => {
 
+    const className = props.active_block ? "menu-product__link _selected" : "menu-product__link"
+    const onTitleClick = () =>{
+        props.switchProductActiveContent(props.slug);
+    }
 
     return (
         <li className="menu-product__item">
-            <Link to="#" className="menu-product__link">Описание</Link>
+            <h4 to="#" className={className} onClick={onTitleClick}>{props.title}</h4>
             <button data-spoller type="button" className="menu-product__arrow _icon-arrow-down"></button>
 
         </li>

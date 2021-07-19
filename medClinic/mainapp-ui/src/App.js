@@ -16,7 +16,7 @@ function App(props) {
       	<Header/>
         <Switch>
         <Route exact path="/catalog" component={Catalog}/>
-        <Route exact  path="/product/1" component={ProductPage}/> 
+        <Route  path="/product/" component={ProductPage}/> 
         {/* <Route exact path="/home"component={MainPage}/> */}
         <Route exact path="/" component={MainPage}/>
         <Route component={InWork}/>

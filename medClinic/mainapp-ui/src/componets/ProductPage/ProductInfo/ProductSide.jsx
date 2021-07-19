@@ -1,15 +1,15 @@
 import React from 'react';
 
-const ProductSide = () => {
+const ProductSide = (props) => {
 
 
     return (
         <div className="product-info__item info-item">
-            <div className="info-item__title">Артикул</div>
-            <div className="info-item__text">00001</div>
+            <div className="info-item__title">{props.title}</div>
+            <div className="info-item__text">{props.text}</div>
             <div className="info-item__subInfo">
-                <div className="subInfo__text"></div>
-                <button className="subInfo__button"></button>
+                {props.subtext != null ? <div className="subInfo__text">{props.subtext}</div> : <div className="subInfo__text"></div>}
+                {props.isButton ? <button className="subInfo__button btn _icon-cart">В корзину</button> : <button className="subInfo__button"></button>}
             </div>
         </div>
     );
