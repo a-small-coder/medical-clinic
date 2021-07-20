@@ -18,7 +18,7 @@ const ProductPage = (props) => {
     let productNameL = props.history.location.pathname.split("/");
     let productName = Number(productNameL[productNameL.length - 1])
     let productLink = props.history.location.pathname.slice(1, props.history.location.pathname.length)
-    let isfalseProduct = !(productName === props.product.id)
+    let isfalseProduct = productName !== props.product.id
     const [Badresponse, setNeedRender] = useState(false);
     useEffect(() =>{
         if (Badresponse){

@@ -81,6 +81,24 @@ class AnalyseViewSet(viewsets.ModelViewSet):
         )
 
 
+class UnicAnalyseViewSet(viewsets.ModelViewSet):
+
+    queryset = Analyze.objects.filter(is_unic=True)
+    serializer_class = AnalyzeSerializer
+    pagination_class = CatalogPagination
+
+    action_to_serializer = {
+        "list": AnalyzeListSerializer,
+        "retrieve": AnalyzeRetrieveSerializer
+    }
+
+    def get_serializer_class(self):
+        return self.action_to_serializer.get(
+            self.action,
+            self.serializer_class
+        )
+
+
 class AnalyseContentCategoryViewSet(viewsets.ModelViewSet):
 
     queryset = AnalyseContentCategory.objects.all()
