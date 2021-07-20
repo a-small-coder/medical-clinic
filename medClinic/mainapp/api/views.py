@@ -1,14 +1,32 @@
 from rest_framework import viewsets
-
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.response import Response
+from collections import OrderedDict
 from .serializers import (
     NavigationCategorySerializer,
     SubNavigationCategorySerializer,
     SubNavigationCategoryRetrieveSerializer,
     NavigationCategoryDetailSerializer,
     AnalyzeRetrieveSerializer, AnalyzeSerializer,
-    AnalyseContentCategorySerializer, AnalyzeContentBlockSerializer
-)
+    AnalyseContentCategorySerializer, AnalyzeContentBlockSerializer,
+    AnalyzeListSerializer
+    )
 from ..models import NavigationCategory, SubNavigationCategory, Analyze, AnalyseContentCategory, AnalyzeContentBlock
+
+
+class CatalogPagination(PageNumberPagination):
+
+    page_size = 1
+    page_size_param = 'page_size'
+    max_page_size = 10
+
+    def get_paginated_response(self, data):
+        return Response(OrderedDict([
+            ('total_count', self.page.paginator.count),
+            ('page_size', self.page_size),
+            ('current_page', self.page.number),
+            ('items', data)
+        ]))
 
 
 class NavigationCategoryViewSet(viewsets.ModelViewSet):
@@ -49,8 +67,10 @@ class AnalyseViewSet(viewsets.ModelViewSet):
 
     queryset = Analyze.objects.all()
     serializer_class = AnalyzeSerializer
+    pagination_class = CatalogPagination
 
     action_to_serializer = {
+        "list": AnalyzeListSerializer,
         "retrieve": AnalyzeRetrieveSerializer
     }
 

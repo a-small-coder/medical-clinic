@@ -14,6 +14,7 @@ const ProductPage = (props) => {
     // React.useEffect(() => {
     //     console.log(history.location.pathname)
     // }, [history]);
+    console.log(props)
     let productNameL = props.history.location.pathname.split("/");
     let productName = Number(productNameL[productNameL.length - 1])
     let isfalseProduct = !(productName === props.product.id)

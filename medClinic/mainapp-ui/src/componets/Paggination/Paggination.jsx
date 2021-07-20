@@ -5,15 +5,15 @@ const Paggination = (props) => {
         pageNumbers.push(i);
     }
     const onClickButtonPrev =()=>{
-        props.setCurrentPage(props.totalPage - 1)
+        props.PageChenge(props.totalPage - 1)
     }
     const onClickButtonNext =()=>{
-        props.setCurrentPage(props.totalPage + 1)
+        props.PageChenge(props.totalPage + 1)
     }
     const onClickPageNumber =(target)=>{
         let clickNumber = Number(target.target.innerText );
         if (clickNumber !== props.totalPage){
-            props.setCurrentPage(clickNumber)
+            props.PageChenge(clickNumber)
         }
     }
     const anactiveClassName = " _anactive";

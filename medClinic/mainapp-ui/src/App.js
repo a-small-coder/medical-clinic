@@ -15,8 +15,8 @@ function App(props) {
         <ScrollToTop/>
       	<Header/>
         <Switch>
-        <Redirect from={"/analyzes"} to={"/catalog"} ></Redirect>
-        <Route exact path="/catalog" component={Catalog}/>
+        <Redirect from={"/analyzes"} to={"/analyze"} ></Redirect>
+        <Route path="/analyze" component={Catalog}/>
         <Route  path="/product/" component={ProductPage}/> 
         {/* <Route exact path="/home"component={MainPage}/> */}
         <Route exact path="/" component={MainPage}/>

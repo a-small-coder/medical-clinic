@@ -1,147 +1,91 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Paggination from '../Paggination/Paggination';
 import Product from './Product';
 import { connect } from 'react-redux';
 import { setCurrentPageAC, setProductsAC } from '../../redux/catalog-reducer';
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+import * as axios from 'axios'
 
 const Products = (props) => {
 
-    if (props.products.items.length === 0){
-        props.setProducts({
-            totalCount: 8,
-            currentPage: 1,
-            pageSize: 4,
-            category: "/product",
-            title: "Все анализы",
-            items: [
-                {
-                    id: 1,
-                    search_group: "",
-                    complex_type: "",
-                    ispopular: false, 
-                    title_min: "Экспресс-тест на COVID-19",
-                    title: "Экспресс-тест на COVID-19",
-                    text: "Результат предоставляется через 15 минут. Исследование представляет собой функциональный аналог ПЦР-тестов",
-                    time: 1,
-                    number: "0001",
-                    price: "2750",
-                    img: null,
-                },
-                {
-                    id: 2,
-                    search_group: "",
-                    complex_type: "",
-                    ispopular: false,  
-                    title_min: "Глюкоза",
-                    title: "Глюкоза (в крови) (Glucose) ",
-                    text: "Глюкоза – основной источник энергии для метаболических процессов в организме человека, является обязательным компонентом большинства внутриклеточных структур, участвует в синтезе нуклеиновых кислот (рибоза, дезоксирибоза), образует соединения с белками (гликопротеиды, протеогликаны) и липидами (гликолипиды).",
-                    time: 3,
-                    number: "0002",
-                    price: "360",
-                    img: null,
-                },
-                {
-                    id: 3, 
-                    search_group: "",
-                    complex_type: "",
-                    ispopular: false,  
-                    title_min: "Общий белок",
-                    title: "Общий белок (в крови) (Protein total) ",
-                    text: "Общий белок выступает показателем белкового обмена, отражающим содержание всех фракций белков в сыворотке крови. Тест используется в комплексных биохимических обследованиях пациентов при различных заболеваниях.",
-                    time: 2,
-                    number: "0003",
-                    price: "750",
-                    img: null,
-                },
-                {
-                    id: 4, 
-                    search_group: "",
-                    complex_type: "",
-                    ispopular: false,  
-                    title_min: "Общий анализ крови",
-                    title: "Анализ крови. Общий анализ крови (без лейкоцитарной формулы и СОЭ) (Complete Blood Count, CBC)",
-                    text: "Общий анализ крови – это комплексное исследование, в ходе которого проводится количественная оценка содержания форменных элементов крови (эритроцитов, лейкоцитов, тромбоцитов), гемоглобина, проводится подсчет гематокрита и эритроцитарных индексов (MCV, MCH, MCHC, RDW).",
-                    time: 1,
-                    number: "0004",
-                    price: "500",
-                    img: null,
-                },
-                {
-                    id: 5,
-                    search_group: "",
-                    complex_type: "",
-                    ispopular: false, 
-                    title_min: "Экспресс-тест на COVID-19",
-                    title: "Экспресс-тест на COVID-19",
-                    text: "Результат предоставляется через 15 минут. Исследование представляет собой функциональный аналог ПЦР-тестов",
-                    time: 1,
-                    number: "0001",
-                    price: "2750",
-                    img: null,
-                },
-                {
-                    id: 6,
-                    search_group: "",
-                    complex_type: "",
-                    ispopular: false,  
-                    title_min: "Глюкоза",
-                    title: "Глюкоза (в крови) (Glucose) ",
-                    text: "Глюкоза – основной источник энергии для метаболических процессов в организме человека, является обязательным компонентом большинства внутриклеточных структур, участвует в синтезе нуклеиновых кислот (рибоза, дезоксирибоза), образует соединения с белками (гликопротеиды, протеогликаны) и липидами (гликолипиды).",
-                    time: 3,
-                    number: "0002",
-                    price: "360",
-                    img: null,
-                },
-                {
-                    id: 7, 
-                    search_group: "",
-                    complex_type: "",
-                    ispopular: false,  
-                    title_min: "Общий белок",
-                    title: "Общий белок (в крови) (Protein total) ",
-                    text: "Общий белок выступает показателем белкового обмена, отражающим содержание всех фракций белков в сыворотке крови. Тест используется в комплексных биохимических обследованиях пациентов при различных заболеваниях.",
-                    time: 2,
-                    number: "0003",
-                    price: "750",
-                    img: null,
-                },
-                {
-                    id: 8, 
-                    search_group: "",
-                    complex_type: "",
-                    ispopular: false,  
-                    title_min: "Общий анализ крови",
-                    title: "Анализ крови. Общий анализ крови (без лейкоцитарной формулы и СОЭ) (Complete Blood Count, CBC)",
-                    text: "Общий анализ крови – это комплексное исследование, в ходе которого проводится количественная оценка содержания форменных элементов крови (эритроцитов, лейкоцитов, тромбоцитов), гемоглобина, проводится подсчет гематокрита и эритроцитарных индексов (MCV, MCH, MCHC, RDW).",
-                    time: 1,
-                    number: "0004",
-                    price: "500",
-                    img: null,
-                }
-            ]
+
+    // let products = {}
+    //         products.items = response.data.items
+    //         products.category = catagoryName
+    //         products.totalCount = response.data.total_count
+    //         products.pageSize = response.data.page_size
+    //         products.currentPage = response.data.current_page
+    let catagoryNameL = props.history.location.pathname.split("/");
+    let catagoryName =catagoryNameL[catagoryNameL.length - 1]
+    const [Badresponse, setNeedRedirect] = useState(false);
+    useEffect(() =>{
+        if (Badresponse){
+            console.log("hey! it's a bad response")
+        }
+        
+    }, [Badresponse])
+    const onPageChenged = (pageNumber) => {
+        props.setCurrentPage(pageNumber)
+            axios.get(`http://127.0.0.1:8000/api/${catagoryName}?page=${pageNumber}&count=${props.pageSize}`).then(response => {
+            props.setProducts(response.data.items)
+            //debugger;
+        }).catch(err => {
+            setNeedRedirect(true)
+            console.log(err)
         })
     }
-    let pagesCount = Math.ceil(props.totalCount / props.pageSize);
-    let productsElements = props.products.items.map(
-        a => <Product key={a.id} title={a.title} time={a.time} number={a.number} slug={a.id} price={a.price} mainSlug={props.products.category}/>);
 
-    return (
+    useEffect(() => {
+        if ((props.products.items.length === 0) && !Badresponse){
+            axios.get(`http://127.0.0.1:8000/api/${catagoryName}?page=${props.pageNumber}&count=${props.pageSize}`).then(response => {
+                console.log(response.data)
+                props.setProducts(response.data.items)
+                
+                //debugger;
+        }).catch(err => {
+            setNeedRedirect(true)
+            console.log(err)
+        })
+        }
+        
+    }, [])
+    let productsElements
+    let pagesCount = Math.ceil(props.totalCount / props.pageSize)
+    if (props.products != null){
+        productsElements = props.products.items.map(
+            a => <Product key={a.id} title={a.title} time={a.time} number={a.number}
+                slug={a.id} price={a.price} mainSlug={props.products.category} />);
+    }
+    
+    
+    //console.log(productsElements)
+    //debugger;
+    return Badresponse ? (
+        <Redirect to={"/page-in-work"} />
+    ) : props.products != null ? (
         <div className="analyze-section">
             <h2 className="analyze-section__title _title">{props.products.title}</h2>
             <div className="analyze-section__items">
-
+                {console.log(props.products)}
                 {productsElements}
             </div>
-            <Paggination pagesCount={pagesCount} totalPage={props.products.currentPage} setCurrentPage={props.setCurrentPage}/>
+            <Paggination pagesCount={pagesCount} totalPage={props.products.currentPage} PageChenge={onPageChenged} />
+        </div>
+    ) : (
+        <div className="analyze-section">
+            Loading...
         </div>
     );
 }
 
 let mapStateToProps = (state)=>{
+    //debugger;
     return {
         products: state.catalog.products,
+        
         pageSize: state.catalog.products.pageSize,
-        totalCount: state.catalog.products.totalCount
+        totalCount: state.catalog.products.totalCount,
+        pageNumber: state.catalog.products.currentPage
     }
 }
 let mapDispatchToProps = (dispatch)=>{

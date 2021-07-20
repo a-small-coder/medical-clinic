@@ -1,5 +1,5 @@
 from django.db import models
-
+import random
 # Create your models here.
 
 
@@ -65,10 +65,13 @@ class AnalyzeComplex(models.Model):
     gender = models.ForeignKey(GenderType, verbose_name="Зависит от гендера", on_delete=models.CASCADE)
     is_popular = models.BooleanField(default=False, verbose_name="Популярный товар")
     description = models.TextField(verbose_name='Описание', default="Описание появится позже")
-    big_image = models.ImageField(verbose_name='Изображение для главного слайдера главной странице')
-    small_image = models.ImageField(verbose_name='Изображение для слайдера комплексов на главной странице')
-    in_top_five_list = models.BooleanField(default=False, verbose_name='Входит в Топ-5 косплексов (добавить на слайдер компексов)')
+    big_image = models.ImageField(verbose_name='Изображение для главного слайдера главной странице', null=True, blank=True)
+    small_image = models.ImageField(verbose_name='Изображение для слайдера комплексов на главной странице', null=True, blank=True)
+    in_top_five_list = models.BooleanField(
+        default=False, verbose_name='Входит в Топ-5 косплексов (добавить на слайдер компексов)'
+    )
     on_main_page = models.BooleanField(default=False, verbose_name='Добавить на главный слайдер')
+    slug = models.SlugField(unique=True)
 
     def __str__(self):
         return f"{self.id} | {self.complex_type} | {self.title_min}"
@@ -77,7 +80,9 @@ class AnalyzeComplex(models.Model):
 class SearchGroup(models.Model):
     title = models.CharField(max_length=255, verbose_name='Группа исследований')
     slug = models.SlugField(unique=True)
-    complex_type = models.ForeignKey(ComplexType, verbose_name='Основной тип комплексов анализов', on_delete=models.CASCADE)
+    complex_type = models.ForeignKey(
+        ComplexType, verbose_name='Основной тип комплексов анализов', on_delete=models.CASCADE, null=True, blank=True
+    )
 
     def __str__(self):
         return f"{self.title} ({self.complex_type})"
@@ -85,27 +90,30 @@ class SearchGroup(models.Model):
 
 class Analyze(models.Model):
 
-    complex = models.ForeignKey(AnalyzeComplex, verbose_name="Тип комплекса", on_delete=models.CASCADE)
+    complex = models.ForeignKey(AnalyzeComplex, verbose_name="Тип комплекса", on_delete=models.CASCADE, null=True, blank=True)
     search_group = models.ForeignKey(SearchGroup, verbose_name='', on_delete=models.CASCADE)
     title = models.CharField(max_length=255, verbose_name="Название")
     title_min = models.CharField(max_length=40, verbose_name="Нороткое название")
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name="Цена комплекса")
     gender = models.ForeignKey(GenderType, verbose_name="Зависит от гендера", on_delete=models.CASCADE)
+    description = models.TextField(
+        verbose_name='Описание для стартовой страницы (100-350 символов)', default='Описание появится позже'
+    )
     time = models.CharField(max_length=31, verbose_name='Срок исполнения')
     is_popular = models.BooleanField(default=False, verbose_name="Популярный товар")
-    small_image = models.ImageField(verbose_name='Изображение для уникальных анализов на главной странице')
+    small_image = models.ImageField(verbose_name='Изображение для уникальных анализов на главной странице', null=True, blank=True)
     vendor_code = models.CharField(verbose_name='Артикул', max_length=63)
     is_unic = models.BooleanField(default=False, verbose_name='Уникальный анализ')
+    slug = models.SlugField(unique=True)
 
     def __str__(self):
-        return f"{self.title_min} ({self.search_group})"
+        return f"{self.title_min} ( {self.search_group})"
 
 
 class AnalyseContentCategory(models.Model):
 
     title = models.CharField(verbose_name='Заголовок категории', max_length=127)
     analyze = models.ForeignKey(Analyze, on_delete=models.CASCADE, verbose_name='Анализ')
-    slug = models.SlugField(unique=True)
 
     def __str__(self):
         return f"{self.title} для {self.analyze}"
@@ -114,11 +122,12 @@ class AnalyseContentCategory(models.Model):
 class AnalyzeContentBlock(models.Model):
 
     title = models.CharField(max_length=255, verbose_name='Заголовок блока')
-    analyze_content_category = models.ForeignKey(AnalyseContentCategory, on_delete=models.CASCADE, verbose_name='Категория блока')
+    analyze_content_category = models.ForeignKey(
+        AnalyseContentCategory, on_delete=models.CASCADE, verbose_name='Категория блока'
+    )
     analyze = models.ForeignKey(Analyze, on_delete=models.CASCADE, verbose_name='Для анализа:')
     text = models.TextField(verbose_name='Текст блока')
     pos = models.IntegerField(verbose_name='Позиция вывода на странице (от 1 до 10)')
 
     def __str__(self):
         return f"{self.analyze_content_category}"
-

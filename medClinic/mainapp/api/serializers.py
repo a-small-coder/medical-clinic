@@ -1,6 +1,56 @@
 from rest_framework import serializers
 
-from..models import NavigationCategory, SubNavigationCategory, Analyze, AnalyzeContentBlock, AnalyseContentCategory
+from..models import (
+    NavigationCategory, SubNavigationCategory,
+    Analyze, AnalyzeContentBlock, AnalyseContentCategory,
+    AnalyzeComplex, ComplexType,
+    SearchGroup, GenderType
+    )
+
+
+class AnalyzeComplexSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AnalyzeComplex
+        fields = ['id', 'slug']
+
+
+class SearchGroupSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SearchGroup
+        fields = '__all__'
+
+
+class GenderTypeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GenderType
+        fields = ['id', 'slug']
+
+
+class AnalyzeListSerializer(serializers.ModelSerializer):
+
+    # complex = serializers.SerializerMethodField()
+    # print(AnalyzeComplex.objects.filter(id=1))
+    # gender = serializers.SerializerMethodField()
+    # search_group = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Analyze
+        fields = '__all__'
+
+    # @staticmethod
+    # def get_complex(obj):
+    #     return AnalyzeComplexSerializer(AnalyzeComplex.objects.filter(id=obj.id)).data
+    #
+    # @staticmethod
+    # def get_gender(obj):
+    #     return GenderTypeSerializer(GenderType.objects.filter(id=obj.id)).data
+    #
+    # @staticmethod
+    # def get_search_group(obj):
+    #     return SearchGroupSerializer(SearchGroup.objects.filter(id=obj.id)).data
 
 
 class AnalyzeRetrieveSerializer(serializers.ModelSerializer):
@@ -29,7 +79,7 @@ class AnalyseContentCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AnalyseContentCategory
-        fields = ['title', 'items', 'slug']
+        fields = ['title', 'items']
 
     @staticmethod
     def get_items(obj):
