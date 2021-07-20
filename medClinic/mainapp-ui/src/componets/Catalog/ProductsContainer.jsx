@@ -16,18 +16,24 @@ const Products = (props) => {
     //         products.pageSize = response.data.page_size
     //         products.currentPage = response.data.current_page
     let catagoryNameL = props.history.location.pathname.split("/");
-    let catagoryName =catagoryNameL[catagoryNameL.length - 1]
+    let catagoryName = props.history.location.pathname.slice(1, props.history.location.pathname.length)
     const [Badresponse, setNeedRedirect] = useState(false);
+    console.log(catagoryNameL)
     useEffect(() =>{
         if (Badresponse){
             console.log("hey! it's a bad response")
         }
         
     }, [Badresponse])
+
     const onPageChenged = (pageNumber) => {
         props.setCurrentPage(pageNumber)
+        console.log(`Send response: http://127.0.0.1:8000/api/${catagoryName}?page=${pageNumber}&count=${props.pageSize}`)
             axios.get(`http://127.0.0.1:8000/api/${catagoryName}?page=${pageNumber}&count=${props.pageSize}`).then(response => {
-            props.setProducts(response.data.items)
+                //debugger
+                
+            props.setProducts(response.data.items, response.data.total_count, catagoryName, response.data.page_size)
+
             //debugger;
         }).catch(err => {
             setNeedRedirect(true)
@@ -36,10 +42,12 @@ const Products = (props) => {
     }
 
     useEffect(() => {
-        if ((props.products.items.length === 0) && !Badresponse){
+        if ((props.products.items.length === 0 || props.products.category !== catagoryName) && !Badresponse){
+            console.log(`Send response: http://127.0.0.1:8000/api/${catagoryName}?page=${props.pageNumber}&count=${props.pageSize}`)
             axios.get(`http://127.0.0.1:8000/api/${catagoryName}?page=${props.pageNumber}&count=${props.pageSize}`).then(response => {
                 console.log(response.data)
-                props.setProducts(response.data.items)
+                //debugger
+                props.setProducts(response.data.items, response.data.total_count, catagoryName, response.data.page_size)
                 
                 //debugger;
         }).catch(err => {
@@ -48,10 +56,10 @@ const Products = (props) => {
         })
         }
         
-    }, [])
+    }, [catagoryName])
     let productsElements
     let pagesCount = Math.ceil(props.totalCount / props.pageSize)
-    if (props.products != null){
+    if (props.products.items != null){
         productsElements = props.products.items.map(
             a => <Product key={a.id} title={a.title} time={a.time} number={a.number}
                 slug={a.id} price={a.price} mainSlug={props.products.category} />);
@@ -90,8 +98,8 @@ let mapStateToProps = (state)=>{
 }
 let mapDispatchToProps = (dispatch)=>{
     return{
-        setProducts: (products) => {
-            dispatch(setProductsAC(products));
+        setProducts: (items, totalCount, category, pageSize) => {
+            dispatch(setProductsAC(items, totalCount, category, pageSize));
         },
         setCurrentPage: (totalPage) =>{
             dispatch(setCurrentPageAC(totalPage));

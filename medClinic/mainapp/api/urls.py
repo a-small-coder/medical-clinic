@@ -5,7 +5,8 @@ from .views import NavigationCategoryViewSet, SubNavigationCategoryViewSet, Anal
 router = routers.SimpleRouter()
 router.register('navigation', NavigationCategoryViewSet, basename='navigation')
 router.register('subNavigation', SubNavigationCategoryViewSet, basename='subNavigation')
-router.register('analyze', AnalyseViewSet, basename='analyze')
+router.register('catalog/all-analyzes', AnalyseViewSet, basename='all-analyzes')
+router.register('analyzes', AnalyseViewSet, basename='all-analyzes')
 router.register('analyze-content-category', AnalyseContentCategoryViewSet, basename='analyze-content-category')
 
 router.register('analyze-content-block', AnalyzeContentBlockViewSet, basename='analyze-content-block')

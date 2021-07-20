@@ -1,9 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { getBadCategory, setProductsCategoryAC } from '../../redux/catalog-reducer';
 import CatalogFilter from './Filter/CatalogFilter';
 import ProductsContainer from './ProductsContainer';
+import { connect } from 'react-redux';
 const Catalog = (props) => {
 
 
+    useEffect(() =>{
+        const category = props.history.location.pathname.slice(1, props.history.location.pathname.length)
+        if (props.category !== category && props.category !== getBadCategory()){
+            props.setProductsCategory(props.category)
+        }
+    }, [props])
 
     return (
         <section className="page__catalog catalog">
@@ -20,4 +28,19 @@ const Catalog = (props) => {
     );
 }
 
-export default Catalog;
+let mapStateToProps = (state)=>{
+    //debugger;
+    return {
+        category: state.catalog.products.category
+    }
+}
+let mapDispatchToProps = (dispatch)=>{
+    return{
+        setProductsCategory: (category) => {
+            dispatch(setProductsCategoryAC(category));
+        },
+    }
+}
+const CatalogContainer = connect(mapStateToProps, mapDispatchToProps)(Catalog);
+
+export default CatalogContainer;

@@ -3,14 +3,15 @@ const ACTIVATE_CHECKBOX = "ACTIVATE_CHECKBOX";
 const DISACTIVATE_CHECKBOX = "DISACTIVATE_CHECKBOX";
 const CHANGE_FILTER_POPUP_SHOW_STATE = "CHANGE_FILTER_POPUP_SHOW_STATE"
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
-
+const SET_PRODUCTS_CATEGORY = "SET_PRODUCTS_CATEGORY";
+const BAD_CATEGORY = "BAD_CATEGORY";
 
 let initialState = {
     products: {
         totalCount: 8,
         currentPage: 1,
         pageSize: 4,
-        category: "somethingbadlink",
+        category: BAD_CATEGORY,
         title: "Все анализы",
         items: []
     },
@@ -55,8 +56,18 @@ const catalogReducer = (state = initialState, action) =>{
         ...state};
     switch (action.type){
         case SET_PRODUCTS: {
-            stateCopy.products = {...state.products, items: action.products}
+            stateCopy.products = {
+                ...state.products, 
+                items: action.items, 
+                totalCount: action.totalCount,
+                pageSize: action.pageSize,
+                category: action.category
+            }
             return stateCopy;
+        }
+        case SET_PRODUCTS_CATEGORY:{
+            stateCopy.products = {...state.products, category: action.category}
+            return stateCopy
         }
         case ACTIVATE_CHECKBOX: {
             stateCopy.filter = {...state.filter};
@@ -106,7 +117,9 @@ const catalogReducer = (state = initialState, action) =>{
             return state;
     }
 }
-export const setProductsAC = (products) =>({type: SET_PRODUCTS, products: products});
+export const getBadCategory = () =>(BAD_CATEGORY)
+export const setProductsAC = (items, totalCount, category, pageSize) =>({type: SET_PRODUCTS, items, totalCount, category, pageSize});
+export const setProductsCategoryAC = (category) => ({type: SET_PRODUCTS_CATEGORY, category})
 export const activateCheckBoxAC = (categorySlug, itemSlug) =>({type: ACTIVATE_CHECKBOX, categorySlug: categorySlug, itemSlug: itemSlug});
 export const disactiveteCheckBoxAC = (categorySlug, itemSlug) =>({type: DISACTIVATE_CHECKBOX, categorySlug: categorySlug, itemSlug: itemSlug});
 export const showHiddenPopupAC = (current_category) => ({type: CHANGE_FILTER_POPUP_SHOW_STATE, current_category: current_category});

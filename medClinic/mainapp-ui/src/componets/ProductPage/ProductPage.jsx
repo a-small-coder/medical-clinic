@@ -17,6 +17,7 @@ const ProductPage = (props) => {
     console.log(props)
     let productNameL = props.history.location.pathname.split("/");
     let productName = Number(productNameL[productNameL.length - 1])
+    let productLink = props.history.location.pathname.slice(1, props.history.location.pathname.length)
     let isfalseProduct = !(productName === props.product.id)
     const [Badresponse, setNeedRender] = useState(false);
     useEffect(() =>{
@@ -26,7 +27,7 @@ const ProductPage = (props) => {
         
     }, [Badresponse])
     if (isfalseProduct && !Badresponse){
-        axios.get(`http://127.0.0.1:8000/api/analyze/${productName}/`).then(response => {
+        axios.get(`http://127.0.0.1:8000/api/${productLink}`).then(response => {
             let product = response.data
             for (let i=0; i < product.content.length; i++){
                 if (i === 0){
@@ -73,7 +74,8 @@ const ProductPage = (props) => {
 
 let mapStateToProps = (state)=>{
     return {
-        product: state.productPage.product
+        product: state.productPage.product,
+        productCategoryPath: state.catalog.products.category
     }
 }
 let mapDispatchToProps = (dispatch)=>{

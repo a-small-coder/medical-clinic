@@ -15,9 +15,10 @@ function App(props) {
         <ScrollToTop/>
       	<Header/>
         <Switch>
-        <Redirect from={"/analyzes"} to={"/analyze"} ></Redirect>
-        <Route path="/analyze" component={Catalog}/>
-        <Route  path="/product/" component={ProductPage}/> 
+        <Redirect exact from={"/catalog"} to={"catalog/all-analyzes"} ></Redirect>
+        {/* <Redirect from={"/analyzes/analyzes/all-analyzes/<:pk>"} to={"analyze/<:pk>"} ></Redirect> */}
+        <Route exact path="/catalog/:category" component={Catalog}/>
+        <Route exact path="/catalog/:category/:id" component={ProductPage}/> 
         {/* <Route exact path="/home"component={MainPage}/> */}
         <Route exact path="/" component={MainPage}/>
         <Route component={InWork}/>
