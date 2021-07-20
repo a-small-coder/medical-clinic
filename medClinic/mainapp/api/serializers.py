@@ -4,20 +4,9 @@ from..models import (
     NavigationCategory, SubNavigationCategory,
     Analyze, AnalyzeContentBlock, AnalyseContentCategory,
     AnalyzeComplex, ComplexType,
-    SearchGroup, GenderType
+    SearchGroup, GenderType,
+    Cart, CartAnalyze, Customer
     )
-
-
-class AnalyzeComplexSerializer(serializers.ModelSerializer):
-    included_analyzes = serializers.SerializerMethodField()
-
-    class Meta:
-        model = AnalyzeComplex
-        fields = '__all__'
-
-    @staticmethod
-    def get_included_analyzes(obj):
-        return AnalyzeListSerializer(Analyze.objects.filter(complex=obj), many=True).data
 
 
 class SearchGroupSerializer(serializers.ModelSerializer):
@@ -34,12 +23,40 @@ class GenderTypeSerializer(serializers.ModelSerializer):
         fields = ['id', 'slug']
 
 
+class ComplexTypeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ComplexType
+        fields = '__all__'
+
+
+class AnalyzeComplexSerializer(serializers.ModelSerializer):
+    included_analyzes = serializers.SerializerMethodField()
+    gender = GenderTypeSerializer()
+    complex_type = ComplexTypeSerializer()
+
+    class Meta:
+        model = AnalyzeComplex
+        fields = '__all__'
+
+    @staticmethod
+    def get_included_analyzes(obj):
+        return AnalyzeListSerializer(Analyze.objects.filter(complex=obj), many=True).data
+
+
+class AnalyzeComplexForeignSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AnalyzeComplex
+        fields = '__all__'
+
+
 class AnalyzeListSerializer(serializers.ModelSerializer):
 
-    # complex = serializers.SerializerMethodField()
+    complex = AnalyzeComplexForeignSerializer()
     # print(AnalyzeComplex.objects.filter(id=1))
-    # gender = serializers.SerializerMethodField()
-    # search_group = serializers.SerializerMethodField()
+    gender = GenderTypeSerializer()
+    search_group = SearchGroupSerializer()
 
     class Meta:
         model = Analyze
@@ -138,3 +155,37 @@ class SubNavigationCategoryRetrieveSerializer(serializers.ModelSerializer):
         model = SubNavigationCategory
         fields = '__all__'
 
+
+class CartProductSerializer(serializers.ModelSerializer):
+
+    analyze = AnalyzeSerializer()
+
+    class Meta:
+        model = CartAnalyze
+        fields = ['id', 'product', 'qty', 'final_price']
+
+
+class CustomerSerializer(serializers.ModelSerializer):
+
+    user = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Customer
+        fields = '__all__'
+
+    @staticmethod
+    def get_user(obj):
+        first_name, last_name = obj.user.first_name, obj.user.last_name
+        if not (first_name and last_name):
+            return obj.user.username
+        return ' '.join([first_name, last_name])
+
+
+class CartSerializer(serializers.ModelSerializer):
+
+    products = CartProductSerializer(many=True)
+    owner = CustomerSerializer()
+
+    class Meta:
+        model = Cart
+        fields = '__all__'

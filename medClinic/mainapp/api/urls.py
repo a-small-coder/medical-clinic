@@ -7,7 +7,8 @@ from .views import (
     AnalyseContentCategoryViewSet,
     AnalyzeContentBlockViewSet,
     UnicAnalyseViewSet,
-    ComplexAnalyzesViewSet
+    ComplexAnalyzesViewSet,
+    CartViewSet
     )
 
 router = routers.SimpleRouter()
@@ -18,7 +19,7 @@ router.register('catalog/unic-analyzes', UnicAnalyseViewSet, basename='unic-anal
 router.register('catalog/complex-analyzes', ComplexAnalyzesViewSet, basename='all-analyzes')
 router.register('analyzes', AnalyseViewSet, basename='all-analyzes')
 router.register('analyze-content-category', AnalyseContentCategoryViewSet, basename='analyze-content-category')
-
+router.register('cart', CartViewSet, basename='cart')
 router.register('analyze-content-block', AnalyzeContentBlockViewSet, basename='analyze-content-block')
 
 urlpatterns = []

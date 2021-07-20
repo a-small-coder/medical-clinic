@@ -1,7 +1,12 @@
+import json
+
 from django.db import models
+from django.contrib.auth import get_user_model
 import random
 # Create your models here.
 
+
+User = get_user_model()
 
 class NavigationCategory(models.Model):
 
@@ -47,6 +52,10 @@ class ComplexType(models.Model):
     def __str__(self):
         return self.complex_type
 
+    @property
+    def products(self):
+        return json.dumps((SearchGroup.objects.filter(complex_type=self).values()))
+
 
 class GenderType(models.Model):
     gender = models.CharField(max_length=31, verbose_name="Гендер")
@@ -76,6 +85,13 @@ class AnalyzeComplex(models.Model):
     def __str__(self):
         return f"{self.id} | {self.complex_type} | {self.title_min}"
 
+    def save(self, *args, **kwargs):
+        if self.id:
+            print(Analyze.objects.filter(complex=self))
+            self.price = sum([cproduct.price for cproduct in Analyze.objects.filter(complex=self)])
+        super().save(*args, **kwargs)
+
+
 
 class SearchGroup(models.Model):
     title = models.CharField(max_length=255, verbose_name='Группа исследований')
@@ -86,6 +102,8 @@ class SearchGroup(models.Model):
 
     def __str__(self):
         return f"{self.title} ({self.complex_type})"
+
+
 
 
 class Analyze(models.Model):
@@ -108,6 +126,56 @@ class Analyze(models.Model):
 
     def __str__(self):
         return f"{self.title_min} ( {self.search_group})"
+
+
+class CartAnalyze(models.Model):
+    user = models.ForeignKey(
+        'Customer', verbose_name='Покупатель', on_delete=models.CASCADE)
+    cart = models.ForeignKey(
+        'Cart', on_delete=models.CASCADE,
+        verbose_name='Корзина', related_name='related_products')
+    qty = models.PositiveIntegerField(default=1, verbose_name='Количество товара')
+    analyze = models.ForeignKey(Analyze, verbose_name='Товар', on_delete=models.CASCADE)
+    final_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Общая цена')
+
+    def __str__(self):
+        return "Анализ: {} (для корзины)".format(self.analyze.tittle)
+
+    def save(self, *args, **kwargs):
+        self.final_price = self.qty * self.analyze.price
+        super().save(*args, **kwargs)
+
+
+class Cart(models.Model):
+
+    owner = models.ForeignKey(
+        'Customer', null=True, verbose_name='Владелец', on_delete=models.CASCADE)
+    products = models.ManyToManyField(CartAnalyze, blank=True, related_name='related_cart')
+    total_products = models.PositiveIntegerField(default=0)
+    final_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Общая цена', default=0)
+    in_order = models.BooleanField(default=False)
+    for_anonymous_user = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.id)
+
+    def save(self, *args, **kwargs):
+        if self.id:
+            self.total_products = self.products.count()
+            self.final_price = sum([cproduct.final_price for cproduct in self.products.all()])
+        super().save(*args, **kwargs)
+
+
+class Customer(models.Model):
+
+    user = models.OneToOneField(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    phone = models.CharField(max_length=20, verbose_name='Номер', null=True, blank=True)
+    address = models.CharField(max_length=255, verbose_name='Адрес', null=True, blank=True)
+
+    def __str__(self):
+        if not (self.user.first_name and self.user.last_name):
+            return self.user.username
+        return "Покупатель {} {}".format(self.user.first_name, self.user.last_name)
 
 
 class AnalyseContentCategory(models.Model):

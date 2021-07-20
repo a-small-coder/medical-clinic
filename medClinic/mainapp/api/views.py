@@ -1,7 +1,9 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, response, status
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
+from rest_framework.decorators import action
 from collections import OrderedDict
+from django.shortcuts import get_object_or_404
 from .serializers import (
     NavigationCategorySerializer,
     SubNavigationCategorySerializer,
@@ -9,16 +11,52 @@ from .serializers import (
     NavigationCategoryDetailSerializer,
     AnalyzeRetrieveSerializer, AnalyzeSerializer,
     AnalyseContentCategorySerializer, AnalyzeContentBlockSerializer,
-    AnalyzeListSerializer, AnalyzeComplexSerializer, AnalyzeComplex
+    AnalyzeListSerializer, AnalyzeComplexSerializer, AnalyzeComplex,
+    CustomerSerializer, CartSerializer, CartProductSerializer
     )
-from ..models import NavigationCategory, SubNavigationCategory, Analyze, AnalyseContentCategory, AnalyzeContentBlock
+from ..models import (
+    NavigationCategory,
+    SubNavigationCategory,
+    Analyze,
+    AnalyseContentCategory,
+    AnalyzeContentBlock,
+    Cart, CartAnalyze,
+    Customer
+)
+
+
+class CartViewSet(viewsets.ModelViewSet):
+
+    serializer_class = CartSerializer
+    queryset = Cart.objects.all()
+
+    @staticmethod
+    def get_cart(user):
+        if user.is_authenticated:
+            return Cart.objects.filter(owner=user.customer, for_anonymous_user=False).first()
+        return  Cart.objects.filter(for_anonymous_user=True).first()
+
+    @staticmethod
+    def _get_or_create_cart_product(customer: Customer, cart: Cart, analyze: Analyze):
+        cart_product, created = CartAnalyze.objects.get_or_create(
+            user=customer,
+            analyze=analyze,
+            cart=cart
+        )
+        return cart_product, created
+
+    @action(methods=['get'], detail=False)
+    def current_customer_cart(self, *args, **kwargs):
+        cart = self.get_cart(self.request.user)
+        cart_serializer = CartSerializer(cart)
+        return response.Response(cart_serializer.data)
 
 
 class CatalogPagination(PageNumberPagination):
 
-    page_size = 1
+    page_size = 4
     page_size_param = 'page_size'
-    max_page_size = 10
+    max_page_size = 50
 
     def get_paginated_response(self, data):
         return Response(OrderedDict([
