@@ -12,7 +12,7 @@ class AnalyzeComplexSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AnalyzeComplex
-        fields = ['id', 'slug']
+        fields = '__all__'
 
 
 class SearchGroupSerializer(serializers.ModelSerializer):

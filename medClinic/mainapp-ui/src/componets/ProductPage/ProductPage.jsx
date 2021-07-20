@@ -15,6 +15,7 @@ const ProductPage = (props) => {
     //     console.log(history.location.pathname)
     // }, [history]);
     console.log(props)
+    console.log("hey!, i'm render!")
     let productNameL = props.history.location.pathname.split("/");
     let productName = Number(productNameL[productNameL.length - 1])
     let productLink = props.history.location.pathname.slice(1, props.history.location.pathname.length)
@@ -53,7 +54,7 @@ const ProductPage = (props) => {
     }
     return Badresponse ? (
         <Redirect to={"/page-in-work"}/>
-    ) : (
+    ) : props.product.content != null ?(
         
             <section className="page__product analyze-product">
                 <div className="analyze-product__container _container">
@@ -61,7 +62,7 @@ const ProductPage = (props) => {
                         <h1 className="analyze-product__title _title"><span>{props.product.title}</span></h1>
                         <div className="analyze-product__content">
                             <div className="analyze-product__main product-main">
-                                {props.product.content != null ? <ProductMain switchProductActiveContent={props.switchProductActiveContent} product={props.product} /> : ""}
+                                <ProductMain switchProductActiveContent={props.switchProductActiveContent} product={props.product} />
 
                             </div>
                             <ProductInfo product={props.product} />
@@ -69,7 +70,19 @@ const ProductPage = (props) => {
                     </div>
                 </div>
             </section>
-    );
+    ) : (
+        <section className="page__product analyze-product">
+                <div className="analyze-product__container _container">
+                    <div className="analyze-product__body">
+                        <h1 className="analyze-product__title _title"><span>{props.product.title}</span></h1>
+                        <div className="analyze-product__content">
+                            Looading...
+                        </div>
+                    </div>
+                </div>
+            </section>
+    )
+    ;
 }
 
 let mapStateToProps = (state)=>{

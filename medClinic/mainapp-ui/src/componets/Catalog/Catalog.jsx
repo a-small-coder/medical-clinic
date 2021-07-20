@@ -5,13 +5,13 @@ import ProductsContainer from './ProductsContainer';
 import { connect } from 'react-redux';
 const Catalog = (props) => {
 
-
+    const category = props.history.location.pathname.slice(1, props.history.location.pathname.length)
     useEffect(() =>{
-        const category = props.history.location.pathname.slice(1, props.history.location.pathname.length)
+        
         if (props.category !== category && props.category !== getBadCategory()){
-            props.setProductsCategory(props.category)
         }
-    }, [props])
+    }, [category, props.category])
+    
 
     return (
         <section className="page__catalog catalog">
@@ -20,7 +20,7 @@ const Catalog = (props) => {
                     <h1 className="catalog__title _title"><span>Catalog</span></h1>
                     <div className="catalog__content">
                         <CatalogFilter/>
-                        <ProductsContainer history={props.history}/>
+                        <ProductsContainer history={props.history} category={category}/>
                     </div>
                 </div>
             </div>

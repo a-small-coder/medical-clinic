@@ -9,7 +9,7 @@ from .serializers import (
     NavigationCategoryDetailSerializer,
     AnalyzeRetrieveSerializer, AnalyzeSerializer,
     AnalyseContentCategorySerializer, AnalyzeContentBlockSerializer,
-    AnalyzeListSerializer
+    AnalyzeListSerializer, AnalyzeComplexSerializer, AnalyzeComplex
     )
 from ..models import NavigationCategory, SubNavigationCategory, Analyze, AnalyseContentCategory, AnalyzeContentBlock
 
@@ -79,6 +79,12 @@ class AnalyseViewSet(viewsets.ModelViewSet):
             self.action,
             self.serializer_class
         )
+
+
+class ComplexAnalyzesViewSet(viewsets.ModelViewSet):
+    queryset = AnalyzeComplex.objects.all()
+    serializer_class = AnalyzeComplexSerializer
+    pagination_class = CatalogPagination
 
 
 class UnicAnalyseViewSet(viewsets.ModelViewSet):

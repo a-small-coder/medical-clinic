@@ -36,8 +36,13 @@ const Products = (props) => {
 
             //debugger;
         }).catch(err => {
-            setNeedRedirect(true)
             console.log(err)
+            if (err.status === 404 && props.pageNumber > 1){
+                props.setProducts([], 1, catagoryName, props.products.page_size)
+            }else{
+                setNeedRedirect(true)
+                
+            }
         })
     }
 
@@ -48,15 +53,18 @@ const Products = (props) => {
                 console.log(response.data)
                 //debugger
                 props.setProducts(response.data.items, response.data.total_count, catagoryName, response.data.page_size)
-                
-                //debugger;
         }).catch(err => {
-            setNeedRedirect(true)
-            console.log(err)
+            if (err.response.status === 404 && props.pageNumber > 1){
+                props.setCurrentPage(1) // try to get a first page
+            }else{
+                setNeedRedirect(true)
+                console.log(err)
+            }
+            
         })
         }
         
-    }, [catagoryName])
+    })
     let productsElements
     let pagesCount = Math.ceil(props.totalCount / props.pageSize)
     if (props.products.items != null){
