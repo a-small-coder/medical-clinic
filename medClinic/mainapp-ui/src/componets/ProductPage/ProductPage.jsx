@@ -4,6 +4,7 @@ import ProductInfo from './ProductInfo/ProductInfo';
 import { connect } from 'react-redux';
 import {setProductAC, switchProductActiveContentAC } from '../../redux/product-reducer';
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+import IncludeProducts from './InculeProducts';
 import * as axios from 'axios'
 
 const ProductPage = (props) => {
@@ -30,16 +31,22 @@ const ProductPage = (props) => {
     if (isfalseProduct && !Badresponse){
         axios.get(`http://127.0.0.1:8000/api/${productLink}`).then(response => {
             let product = response.data
-            for (let i=0; i < product.content.length; i++){
-                if (i === 0){
-                    product.content[i].active_block = true
-                }
-                else{
-                    product.content[i].active_block = false
+            let isAcomplex = product.complex_type != null
+            if (!isAcomplex){
+                for (let i=0; i < product.content.length; i++){
+                    if (i === 0){
+                        product.content[i].active_block = true
+                    }
+                    else{
+                        product.content[i].active_block = false
+                    }
                 }
             }
+            else{
+                product.content = []
+            }
             console.log(product)
-            props.setProduct(product)
+            props.setProduct(product, isAcomplex)
         }).catch(err => { 
             setNeedRender(true)
             console.log(err)
@@ -62,8 +69,9 @@ const ProductPage = (props) => {
                         <h1 className="analyze-product__title _title"><span>{props.product.title}</span></h1>
                         <div className="analyze-product__content">
                             <div className="analyze-product__main product-main">
+                                
                                 <ProductMain switchProductActiveContent={props.switchProductActiveContent} product={props.product} />
-
+                                {props.product.isAcomplex ? <IncludeProducts products={props.product.included_analyzes}/> : ""}
                             </div>
                             <ProductInfo product={props.product} />
                         </div>
@@ -96,8 +104,8 @@ let mapDispatchToProps = (dispatch)=>{
         switchProductActiveContent: (activeContentSlug) =>{
             dispatch(switchProductActiveContentAC(activeContentSlug))
         },
-        setProduct: (product) =>{
-            dispatch(setProductAC(product))
+        setProduct: (product, isAcomplex) =>{
+            dispatch(setProductAC(product, isAcomplex))
         }
 
     }

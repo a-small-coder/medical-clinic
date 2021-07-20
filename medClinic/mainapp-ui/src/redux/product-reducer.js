@@ -24,6 +24,7 @@ const productReducer = (state = initialState, action) =>{
         }
         case SET_PRODUCT:{
             stateCopy.product = action.product
+            stateCopy.product.isAcomplex = action.isAcomplex
             return stateCopy
         }
         default:
@@ -31,5 +32,5 @@ const productReducer = (state = initialState, action) =>{
     }
 }
 export const switchProductActiveContentAC = (activeContentSlug) =>({type: SWITCH_PRODUCT_ACTIVE_CONTENT, activeContentSlug: activeContentSlug});
-export const setProductAC = (product) =>({type: SET_PRODUCT, product: product});
+export const setProductAC = (product, isAcomplex) =>({type: SET_PRODUCT, product, isAcomplex});
 export default productReducer;

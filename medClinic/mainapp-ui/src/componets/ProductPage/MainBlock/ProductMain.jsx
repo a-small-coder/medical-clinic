@@ -16,9 +16,17 @@ const ProductMain = (props) => {
 
         descpitionsElements = contentBlock.items.map(i => <Description key={i.pos} title={i.title} text={i.text}/>)
     }
-    return (
-        isMobile ? <div className="product-main__menu menu-product"><ProductForMobile /></div> :
-        <div className="product-main__menu menu-product">{props.product.content.length > 0 ? <ProductForPC content={props.product.content} switchProductActiveContent={props.switchProductActiveContent}/> : ""} {descpitionsElements}</div>
+    return props.product.content.length === 0 ? (
+        <div className="product-main__menu menu-product">
+            <Description title={"Упс..."} text={"К сожалению у данного товара пока ещё нет блока с описанием"} />
+        </div>
+        
+    ) : (
+        isMobile ?
+            <div className="product-main__menu menu-product"><ProductForMobile /></div> :
+            <div className="product-main__menu menu-product">{props.product.content.length > 0 ?
+                <ProductForPC content={props.product.content} switchProductActiveContent={props.switchProductActiveContent} /> :
+                ""} {descpitionsElements}</div>
     );
 
     

@@ -7,7 +7,7 @@ const Product = (props) => {
 
     return (
         <div className="analyze-section__item analyze-item">
-            <Link to={props.mainSlug.split('/')[1] + `/${props.slug}`} replace  className="analyze-item__title">{props.title}</Link>
+            <Link to={props.mainSlug + `/${props.slug}`} replace  className="analyze-item__title">{props.title}</Link>
             <div className="analyze-item__specs">
                 <div className="analyze-item__spec">
                     <div className="analyze-spec__title">Арт.</div>

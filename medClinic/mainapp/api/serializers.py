@@ -9,10 +9,15 @@ from..models import (
 
 
 class AnalyzeComplexSerializer(serializers.ModelSerializer):
+    included_analyzes = serializers.SerializerMethodField()
 
     class Meta:
         model = AnalyzeComplex
         fields = '__all__'
+
+    @staticmethod
+    def get_included_analyzes(obj):
+        return AnalyzeListSerializer(Analyze.objects.filter(complex=obj), many=True).data
 
 
 class SearchGroupSerializer(serializers.ModelSerializer):
@@ -59,7 +64,7 @@ class AnalyzeRetrieveSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Analyze
-        fields = ['id', 'title', 'title_min', 'price', 'time', 'is_popular', 'vendor_code', 'is_unic', 'content']
+        fields = ['id', 'title', 'title_min', 'price', 'time', 'is_popular', 'vendor_code', 'is_unic', 'content', 'complex']
 
     @staticmethod
     def get_content(obj):
