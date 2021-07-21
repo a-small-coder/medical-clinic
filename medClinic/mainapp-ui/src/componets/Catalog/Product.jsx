@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Product = (props) => {
 
-    console.log(props.mainSlug + `/${props.slug}`)
+    //console.log(props.mainSlug + `/${props.slug}`)
 
     return (
         <div className="analyze-section__item analyze-item">

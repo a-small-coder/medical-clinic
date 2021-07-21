@@ -20,5 +20,10 @@ from mainapp.views import index
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
-    path('api/', include('mainapp.api.urls'))
+    path('api/', include('mainapp.api.urls')),
+    path('/catalog', index),
+    path('/catalog/all-analyzes', index),
+    path('/catalog/complex-analyzes', index),
+    path('/catalog/unic-analyzes', index),
+    path('/', index),
 ]

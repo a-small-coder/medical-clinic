@@ -198,4 +198,4 @@ class AnalyzeContentBlock(models.Model):
     pos = models.IntegerField(verbose_name='Позиция вывода на странице (от 1 до 10)')
 
     def __str__(self):
-        return f"{self.analyze_content_category}"
+        return f"{self.title} | {self.analyze_content_category}"
