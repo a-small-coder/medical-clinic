@@ -76,11 +76,15 @@ const Products = (props) => {
     
     //console.log(productsElements)
     //debugger;
+    let titleKey = props.products.category.substring(1) + '/'
+    
     return Badresponse ? (
         <Redirect to={"/page-in-work"} />
     ) : props.products != null ? (
         <div className="analyze-section">
-            <h2 className="analyze-section__title _title">{props.products.title}</h2>
+            <h2 className="analyze-section__title _title">{props.products.title[titleKey]}</h2>
+            {console.log(titleKey+'/')}
+            {console.log(props.products.title[titleKey])}
             <div className="analyze-section__items">
                 {productsElements}
             </div>

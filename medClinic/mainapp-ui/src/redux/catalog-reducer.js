@@ -12,7 +12,11 @@ let initialState = {
         currentPage: 1,
         pageSize: 4,
         category: BAD_CATEGORY,
-        title: "Все анализы",
+        title: {
+            "catalog/unic-analyzes/" : "Уникальные анализы",
+            "catalog/complex-analyzes/" : "Комплексы анализов",
+            "catalog/all-analyzes/" : "Все анализы"
+        },
         items: []
     },
     filter: {

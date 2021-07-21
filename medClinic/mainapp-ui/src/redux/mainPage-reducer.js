@@ -5,6 +5,7 @@ const SET_STOCKS = "SET_STOCKS";
 const SET_ABOUT_US = "SET_ABOUT_US";
 const SET_ANALYZES_COMPLEXES = "SET_ANALYZES_COMPLEXES";
 const SET_TOP_SERVISES_SLIDES = "SET_TOP_SERVISES_SLIDES";
+const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 
 
 let initialState = {
@@ -17,35 +18,11 @@ let initialState = {
         slides: [
             {
                 id: 1, 
-                title: "Экспресс-тест на COVID-19",
-                text: "Результат предоставляется через 15 минут. Исследование представляет собой функциональный аналог ПЦР-тестов",
+                title_min: "Экспресс-тест на COVID-19",
+                description: "Результат предоставляется через 15 минут. Исследование представляет собой функциональный аналог ПЦР-тестов",
                 price: "---",
-                img: null,
-                link: "/catalog"
-            },
-            {
-                id: 2, 
-                title: "Вакцинация против COVID-19",
-                text: "Решили вакцинироваться? Приходите в «TedMed» и сделайте прививку препаратом «Спутник V»",
-                price: "---",
-                img: null,
-                link: "/catalog"
-            },
-            {
-                id: 3, 
-                title: "Расширенное биохимическое обследование",
-                text: "помогает сделать первичную оценку состояния организма, определить ход дальнейшего обследования",
-                price: "---",
-                img: null,
-                link: "/product/1"
-            },
-            {
-                id: 4, 
-                title: "Онкодиагностика по программе ОМС",
-                text: "Как снизить риск развития рака? Какие исследования необходимы и зачем? Как убедиться в точности диагноза? Эффективно и безопасно ли лечение?",
-                price: "---",
-                img: null,
-                link: "/catalog"
+                big_image: null,
+                slug: "/catalog"
             }
         ]
         
@@ -57,9 +34,7 @@ let initialState = {
         {id: 4, title: "Поддержка 24/7", text: "Всегда на связи", img: null},
     ],
     analiyzesComplex : [
-        {id: 1, title: "Биохимия крови", text: "кровь", img: null, link: "/product/1"},
-        {id: 2, title: "Диагностика сахарного диабета", text: "диабет", img: null, link: "/product/1"},
-        {id: 3, title: "Ежегодное обследование", text: "проверь себя", img: null, link: "/product/1"},
+        {id: 1, title_min: "Биохимия крови", description: "кровь", small_image: null, slug: "/product/1"},
     ],
     stocks : [
         {id: 1, slogan: "Путешествуй уверенно с TedMed", text: "Анализы ПЕРЕД и ПОСЛЕ вакцинации от COVID-19 Вакцинация против COVID-19", img: null, link: ""},
@@ -81,6 +56,7 @@ let initialState = {
     products: {
         totalCount: 8,
         pageSize: 4,
+        current_page: 1,
         category : "unic-analyzes",
         items: [
             {
@@ -193,19 +169,23 @@ const mainPageReducer = (state = initialState, action) =>{
         case SET_PRODUCTS: {
             stateCopy.products = {
                 ...state.products, 
-                items: action.items, 
+                // items: state.products.items.push(action.items), 
+                items : action.items,
                 totalCount: action.totalCount,
                 pageSize: action.pageSize,
-                category: action.category
             }
             return stateCopy;
+        }
+        case SET_CURRENT_PAGE: {
+            stateCopy.products = {...state.products, current_page: action.current_page}
+            return stateCopy
         }
         case SET_TOP_SERVISES: {
             stateCopy.topSevices = {...state.topSevices, content: action.content, slides: action.slides}
             return stateCopy
         }
         case SET_TOP_SERVISES_SLIDES: {
-            stateCopy.topSevices = {...state.topSevices, slides: action.slides}
+            stateCopy.topSevices = {...state.topSevices, slides: action.slides.map(a => (a))}
             return stateCopy
         }
         case SET_ACHIVMENTS_SMALL: {
@@ -225,11 +205,12 @@ const mainPageReducer = (state = initialState, action) =>{
             return state;
     }
 }
-export const setProductsAC = (items, totalCount, category, pageSize) =>({type: SET_PRODUCTS, items, totalCount, category, pageSize});
+export const setProductsAC = (items, totalCount, pageSize) =>({type: SET_PRODUCTS, items, totalCount, pageSize});
 export const setTopServisesAC = (content, slides) =>({type: SET_TOP_SERVISES, content, slides});
 export const setTopServisesSlidesAC = (slides) =>({type: SET_TOP_SERVISES_SLIDES, slides});
 export const setAchivmentsSmallAC = (achivments) =>({type: SET_ACHIVMENTS_SMALL, achivments});
 export const setStocksAC = (stocks) =>({type: SET_STOCKS, stocks});
 export const setAboutUsAC = (aboutUs) =>({type: SET_ABOUT_US, aboutUs});
 export const setAnalyzesComplexesAC = (analiyzesComplex) =>({type: SET_ANALYZES_COMPLEXES, analiyzesComplex});
+export const setCurrentPageUnicProductsAC = (current_page) =>({type: SET_ABOUT_US, current_page});
 export default mainPageReducer;

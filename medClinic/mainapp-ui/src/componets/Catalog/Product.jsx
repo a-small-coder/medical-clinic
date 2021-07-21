@@ -11,7 +11,7 @@ const Product = (props) => {
             <div className="analyze-item__specs">
                 <div className="analyze-item__spec">
                     <div className="analyze-spec__title">Арт.</div>
-                    <div className="analyze-spec__text">{props.number}</div>
+                    <div className="analyze-spec__text">{props.vendor_code}</div>
                 </div>
                 <div className="analyze-item__spec">
                     <div className="analyze-spec__title">Срок:</div>
