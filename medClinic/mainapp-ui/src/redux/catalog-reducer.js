@@ -117,7 +117,7 @@ const catalogReducer = (state = initialState, action) =>{
             return state;
     }
 }
-export const getBadCategory = () =>(BAD_CATEGORY)
+export const getBadCategory = () =>({type: BAD_CATEGORY})
 export const setProductsAC = (items, totalCount, category, pageSize) =>({type: SET_PRODUCTS, items, totalCount, category, pageSize});
 export const setProductsCategoryAC = (category) => ({type: SET_PRODUCTS_CATEGORY, category})
 export const activateCheckBoxAC = (categorySlug, itemSlug) =>({type: ACTIVATE_CHECKBOX, categorySlug: categorySlug, itemSlug: itemSlug});
