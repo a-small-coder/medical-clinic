@@ -8,6 +8,7 @@ import random
 
 User = get_user_model()
 
+
 class NavigationCategory(models.Model):
 
     category = models.CharField(max_length=255, verbose_name='Имя категории')
