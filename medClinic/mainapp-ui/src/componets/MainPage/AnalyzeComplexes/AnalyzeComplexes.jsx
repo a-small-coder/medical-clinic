@@ -5,8 +5,12 @@ import Swiper from 'react-id-swiper';
 const AnalyzeComplexes = (props) => {
 
     const sliderRef = React.useRef(null);
-
-    let analyzeEkements = props.analyzes.map(a => <Analyze key={a.id} number={`0 ${a.id}`} title={a.title} text={a.text} img={a.img} link={a.link}/>)
+    if (props.analyzes.length === 0){
+        return <div>Loading...</div>
+    }
+    
+    // debugger
+    let analyzeEkements = props.analyzes.map(a => <Analyze key={a.id} number={`0 ${a.id}`} title={a.title_min} text={a.description} img={a.small_image} link={a.slug}/>)
 
     const goNext = () => {
       if (sliderRef.current && sliderRef.current.swiper) {
@@ -51,6 +55,7 @@ const AnalyzeComplexes = (props) => {
                     <Link to="" className="sub-slider-big__button btn" >Explore More</Link>
                 </div>
                 <div className="sub-slider-big__slider slider-sub-slider-big">
+
                     <Swiper {...params} ref={sliderRef}>
                     {analyzeEkements}
                     </Swiper>

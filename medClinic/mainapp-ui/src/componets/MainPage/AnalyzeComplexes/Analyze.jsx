@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import img from './../../../img/complexes/blood_anl_s.webp';
 const Analyze = (props) => {
     return (
         <div className="swiper-slide">

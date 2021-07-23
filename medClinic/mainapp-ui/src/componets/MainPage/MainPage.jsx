@@ -164,7 +164,6 @@ const MainPage = (props) => {
     }, [Badresponse])
 
     useEffect(() => {
-        if ((props.mainPage.products.items.length === 0) && !Badresponse){
             console.log(`Send response: http://127.0.0.1:8000/api/catalog/unic-analyzes?page=${props.pageNumber}&count=${props.pageSize}`)
             axios.get(`http://127.0.0.1:8000/api/catalog/unic-analyzes?page=${props.pageNumber}&count=${props.pageSize}`).then(response => {
                 console.log(response.data)
@@ -179,11 +178,8 @@ const MainPage = (props) => {
             }
             
         })
-        }
-
-        if ((props.mainPage.topSevices.slides.length === 0) && !Badresponse){
             console.log(`Send response: http://127.0.0.1:8000/api/best-products`)
-            axios.get(`http://127.0.0.1:8000/api/best-products`).then(response => {
+            axios.get(`http://127.0.0.1:8000/api/best-products/`).then(response => {
                 console.log(response.data)
                 // debugger
                 props.setTopServisesSlides(response.data)
@@ -192,16 +188,32 @@ const MainPage = (props) => {
             console.log(err)
             
         })
-        }
+            console.log(`Send response: http://127.0.0.1:8000/api/best-complex-analyzes`)
+            axios.get(`http://127.0.0.1:8000/api/best-complex-analyzes/`).then(response => {
+                console.log(response.data)
+                // debugger
+                props.setAnalyzesComplexes(response.data)
+        }).catch(err => {
+            // debugger
+            setNeedRedirect(true)
+            console.log(err)
+            
+        })
         
     }, [])
 
     return (
         <main className="page">
-             <TopService serviceData={props.mainPage.topSevices}/>
+            {console.log(props.topSevices.slides.length === 0)}
+            {console.log(props.topSevices)}
+            {props.topSevices.slides.length !== 0 ? 
+             <TopService serviceData={props.topSevices}/>:
+             ""}
             <Achivments achivments={achivmentsSmall}/>
             <UnicProducts products={products}/>
-            <AnalyzeComplexes analyzes={analiyzesComplex}/>
+           {props.analiyzesComplex.length !== 0 ?
+            <AnalyzeComplexes analyzes={props.analiyzesComplex}/>: 
+            ""} 
             <Stocks stocks={stocks}/>
             <AboutUs aboutUs={aboutUs}/>
         </main>
@@ -210,6 +222,8 @@ const MainPage = (props) => {
 
 let mapStateToProps = (state)=>{
     return {
+        topSevices: state.mainPage.topSevices,
+        analiyzesComplex: state.mainPage.analiyzesComplex,
         mainPage: state.mainPage,
         pageNumber: state.mainPage.products.current_page,
         pageSize: state.mainPage.products.pageSize

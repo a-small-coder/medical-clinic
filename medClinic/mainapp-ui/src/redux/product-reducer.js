@@ -12,7 +12,7 @@ const productReducer = (state = initialState, action) =>{
         ...state};
     switch (action.type){
         case SWITCH_PRODUCT_ACTIVE_CONTENT: {
-            debugger;
+            // debugger;
             stateCopy.product = {...state.product}
             stateCopy.product.content = state.product.content.map(c => {
                 if (action.activeContentSlug === c.slug){

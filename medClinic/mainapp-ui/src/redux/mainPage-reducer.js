@@ -25,7 +25,6 @@ let initialState = {
         {id: 4, title: "Поддержка 24/7", text: "Всегда на связи", img: null},
     ],
     analiyzesComplex : [
-        {id: 1, title_min: "Биохимия крови", description: "кровь", small_image: null, slug: "/product/1"},
     ],
     stocks : [
         {id: 1, slogan: "Путешествуй уверенно с TedMed", text: "Анализы ПЕРЕД и ПОСЛЕ вакцинации от COVID-19 Вакцинация против COVID-19", img: null, link: ""},
@@ -162,6 +161,15 @@ const mainPageReducer = (state = initialState, action) =>{
     let stateCopy = {
         ...state};
     switch (action.type){
+        case SET_ANALYZES_COMPLEXES: {
+            // debugger
+            stateCopy.analiyzesComplex = action.analiyzesComplex.map(i =>{
+                return {...i}
+            })
+            // stateCopy.analiyzesComplex = action.analiyzesComplex
+            
+            return stateCopy
+        }
         case SET_PRODUCTS: {
             stateCopy.products = {
                 ...state.products, 
