@@ -55,26 +55,18 @@ const MainPage = (props) => {
         const bestProductsUrl = `${urlStart}best-products/`
         const uniqueAnalyzesUrl = `${urlStart}catalog/unic-analyzes?page=${props.pageNumber}&count=${props.pageSize}`
         const bestComplexesUrl = `${urlStart}best-complex-analyzes/`
-        // for best seervices
-        const goodResponceHandlerMainSlider =(data) =>{
-            props.setTopServisesSlides(data)
-        }
+        const aboutUsUrl = `${urlStart}about-us`
         // for unique analyzes
         const mapGoodResponseDataForProducts = (data) =>{
             props.setProducts(data.items, data.total_count, data.page_size)
         }
-        // for complexes
-        const goodResponceHandlerComplexes =(data) =>{
-            props.setAnalyzesComplexes(data)
-        }
         const badResponseHandler =()=>{
             setNeedRedirect(true)
         }
-
-        getApiResponse(bestProductsUrl, goodResponceHandlerMainSlider, badResponseHandler)
+        getApiResponse(bestProductsUrl, props.setTopServisesSlides, badResponseHandler)
         getApiResponse(uniqueAnalyzesUrl, mapGoodResponseDataForProducts, badResponseHandler)
-        getApiResponse(bestComplexesUrl, goodResponceHandlerComplexes, badResponseHandler)
-        
+        getApiResponse(bestComplexesUrl, props.setAnalyzesComplexes, badResponseHandler)
+        getApiResponse(aboutUsUrl, props.setAboutUs, badResponseHandler)
     }, [])
 
     return (
@@ -93,13 +85,17 @@ const MainPage = (props) => {
             <AnalyzeComplexes analyzes={props.analiyzesComplex}/>: 
             ""} 
             <Stocks stocks={stocks}/>
-            <AboutUs aboutUs={aboutUs}/>
+            {props.aboutUs.length !== 0 ?
+            <AboutUs aboutUs={props.aboutUs}/>: 
+            ""} 
+            
         </main>
     );
 }
 
 let mapStateToProps = (state)=>{
     return {
+        aboutUs: state.mainPage.aboutUs,
         topSevices: state.mainPage.topSevices,
         analiyzesComplex: state.mainPage.analiyzesComplex,
         mainPage: state.mainPage,

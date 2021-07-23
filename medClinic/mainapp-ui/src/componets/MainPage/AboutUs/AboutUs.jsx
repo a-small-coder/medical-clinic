@@ -3,7 +3,13 @@ import Item from './Item';
 import Swiper from 'react-id-swiper';
 const AboutUs = (props) => {
 
-    let itemElements = props.aboutUs.map(a => <Item key={a.id} title={a.title} text={a.text} link={a.link}/>);
+    let itemElements = []
+
+    for (let category of props.aboutUs){
+        itemElements.push(category.content_items.map(
+            a => <Item key={a.id} title={a.title} text={a.text} link={category.slug + "/"+ a.slug}/>
+            ))
+    }
 
     const swiperRef = React.useRef(null);
     const prefBtn = React.useRef(null);

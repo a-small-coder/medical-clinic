@@ -25,7 +25,7 @@ const UnicProduct = (props) => {
             <div className="item-product__labels">
                 {labelElements}
             </div>
-            <Link to={props.link} className="item-product__image _ibg" >
+            <Link to={props.slug} className="item-product__image _ibg" >
                 <picture><img src={props.img} alt="" /></picture>
             </Link>
             <div className="item-product__body">

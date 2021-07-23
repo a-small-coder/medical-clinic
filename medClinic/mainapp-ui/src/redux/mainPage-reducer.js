@@ -33,21 +33,7 @@ let initialState = {
         {id: 4, slogan: "Обязательные анализы для детской медкарты 026/У", text: "", img: null, link: ""},
         {id: 5, slogan: "Проверь уровень витамина D", text: "По выгодной цене Бесплатный выез на дом", img: null, link: ""},
     ],
-    aboutUs: [
-        {
-            id: 1,
-            category: "category",
-            slug: "category",
-            category_items : 
-            [
-                {id: 1, title: "О компании", text: "TedMed - крупнейшая частная медицинская компания в России"},
-                {id: 2, title: "История компании", text: "Компания была основана врачом-онкологом Павлом"},
-                {id: 3, title: "Социальная ответственность", text: "«TedMed» придерживается принципов"},
-            ],
-        }
-    ],
-    
-    
+    aboutUs: [],  
     products: {
         totalCount: 8,
         pageSize: 4,
@@ -105,7 +91,9 @@ const mainPageReducer = (state = initialState, action) =>{
             return stateCopy
         }
         case SET_ABOUT_US: {
-            stateCopy.aboutUs = [...state.aboutUs, action.aboutUs.map(a => (a))]
+            stateCopy.aboutUs = action.aboutUs.map(i =>{
+                return {...i}
+            })
             return stateCopy
         }
         default:

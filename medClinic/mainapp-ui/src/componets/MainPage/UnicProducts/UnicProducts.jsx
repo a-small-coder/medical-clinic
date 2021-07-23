@@ -5,7 +5,7 @@ const UnicProducts = (props) => {
     let productElements = props.products.map(
         p => <UnicProduct 
         key={p.id} title={p.title} description={p.description} 
-        img={p.small_image} link={p.link} markers={p.markers}
+        img={p.small_image} slug={p.slug} markers={p.markers}
         />);
     
     return (
