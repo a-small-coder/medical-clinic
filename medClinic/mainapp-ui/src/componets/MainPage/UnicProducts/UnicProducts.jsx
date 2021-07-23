@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import UnicProduct from './UnicProduct';
 const UnicProducts = (props) => {
     let productElements = props.products.map(
@@ -8,6 +7,10 @@ const UnicProducts = (props) => {
         img={p.small_image} slug={p.slug} markers={p.markers}
         />);
     
+    const showMoreClickHandler = () =>{
+        props.onShowMoreClick()
+    }
+
     return (
         <section className="page__products products">
             <div className="products__container _container">
@@ -16,7 +19,9 @@ const UnicProducts = (props) => {
                     {productElements}
                 </div>
                 <div className="products__footer">
-                    <Link to="" className="products__more btn btn_white">Show More</Link>
+                    <button to="" onClick={showMoreClickHandler} 
+                    className={!props.isButtonHidden ? "products__more btn btn_white" : "products__more _disable btn btn_white"}>
+                        Show More</button>
                 </div>
             </div>
         </section>

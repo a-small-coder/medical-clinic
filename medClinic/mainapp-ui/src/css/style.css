@@ -2029,9 +2029,15 @@ body.ie ._ibg img {
   text-align: center;
 }
 
+
 .products__more {
   border: 1px solid #0FC0FC;
   min-width: 245px;
+}
+._disable {
+  border-color:rgba(166, 166, 166, 0.45);
+  color: rgba(166, 166, 166, 0.45);
+  pointer-events: none;
 }
 
 .item-product {

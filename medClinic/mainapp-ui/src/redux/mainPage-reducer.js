@@ -58,7 +58,7 @@ const mainPageReducer = (state = initialState, action) =>{
             stateCopy.products = {
                 ...state.products, 
                 // items: state.products.items.push(action.items), 
-                items : action.items,
+                items : [...state.products.items, ...action.items],
                 totalCount: action.totalCount,
                 pageSize: action.pageSize,
             }
@@ -104,5 +104,5 @@ export const setAchivmentsSmallAC = (achivments) =>({type: SET_ACHIVMENTS_SMALL,
 export const setStocksAC = (stocks) =>({type: SET_STOCKS, stocks});
 export const setAboutUsAC = (aboutUs) =>({type: SET_ABOUT_US, aboutUs});
 export const setAnalyzesComplexesAC = (analiyzesComplex) =>({type: SET_ANALYZES_COMPLEXES, analiyzesComplex});
-export const setCurrentPageUnicProductsAC = (current_page) =>({type: SET_ABOUT_US, current_page});
+export const setCurrentPageUnicProductsAC = (current_page) =>({type: SET_CURRENT_PAGE, current_page});
 export default mainPageReducer;
