@@ -29,6 +29,16 @@ class AnalyzeComplexForeignSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class AnalyzeComplexTopServicesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AnalyzeComplex
+        fields = ['id', 'title_min', 'description', 'price', 'big_image', 'slug', 'small_image']
+
+# ================================================================================
+# ===============================Analyzes=========================================
+# ================================================================================
+
 # analyze all fields with data about complex, gender, search_group
 class AnalyzeListSerializer(serializers.ModelSerializer):
 
