@@ -10,7 +10,7 @@ const AnalyzeComplexes = (props) => {
     }
     
     // debugger
-    let analyzeEkements = props.analyzes.map(a => <Analyze key={a.id} number={`0 ${a.id}`} title={a.title_min} text={a.description} img={a.small_image} link={a.slug}/>)
+    let analyzeEkements = props.analyzes.map(a => <Analyze key={a.id} number={`0 ${a.id}`} title={a.title_min} text={"популярный комплекс"} img={a.small_image} link={a.slug}/>)
 
     const goNext = () => {
       if (sliderRef.current && sliderRef.current.swiper) {

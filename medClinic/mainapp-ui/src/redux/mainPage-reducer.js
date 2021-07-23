@@ -53,105 +53,7 @@ let initialState = {
         pageSize: 4,
         current_page: 1,
         category : "unic-analyzes",
-        items: [
-            {
-                id: 1, 
-                title: "NASBA", 
-                description: "новинка в нашей лаборатории!", 
-                small_image: null, 
-                link: "", 
-                markers: {
-                    count: 1,
-                    items: [
-                        {id: 1, type: "new", label: "new"}
-                    ]
-                },
-            },
-            {
-                id: 2, 
-                title: "(ANA)", 
-                description: "Антитела к ядерным антигенам IgG, 25 антигенов", 
-                img: null, 
-                link: "", 
-                markers: {
-                    count: 1,
-                    items: [
-                        {id: 1, type: "new", label: "new"}
-                    ]
-                }
-            },
-            {
-                id: 3, 
-                title: "ВПЧ-ПАП-тест жидкостный", 
-                description: "", 
-                img: null, 
-                link: "", 
-                markers: {
-                    count: 1,
-                    items: [
-                        {id: 1, type: "sale", label: "-30%"}
-                    ]
-                }
-            },
-            {
-                id: 4, 
-                title: "ДНК HBV", 
-                description: "ультрачувствительное исследование", 
-                img: null, 
-                link: "", 
-                markers: {
-                    count: 0,
-                    items: []
-                }
-            },
-            {
-                id: 5, 
-                title: " Исследование на абровирусные инфекции (Вирус Западного Нила)", 
-                description: "", 
-                img: null, 
-                link: "", 
-                markers: {
-                    count: 0,
-                    items: []
-                }
-            },
-            {
-                id: 6, 
-                title: " Исследование на абровирусные инфекции (Лихорадка Денге)", 
-                description: "", 
-                img: null, 
-                link: "", 
-                markers: {
-                    count: 2,
-                    items: [
-                        {id: 1, type: "new", label: "new"},
-                        {id: 2, type: "sale", label: "-50%"}
-                    ]
-                }
-            },
-            {
-                id: 7, 
-                title: "Клещевые инфекции", 
-                description: "", 
-                img: null, 
-                link: "", 
-                markers: {
-                    count: 0,
-                    items: []
-                }
-            },
-            {
-                id: 8, 
-                title: "Комплексная диагностика ОРВИ", 
-                description: "", 
-                img: null, 
-                link: "", 
-                markers: {
-                    count: 0,
-                    items: []
-                }
-            },
-        ]
+        items: []
 
     }
     
@@ -171,6 +73,7 @@ const mainPageReducer = (state = initialState, action) =>{
             return stateCopy
         }
         case SET_PRODUCTS: {
+            // debugger
             stateCopy.products = {
                 ...state.products, 
                 // items: state.products.items.push(action.items), 

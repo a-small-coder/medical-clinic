@@ -2,9 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import UnicProduct from './UnicProduct';
 const UnicProducts = (props) => {
-    const countProducts = props.products.count;
-    const products = props.products.products.slice(0, countProducts);
-    let productElements = products.map(p => <UnicProduct key={p.id} title={p.title} description={p.description} img={p.img} link={p.link} markers={p.markers}/>);
+    let productElements = props.products.map(
+        p => <UnicProduct 
+        key={p.id} title={p.title} description={p.description} 
+        img={p.small_image} link={p.link} markers={p.markers}
+        />);
     
     return (
         <section className="page__products products">

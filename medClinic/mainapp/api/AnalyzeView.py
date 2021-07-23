@@ -35,7 +35,7 @@ class UnicAnalyseViewSet(viewsets.ModelViewSet):
     pagination_class = CatalogPagination
 
     action_to_serializer = {
-        "list": AnalyzeListSerializer,
+        "list": AnalyzeSerializer,
         "retrieve": AnalyzeRetrieveSerializer
     }
 

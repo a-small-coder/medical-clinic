@@ -2,11 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import img from '../../../img/unic-products/unique_service_corona.webp'
 const UnicProduct = (props) => {
-    const state = props.markers;
     let labelElements
     let stockSize = 0;
-    if (state.count > 0){
-        labelElements = state.items.map(m => {
+    if (props.markers != null && props.markers.length > 0){
+        labelElements = props.markers.items.map(m => {
             if (m.type === "sale"){
                 stockSize = Number(m.label.substring(1, 2)) / 100
             }
@@ -37,7 +36,7 @@ const UnicProduct = (props) => {
                 {props.price != null ? (
                     <div class="item-product__prices">
                         <div class="item-product__price">{props.price}</div>
-                        {state.count > 0 && stockSize > 0 ? (
+                        {props.markers != null && props.markers.length > 0 && stockSize > 0 ? (
                             <div class="item-product__price item-product__price_old">{props.price * stockSize}</div>
                         ) : (
                             ""

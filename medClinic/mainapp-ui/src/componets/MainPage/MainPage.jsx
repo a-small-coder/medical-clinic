@@ -6,13 +6,11 @@ import TopService from './TopService/TopService';
 import Stocks from './Stocks/Stocks';
 import AboutUs from './AboutUs/AboutUs';
 import imgA from '../../img/achivments-small/01.svg';
-import imgComplex from '../../img/complexes/blood_anl_s.jpg';
 import imgS from '../../img/stocks/slide2.jpg';
-import imgUnic from '../../img/unic-products/unique_service_corona.webp';
 import { connect } from 'react-redux';
-import { setCurrentPageAC, setProductsAC } from '../../redux/catalog-reducer';
 import * as axios from 'axios'
-import { setAboutUsAC, setAchivmentsSmallAC, setAnalyzesComplexesAC, setCurrentPageUnicProductsAC, setStocksAC, setTopServisesAC, setTopServisesSlidesAC } from '../../redux/mainPage-reducer';
+import { setProductsAC, setAboutUsAC, setAchivmentsSmallAC, setAnalyzesComplexesAC, setCurrentPageUnicProductsAC, setStocksAC, setTopServisesAC, setTopServisesSlidesAC } from '../../redux/mainPage-reducer';
+import urlStart, { getApiResponse } from '../../api_requests';
 
 const MainPage = (props) => {
 
@@ -23,12 +21,6 @@ const MainPage = (props) => {
         {id: 2, title: "Сертифицированная клиника", text: "Подтвержденный стандарт качества ISO", img: imgA},
         {id: 3, title: "Бесплатный выезд", text: "после заполнения анкеты", img: imgA},
         {id: 4, title: "Поддержка 24/7", text: "Всегда на связи", img: imgA},
-    ]
-
-    let analiyzesComplex = [
-        {id: 1, title: "Биохимия крови", text: "кровь", img: imgComplex, link: "/product/1"},
-        {id: 2, title: "Диагностика сахарного диабета", text: "диабет", img: imgComplex, link: "/product/1"},
-        {id: 3, title: "Ежегодное обследование", text: "проверь себя", img: imgComplex, link: "/product/1"},
     ]
 
     let stocks = [
@@ -50,110 +42,6 @@ const MainPage = (props) => {
         "партнером благотворительных организаций, а также многих региональных спортивных и культурных мероприятий."},
     ]
 
-    let products = {
-        count: 8,
-        products: [
-            {
-                id: 1, 
-                title: "NASBA", 
-                description: "новинка в нашей лаборатории!", 
-                img: imgUnic, 
-                link: "", 
-                markers: {
-                    count: 1,
-                    items: [
-                        {id: 1, type: "new", label: "new"}
-                    ]
-                }
-            },
-            {
-                id: 2, 
-                title: "(ANA)", 
-                description: "Антитела к ядерным антигенам IgG, 25 антигенов", 
-                img: imgUnic, 
-                link: "", 
-                markers: {
-                    count: 1,
-                    items: [
-                        {id: 1, type: "new", label: "new"}
-                    ]
-                }
-            },
-            {
-                id: 3, 
-                title: "ВПЧ-ПАП-тест жидкостный", 
-                description: "", 
-                img: imgUnic, 
-                link: "", 
-                markers: {
-                    count: 1,
-                    items: [
-                        {id: 1, type: "sale", label: "-30%"}
-                    ]
-                }
-            },
-            {
-                id: 4, 
-                title: "ДНК HBV", 
-                description: "ультрачувствительное исследование", 
-                img: imgUnic, 
-                link: "", 
-                markers: {
-                    count: 0,
-                    items: []
-                }
-            },
-            {
-                id: 5, 
-                title: " Исследование на абровирусные инфекции (Вирус Западного Нила)", 
-                description: "", 
-                img: imgUnic, 
-                link: "", 
-                markers: {
-                    count: 0,
-                    items: []
-                }
-            },
-            {
-                id: 6, 
-                title: " Исследование на абровирусные инфекции (Лихорадка Денге)", 
-                description: "", 
-                img: imgUnic, 
-                link: "", 
-                markers: {
-                    count: 2,
-                    items: [
-                        {id: 1, type: "new", label: "new"},
-                        {id: 2, type: "sale", label: "-50%"}
-                    ]
-                }
-            },
-            {
-                id: 7, 
-                title: "Клещевые инфекции", 
-                description: "", 
-                img: imgUnic, 
-                link: "", 
-                markers: {
-                    count: 0,
-                    items: []
-                }
-            },
-            {
-                id: 8, 
-                title: "Комплексная диагностика ОРВИ", 
-                description: "", 
-                img: imgUnic, 
-                link: "", 
-                markers: {
-                    count: 0,
-                    items: []
-                }
-            },
-        ]
-
-    }
-
 
     const [Badresponse, setNeedRedirect] = useState(false);
     useEffect(() =>{
@@ -164,53 +52,43 @@ const MainPage = (props) => {
     }, [Badresponse])
 
     useEffect(() => {
-            console.log(`Send response: http://127.0.0.1:8000/api/catalog/unic-analyzes?page=${props.pageNumber}&count=${props.pageSize}`)
-            axios.get(`http://127.0.0.1:8000/api/catalog/unic-analyzes?page=${props.pageNumber}&count=${props.pageSize}`).then(response => {
-                console.log(response.data)
-                //debugger
-                props.setProducts(response.data.items, response.data.total_count, response.data.page_size)
-        }).catch(err => {
-            if (err.response.status === 404 && props.pageNumber > 1){
-                props.setCurrentPageAC(1) // try to get a first page
-            }else{
-                setNeedRedirect(true)
-                console.log(err)
-            }
-            
-        })
-            console.log(`Send response: http://127.0.0.1:8000/api/best-products`)
-            axios.get(`http://127.0.0.1:8000/api/best-products/`).then(response => {
-                console.log(response.data)
-                // debugger
-                props.setTopServisesSlides(response.data)
-        }).catch(err => {
+        const bestProductsUrl = `${urlStart}best-products/`
+        const uniqueAnalyzesUrl = `${urlStart}catalog/unic-analyzes?page=${props.pageNumber}&count=${props.pageSize}`
+        const bestComplexesUrl = `${urlStart}best-complex-analyzes/`
+        // for best seervices
+        const goodResponceHandlerMainSlider =(data) =>{
+            props.setTopServisesSlides(data)
+        }
+        // for unique analyzes
+        const mapGoodResponseDataForProducts = (data) =>{
+            props.setProducts(data.items, data.total_count, data.page_size)
+        }
+        // for complexes
+        const goodResponceHandlerComplexes =(data) =>{
+            props.setAnalyzesComplexes(data)
+        }
+        const badResponseHandler =()=>{
             setNeedRedirect(true)
-            console.log(err)
-            
-        })
-            console.log(`Send response: http://127.0.0.1:8000/api/best-complex-analyzes`)
-            axios.get(`http://127.0.0.1:8000/api/best-complex-analyzes/`).then(response => {
-                console.log(response.data)
-                // debugger
-                props.setAnalyzesComplexes(response.data)
-        }).catch(err => {
-            // debugger
-            setNeedRedirect(true)
-            console.log(err)
-            
-        })
+        }
+
+        getApiResponse(bestProductsUrl, goodResponceHandlerMainSlider, badResponseHandler)
+        getApiResponse(uniqueAnalyzesUrl, mapGoodResponseDataForProducts, badResponseHandler)
+        getApiResponse(bestComplexesUrl, goodResponceHandlerComplexes, badResponseHandler)
         
     }, [])
 
     return (
         <main className="page">
-            {console.log(props.topSevices.slides.length === 0)}
-            {console.log(props.topSevices)}
             {props.topSevices.slides.length !== 0 ? 
              <TopService serviceData={props.topSevices}/>:
              ""}
+
             <Achivments achivments={achivmentsSmall}/>
-            <UnicProducts products={products}/>
+
+            {props.mainPage.products.items.length !== 0 ?
+            <UnicProducts products={props.mainPage.products.items}/> :
+            ""}
+            
            {props.analiyzesComplex.length !== 0 ?
             <AnalyzeComplexes analyzes={props.analiyzesComplex}/>: 
             ""} 
@@ -231,8 +109,8 @@ let mapStateToProps = (state)=>{
 }
 let mapDispatchToProps = (dispatch)=>{
     return{
-        setProducts: (items, totalCount, currentPage, pageSize) => {
-            dispatch(setProductsAC(items, totalCount, currentPage, pageSize));
+        setProducts: (items, totalCount, pageSize) => {
+            dispatch(setProductsAC(items, totalCount, pageSize));
         },
         setTopServises: (content, slides) =>{
             dispatch(setTopServisesAC(content, slides));
