@@ -2,13 +2,14 @@ import json
 
 from django.db import models
 from django.contrib.auth import get_user_model
-import random
 # Create your models here.
-
 
 User = get_user_model()
 
 
+# ================================================================================
+# =============================Navigation=========================================
+# ================================================================================
 class NavigationCategory(models.Model):
 
     category = models.CharField(max_length=255, verbose_name='Имя категории')
@@ -45,6 +46,51 @@ class SubNavigationCategory(models.Model):
         return self.sub_category
 
 
+# ================================================================================
+# ==============================Other=============================================
+# ================================================================================
+class GenderType(models.Model):
+    gender = models.CharField(max_length=31, verbose_name="Гендер")
+    slug = models.SlugField(unique=True)
+
+    def __str__(self):
+        return self.gender
+
+
+class SearchGroup(models.Model):
+    title = models.CharField(max_length=255, verbose_name='Группа исследований')
+    slug = models.SlugField(unique=True)
+    complex_type = models.ForeignKey(
+        "ComplexType", verbose_name='Основной тип комплексов анализов', on_delete=models.CASCADE, null=True,
+        blank=True
+    )
+
+    def __str__(self):
+        return f"{self.title} ({self.complex_type})"
+
+
+class AboutUsCategory(models.Model):
+
+    category = models.CharField(max_length=127, verbose_name='Название категории')
+    slug = models.SlugField(unique=True)
+
+    def __str__(self):
+        return self.category
+
+
+class AboutUsContentBlock(models.Model):
+
+    category = models.ForeignKey(AboutUsCategory, verbose_name='Принадлежит категории:', on_delete=models.CASCADE)
+    title = models.CharField(max_length=255, verbose_name='Заголовок блока')
+    text = models.TextField(verbose_name='Основной текст:')
+
+    def __str__(self):
+        return f'${self.title} | ${self.category}'
+
+
+# ================================================================================
+# ==============================Complexes=========================================
+# ================================================================================
 class ComplexType(models.Model):
 
     complex_type = models.CharField(max_length=255, verbose_name="Тип комплекса")
@@ -56,14 +102,6 @@ class ComplexType(models.Model):
     @property
     def products(self):
         return json.dumps((SearchGroup.objects.filter(complex_type=self).values()))
-
-
-class GenderType(models.Model):
-    gender = models.CharField(max_length=31, verbose_name="Гендер")
-    slug = models.SlugField(unique=True)
-
-    def __str__(self):
-        return self.gender
 
 
 class AnalyzeComplex(models.Model):
@@ -93,20 +131,9 @@ class AnalyzeComplex(models.Model):
         super().save(*args, **kwargs)
 
 
-
-class SearchGroup(models.Model):
-    title = models.CharField(max_length=255, verbose_name='Группа исследований')
-    slug = models.SlugField(unique=True)
-    complex_type = models.ForeignKey(
-        ComplexType, verbose_name='Основной тип комплексов анализов', on_delete=models.CASCADE, null=True, blank=True
-    )
-
-    def __str__(self):
-        return f"{self.title} ({self.complex_type})"
-
-
-
-
+# ================================================================================
+# ===============================Analyzes=========================================
+# ================================================================================
 class Analyze(models.Model):
 
     complex = models.ForeignKey(AnalyzeComplex, verbose_name="Тип комплекса", on_delete=models.CASCADE, null=True, blank=True)
@@ -129,6 +156,30 @@ class Analyze(models.Model):
         return f"{self.title_min} ( {self.search_group})"
 
 
+class AnalyseContentCategory(models.Model):
+    title = models.CharField(verbose_name='Заголовок категории', max_length=127)
+    analyze = models.ForeignKey(Analyze, on_delete=models.CASCADE, verbose_name='Анализ')
+
+    def __str__(self):
+        return f"{self.title} для {self.analyze}"
+
+
+class AnalyzeContentBlock(models.Model):
+    title = models.CharField(max_length=255, verbose_name='Заголовок блока')
+    analyze_content_category = models.ForeignKey(
+        AnalyseContentCategory, on_delete=models.CASCADE, verbose_name='Категория блока'
+    )
+    analyze = models.ForeignKey(Analyze, on_delete=models.CASCADE, verbose_name='Для анализа:')
+    text = models.TextField(verbose_name='Текст блока')
+    pos = models.IntegerField(verbose_name='Позиция вывода на странице (от 1 до 10)')
+
+    def __str__(self):
+        return f"{self.title} | {self.analyze_content_category}"
+
+
+# ================================================================================
+# ===============================Cart=============================================
+# ================================================================================
 class CartAnalyze(models.Model):
     user = models.ForeignKey(
         'Customer', verbose_name='Покупатель', on_delete=models.CASCADE)
@@ -179,24 +230,3 @@ class Customer(models.Model):
         return "Покупатель {} {}".format(self.user.first_name, self.user.last_name)
 
 
-class AnalyseContentCategory(models.Model):
-
-    title = models.CharField(verbose_name='Заголовок категории', max_length=127)
-    analyze = models.ForeignKey(Analyze, on_delete=models.CASCADE, verbose_name='Анализ')
-
-    def __str__(self):
-        return f"{self.title} для {self.analyze}"
-
-
-class AnalyzeContentBlock(models.Model):
-
-    title = models.CharField(max_length=255, verbose_name='Заголовок блока')
-    analyze_content_category = models.ForeignKey(
-        AnalyseContentCategory, on_delete=models.CASCADE, verbose_name='Категория блока'
-    )
-    analyze = models.ForeignKey(Analyze, on_delete=models.CASCADE, verbose_name='Для анализа:')
-    text = models.TextField(verbose_name='Текст блока')
-    pos = models.IntegerField(verbose_name='Позиция вывода на странице (от 1 до 10)')
-
-    def __str__(self):
-        return f"{self.title} | {self.analyze_content_category}"

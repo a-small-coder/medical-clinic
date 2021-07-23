@@ -35,6 +35,7 @@ class AnalyzeComplexTopServicesSerializer(serializers.ModelSerializer):
         model = AnalyzeComplex
         fields = ['id', 'title_min', 'description', 'price', 'big_image', 'slug', 'small_image']
 
+
 # ================================================================================
 # ===============================Analyzes=========================================
 # ================================================================================

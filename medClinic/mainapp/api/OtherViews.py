@@ -5,9 +5,11 @@ from collections import OrderedDict
 
 from .serializers.Navigation import NavigationCategorySerializer, NavigationCategoryDetailSerializer, \
     SubNavigationCategorySerializer, SubNavigationCategoryRetrieveSerializer
+from .serializers.Other import AboutUsCategorySerializer
 from ..models import (
     NavigationCategory,
-    SubNavigationCategory
+    SubNavigationCategory,
+    AboutUsCategory
 )
 
 
@@ -58,3 +60,9 @@ class CatalogPagination(PageNumberPagination):
             ('current_page', self.page.number),
             ('items', data)
         ]))
+
+
+class AboutUsCategoryViewSet(viewsets.ModelViewSet):
+
+    queryset = AboutUsCategory.objects.all()
+    serializer_class = AboutUsCategorySerializer
