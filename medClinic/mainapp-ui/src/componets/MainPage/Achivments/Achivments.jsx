@@ -2,7 +2,7 @@ import React from 'react';
 import Achivment from './Achivment';
 const Achivments = (props) => {
 
-    let achivmentElements = props.achivments.map(a => <Achivment key={a.id} title={a.title} text={a.text} img={a.img}/>)
+    let achivmentElements = props.achivments.map(a => <Achivment key={a.id} title={a.title} text={a.text} img={a.icon}/>)
 
     return (
         <section className="page__advantages advantages">

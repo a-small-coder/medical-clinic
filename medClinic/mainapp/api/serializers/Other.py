@@ -1,7 +1,12 @@
 from rest_framework import serializers
 
 from ...models import (
-    SearchGroup, GenderType, ComplexType, AboutUsCategory, AboutUsContentBlock
+    SearchGroup,
+    GenderType,
+    ComplexType,
+    AboutUsCategory,
+    AboutUsContentBlock,
+    OurAchievements
     )
 
 
@@ -44,3 +49,10 @@ class AboutUsContentBlockSerializer(serializers.ModelSerializer):
     class Meta:
         model = AboutUsContentBlock
         fields = ['id', 'title', 'text']
+
+
+class OurAchievementsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = OurAchievements
+        fields = ['id', 'title', 'text', 'icon']

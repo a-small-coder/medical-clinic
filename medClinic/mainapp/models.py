@@ -88,6 +88,17 @@ class AboutUsContentBlock(models.Model):
         return f'${self.title} | ${self.category}'
 
 
+class OurAchievements(models.Model):
+
+    title = models.CharField(max_length=63, verbose_name='Заголовок')
+    text = models.CharField(max_length=127, verbose_name='Краткое описание')
+    icon = models.ImageField(verbose_name='Иконка', upload_to='achievements')
+    in_archive = models.BooleanField(verbose_name='В архиве', default=False)
+
+    def __str__(self):
+        return self.title
+
+
 # ================================================================================
 # ==============================Complexes=========================================
 # ================================================================================
@@ -114,10 +125,11 @@ class AnalyzeComplex(models.Model):
     is_popular = models.BooleanField(default=False, verbose_name="Популярный товар")
     description = models.TextField(verbose_name='Описание', default="Описание появится позже")
     big_image = models.ImageField(
-        verbose_name='Изображение для главного слайдера главной странице', null=True, blank=True)
+        verbose_name='Изображение для главного слайдера главной странице', null=True,
+        blank=True, upload_to='complexes/main-slider')
     small_image = models.ImageField(
         verbose_name='Изображение для слайдера комплексов на главной странице', null=True,
-        blank=True, upload_to='static/images/')
+        blank=True, upload_to='complexes/complex-slider')
     in_top_five_list = models.BooleanField(
         default=False, verbose_name='Входит в Топ-5 косплексов (добавить на слайдер компексов)'
     )
@@ -152,7 +164,7 @@ class Analyze(models.Model):
     is_popular = models.BooleanField(default=False, verbose_name="Популярный товар")
     small_image = models.ImageField(
         verbose_name='Изображение для уникальных анализов на главной странице',
-        null=True, blank=True, upload_to='static/images/')
+        null=True, blank=True, upload_to='analyzes')
     vendor_code = models.CharField(verbose_name='Артикул', max_length=63)
     is_unic = models.BooleanField(default=False, verbose_name='Уникальный анализ')
     slug = models.SlugField(unique=True)

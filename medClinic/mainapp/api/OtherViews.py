@@ -5,11 +5,12 @@ from collections import OrderedDict
 
 from .serializers.Navigation import NavigationCategorySerializer, NavigationCategoryDetailSerializer, \
     SubNavigationCategorySerializer, SubNavigationCategoryRetrieveSerializer
-from .serializers.Other import AboutUsCategorySerializer
+from .serializers.Other import AboutUsCategorySerializer, OurAchievementsSerializer
 from ..models import (
     NavigationCategory,
     SubNavigationCategory,
-    AboutUsCategory
+    AboutUsCategory,
+    OurAchievements
 )
 
 
@@ -66,3 +67,9 @@ class AboutUsCategoryViewSet(viewsets.ModelViewSet):
 
     queryset = AboutUsCategory.objects.all()
     serializer_class = AboutUsCategorySerializer
+
+
+class OurAchievementsViewSet(viewsets.ModelViewSet):
+
+    queryset = OurAchievements.objects.filter(in_archive=False)
+    serializer_class = OurAchievementsSerializer

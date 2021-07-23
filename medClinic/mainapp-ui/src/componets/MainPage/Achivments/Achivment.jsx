@@ -1,5 +1,4 @@
 import React from 'react';
-import img from '../../../img/achivments-small/01.svg'
 const Achivment = (props) => {
     return (
         <div className="advantages__item">

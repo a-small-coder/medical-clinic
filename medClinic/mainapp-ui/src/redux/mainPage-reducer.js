@@ -18,20 +18,15 @@ let initialState = {
         slides: []
         
     },
-    achivmentsSmall : [
-        {id: 1, title: "Качественные специалисты", text: "ведущие врачи с мировым именем", img: null},
-        {id: 2, title: "Сертифицированная клиника", text: "Подтвержденный стандарт качества ISO", img: null},
-        {id: 3, title: "Бесплатный выезд", text: "после заполнения анкеты", img: null},
-        {id: 4, title: "Поддержка 24/7", text: "Всегда на связи", img: null},
-    ],
+    achivmentsSmall : [],
     analiyzesComplex : [
     ],
     stocks : [
-        {id: 1, slogan: "Путешествуй уверенно с TedMed", text: "Анализы ПЕРЕД и ПОСЛЕ вакцинации от COVID-19 Вакцинация против COVID-19", img: null, link: ""},
-        {id: 2, slogan: "Онкодиагностика на любом этапе", text: "Возрастная скидка и бонусная программа", img: null, link: ""},
-        {id: 3, slogan: "Диагностика COVID-19 для организаций", text: "", img: null, link: ""},
-        {id: 4, slogan: "Обязательные анализы для детской медкарты 026/У", text: "", img: null, link: ""},
-        {id: 5, slogan: "Проверь уровень витамина D", text: "По выгодной цене Бесплатный выез на дом", img: null, link: ""},
+        // {id: 1, slogan: "Путешествуй уверенно с TedMed", text: "Анализы ПЕРЕД и ПОСЛЕ вакцинации от COVID-19 Вакцинация против COVID-19", img: null, link: ""},
+        // {id: 2, slogan: "Онкодиагностика на любом этапе", text: "Возрастная скидка и бонусная программа", img: null, link: ""},
+        // {id: 3, slogan: "Диагностика COVID-19 для организаций", text: "", img: null, link: ""},
+        // {id: 4, slogan: "Обязательные анализы для детской медкарты 026/У", text: "", img: null, link: ""},
+        // {id: 5, slogan: "Проверь уровень витамина D", text: "По выгодной цене Бесплатный выез на дом", img: null, link: ""},
     ],
     aboutUs: [],  
     products: {
@@ -82,7 +77,9 @@ const mainPageReducer = (state = initialState, action) =>{
             return stateCopy
         }
         case SET_ACHIVMENTS_SMALL: {
-            stateCopy.achivmentsSmall = [...state.achivmentsSmall, action.achivments.map(a => (a))]
+            stateCopy.achivmentsSmall = action.achivments.map(i =>{
+                return {...i}
+            })
             return stateCopy
         }
         case SET_STOCKS: {
