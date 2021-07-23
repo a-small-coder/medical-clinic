@@ -6,7 +6,7 @@ const Slider = (props) => {
 
     const swiperRef = useRef(null);
 
-    let slidesElements = props.slides.map(s => <Slide key={s.id} title={s.title} text={s.text} price={s.price} img={s.img} link={s.link}/>)
+    let slidesElements = props.slides.map(s => <Slide key={s.id} title={s.title_min} text={s.description} price={s.price} img={s.big_image} link={s.slug}/>)
 
     const goNext = () => {
       if (swiperRef.current && swiperRef.current.swiper) {

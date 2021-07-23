@@ -113,8 +113,11 @@ class AnalyzeComplex(models.Model):
     gender = models.ForeignKey(GenderType, verbose_name="Зависит от гендера", on_delete=models.CASCADE)
     is_popular = models.BooleanField(default=False, verbose_name="Популярный товар")
     description = models.TextField(verbose_name='Описание', default="Описание появится позже")
-    big_image = models.ImageField(verbose_name='Изображение для главного слайдера главной странице', null=True, blank=True)
-    small_image = models.ImageField(verbose_name='Изображение для слайдера комплексов на главной странице', null=True, blank=True)
+    big_image = models.ImageField(
+        verbose_name='Изображение для главного слайдера главной странице', null=True, blank=True)
+    small_image = models.ImageField(
+        verbose_name='Изображение для слайдера комплексов на главной странице', null=True,
+        blank=True, upload_to='static/images/')
     in_top_five_list = models.BooleanField(
         default=False, verbose_name='Входит в Топ-5 косплексов (добавить на слайдер компексов)'
     )
@@ -147,7 +150,9 @@ class Analyze(models.Model):
     )
     time = models.CharField(max_length=31, verbose_name='Срок исполнения')
     is_popular = models.BooleanField(default=False, verbose_name="Популярный товар")
-    small_image = models.ImageField(verbose_name='Изображение для уникальных анализов на главной странице', null=True, blank=True)
+    small_image = models.ImageField(
+        verbose_name='Изображение для уникальных анализов на главной странице',
+        null=True, blank=True, upload_to='static/images/')
     vendor_code = models.CharField(verbose_name='Артикул', max_length=63)
     is_unic = models.BooleanField(default=False, verbose_name='Уникальный анализ')
     slug = models.SlugField(unique=True)

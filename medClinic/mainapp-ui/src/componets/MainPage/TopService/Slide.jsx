@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import img from "./../../../img/main-slider/pcr_test.webp"
 const Slide = (props) => {
     return (
         <div className="swiper-slide">

@@ -5,7 +5,6 @@ import UnicProducts from './UnicProducts/UnicProducts';
 import TopService from './TopService/TopService';
 import Stocks from './Stocks/Stocks';
 import AboutUs from './AboutUs/AboutUs';
-import img from '../../img/main-slider/pcr_test.webp';
 import imgA from '../../img/achivments-small/01.svg';
 import imgComplex from '../../img/complexes/blood_anl_s.jpg';
 import imgS from '../../img/stocks/slide2.jpg';
@@ -17,48 +16,6 @@ import { setAboutUsAC, setAchivmentsSmallAC, setAnalyzesComplexesAC, setCurrentP
 
 const MainPage = (props) => {
 
-    let topSevices = {
-        content: {
-        title: "Самые популярные услуги",
-        text: "Наша клиника в первую очередь работает в интересах клиентов. Поэтому мы составили для вас список самых популярных услуги и анализов. ",
-        link: "/catalog"
-        },
-        slides: [
-            {
-                id: 1, 
-                title: "Экспресс-тест на COVID-19",
-                text: "Результат предоставляется через 15 минут. Исследование представляет собой функциональный аналог ПЦР-тестов",
-                price: "---",
-                img: img,
-                link: "/catalog"
-            },
-            {
-                id: 2, 
-                title: "Вакцинация против COVID-19",
-                text: "Решили вакцинироваться? Приходите в «TedMed» и сделайте прививку препаратом «Спутник V»",
-                price: "---",
-                img: img,
-                link: "/catalog"
-            },
-            {
-                id: 3, 
-                title: "Расширенное биохимическое обследование",
-                text: "помогает сделать первичную оценку состояния организма, определить ход дальнейшего обследования",
-                price: "---",
-                img: img,
-                link: "/product/1"
-            },
-            {
-                id: 4, 
-                title: "Онкодиагностика по программе ОМС",
-                text: "Как снизить риск развития рака? Какие исследования необходимы и зачем? Как убедиться в точности диагноза? Эффективно и безопасно ли лечение?",
-                price: "---",
-                img: img,
-                link: "/catalog"
-            }
-        ]
-        
-    }
 
      
     let  achivmentsSmall = [
@@ -92,23 +49,6 @@ const MainPage = (props) => {
         "ученых и студентов, компания вносит вклад в формирование высочайших стандартов отрасли. «» выступает "+
         "партнером благотворительных организаций, а также многих региональных спортивных и культурных мероприятий."},
     ]
-
-    // NASBA 
-    // Антитела к ядерным антигенам (ANA),IgG, 25 антигенов 
-    // ВПЧ-ПАП-тест жидкостный
-    //  ДНК HBV, ультрачувствительное исследование
-    //    Исследование на абровирусные инфекции (Вирус Западного Нила)
-    //    Исследование на абровирусные инфекции (Лихорадка Денге)
-    //     Клещевые инфекции
-    //      Комплексная диагностика ОРВИ
-    //       Коронавирусы 
-    //       Коэкспрессия онкобелков p16/Ki67
-    //        Острые кишечные инфекции
-    //         Претальный скрининг 1-го триместра беременности 
-    //         Претальный скрининг 2-го триместра беременности
-    //          Программы рассчета риска преэклампсии 
-    //          РНК HCV ультрачувствительное исследование 
-    //          РНК HCV/ ДНК HBV/ РНК HIV 1 и 2 типа
 
     let products = {
         count: 8,
@@ -242,19 +182,14 @@ const MainPage = (props) => {
         }
 
         if ((props.mainPage.topSevices.slides.length === 0) && !Badresponse){
-            console.log(`Send response: http://127.0.0.1:8000/api/catalog/complex-analyzes`)
-            axios.get(`http://127.0.0.1:8000/api/catalog/complex-analyzes`).then(response => {
+            console.log(`Send response: http://127.0.0.1:8000/api/best-products`)
+            axios.get(`http://127.0.0.1:8000/api/best-products`).then(response => {
                 console.log(response.data)
-                //debugger
-                props.setTopServisesSlides(response.data.items)
-                props.setAnalyzesComplexes(response.data.items)
+                // debugger
+                props.setTopServisesSlides(response.data)
         }).catch(err => {
-            if (err.response.status === 604 && props.pageNumber > 1){
-                props.setCurrentPageAC(1) // try to get a first page
-            }else{
-                setNeedRedirect(true)
-                console.log(err)
-            }
+            setNeedRedirect(true)
+            console.log(err)
             
         })
         }
@@ -263,7 +198,7 @@ const MainPage = (props) => {
 
     return (
         <main className="page">
-             <TopService serviceData={topSevices}/>
+             <TopService serviceData={props.mainPage.topSevices}/>
             <Achivments achivments={achivmentsSmall}/>
             <UnicProducts products={products}/>
             <AnalyzeComplexes analyzes={analiyzesComplex}/>
@@ -274,7 +209,6 @@ const MainPage = (props) => {
 }
 
 let mapStateToProps = (state)=>{
-    //debugger;
     return {
         mainPage: state.mainPage,
         pageNumber: state.mainPage.products.current_page,
