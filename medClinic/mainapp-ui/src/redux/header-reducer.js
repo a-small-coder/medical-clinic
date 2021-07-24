@@ -3,6 +3,9 @@ const SWITCH_SPOILER_MODE = "SWITCH-SPOILER-MODE";
 const ACTIVETE_SPOILER = "ACTIVETE-SPOILER";
 const DISACTIVETE_SPOILER = "DISACTIVETE-SPOILER";
 const SET_CATEGORIES = "SET_CATEGORIES";
+const SET_PRODUCTS_COUNT_IN_CART = "SET_PRODUCTS_COUNT_IN_CART";
+const SET_CART = "SET_CART";
+
 let initialState = {
     search: {
         newSearchText: "Поиск по сайту",
@@ -11,6 +14,12 @@ let initialState = {
     nav: {
         initSpoiler: false,
         categories: []
+    },
+    cart: {
+        id: 1,
+        total_products: 0,
+        products: [],
+
     }
 }
 
@@ -54,10 +63,21 @@ const headerReducer = (state = initialState, action) =>{
             stateCopy.nav.initSpoiler = false
             return stateCopy
         }
+        case SET_PRODUCTS_COUNT_IN_CART:{
+            stateCopy.cart = {...state.cart, total_products: action.productsCount}
+            return stateCopy
+        }
+        case SET_CART:{
+            debugger
+            stateCopy.cart = {...action.cart}
+            return stateCopy
+        }
         default:
             return state;
     }
 }
+export const setCartAC = (cart) => ({type: SET_CART, cart})
+export const setProductsCountInCartAC = (productsCount) => ({type: SET_PRODUCTS_COUNT_IN_CART, productsCount})
 export const updateNewSearchTextAC = (text) =>({type: UPDATE_NEW_SEARCH_TEXT, searchText: text});
 export const switchSpoilerModAC = (spoilerMod) =>({type: SWITCH_SPOILER_MODE, spoilerMod: spoilerMod});
 export const activateSpoilerAC = (id) =>({type: ACTIVETE_SPOILER, id: id});

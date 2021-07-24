@@ -7,6 +7,7 @@ import Catalog from './componets/Catalog/Catalog';
 import ProductPage from './componets/ProductPage/ProductPage';
 import InWork from './componets/InWork/InWork';
 import ScrollToTop from './componets/ScrollToTop';
+import ContentBody from './componets/ContentBody';
 
 function App(props) {
   return (
@@ -21,8 +22,8 @@ function App(props) {
         <Route exact path="/catalog/:category/:id" component={ProductPage}/> 
         {/* <Route exact path="/home"component={MainPage}/> */}
         <Route exact path="/" component={MainPage}/>
+        <Route path='/auth/' component={ContentBody}/>
         <Route component={InWork}/>
-        
         </Switch>
         <Footer/>
     </div>

@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 const Product = (props) => {
 
     //console.log(props.mainSlug + `/${props.slug}`)
+    const buttonBuyRef = useRef(null)
+
+    const onButtonBuyClick = ()=>{
+        props.buttonButClickHandler(props.id)
+    }
 
     return (
         <div className="analyze-section__item analyze-item">
@@ -19,7 +24,8 @@ const Product = (props) => {
                 </div>
             </div>
             <div className="analyze-item__price">{props.price} р</div>
-            <button type="button" className="analyze-item__buy btn _icon-cart" title="Добавить в корзину"></button>
+            <button type="button" ref={buttonBuyRef} onClick={onButtonBuyClick}
+            className="analyze-item__buy btn _icon-cart" title="Добавить в корзину"></button>
         </div>
     );
 }

@@ -15,7 +15,8 @@ class CartViewSet(viewsets.ModelViewSet):
     queryset = Cart.objects.all()
 
     @staticmethod
-    def get_cart(user):
+    def get_cart(request):
+        user = request.user
         if user.is_authenticated:
             return Cart.objects.filter(owner=user.customer, for_anonymous_user=False).first()
         return Cart.objects.filter(for_anonymous_user=True).first()
@@ -31,13 +32,13 @@ class CartViewSet(viewsets.ModelViewSet):
 
     @action(methods=['get'], detail=False)
     def current_customer_cart(self, *args, **kwargs):
-        cart = self.get_cart(self.request.user)
+        cart = self.get_cart(self.request)
         cart_serializer = CartSerializer(cart)
         return response.Response(cart_serializer.data)
 
     @action(methods=['put'], detail=False, url_path='current_customer_cart/add_to_cart/(?P<product_id>\d+)')
     def product_add_to_cart(self, *args, **kwargs):
-        cart = self.get_cart(self.request.user)
+        cart = self.get_cart(self.request)
         print(kwargs['product_id'])
         analyze = get_object_or_404(Analyze, id=kwargs['product_id'])
         print(analyze)
@@ -60,7 +61,7 @@ class CartViewSet(viewsets.ModelViewSet):
     @action(methods=['delete'], detail=False,
             url_path='current_customer_cart/product_remove_from_cart/(?P<cart_product_id>\d+)')
     def product_remove_from_cart(self, *args, **kwargs):
-        cart = self.get_cart(self.request.user)
+        cart = self.get_cart(self.request)
         cart_product = get_object_or_404(CartAnalyze, id=kwargs['cart_product_id'])
         cart.products.remove(cart_product)
         cart_product.delete()

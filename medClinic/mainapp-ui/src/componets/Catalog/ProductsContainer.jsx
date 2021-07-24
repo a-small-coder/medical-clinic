@@ -4,7 +4,8 @@ import Product from './Product';
 import { connect } from 'react-redux';
 import { setCurrentPageAC, setProductsAC } from '../../redux/catalog-reducer';
 import {Redirect} from "react-router-dom";
-import urlStart, { getApiResponse } from '../../api_requests';
+import urlStart, { getApiResponse, putApiRequest } from '../../api_requests';
+import { setCartAC, setProductsCountInCartAC } from '../../redux/header-reducer';
 
 const Products = (props) => {
 
@@ -33,24 +34,31 @@ const Products = (props) => {
         }
         getApiResponse(productsApiUrl, mapProductsDataResponse, badResponseHandler)
     }
-
     const onPageChenged = (pageNumber) => {
         props.setCurrentPage(pageNumber)
         sendRequestForGetProducts()
     }
-
     useEffect(() => {
         if ((props.products.items.length === 0 || props.products.category !== catagoryName) && !Badresponse){
             sendRequestForGetProducts()
         }
     })
 
+    const buttonButClickHandler = (productId) =>{
+        const addProductApiUrl = `${urlStart}cart/current_customer_cart/add_to_cart/${productId}/`
+       const status =  putApiRequest(addProductApiUrl)
+       if (status !== 'HTTP_400_BAD_REQUEST'){
+        props.setProductsCountInCart(props.countProductsInCart + 1)
+       }
+    }
     let productsElements
     let pagesCount = Math.ceil(props.totalCount / props.pageSize)
     if (props.products.items != null){
         productsElements = props.products.items.map(
-            a => <Product key={a.id} title={a.title} time={a.time} number={a.number}
-                slug={a.id} price={a.price} mainSlug={props.history.location.pathname} />);
+            a => <Product key={a.id} id={a.id} title={a.title} time={a.time} number={a.number}
+                slug={a.id} price={a.price} mainSlug={props.history.location.pathname} 
+                buttonButClickHandler={buttonButClickHandler}
+                />);
     }
     
     
@@ -81,7 +89,9 @@ let mapStateToProps = (state)=>{
         products: state.catalog.products,
         pageSize: state.catalog.products.pageSize,
         totalCount: state.catalog.products.totalCount,
-        pageNumber: state.catalog.products.currentPage
+        pageNumber: state.catalog.products.currentPage,
+        countProductsInCart: state.header.cart.total_products,
+        cart: state.header.cart
     }
 }
 let mapDispatchToProps = (dispatch)=>{
@@ -91,6 +101,12 @@ let mapDispatchToProps = (dispatch)=>{
         },
         setCurrentPage: (totalPage) =>{
             dispatch(setCurrentPageAC(totalPage));
+        },
+        setProductsCountInCart: (total_products) => {
+            dispatch(setProductsCountInCartAC(total_products));
+        },
+        setCart: (cart) =>{
+            dispatch(setCartAC(cart))
         }
     }
 }
