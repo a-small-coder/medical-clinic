@@ -3,19 +3,11 @@ import Paggination from '../Paggination/Paggination';
 import Product from './Product';
 import { connect } from 'react-redux';
 import { setCurrentPageAC, setProductsAC } from '../../redux/catalog-reducer';
-import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
-import * as axios from 'axios'
+import {Redirect} from "react-router-dom";
+import urlStart, { getApiResponse } from '../../api_requests';
 
 const Products = (props) => {
 
-
-    // let products = {}
-    //         products.items = response.data.items
-    //         products.category = catagoryName
-    //         products.totalCount = response.data.total_count
-    //         products.pageSize = response.data.page_size
-    //         products.currentPage = response.data.current_page
-    // let catagoryNameL = props.history.location.pathname.split("/");
     let catagoryName = props.history.location.pathname
     let apiLink = catagoryName.slice(1, props.history.location.pathname.length)
     const [Badresponse, setNeedRedirect] = useState(false);
@@ -26,45 +18,33 @@ const Products = (props) => {
         
     }, [Badresponse])
 
+    const sendRequestForGetProducts = ()=>{
+        const productsApiUrl = `${urlStart}${apiLink}?page=${props.pageNumber}&count=${props.pageSize}`
+        const mapProductsDataResponse = (data) =>{
+            props.setProducts(data.items, data.total_count, catagoryName, data.page_size)
+        }
+        const badResponseHandler =()=>{
+            if (props.pageNumber > 1){
+                props.setCurrentPage(1)
+            }
+            else{
+                setNeedRedirect(true)
+            }
+        }
+        getApiResponse(productsApiUrl, mapProductsDataResponse, badResponseHandler)
+    }
+
     const onPageChenged = (pageNumber) => {
         props.setCurrentPage(pageNumber)
-        console.log(`Send response: http://127.0.0.1:8000/api/${apiLink}?page=${pageNumber}&count=${props.pageSize}`)
-            axios.get(`http://127.0.0.1:8000/api/${apiLink}?page=${pageNumber}&count=${props.pageSize}`).then(response => {
-                //debugger
-                
-            props.setProducts(response.data.items, response.data.total_count, catagoryName, response.data.page_size)
-
-            //debugger;
-        }).catch(err => {
-            console.log(err)
-            if (err.status === 404 && props.pageNumber > 1){
-                props.setProducts([], 1, catagoryName, props.products.page_size)
-            }else{
-                setNeedRedirect(true)
-                
-            }
-        })
+        sendRequestForGetProducts()
     }
 
     useEffect(() => {
         if ((props.products.items.length === 0 || props.products.category !== catagoryName) && !Badresponse){
-            console.log(`Send response: http://127.0.0.1:8000/api/${apiLink}?page=${props.pageNumber}&count=${props.pageSize}`)
-            axios.get(`http://127.0.0.1:8000/api/${apiLink}?page=${props.pageNumber}&count=${props.pageSize}`).then(response => {
-                console.log(response.data)
-                //debugger
-                props.setProducts(response.data.items, response.data.total_count, catagoryName, response.data.page_size)
-        }).catch(err => {
-            if (err.response.status === 404 && props.pageNumber > 1){
-                props.setCurrentPage(1) // try to get a first page
-            }else{
-                setNeedRedirect(true)
-                console.log(err)
-            }
-            
-        })
+            sendRequestForGetProducts()
         }
-        
     })
+
     let productsElements
     let pagesCount = Math.ceil(props.totalCount / props.pageSize)
     if (props.products.items != null){
@@ -74,7 +54,7 @@ const Products = (props) => {
     }
     
     
-    //console.log(productsElements)
+    ////console.log(productsElements)
     //debugger;
     let titleKey = props.products.category.substring(1) + '/'
     
@@ -83,8 +63,6 @@ const Products = (props) => {
     ) : props.products != null ? (
         <div className="analyze-section">
             <h2 className="analyze-section__title _title">{props.products.title[titleKey]}</h2>
-            {console.log(titleKey+'/')}
-            {console.log(props.products.title[titleKey])}
             <div className="analyze-section__items">
                 {productsElements}
             </div>
@@ -98,10 +76,9 @@ const Products = (props) => {
 }
 
 let mapStateToProps = (state)=>{
-    //debugger;
+  //debugger;
     return {
         products: state.catalog.products,
-        
         pageSize: state.catalog.products.pageSize,
         totalCount: state.catalog.products.totalCount,
         pageNumber: state.catalog.products.currentPage

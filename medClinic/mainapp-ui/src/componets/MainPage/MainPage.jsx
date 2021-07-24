@@ -44,15 +44,17 @@ const MainPage = (props) => {
         getApiResponse(bestComplexesUrl, props.setAnalyzesComplexes, badResponseHandler)
         getApiResponse(aboutUsUrl, props.setAboutUs, badResponseHandler)
         getApiResponse(achievementsUrl, props.setAchivmentsSmall, badResponseHandler)
-        getApiResponse(uniqueAnalyzesUrl, mapGoodResponseDataForProducts, badResponseHandler)
+        if (props.mainPage.products.items.length === 0){
+            getApiResponse(uniqueAnalyzesUrl, mapGoodResponseDataForProducts, badResponseHandler)
+        }
     }, [])
 
     const [buttonIsHiden, setButtonIsHidden] = useState(false)
     const showMoreClickHandler = () => {
         
         let maxPageNumber = Math.ceil(props.mainPage.products.totalCount / props.pageSize)
-        console.log(maxPageNumber, props.pageNumber)
-        console.log(maxPageNumber === (props.pageNumber + 1))
+        //console.log(maxPageNumber, props.pageNumber)
+        //console.log(maxPageNumber === (props.pageNumber + 1))
         if (maxPageNumber === (props.pageNumber + 1)){
             setButtonIsHidden(true)
         }

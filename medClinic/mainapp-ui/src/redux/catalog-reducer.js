@@ -60,6 +60,7 @@ const catalogReducer = (state = initialState, action) =>{
         ...state};
     switch (action.type){
         case SET_PRODUCTS: {
+          //debugger
             stateCopy.products = {
                 ...state.products, 
                 items: action.items, 
@@ -70,6 +71,7 @@ const catalogReducer = (state = initialState, action) =>{
             return stateCopy;
         }
         case SET_PRODUCTS_CATEGORY:{
+          //debugger
             stateCopy.products = {...state.products, category: action.category}
             return stateCopy
         }
@@ -114,6 +116,7 @@ const catalogReducer = (state = initialState, action) =>{
             return stateCopy;
         }
         case SET_CURRENT_PAGE: {
+          //debugger
             stateCopy.products = {...state.products, currentPage: action.currentPage}
             return stateCopy;
         }

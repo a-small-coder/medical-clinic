@@ -5,7 +5,7 @@ const SET_STOCKS = "SET_STOCKS";
 const SET_ABOUT_US = "SET_ABOUT_US";
 const SET_ANALYZES_COMPLEXES = "SET_ANALYZES_COMPLEXES";
 const SET_TOP_SERVISES_SLIDES = "SET_TOP_SERVISES_SLIDES";
-const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+const CHANGE_CURRENT_PAGE = "CHANGE_CURRENT_PAGE";
 
 
 let initialState = {
@@ -64,7 +64,7 @@ const mainPageReducer = (state = initialState, action) =>{
             }
             return stateCopy;
         }
-        case SET_CURRENT_PAGE: {
+        case CHANGE_CURRENT_PAGE: {
             stateCopy.products = {...state.products, current_page: action.current_page}
             return stateCopy
         }
@@ -104,5 +104,5 @@ export const setAchivmentsSmallAC = (achivments) =>({type: SET_ACHIVMENTS_SMALL,
 export const setStocksAC = (stocks) =>({type: SET_STOCKS, stocks});
 export const setAboutUsAC = (aboutUs) =>({type: SET_ABOUT_US, aboutUs});
 export const setAnalyzesComplexesAC = (analiyzesComplex) =>({type: SET_ANALYZES_COMPLEXES, analiyzesComplex});
-export const setCurrentPageUnicProductsAC = (current_page) =>({type: SET_CURRENT_PAGE, current_page});
+export const setCurrentPageUnicProductsAC = (current_page) =>({type: CHANGE_CURRENT_PAGE, current_page});
 export default mainPageReducer;

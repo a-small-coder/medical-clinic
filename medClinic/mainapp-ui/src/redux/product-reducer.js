@@ -3,7 +3,9 @@ const SET_PRODUCT = "SET_PRODUCT"
 
 
 let initialState = {
-    product:{},
+    product:{
+        
+    },
     
 }
 

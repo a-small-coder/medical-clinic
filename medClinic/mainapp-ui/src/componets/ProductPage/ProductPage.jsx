@@ -15,8 +15,8 @@ const ProductPage = (props) => {
     // React.useEffect(() => {
     //     console.log(history.location.pathname)
     // }, [history]);
-    console.log(props)
-    console.log("hey!, i'm render!")
+    //console.log(props)
+    //console.log("hey!, i'm render!")
     let productNameL = props.history.location.pathname.split("/");
     let productName = Number(productNameL[productNameL.length - 1])
     let productLink = props.history.location.pathname.slice(1, props.history.location.pathname.length)
@@ -45,7 +45,7 @@ const ProductPage = (props) => {
             else{
                 product.content = []
             }
-            console.log(product)
+            //console.log(product)
             props.setProduct(product, isAcomplex)
         }).catch(err => { 
             setNeedRender(true)
