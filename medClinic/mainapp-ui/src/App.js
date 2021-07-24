@@ -22,7 +22,7 @@ function App(props) {
         <Route exact path="/catalog/:category/:id" component={ProductPage}/> 
         {/* <Route exact path="/home"component={MainPage}/> */}
         <Route exact path="/" component={MainPage}/>
-        <Route path='/auth/' component={ContentBody}/>
+        <Route path='/auth' component={ContentBody}/>
         <Route component={InWork}/>
         </Switch>
         <Footer/>
