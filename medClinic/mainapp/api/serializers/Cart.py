@@ -12,7 +12,7 @@ class CartProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CartAnalyze
-        fields = ['id', 'product', 'qty', 'final_price']
+        fields = ['id', 'analyze', 'qty', 'final_price']
 
 
 class CustomerSerializer(serializers.ModelSerializer):
