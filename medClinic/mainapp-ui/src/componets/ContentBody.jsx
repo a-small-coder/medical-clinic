@@ -9,8 +9,8 @@ const ContentBody = (props) =>{
             <section className="page__notFound notFound">
                 <div className="notFound__container _container">
                     <div className="notFound__content">
-                     {/* <RegistrationForm/> */}
-                     <LoginForm/>
+                     <RegistrationForm/>
+                     {/* <LoginForm/> */}
                     </div>
                 </div>
             </section>

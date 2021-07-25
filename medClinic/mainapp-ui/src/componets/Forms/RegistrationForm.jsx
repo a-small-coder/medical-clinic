@@ -26,12 +26,13 @@ function RegistrationForm(){
             {
                 formik => {
                     return (
-                        <Form>
+                        <Form className="loginForm">
+                            <h1 className="loginForm__title _title">Registration</h1>
                             <FormikControl control='input' type="text" label='username' name='username' />
                             <FormikControl control='input' type="email" label='email' name='email' />
                             <FormikControl control='input' type="password" label='password' name='password' />
                             <FormikControl control='input' type="password" label='confirm password' name='confirm_password' />
-                            <button className="btn" type='submit' disabled={!formik.isValid}>Submit</button>
+                            <button className="loginForm__button btn" type='submit' disabled={!formik.isValid}>Submit</button>
                         </Form>
                     )
                 }
