@@ -18,6 +18,8 @@ from .OtherViews import (
     SubNavigationCategoryViewSet,
     AboutUsCategoryViewSet,
     OurAchievementsViewSet,
+    UserViewSet,
+    AuthViewSet,
 )
 
 router = routers.SimpleRouter()
@@ -34,6 +36,7 @@ router.register('analyze-content-category', AnalyseContentCategoryViewSet, basen
 router.register('analyze-content-block', AnalyzeContentBlockViewSet, basename='analyze-content-block')
 router.register('cart', CartViewSet, basename='cart')
 router.register('achievements', OurAchievementsViewSet, basename='achievements')
-
+router.register('auth/users', UserViewSet, basename='users')
+router.register('auth', AuthViewSet, basename='auth')
 urlpatterns = []
 urlpatterns += router.urls

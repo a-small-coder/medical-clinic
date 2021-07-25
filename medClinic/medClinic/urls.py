@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from mainapp.views import index
 from django.conf import settings
-from django.conf.urls.static import static # new
+from django.conf.urls.static import static
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
-    path('api/', include('mainapp.api.urls'))
+    path('api/', include('mainapp.api.urls')),
+    path('auth/', obtain_auth_token),
 ]
 
 if settings.DEBUG: # new

@@ -3,7 +3,7 @@ import {Formik, Form} from 'formik';
 import * as Yup from 'yup'
 import FormikControl from './FormikControl';
 import './Forms.scss';
-function LoginForm(){
+function LoginForm(props){
     const initialValues = {
         username: '',
         password: '',
@@ -15,7 +15,7 @@ function LoginForm(){
     })
 
     const onSubmit = values =>{
-        console.log("Form data", values)
+        props.handlerSubmit(values)
     }
 
     return (

@@ -39,9 +39,7 @@ class CartViewSet(viewsets.ModelViewSet):
     @action(methods=['put'], detail=False, url_path='current_customer_cart/add_to_cart/(?P<product_id>\d+)')
     def product_add_to_cart(self, *args, **kwargs):
         cart = self.get_cart(self.request)
-        print(kwargs['product_id'])
         analyze = get_object_or_404(Analyze, id=kwargs['product_id'])
-        print(analyze)
         cart_product, created = self._get_or_create_cart_product(self.request.user.customer, cart, analyze)
         if created:
             cart.products.add(cart_product)

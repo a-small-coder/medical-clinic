@@ -1,11 +1,14 @@
-from rest_framework import viewsets, response, status
+from rest_framework import viewsets, response, status, permissions
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from collections import OrderedDict
+from django.contrib.auth.models import User
+from rest_framework.decorators import action
+from django.contrib.auth import authenticate, login, logout
 
 from .serializers.Navigation import NavigationCategorySerializer, NavigationCategoryDetailSerializer, \
     SubNavigationCategorySerializer, SubNavigationCategoryRetrieveSerializer
-from .serializers.Other import AboutUsCategorySerializer, OurAchievementsSerializer
+from .serializers.Other import AboutUsCategorySerializer, OurAchievementsSerializer, UserSerializer
 from ..models import (
     NavigationCategory,
     SubNavigationCategory,
@@ -73,3 +76,37 @@ class OurAchievementsViewSet(viewsets.ModelViewSet):
 
     queryset = OurAchievements.objects.filter(in_archive=False)
     serializer_class = OurAchievementsSerializer
+
+
+class UserViewSet(viewsets.ModelViewSet):
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class AuthViewSet(viewsets.ModelViewSet):
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (permissions.AllowAny,)
+
+    @action(methods=['post'], detail=False, url_path='login')
+    def login_user(self, *args, **kwargs):
+        # print(self.request.data['username'])
+        username = self.request.data['username']
+        password = self.request.data['password']
+        user = authenticate(self.request, username=username, password=password)
+        if user is not None:
+            login(self.request, user)
+            return response.Response({'detail': "User successfully authorized"})
+        user = User.objects.filter(username=username)
+        if user is not None:
+            return response.Response({'detail': "Wrong password"})
+        return response.Response({'detail': 'Wrong username'})
+
+    @action(methods=['get'], detail=False, url_path='logout')
+    def logout_user(self, *args, **kwargs):
+        logout(self.request)
+        return response.Response({'detail': 'User successfully logout'})
+
+
