@@ -8,8 +8,8 @@ const ContentBody = (props) =>{
         <main className="page">
             <section className="page__notFound notFound">
                 <div className="notFound__container _container">
-                    <div className="notFound__content" style={{"backgroundColor": "#DBF4FC"}}>
-                     <RegistrationForm/>
+                    <div className="notFound__content">
+                     {/* <RegistrationForm/> */}
                      <LoginForm/>
                     </div>
                 </div>

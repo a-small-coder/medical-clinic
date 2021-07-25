@@ -2,6 +2,7 @@ import React from 'react';
 import {Formik, Form} from 'formik';
 import * as Yup from 'yup'
 import FormikControl from './FormikControl';
+import './Forms.scss';
 function LoginForm(){
     const initialValues = {
         username: '',
@@ -22,10 +23,11 @@ function LoginForm(){
             {
                 formik => {
                     return (
-                        <Form>
+                        <Form className="loginForm">
+                            <h1 className="loginForm__title _title">Login</h1>
                             <FormikControl control='input' type="text" label='username' name='username' />
                             <FormikControl control='input' type="password" label='password' name='password' />
-                            <button type='submit' disabled={!formik.isValid}>Submit</button>
+                            <button className="loginForm__button btn" type='submit' disabled={!formik.isValid}>Submit</button>
                         </Form>
                     )
                 }

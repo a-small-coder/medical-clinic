@@ -1,0 +1,71 @@
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    justify-content: center;
+    padding: 15px 25px;
+    border: 3px solid #0FC0FC;
+    border-radius: 25px;
+    background-color: #DBF4FC;
+
+    &__button{
+        font-weight: 600;
+        min-height: 52px;
+        font-size: 20px;
+        background-color: #0FC0FC;
+        color: #fff;
+        width: 100%;
+        &:hover{
+            @media (any-hover: hover){
+                background-color: #0B94C1;
+            }
+        }
+        &:disabled{
+            border-color: rgba(166, 166, 166, 0.45);
+            background-color: rgba(166, 166, 166, 0.45);
+            pointer-events: none;
+        }
+        margin-top: 10px;
+    }
+}
+
+.form-control{
+    margin: 10px 0;
+}
+
+.input{
+    &__block {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    &__field {
+        padding: 5px;
+        margin:5px 0;
+        border: 1px solid #0FC0FC;
+        background-color: #fff;
+        color: #616161;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 120%;
+        &:focus{
+            border: 2px solid #0B94C1;
+            border-radius: 5px;
+        }
+    }
+
+    &__label {
+        color: #000;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 120%;
+    }
+
+    &__error {
+        color: red;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+}

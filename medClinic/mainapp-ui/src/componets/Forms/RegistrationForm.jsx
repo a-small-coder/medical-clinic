@@ -31,7 +31,7 @@ function RegistrationForm(){
                             <FormikControl control='input' type="email" label='email' name='email' />
                             <FormikControl control='input' type="password" label='password' name='password' />
                             <FormikControl control='input' type="password" label='confirm password' name='confirm_password' />
-                            <button type='submit' disabled={!formik.isValid}>Submit</button>
+                            <button className="btn" type='submit' disabled={!formik.isValid}>Submit</button>
                         </Form>
                     )
                 }
