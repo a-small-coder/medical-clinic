@@ -25,15 +25,21 @@ const HeaderActions = (props) => {
                     <ul className="cart-header__list cart-list"></ul>
                 </div>
             </div>
-            <Link to="" 
+            {props.auth.isAuth ? 
+            <Link to="/logout" 
+            className="actions-header__item actions-header__item_user _icon-exit"></Link> : 
+            
+            <Link to="/auth" 
             className="actions-header__item actions-header__item_user _icon-user"></Link>
+            }
         </div>
     )
 }
 
 let mapStateToProps = (state)=>{
     return {
-        countProductsInCart: state.header.cart.total_products
+        countProductsInCart: state.header.cart.total_products,
+        auth: state.auth
     }
 }
 let mapDispatchToProps = (dispatch)=>{

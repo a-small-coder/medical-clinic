@@ -46,8 +46,8 @@ const Products = (props) => {
 
     const buttonButClickHandler = (productId) =>{
         const addProductApiUrl = `${urlStart}cart/current_customer_cart/add_to_cart/${productId}/`
-       const status =  putApiRequest(addProductApiUrl)
-       if (status !== 'HTTP_400_BAD_REQUEST'){
+       const status =  putApiRequest(addProductApiUrl, props.userToken)
+       if (status === 200){
         props.setProductsCountInCart(props.countProductsInCart + 1)
        }
     }
@@ -91,7 +91,8 @@ let mapStateToProps = (state)=>{
         totalCount: state.catalog.products.totalCount,
         pageNumber: state.catalog.products.currentPage,
         countProductsInCart: state.header.cart.total_products,
-        cart: state.header.cart
+        cart: state.header.cart,
+        userToken: state.auth.user.token
     }
 }
 let mapDispatchToProps = (dispatch)=>{

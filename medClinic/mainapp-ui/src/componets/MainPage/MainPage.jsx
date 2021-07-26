@@ -85,7 +85,6 @@ const MainPage = (props) => {
             <UnicProducts products={props.mainPage.products.items} 
             onShowMoreClick={showMoreClickHandler} isButtonHidden={buttonIsHiden}/> :
             ""}
-            {console.log(buttonIsHiden)}
             
            {props.analiyzesComplex.length !== 0 ?
             <AnalyzeComplexes analyzes={props.analiyzesComplex}/>: 

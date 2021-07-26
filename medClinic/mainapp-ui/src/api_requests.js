@@ -7,6 +7,7 @@ export function getApiResponse(apiUrl, onGoodResponce, onBadResponse, token=fals
     }
     if (token){
         option["Authorization"] = `Token ${token}`
+        console.log(`With token: ${token}`)
     }
     
     axios.get(apiUrl, {headers: option}).then(response => {
@@ -25,8 +26,10 @@ export function putApiRequest(apiUrl, token=false) {
     }
     if (token){
         option["Authorization"] = `Token ${token}`
+        console.log(`With token: ${token}`)
     }
-    axios.put(apiUrl, {headers: option}).then(response => {
+    axios.put(apiUrl, {}, {headers: {"Authorization" : `Token ${token}`}}
+    ).then(response => {
         console.log(response.status)
         return response.status
     }).catch(err => {
