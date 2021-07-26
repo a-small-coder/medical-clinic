@@ -37,10 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mainapp',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'mainapp',
 ]
 
 MIDDLEWARE = [
@@ -139,11 +139,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOW_HEADERS = (
-        'Access-Control-Allow-Headers',
-        'Access-Control-Allow-Credentials',
-    )
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_HEADERS = (
+#         'Access-Control-Allow-Headers',
+#         'Access-Control-Allow-Credentials',
+#     )
+# CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
 ]
@@ -151,3 +151,13 @@ CORS_ALLOWED_ORIGINS = [
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
 ]
+
+
+REST_FRAMEWORK = {
+   'DEFAULT_AUTHENTICATION_CLASSES': (
+       'rest_framework.authentication.TokenAuthentication',
+   ),
+   'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAdminUser'
+   ),
+}

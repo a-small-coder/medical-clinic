@@ -13,7 +13,7 @@ export function getApiResponse(apiUrl, onGoodResponce, onBadResponse) {
 }
 export function putApiRequest(apiUrl) {
     console.log(`Send put request: ${apiUrl}`)
-    axios.put(apiUrl, {withCredentials: true}).then(response => {
+    axios.put(apiUrl).then(response => {
         console.log(response.status)
         return response.status
     }).catch(err => {
@@ -30,8 +30,7 @@ export function postApiRequest(apiUrl, data, goodResponseHandler) {
         data: data,
         headers: {
           "Content-type": "application/json; charset=UTF-8"
-        },
-        withCredentials: true
+        }
       }).then(response => {
         goodResponseHandler(response.data)
     }).catch(err => {

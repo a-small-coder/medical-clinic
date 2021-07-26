@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, response, status
 from rest_framework.decorators import action
 from .serializers.Cart import CartSerializer
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from ..models import (
     Analyze,
     Cart, CartAnalyze,
@@ -13,6 +15,8 @@ class CartViewSet(viewsets.ModelViewSet):
 
     serializer_class = CartSerializer
     queryset = Cart.objects.all()
+    authentication_classes = [TokenAuthentication, SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
     @staticmethod
     def get_cart(request):
