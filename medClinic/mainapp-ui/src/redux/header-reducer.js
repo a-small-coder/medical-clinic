@@ -69,7 +69,12 @@ const headerReducer = (state = initialState, action) =>{
         }
         case SET_CART:{
             debugger
-            stateCopy.cart = {...action.cart}
+            stateCopy.cart = {
+                ...state.cart, 
+                products: [...action.cart.products], 
+                total_products: action.cart.total_products, 
+                id: action.cart.id 
+            }
             return stateCopy
         }
         default:

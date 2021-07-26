@@ -5,13 +5,13 @@ const SET_USER_DATA = "SET_USER_DATA";
 
 
 let initialState = {
-    isAuth : false,
+    isAuth : true,
     isLoading: false,
     isNeedRedirect: false,
     user : {
-        userId: null,
-        token: null,
-        username: ""
+        userId: 1,
+        token: "a001e6a862da56a707d8e658ef2f6b9dc421b3f2",
+        username: "admin"
     },
     
 }

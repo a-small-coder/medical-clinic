@@ -28,7 +28,7 @@ export function putApiRequest(apiUrl, token=false) {
         option["Authorization"] = `Token ${token}`
         console.log(`With token: ${token}`)
     }
-    axios.put(apiUrl, {}, {headers: {"Authorization" : `Token ${token}`}}
+    axios.put(apiUrl, {}, {headers: option}
     ).then(response => {
         console.log(response.status)
         return response.status
