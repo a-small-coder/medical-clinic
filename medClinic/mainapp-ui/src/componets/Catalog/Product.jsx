@@ -1,5 +1,6 @@
-import React, { useRef } from 'react';
+import React, {useRef} from 'react';
 import { Link } from 'react-router-dom';
+import './Proguct.scss';
 
 const Product = (props) => {
 
@@ -7,7 +8,12 @@ const Product = (props) => {
     const buttonBuyRef = useRef(null)
 
     const onButtonBuyClick = ()=>{
-        props.buttonButClickHandler(props.id)
+        props.buttonButClickHandler(props.id, props.InCart)
+    }
+
+    let buttonCartClassName = "analyze-item__buy btn _icon-cart"
+    if (props.InCart){
+        buttonCartClassName += " _active"
     }
 
     return (
@@ -25,7 +31,7 @@ const Product = (props) => {
             </div>
             <div className="analyze-item__price">{props.price} р</div>
             <button type="button" ref={buttonBuyRef} onClick={onButtonBuyClick}
-            className="analyze-item__buy btn _icon-cart" title="Добавить в корзину"></button>
+            className={buttonCartClassName} title="Добавить в корзину"></button>
         </div>
     );
 }

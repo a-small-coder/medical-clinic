@@ -4,7 +4,7 @@ import Product from './Product';
 import { connect } from 'react-redux';
 import { setCurrentPageAC, setProductsAC } from '../../redux/catalog-reducer';
 import {Redirect} from "react-router-dom";
-import urlStart, { getApiResponse, putApiRequest } from '../../api_requests';
+import urlStart, { deleteApiRequest, getApiResponse, putApiRequest } from '../../api_requests';
 import { setCartAC, setProductsCountInCartAC } from '../../redux/header-reducer';
 
 const Products = (props) => {
@@ -44,21 +44,58 @@ const Products = (props) => {
         }
     })
 
-    const buttonButClickHandler = (productId) =>{
-        const addProductApiUrl = `${urlStart}cart/current_customer_cart/add_to_cart/${productId}/`
-       const status =  putApiRequest(addProductApiUrl, props.userToken)
-       if (status === 200){
-        props.setProductsCountInCart(props.countProductsInCart + 1)
-       }
+    const buttonButClickHandler = (productId, inCart) => {
+        const goodResponseHandler = () =>{
+            const cartUrl = `${urlStart}cart/current_customer_cart/`
+            const setCartFromResponse = (responseData) => {
+                props.setCart(responseData)
+            }
+            const onBadResponse = (err) => {
+                console.log(err)
+            }
+            getApiResponse(cartUrl, setCartFromResponse, onBadResponse, props.userToken)
+        }
+        if (inCart) {
+            const cartProductId = getProductInCartId(productId, props.cart.products)
+            const addProductApiUrl = `${urlStart}cart/current_customer_cart/product_remove_from_cart/${cartProductId}/`
+            deleteApiRequest(addProductApiUrl, props.userToken, goodResponseHandler)
+        }
+        else {
+            const addProductApiUrl = `${urlStart}cart/current_customer_cart/add_to_cart/${productId}/`
+            putApiRequest(addProductApiUrl, props.userToken, goodResponseHandler)
+        }
     }
+
+    const isProductInCart = (id, cartProducts) =>{
+        // debugger
+        for (let product of cartProducts){
+            if (id === product.analyze.id){
+                return true
+            }
+        }
+        return false
+    }
+
+    const getProductInCartId = (productId, cartProducts) =>{
+        for (let product of cartProducts){
+            if (productId === product.analyze.id){
+                return product.id
+            }
+        }
+        return null
+    }
+
     let productsElements
     let pagesCount = Math.ceil(props.totalCount / props.pageSize)
     if (props.products.items != null){
         productsElements = props.products.items.map(
-            a => <Product key={a.id} id={a.id} title={a.title} time={a.time} number={a.number}
-                slug={a.id} price={a.price} mainSlug={props.history.location.pathname} 
+            a => {
+                const isInCart = isProductInCart(a.id, props.cart.products)
+            return <Product key={a.id} id={a.id} title={a.title} time={a.time} number={a.number}
+                slug={a.id} price={a.price} mainSlug={props.history.location.pathname} InCart={isInCart}
                 buttonButClickHandler={buttonButClickHandler}
-                />);
+                />
+            });
     }
     
     
@@ -108,7 +145,7 @@ let mapDispatchToProps = (dispatch)=>{
         },
         setCart: (cart) =>{
             dispatch(setCartAC(cart))
-        }
+        },
     }
 }
 const ProductsContainer = connect(mapStateToProps, mapDispatchToProps)(Products);

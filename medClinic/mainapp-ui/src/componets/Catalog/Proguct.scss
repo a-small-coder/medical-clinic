@@ -1,0 +1,13 @@
+.analyze-item__buy{
+    &._active{
+        background-color: #00b388;
+        border-color: #00b388;
+        color: #fff;
+        @media (any-hover: hover){
+            &:hover{
+                background-color: red;
+                border-color: red;
+            }
+        }
+    }
+} 

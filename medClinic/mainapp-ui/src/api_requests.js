@@ -19,7 +19,7 @@ export function getApiResponse(apiUrl, onGoodResponce, onBadResponse, token=fals
 
     })
 }
-export function putApiRequest(apiUrl, token=false) {
+export function putApiRequest(apiUrl, token=false, goodResponseHandler = (response) =>{console.log(response)}, badResponseHandler = (err)=>{console.log(err)}) {
     console.log(`Send put request: ${apiUrl}`)
     const option = {
         "Content-type": "application/json; charset=UTF-8"
@@ -30,11 +30,9 @@ export function putApiRequest(apiUrl, token=false) {
     }
     axios.put(apiUrl, {}, {headers: option}
     ).then(response => {
-        console.log(response.status)
-        return response.status
+        goodResponseHandler(response)
     }).catch(err => {
-        console.log(err)
-        return err.status
+        badResponseHandler(err)
     })
     
 }
@@ -54,4 +52,25 @@ export function postApiRequest(apiUrl, data, goodResponseHandler = (response) =>
     })
     
 }
+
+export function deleteApiRequest(apiUrl, token=false, goodResponseHandler = (response) =>{console.log(response)}, badResponseHandler = (err)=>{console.log(err)}) {
+    console.log(`Send post request: ${apiUrl}`)
+    const option = {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    if (token){
+        option["Authorization"] = `Token ${token}`
+        console.log(`With token: ${token}`)
+    }
+    axios({
+        method: 'delete',
+        url: apiUrl,
+        headers: option
+      }).then(response => {
+        goodResponseHandler(response)
+    }).catch(err => {
+        badResponseHandler(err)
+    })
+}
+
 export default SERVER_API_START_URL

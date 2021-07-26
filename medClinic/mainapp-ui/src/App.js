@@ -21,7 +21,7 @@ function App(props) {
       // get user data - in future
       const cartUrl = `${urlStart}cart/current_customer_cart/`
       const setCartFromResponse = (responseData) => {
-      props.setCart(responseData)
+        props.setCart(responseData)
         props.setIsAuth(true)
 
       }
