@@ -1,17 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import urlStart,{ getApiResponse } from '../../api_requests';
+import { setIsAuthAC, setIsNeedRedirectAC, setUserDataAC } from '../../redux/auth-reducer';
 import { setCartAC } from '../../redux/header-reducer';
+import LogoutAction from './LogoutAction';
 const HeaderActions = (props) => {
 
-    // useEffect(()=>{
-    //     const cartApiUrl = `${urlStart}cart/current_customer_cart/`
-    //     const badResponseHandler =()=>{
-    //         console.log('we are in shit')
-    //     }
-    //     getApiResponse(cartApiUrl, props.setCart, badResponseHandler )
-    // }, [props.countProductsInCart])
+    const logoutClickHandler = () => {
+        props.setIsAuth(false)
+        props.setIsNeedRedirect(false)
+        props.setUserData({
+            userId: null,
+            token: null,
+            username: ""
+        })
+    }
 
     return(
         <div className="header__actions actions-header">
@@ -26,9 +29,8 @@ const HeaderActions = (props) => {
                 </div>
             </div>
             {props.auth.isAuth ? 
-            <Link to="/logout" 
-            className="actions-header__item actions-header__item_user _icon-exit"></Link> : 
-            
+            <LogoutAction clikHandler={logoutClickHandler}/> : 
+
             <Link to="/auth" 
             className="actions-header__item actions-header__item_user _icon-user"></Link>
             }
@@ -46,7 +48,16 @@ let mapDispatchToProps = (dispatch)=>{
     return{
         setCart: (cart) =>{
             dispatch(setCartAC(cart))
-        }
+        },
+        setIsAuth: (isAuth) => {
+            dispatch(setIsAuthAC(isAuth));
+        },
+        setUserData: (userData) => {
+            dispatch(setUserDataAC(userData))
+        },
+        setIsNeedRedirect: (isNeedRedirect) =>{
+            dispatch(setIsNeedRedirectAC(isNeedRedirect))
+        },
     }
 }
 const HeaderActionsContainer = connect(mapStateToProps, mapDispatchToProps)(HeaderActions);

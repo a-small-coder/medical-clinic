@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import urlStart, { postApiRequest } from '../api_requests';
+import { postApiRequest } from '../api_requests';
 import { setIsAuthAC, setIsLoadingAC, setIsNeedRedirectAC, setUserDataAC } from '../redux/auth-reducer';
 import LoginForm from './Forms/LoginForm';
 import RegistrationForm from './Forms/RegistrationForm';
