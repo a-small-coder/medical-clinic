@@ -35,7 +35,7 @@ export function putApiRequest(apiUrl, token=false) {
     })
     
 }
-export function postApiRequest(apiUrl, data, goodResponseHandler) {
+export function postApiRequest(apiUrl, data, goodResponseHandler = (response) =>{console.log(response)}, badResponseHandler = (err)=>{console.log(err)}) {
     console.log(`Send post request: ${apiUrl}`)
     axios({
         method: 'post',
@@ -45,9 +45,9 @@ export function postApiRequest(apiUrl, data, goodResponseHandler) {
           "Content-type": "application/json; charset=UTF-8"
         }
       }).then(response => {
-        goodResponseHandler(response.data)
+        goodResponseHandler(response)
     }).catch(err => {
-        console.log(err)
+        badResponseHandler(err)
     })
     
 }

@@ -17,20 +17,24 @@ let initialState = {
 }
 
 const authReducer = (state = initialState, action) =>{
-    switch (action){
+    switch (action.type){
         case SET_IS_AUTH: {
+            
             let stateCopy= {...state, isAuth: action.isAuth}
             return stateCopy
         }
         case SET_IS_LOADING: {
+            
             let stateCopy = {...state, isLoading: action.isLoading}
             return stateCopy
         }
         case SET_IS_NEED_REDIRECT:{
+            
             let stateCopy = {...state, isNeedRedirect: action.isNeedRedirect}
             return stateCopy
         }
         case SET_USER_DATA: {
+            
             let stateCopy = {...state, user: {...action.userData}}
             return stateCopy
         }

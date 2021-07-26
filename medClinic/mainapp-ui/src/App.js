@@ -7,26 +7,26 @@ import Catalog from './componets/Catalog/Catalog';
 import ProductPage from './componets/ProductPage/ProductPage';
 import InWork from './componets/InWork/InWork';
 import ScrollToTop from './componets/ScrollToTop';
-import ContentBody from './componets/ContentBody';
+import ContentBodyContainer from './componets/ContentBody';
 
 function App(props) {
   return (
     <BrowserRouter>
-    <div className="wrapper _loaded">
-        <ScrollToTop/>
-      	<Header/>
+      <div className="wrapper _loaded">
+        <ScrollToTop />
+        <Header />
         <Switch>
-        <Redirect exact from={"/catalog"} to={"catalog/all-analyzes"} ></Redirect>
-        {/* <Redirect from={"/analyzes/analyzes/all-analyzes/<:pk>"} to={"analyze/<:pk>"} ></Redirect> */}
-        <Route exact path="/catalog/:category" component={Catalog}/>
-        <Route exact path="/catalog/:category/:id" component={ProductPage}/> 
-        {/* <Route exact path="/home"component={MainPage}/> */}
-        <Route exact path="/" component={MainPage}/>
-        <Route path='/auth' component={ContentBody}/>
-        <Route component={InWork}/>
+          <Redirect exact from={"/catalog"} to={"catalog/all-analyzes"} ></Redirect>
+          {/* <Redirect from={"/analyzes/analyzes/all-analyzes/<:pk>"} to={"analyze/<:pk>"} ></Redirect> */}
+          <Route exact path="/catalog/:category" component={Catalog} />
+          <Route exact path="/catalog/:category/:id" component={ProductPage} />
+          {/* <Route exact path="/home"component={MainPage}/> */}
+          <Route exact path="/" component={MainPage} />
+          <Route path='/auth' component={ContentBodyContainer} />
+          <Route component={InWork} />
         </Switch>
-        <Footer/>
-    </div>
+        <Footer />
+      </div>
     </BrowserRouter>
   );
 }
