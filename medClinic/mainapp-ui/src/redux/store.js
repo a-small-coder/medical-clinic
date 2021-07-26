@@ -4,6 +4,7 @@ import footerReducer from "./footer-reducer";
 import catalogReducer from "./catalog-reducer";
 import productReducer from "./product-reducer";
 import mainPageReducer from "./mainPage-reducer";
+import authReducer from "./auth-reducer";
 
 
 let reducers = combineReducers({
@@ -11,13 +12,14 @@ let reducers = combineReducers({
     footer: footerReducer,
     catalog: catalogReducer,
     productPage: productReducer,
-    mainPage: mainPageReducer 
+    mainPage: mainPageReducer,
+    auth: authReducer, 
 })
 
 let store = createStore(reducers);
 
 
-window.tate = store.getState();
+window.state = store.getState();
 
 export default  store
 

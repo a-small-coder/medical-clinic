@@ -8,7 +8,7 @@ const ContentBody = (props) =>{
 
     const onSubmitLoginForm = (formData) =>{
         console.log("Form data", formData)
-        const loginUrl = "http://127.0.0.1:8000/api/auth/login/"
+        const loginUrl = "http://127.0.0.1:8000/auth/"
         const userData = JSON.stringify(formData)
         const goodResponseHandler = (response)=>{
             console.log(response)
