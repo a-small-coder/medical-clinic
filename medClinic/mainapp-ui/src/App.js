@@ -29,7 +29,7 @@ function App(props) {
         console.log(err)
         props.setIsAuth(false)
       }
-      getApiResponse(cartUrl, setCartFromResponse, onBadResponse, props.userToken)
+      getApiResponse(cartUrl, props.userToken, setCartFromResponse, onBadResponse, )
     }
   }, [])
 

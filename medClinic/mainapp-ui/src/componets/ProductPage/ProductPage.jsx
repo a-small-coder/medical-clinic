@@ -3,9 +3,9 @@ import ProductMain from './MainBlock/ProductMain';
 import ProductInfo from './ProductInfo/ProductInfo';
 import { connect } from 'react-redux';
 import {setProductAC, switchProductActiveContentAC } from '../../redux/product-reducer';
-import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import IncludeProducts from './InculeProducts';
-import * as axios from 'axios'
+import urlStart, { getApiResponse } from '../../api_requests';
 
 const ProductPage = (props) => {
     let productNameL = props.history.location.pathname.split("/");
@@ -20,7 +20,9 @@ const ProductPage = (props) => {
         
     }, [Badresponse])
     if (isfalseProduct && !Badresponse){
-        axios.get(`http://127.0.0.1:8000/api/${productLink}`).then(response => {
+
+        const url = `${urlStart}${productLink}`
+        const goodResponseHandler = (response) =>{
             let product = response.data
             let isAcomplex = product.complex_type != null
             if (!isAcomplex){
@@ -37,10 +39,12 @@ const ProductPage = (props) => {
                 product.content = []
             }
             props.setProduct(product, isAcomplex)
-        }).catch(err => { 
+        }
+        const badResponseHandler = (err) =>{
             setNeedRender(true)
             console.log(err)
-          })
+        }
+        getApiResponse(url, false, goodResponseHandler, badResponseHandler)
     }
     return Badresponse ? (
         <Redirect to={"/page-in-work"}/>

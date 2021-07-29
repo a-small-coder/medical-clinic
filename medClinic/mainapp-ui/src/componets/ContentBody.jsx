@@ -3,9 +3,7 @@ import React from 'react';
 import { postApiRequest } from '../api_requests';
 import { setIsAuthAC, setIsLoadingAC, setIsNeedRedirectAC, setUserDataAC } from '../redux/auth-reducer';
 import LoginForm from './Forms/LoginForm';
-import RegistrationForm from './Forms/RegistrationForm';
 import { Redirect } from 'react-router-dom';
-// import '../InWork/InWork.scss'
 
 const ContentBody = (props) =>{
 
@@ -14,7 +12,6 @@ const ContentBody = (props) =>{
         const loginUrl = "http://127.0.0.1:8000/auth/"
         const userData = JSON.stringify(formData)
         const goodResponseHandler = (response)=>{
-
             console.log(response)
             if (response.status === 200){
                 props.setIsAuth(true)
@@ -25,8 +22,7 @@ const ContentBody = (props) =>{
                     token: response.data.token,
                     username: ""
                 })
-            }
-            
+            }           
         }
         console.log(userData)
         postApiRequest(loginUrl, userData, goodResponseHandler)
@@ -55,7 +51,6 @@ const ContentBody = (props) =>{
             <section className="page__notFound notFound">
                 <div className="notFound__container _container">
                     <div className="notFound__content">
-                     {/* <RegistrationForm/> */}
                      <LoginForm handlerSubmit={onSubmitLoginForm}/>
                     </div>
                 </div>

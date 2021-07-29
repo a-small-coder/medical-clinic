@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import './Proguct.scss';
 
 const Product = (props) => {
-
-    //console.log(props.mainSlug + `/${props.slug}`)
     const buttonBuyRef = useRef(null)
 
     const onButtonBuyClick = ()=>{

@@ -2,7 +2,7 @@ import React from 'react';
 import FormItems from './FormItems';
 import FilterPopup from './FilterPopupContainer';
 
-const CatalogFilter = (props) => {
+const CatalogFilter = () => {
 
     return (
         <aside className="catalog__sidebar filter">

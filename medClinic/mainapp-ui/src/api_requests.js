@@ -1,6 +1,6 @@
 import * as axios from 'axios'
 const SERVER_API_START_URL = "http://127.0.0.1:8000/api/"
-export function getApiResponse(apiUrl, onGoodResponce, onBadResponse, token=false) {
+export function getApiResponse(apiUrl, token=false, goodResponseHandler = standartGoodResponseHandler, badResponseHandler = standartErrorResponseHandler) {
     console.log(`Send get response: ${apiUrl}`)
     const option = {
         "Content-type": "application/json; charset=UTF-8"
@@ -12,14 +12,14 @@ export function getApiResponse(apiUrl, onGoodResponce, onBadResponse, token=fals
     
     axios.get(apiUrl, {headers: option}).then(response => {
         console.log(response.data)
-        onGoodResponce(response.data)
+        goodResponseHandler(response.data)
     }).catch(err => {
         console.log(err)
-        onBadResponse()
+        badResponseHandler()
 
     })
 }
-export function putApiRequest(apiUrl, token=false, goodResponseHandler = (response) =>{console.log(response)}, badResponseHandler = (err)=>{console.log(err)}) {
+export function putApiRequest(apiUrl, token=false, goodResponseHandler = standartGoodResponseHandler, badResponseHandler = standartErrorResponseHandler) {
     console.log(`Send put request: ${apiUrl}`)
     const option = {
         "Content-type": "application/json; charset=UTF-8"
@@ -36,7 +36,7 @@ export function putApiRequest(apiUrl, token=false, goodResponseHandler = (respon
     })
     
 }
-export function postApiRequest(apiUrl, data, goodResponseHandler = (response) =>{console.log(response)}, badResponseHandler = (err)=>{console.log(err)}) {
+export function postApiRequest(apiUrl, data, goodResponseHandler = standartGoodResponseHandler, badResponseHandler = standartErrorResponseHandler) {
     console.log(`Send post request: ${apiUrl}`)
     axios({
         method: 'post',
@@ -53,7 +53,7 @@ export function postApiRequest(apiUrl, data, goodResponseHandler = (response) =>
     
 }
 
-export function deleteApiRequest(apiUrl, token=false, goodResponseHandler = (response) =>{console.log(response)}, badResponseHandler = (err)=>{console.log(err)}) {
+export function deleteApiRequest(apiUrl, token=false, goodResponseHandler = standartGoodResponseHandler, badResponseHandler = standartErrorResponseHandler) {
     console.log(`Send post request: ${apiUrl}`)
     const option = {
         "Content-type": "application/json; charset=UTF-8"
@@ -71,6 +71,14 @@ export function deleteApiRequest(apiUrl, token=false, goodResponseHandler = (res
     }).catch(err => {
         badResponseHandler(err)
     })
+}
+
+export function standartGoodResponseHandler(response) {
+    console.log(response)
+}
+
+export function standartErrorResponseHandler(err) {
+    console.log(err)
 }
 
 export default SERVER_API_START_URL

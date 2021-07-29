@@ -8,8 +8,6 @@ const PopupItem = (props) => {
         }
         else{
             props.activateCheckBoxHandler(props.categorySlug, props.itemSlug);
-            
-            
         }
     }
 

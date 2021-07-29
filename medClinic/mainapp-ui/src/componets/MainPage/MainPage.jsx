@@ -32,12 +32,12 @@ const MainPage = (props) => {
         const badResponseHandler =()=>{
             setNeedRedirect(true)
         }
-        getApiResponse(bestProductsUrl, props.setTopServisesSlides, badResponseHandler)
-        getApiResponse(bestComplexesUrl, props.setAnalyzesComplexes, badResponseHandler)
-        getApiResponse(aboutUsUrl, props.setAboutUs, badResponseHandler)
-        getApiResponse(achievementsUrl, props.setAchivmentsSmall, badResponseHandler)
+        getApiResponse(bestProductsUrl, false, props.setTopServisesSlides, badResponseHandler)
+        getApiResponse(bestComplexesUrl, false, props.setAnalyzesComplexes, badResponseHandler)
+        getApiResponse(aboutUsUrl, false, props.setAboutUs, badResponseHandler)
+        getApiResponse(achievementsUrl, false, props.setAchivmentsSmall, badResponseHandler)
         if (props.mainPage.products.items.length === 0){
-            getApiResponse(uniqueAnalyzesUrl, mapGoodResponseDataForProducts, badResponseHandler)
+            getApiResponse(uniqueAnalyzesUrl, false, mapGoodResponseDataForProducts, badResponseHandler)
         }
     }, [])
 
@@ -56,7 +56,7 @@ const MainPage = (props) => {
             setNeedRedirect(true)
         }
         const uniqueAnalyzesUrl = `${urlStart}catalog/unic-analyzes?page=${props.pageNumber + 1}&count=${props.pageSize}`
-        getApiResponse(uniqueAnalyzesUrl, mapGoodResponseDataForProducts, badResponseHandler)
+        getApiResponse(uniqueAnalyzesUrl, false, mapGoodResponseDataForProducts, badResponseHandler)
         props.setCurrentPage(props.pageNumber + 1)
     }
 

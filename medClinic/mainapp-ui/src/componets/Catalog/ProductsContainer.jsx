@@ -32,7 +32,7 @@ const Products = (props) => {
                 setNeedRedirect(true)
             }
         }
-        getApiResponse(productsApiUrl, mapProductsDataResponse, badResponseHandler)
+        getApiResponse(productsApiUrl, false, mapProductsDataResponse, badResponseHandler)
     }
     const onPageChenged = (pageNumber) => {
         props.setCurrentPage(pageNumber)
@@ -50,10 +50,7 @@ const Products = (props) => {
             const setCartFromResponse = (responseData) => {
                 props.setCart(responseData)
             }
-            const onBadResponse = (err) => {
-                console.log(err)
-            }
-            getApiResponse(cartUrl, setCartFromResponse, onBadResponse, props.userToken)
+            getApiResponse(cartUrl, props.userToken, setCartFromResponse)
         }
         if (inCart) {
             const cartProductId = getProductInCartId(productId, props.cart.products)
@@ -67,7 +64,6 @@ const Products = (props) => {
     }
 
     const isProductInCart = (id, cartProducts) =>{
-        // debugger
         for (let product of cartProducts){
             if (id === product.analyze.id){
                 return true
@@ -98,9 +94,6 @@ const Products = (props) => {
             });
     }
     
-    
-    ////console.log(productsElements)
-    //debugger;
     let titleKey = props.products.category.substring(1) + '/'
     
     return Badresponse ? (
