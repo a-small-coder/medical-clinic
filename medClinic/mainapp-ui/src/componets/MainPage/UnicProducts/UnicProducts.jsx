@@ -19,8 +19,8 @@ const UnicProducts = (props) => {
                     {productElements}
                 </div>
                 <div className="products__footer">
-                    <button to="" onClick={showMoreClickHandler} 
-                    className={!props.isButtonHidden ? "products__more btn btn_white" : "products__more _disable btn btn_white"}>
+                    <button to="" onClick={showMoreClickHandler}
+                        className={!props.isButtonHidden ? "products__more btn btn_white" : "products__more _disable btn btn_white"}>
                         Show More</button>
                 </div>
             </div>

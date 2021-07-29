@@ -5,7 +5,6 @@ const TopService = (props) => {
     if (props.serviceData.slides.length === 0){
         return <div>Loading...</div>
     }
-    // debugger
     return (
         <section className="page__main-slider main-slider">
             <div className="main-slider__container _container">

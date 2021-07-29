@@ -11,14 +11,6 @@ import urlStart, { getApiResponse } from '../../api_requests';
 
 const MainPage = (props) => {
 
-    // let stocks = [
-    //     {id: 1, slogan: "Путешествуй уверенно с TedMed", text: "Анализы ПЕРЕД и ПОСЛЕ вакцинации от COVID-19 Вакцинация против COVID-19", img: imgS, link: ""},
-    //     {id: 2, slogan: "Онкодиагностика на любом этапе", text: "Возрастная скидка и бонусная программа", img: imgS, link: ""},
-    //     {id: 3, slogan: "Диагностика COVID-19 для организаций", text: "", img: imgS, link: ""},
-    //     {id: 4, slogan: "Обязательные анализы для детской медкарты 026/У", text: "", img: imgS, link: ""},
-    //     {id: 5, slogan: "Проверь уровень витамина D", text: "По выгодной цене Бесплатный выез на дом", img: imgS, link: ""},
-    // ]
-
     const [Badresponse, setNeedRedirect] = useState(false);
     useEffect(() =>{
         if (Badresponse){
@@ -53,8 +45,6 @@ const MainPage = (props) => {
     const showMoreClickHandler = () => {
         
         let maxPageNumber = Math.ceil(props.mainPage.products.totalCount / props.pageSize)
-        //console.log(maxPageNumber, props.pageNumber)
-        //console.log(maxPageNumber === (props.pageNumber + 1))
         if (maxPageNumber === (props.pageNumber + 1)){
             setButtonIsHidden(true)
         }

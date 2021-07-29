@@ -1,4 +1,3 @@
-import React from 'react';
 import {updateNewSearchTextAC} from '../../redux/header-reducer'
 import HeaderSearch from './HeaderSearch';
 import {connect} from 'react-redux';

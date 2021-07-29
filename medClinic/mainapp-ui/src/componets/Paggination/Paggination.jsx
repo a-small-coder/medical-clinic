@@ -6,17 +6,14 @@ const Paggination = (props) => {
     }
     const onClickButtonPrev =()=>{
         props.PageChenge(props.totalPage - 1)
-      //debugger
     }
     const onClickButtonNext =()=>{
         props.PageChenge(props.totalPage + 1)
-      //debugger
     }
     const onClickPageNumber =(target)=>{
         let clickNumber = Number(target.target.innerText );
         if (clickNumber !== props.totalPage){
             props.PageChenge(clickNumber)
-          //debugger
         }
     }
     const anactiveClassName = " _anactive";

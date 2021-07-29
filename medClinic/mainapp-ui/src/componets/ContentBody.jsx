@@ -16,7 +16,6 @@ const ContentBody = (props) =>{
         const goodResponseHandler = (response)=>{
 
             console.log(response)
-            // debugger
             if (response.status === 200){
                 props.setIsAuth(true)
                 props.setIsLoading(false)

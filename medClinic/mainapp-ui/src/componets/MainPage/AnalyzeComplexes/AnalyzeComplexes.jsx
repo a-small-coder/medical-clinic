@@ -8,8 +8,6 @@ const AnalyzeComplexes = (props) => {
     if (props.analyzes.length === 0){
         return <div>Loading...</div>
     }
-    
-    // debugger
     let analyzeEkements = props.analyzes.map(a => <Analyze key={a.id} number={`0 ${a.id}`} title={a.title_min} text={"популярный комплекс"} img={a.small_image} link={a.slug}/>)
 
     const goNext = () => {
@@ -57,7 +55,7 @@ const AnalyzeComplexes = (props) => {
                 <div className="sub-slider-big__slider slider-sub-slider-big">
 
                     <Swiper {...params} ref={sliderRef}>
-                    {analyzeEkements}
+                        {analyzeEkements}
                     </Swiper>
                     <div className="slider-sub-slider-big__arrows slider-arrows">
                         <button type="button" className="slider-arrow slider-arrow_white slider-arrow_prev _icon-arrow-down" onClick={goPrev}></button>

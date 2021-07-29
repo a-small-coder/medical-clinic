@@ -8,15 +8,6 @@ import IncludeProducts from './InculeProducts';
 import * as axios from 'axios'
 
 const ProductPage = (props) => {
-
-    
-    
-    // let history = useHistory();
-    // React.useEffect(() => {
-    //     console.log(history.location.pathname)
-    // }, [history]);
-    //console.log(props)
-    //console.log("hey!, i'm render!")
     let productNameL = props.history.location.pathname.split("/");
     let productName = Number(productNameL[productNameL.length - 1])
     let productLink = props.history.location.pathname.slice(1, props.history.location.pathname.length)
@@ -45,18 +36,10 @@ const ProductPage = (props) => {
             else{
                 product.content = []
             }
-            //console.log(product)
             props.setProduct(product, isAcomplex)
         }).catch(err => { 
             setNeedRender(true)
             console.log(err)
-            if (err.response) { 
-              // client received an error response (5xx, 4xx)
-            } else if (err.request) { 
-              // client never received a response, or request never left 
-            } else { 
-              // anything else 
-            } 
           })
     }
     return Badresponse ? (

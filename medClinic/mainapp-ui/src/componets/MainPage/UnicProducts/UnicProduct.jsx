@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import img from '../../../img/unic-products/unique_service_corona.webp'
 const UnicProduct = (props) => {
     let labelElements
     let stockSize = 0;
@@ -19,7 +18,7 @@ const UnicProduct = (props) => {
         labelElements = ""
     }
     
-
+// sorry for this code...
     return (
         <article data-pid="1" className="products__item item-product">
             <div className="item-product__labels">

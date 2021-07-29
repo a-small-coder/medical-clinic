@@ -30,8 +30,6 @@ const AboutUs = (props) => {
             setActiveslideIndex(swiperRef.current.swiper.realIndex);
         }
     };
-
-
     useEffect(() => {
         if (prefBtn.current != null) {
             prefBtn.current.style.visibility = 'visible';
@@ -43,8 +41,6 @@ const AboutUs = (props) => {
                 nextBtn.current.style.visibility = 'hidden';
             }
         }
-
-
     }, [activeSlideIndex]);
 
 
