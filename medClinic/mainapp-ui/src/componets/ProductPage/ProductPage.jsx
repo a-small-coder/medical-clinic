@@ -23,7 +23,8 @@ const ProductPage = (props) => {
 
         const url = `${urlStart}${productLink}`
         const goodResponseHandler = (response) =>{
-            let product = response.data
+            // debugger
+            let product = response
             let isAcomplex = product.complex_type != null
             if (!isAcomplex){
                 for (let i=0; i < product.content.length; i++){

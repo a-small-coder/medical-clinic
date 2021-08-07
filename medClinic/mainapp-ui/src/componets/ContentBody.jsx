@@ -24,8 +24,11 @@ const ContentBody = (props) =>{
                 })
             }           
         }
+        const badResponseHandler = (err) => {
+            props.setIsLoading(false)
+        }
         console.log(userData)
-        postApiRequest(loginUrl, userData, goodResponseHandler)
+        postApiRequest(loginUrl, userData, goodResponseHandler, badResponseHandler)
         props.setIsLoading(true)
     }
     if (props.auth.isNeedRedirect) {
