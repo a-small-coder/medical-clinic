@@ -19,13 +19,13 @@ const Products = (props) => {
         
     }, [Badresponse])
 
-    const sendRequestForGetProducts = ()=>{
-        const productsApiUrl = `${urlStart}${apiLink}?page=${props.pageNumber}&count=${props.pageSize}`
+    const sendRequestForGetProducts = (pageNumber)=>{
+        const productsApiUrl = `${urlStart}${apiLink}?page=${pageNumber}&count=${props.pageSize}`
         const mapProductsDataResponse = (data) =>{
             props.setProducts(data.items, data.total_count, catagoryName, data.page_size)
         }
         const badResponseHandler =()=>{
-            if (props.pageNumber > 1){
+            if (pageNumber > 1){
                 props.setCurrentPage(1)
             }
             else{
@@ -36,11 +36,11 @@ const Products = (props) => {
     }
     const onPageChenged = (pageNumber) => {
         props.setCurrentPage(pageNumber)
-        sendRequestForGetProducts()
+        sendRequestForGetProducts(pageNumber)
     }
     useEffect(() => {
         if ((props.products.items.length === 0 || props.products.category !== catagoryName) && !Badresponse){
-            sendRequestForGetProducts()
+            sendRequestForGetProducts(1)
         }
     })
 

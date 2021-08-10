@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import { getBadCategory, setProductsCategoryAC } from '../../redux/catalog-reducer';
+import { getBadCategory, setCurrentPageAC, setProductsCategoryAC } from '../../redux/catalog-reducer';
 import CatalogFilter from './Filter/CatalogFilter';
 import ProductsContainer from './ProductsContainer';
 import { connect } from 'react-redux';
@@ -7,7 +7,7 @@ const Catalog = (props) => {
 
     const category = props.history.location.pathname.slice(1, props.history.location.pathname.length)
     useEffect(() =>{
-        
+        props.setCurrentPage(1)
         if (props.category !== category && props.category !== getBadCategory()){
         }
     }, [category, props.category])
@@ -38,6 +38,9 @@ let mapDispatchToProps = (dispatch)=>{
     return{
         setProductsCategory: (category) => {
             dispatch(setProductsCategoryAC(category));
+        },
+        setCurrentPage: (totalPage) =>{
+            dispatch(setCurrentPageAC(totalPage));
         },
     }
 }
