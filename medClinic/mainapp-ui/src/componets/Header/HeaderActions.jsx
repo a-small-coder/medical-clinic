@@ -21,7 +21,7 @@ const HeaderActions = (props) => {
             <Link to="" 
             className="actions-header__item actions-header__item_feed-back _icon-feed-back"></Link>
             <div className="actions-header__item cart-header">
-                <Link to="" className="cart-header__icon _icon-cart" >
+                <Link to="/cart" className="cart-header__icon _icon-cart" >
                     {props.countProductsInCart > 0 ? <span>{props.countProductsInCart}</span>: ""}
                     </Link>
                 <div className="cart-header__body">
