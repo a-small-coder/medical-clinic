@@ -17,7 +17,7 @@ const productReducer = (state = initialState, action) =>{
             // debugger;
             stateCopy.product = {...state.product}
             stateCopy.product.content = state.product.content.map(c => {
-                if (action.activeContentSlug === c.slug){
+                if (action.activeContentId === c.id){
                     return {...c, active_block: true}
                 }
                 return {...c, active_block: false}
@@ -33,6 +33,6 @@ const productReducer = (state = initialState, action) =>{
             return state;
     }
 }
-export const switchProductActiveContentAC = (activeContentSlug) =>({type: SWITCH_PRODUCT_ACTIVE_CONTENT, activeContentSlug: activeContentSlug});
+export const switchProductActiveContentAC = (activeContentId) =>({type: SWITCH_PRODUCT_ACTIVE_CONTENT, activeContentId});
 export const setProductAC = (product, isAcomplex) =>({type: SET_PRODUCT, product, isAcomplex});
 export default productReducer;

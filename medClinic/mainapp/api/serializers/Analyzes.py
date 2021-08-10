@@ -94,7 +94,7 @@ class AnalyseContentCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AnalyseContentCategory
-        fields = ['title', 'items']
+        fields = ['title', 'items', 'id']
 
     @staticmethod
     def get_items(obj):
@@ -106,7 +106,7 @@ class AnalyzeContentBlockSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AnalyzeContentBlock
-        fields = ['title', 'text', 'pos']
+        fields = ['title', 'text', 'pos', 'id']
 
 
 

@@ -88,8 +88,8 @@ const Products = (props) => {
             a => {
                 const isInCart = isProductInCart(a.id, props.cart.products)
             return <Product key={a.id} id={a.id} title={a.title} time={a.time} number={a.number}
-                slug={a.id} price={a.price} mainSlug={props.history.location.pathname} InCart={isInCart}
-                buttonButClickHandler={buttonButClickHandler}
+                slug={a.id} price={a.price} mainSlug={props.history.location.pathname} vendor_code={a.vendor_code} 
+                InCart={isInCart} buttonButClickHandler={buttonButClickHandler} 
                 />
             });
     }

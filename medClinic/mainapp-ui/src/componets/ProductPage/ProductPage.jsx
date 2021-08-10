@@ -89,8 +89,8 @@ let mapStateToProps = (state)=>{
 }
 let mapDispatchToProps = (dispatch)=>{
     return{
-        switchProductActiveContent: (activeContentSlug) =>{
-            dispatch(switchProductActiveContentAC(activeContentSlug))
+        switchProductActiveContent: (activeContentId) =>{
+            dispatch(switchProductActiveContentAC(activeContentId))
         },
         setProduct: (product, isAcomplex) =>{
             dispatch(setProductAC(product, isAcomplex))

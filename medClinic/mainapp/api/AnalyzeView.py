@@ -13,7 +13,6 @@ from ..models import (
 class AnalyseViewSet(viewsets.ModelViewSet):
 
     queryset = Analyze.objects.all().order_by('id')
-    print(queryset)
     serializer_class = AnalyzeSerializer
     pagination_class = CatalogPagination
 

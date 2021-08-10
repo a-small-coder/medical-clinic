@@ -7,11 +7,11 @@ const ProductInfo = (props) => {
         let p = props.product;
         return (
             <div className="product-info__items">
-                        <ProductSide title={"Артикул"} text={p.number != null ? p.number : `6hAa1dB${p.id}`}/>
-                        <ProductSide title={"Срок исполнения"} subtext={p.time != null ? p.time : "рассчитывается при оформлении заказа"}/>
-                        <ProductSide title={"Цена"} text={p.price + " руб."} subtext={p.subprice}/>
-                        <ProductSide title={"Итого"} subtext={p.price + " руб."} isButton={true}/>
-                    </div>
+                <ProductSide title={"Артикул"} text={p.number != null ? p.number : p.vendor_code} />
+                <ProductSide title={"Срок исполнения"} subtext={p.time != null ? p.time : "рассчитывается при оформлении заказа"} />
+                <ProductSide title={"Цена"} text={p.price + " руб."} subtext={p.subprice} />
+                <ProductSide title={"Итого"} subtext={p.price + " руб."} isButton={true} />
+            </div>
         )
     } 
 

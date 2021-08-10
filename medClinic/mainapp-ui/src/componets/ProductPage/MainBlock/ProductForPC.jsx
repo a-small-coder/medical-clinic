@@ -4,7 +4,7 @@ import NavItem from './NavItem';
 const ProductForPC = (props) => {
 
     let navItemsElements = props.content.map(c => 
-        <NavItem key={c.slug} slug={c.slug} title={c.title} active_block={c.active_block} switchProductActiveContent={props.switchProductActiveContent}/>
+        <NavItem key={c.id} id={c.id} title={c.title} active_block={c.active_block} switchProductActiveContent={props.switchProductActiveContent}/>
     )
 
     return (
