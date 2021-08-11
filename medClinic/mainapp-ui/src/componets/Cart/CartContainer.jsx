@@ -1,56 +1,78 @@
 import { connect } from 'react-redux';
-import React from 'react';
-import { postApiRequest } from '../../api_requests';
+import React, { useEffect, useState } from 'react';
+import urlStart, { deleteApiRequest, getApiResponse} from '../../api_requests';
 import { setIsAuthAC, setIsLoadingAC, setIsNeedRedirectAC, setUserDataAC } from '../../redux/auth-reducer';
-import { Redirect } from 'react-router-dom';
+import {Redirect } from 'react-router-dom';
+import EmptyCart from './EmptyCart';
+import CartProductsList from './CartProductsList';
+import LoadingSheme from '../LoadingSheme';
 import './CartPage.scss';
+import { setCartAC } from '../../redux/header-reducer';
 
 const Cart = (props) =>{
 
+    const [isRequest, setIsRequest] = useState(false)
+
+    const RemoveProductClickHandler = (productId, isCart) => {
+        const addProductApiUrl = `${urlStart}cart/current_customer_cart/product_remove_from_cart/${productId}/`
+        const setCartFromResponse = (responseData) => {
+            props.setCart(responseData)
+            setIsRequest(true)
+        }
+        deleteApiRequest(addProductApiUrl, props.userToken, setCartFromResponse)
+    }
+
+    // send request to server for get cart data
+    useEffect(() => {
+        if (props.userToken) {
+            // get user data - in future
+            const cartUrl = `${urlStart}cart/current_customer_cart/`
+            const setCartFromResponse = (responseData) => {
+                props.setCart(responseData)
+                setIsRequest(true)
+            }
+            getApiResponse(cartUrl, props.userToken, setCartFromResponse)
+        }
+    }, [])
+
+    // fail to get cart data from server
     if (props.cart == null) {
         return (
-        <Redirect to={'/'}/>
+            <Redirect to={'/'} />
         )
     }
-    if (props.cart.total_products === 0){
+
+    // successfully getting cart data from server
+    if (isRequest) {
+        if (props.cart.total_products === 0) {
+            return <EmptyCart />
+        }
+        // debugger
         return (
             <main className="page">
-                <section className="page__base base-block">
-                    <div className="base-block__container _container">
-                        <div className="base-block__content empty-cart">
-                            <div className="empty-cart__left-part left-part">
-                                <h3 className="left-part__title _title">Ваша корзина пуста</h3>
-                                <div className="left-part__text">
-                                    <p>
-                                    Вы еще не добавили ни одного продукта. Раздел «Анализы» поможет вам найти необходимое исследование.
-                                    </p>
-                                </div>
-                                <button className="left-part__button btn _icon-arrow-link">ПЕРЕЙТИ В КАТАЛОГ</button>
-                            </div>
-                            <div className="empty-cart__right-part right-part">
-                                <button className="right-part__cart-icon _icon-cart"></button>
-                            </div>
+                <section className="page__base cart-page">
+                    <div className="cart-page__container _container">
+                        <div className="cart-page__content">
+                            <div className="cart-side"></div>
+                            <CartProductsList products={props.cart.products} productCloseClick={RemoveProductClickHandler}/>
                         </div>
                     </div>
                 </section>
             </main>
         )
+        
     }
-    return (
-        <main className="page">
-            <section className="page__base notFound">
-                <div className="notFound__container _container">
-                    <div className="notFound__content">
-                    </div>
-                </div>
-            </section>
-        </main>
-    )
+
+    // waiting server response
+    return <LoadingSheme />
+    
+    
 }
 
 let mapStateToProps = (state)=>{
     return {
         cart: state.header.cart,
+        userToken: state.auth.user.token,
     }
 }
 let mapDispatchToProps = (dispatch)=>{
@@ -66,7 +88,10 @@ let mapDispatchToProps = (dispatch)=>{
         },
         setUserData: (userData) => {
             dispatch(setUserDataAC(userData))
-        }
+        },
+        setCart: (cart) =>{
+            dispatch(setCartAC(cart));
+        },
     }
 }
 const CartContainer = connect(mapStateToProps, mapDispatchToProps)(Cart);

@@ -1,3 +1,12 @@
+.loading-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 15px;
+}
+
+
 .empty-cart {
 
     display: flex;
@@ -50,7 +59,7 @@
         text-align: center;
         background-color: #0FC0FC;
         color: #fff;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 500;
         border-radius: 30px;
         display: flex;
@@ -74,7 +83,7 @@
             font-size: 16px;
         }
         &__button {
-            font-size: 16px;
+            font-size: 14px;
             width: 250px;
         }
     }
