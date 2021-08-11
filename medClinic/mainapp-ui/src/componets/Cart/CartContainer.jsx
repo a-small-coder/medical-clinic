@@ -15,11 +15,21 @@ const Cart = (props) =>{
 
     const RemoveProductClickHandler = (productId, isCart) => {
         const addProductApiUrl = `${urlStart}cart/current_customer_cart/product_remove_from_cart/${productId}/`
-        const setCartFromResponse = (responseData) => {
-            props.setCart(responseData)
-            setIsRequest(true)
+        const goodResponseHandler = () => {
+            let newCartProducts = []
+            props.cart.products.forEach(p => {
+                if (p.id !== productId){
+                    newCartProducts.push(p)
+                }
+            });
+            const newCart = {
+                id: props.cart.id,
+                total_products: props.cart.total_products - 1,
+                products: newCartProducts,
+            }
+            props.setCart(newCart)
         }
-        deleteApiRequest(addProductApiUrl, props.userToken, setCartFromResponse)
+        deleteApiRequest(addProductApiUrl, props.userToken, goodResponseHandler)
     }
 
     // send request to server for get cart data

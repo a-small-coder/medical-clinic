@@ -68,6 +68,7 @@ const headerReducer = (state = initialState, action) =>{
             return stateCopy
         }
         case SET_CART:{
+
             stateCopy.cart = {
                 ...state.cart, 
                 products: [...action.cart.products], 
