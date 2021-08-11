@@ -2827,7 +2827,6 @@ body.ie ._ibg img {
 }
 
 .analyze-item__price {
-  min-height: 40px;
   font-size: 18px;
   font-weight: 600;
   line-height: 120%;
@@ -2850,7 +2849,6 @@ body.ie ._ibg img {
   -webkit-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
-  margin-top: 5px;
 }
 
 .analyze-spec__title {
@@ -3504,7 +3502,6 @@ body.ie ._ibg img {
 
   .analyze-item__buy {
     margin-right: 15px;
-    margin-bottom: -4px;
   }
 }
 
@@ -3938,7 +3935,7 @@ body.ie ._ibg img {
             flex: 0 0 100%;
   }
 
-  .analyze-item__price {
+  .analyze-item__buy-container {
     margin-left: auto;
   }
 
@@ -4303,6 +4300,29 @@ body.ie ._ibg img {
   .slider-aboutus__body .swiper-slide {
     display: none;
   }
+
+  .analyze-item{
+    align-items: center;
+  }
+
+  .analyze-item__specs{
+    flex-direction: column;
+  }
+
+  .analyze-item__spec{
+    flex: 0 0 60px;
+    justify-content: flex-start;
+    max-width: 60px;
+  }
+  .analyze-item__price{
+    padding: 0 10px;
+  }
+  .analyze-item__buy{
+    min-height: 40px;
+    font-size: 20px;
+    padding: 0px 5px;
+  }
+  
 }
 
 @media (min-width: 991.98px) and (max-width: 1270px) {

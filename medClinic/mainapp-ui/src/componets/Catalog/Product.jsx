@@ -27,9 +27,13 @@ const Product = (props) => {
                     <div className="analyze-spec__text">{props.time}</div>
                 </div>
             </div>
-            <div className="analyze-item__price">{props.price} р</div>
-            <button type="button" ref={buttonBuyRef} onClick={onButtonBuyClick}
-            className={buttonCartClassName} title="Добавить в корзину"></button>
+            <div className="analyze-item__buy-container">
+                <div className="analyze-item__price">{props.price} р</div>
+                <button type="button" ref={buttonBuyRef} onClick={onButtonBuyClick}
+                    className={buttonCartClassName} title="Добавить в корзину">
+                </button>
+            </div>
+            
         </div>
     );
 }
