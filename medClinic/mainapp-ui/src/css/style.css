@@ -3924,6 +3924,15 @@ body.ie ._ibg img {
         flex-basis: calc(50% - 16px);
   }
 
+  .analyze-section{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .analyze-section__paggination{
+    align-self:center;
+  }
+  
   .analyze-item {
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;

@@ -1,0 +1,130 @@
+.empty-cart {
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 50px 15px;
+
+    &__left-part {
+    }
+
+    &__right-part {
+    }
+
+    @media (max-width: 479.98px){
+        justify-content: space-between;
+        padding: 0 0 50px 0;
+    }
+}
+.left-part {
+
+    flex: 1 1 300px;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    div{
+        margin-bottom: 25px;
+    }
+    h3{
+        margin-bottom: 15px;
+    }
+
+    &__title {
+        font-size: 30px;
+        color: #00b388;
+        padding-left: 15px;
+    }
+
+    &__text {
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 150%;
+        color: #898989;
+        padding-left: 15px;
+    }
+
+    &__button {
+        width: 300px;
+        text-align: center;
+        background-color: #0FC0FC;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 500;
+        border-radius: 30px;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-evenly;
+    }
+
+    @media (max-width:  767.98px){
+        max-width: 300px;
+
+        div{
+            margin-bottom: 15px;
+        }
+        h3{
+            margin-bottom: 10px;
+        }
+        &__title {
+            font-size: 24px;
+        }
+        &__text {
+            font-size: 16px;
+        }
+        &__button {
+            font-size: 16px;
+            width: 250px;
+        }
+    }
+
+    @media (max-width: 479.98px){
+        padding-right: 25px;
+        div{
+            margin-bottom: 10px;
+        }
+        h3{
+            margin-bottom: 5px;
+        }
+        &__title {
+            font-size: 18px;
+            padding-left: 0;
+        }
+        &__text {
+            font-size: 14px;
+            padding-left: 0;
+        }
+        &__button {
+            font-size: 12px;
+            width: 180px;
+            min-height: 36px;
+        }
+    }
+}
+
+.right-part {
+
+    flex: 0 0 200px;
+    display: flex;
+    justify-content: center;
+
+    &__cart-icon {
+        font-size: 80px;
+        color: #0FC0FC;
+    }
+
+    @media (max-width: 767.98px){
+        flex: 0 0 60px;
+        &__cart-icon {
+            font-size: 60px;
+        }
+    }
+
+    @media (max-width: 479.98px){
+        flex: 0 0 48px;
+        &__cart-icon {
+            font-size: 48px;
+        }
+    }
+}
