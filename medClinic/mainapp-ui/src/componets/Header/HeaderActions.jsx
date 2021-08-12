@@ -36,7 +36,7 @@ const HeaderActions = (props) => {
             {props.auth.isAuth ? 
             <LogoutAction clikHandler={logoutClickHandler}/> : 
 
-            <Link to="/auth" 
+            <Link to="/auth/login" 
             className="actions-header__item actions-header__item_user _icon-user"></Link>
             }
         </div>

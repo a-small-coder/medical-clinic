@@ -2,13 +2,13 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { postApiRequest } from '../../api_requests';
 import { setIsAuthAC, setIsLoadingAC, setIsNeedRedirectAC, setUserDataAC } from '../../redux/auth-reducer';
-import LoginForm from '../Forms/LoginForm';
-import { Link, Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import './Autorization.scss';
 import '../Forms/Forms.scss';
-import RegistrationForm from '../Forms/RegistrationForm';
+import Login from './Login';
+import Registration from './Registration';
 
-const ContentBody = (props) =>{
+const AuthPageBody = (props) =>{
 
     const onSubmitLoginForm = (formData) =>{
         console.log("Form data", formData)
@@ -52,20 +52,30 @@ const ContentBody = (props) =>{
         </main>
         )
     }
+
+    let isLogin = false
+    let isRegistration = false
+    const authType = props.history.location.pathname.split('/')[2]
+    console.log(authType)
+    switch (authType){
+        case 'login':
+            isLogin = true;
+            break
+        case 'registration':
+            isRegistration = true;
+            break
+        default:
+    }
     return (
         <main className="page">
             <section className="page__base autorization-page">
                 <div className="autorization-page__container _container">
-                    <div className="autorization-page__content">
-                        <div className="autorization-page__top-block">
-                            <h3 className="autorization-page__title _title">Вход в личный кабинет</h3>
-                            <Link to="badlink" className="autorization-page__order-rezults _text-link">
-                                Посмотреть результаты по номеру заказа
-                            </Link>
-                        </div>
-                        <LoginForm handlerSubmit={onSubmitLoginForm} />
-                        
-                    </div>
+                    {isLogin ? 
+                    <Login handlerSubmit={onSubmitLoginForm}/>:
+                    isRegistration ? 
+                    <Registration/> :
+                    <Redirect to={'/bad-link'}/>
+                    }
                 </div>
             </section>
         </main>
@@ -93,7 +103,7 @@ let mapDispatchToProps = (dispatch)=>{
         }
     }
 }
-const ContentBodyContainer = connect(mapStateToProps, mapDispatchToProps)(ContentBody);
+const AuthPageContainer = connect(mapStateToProps, mapDispatchToProps)(AuthPageBody);
 
-export default ContentBodyContainer;
+export default AuthPageContainer;
 
