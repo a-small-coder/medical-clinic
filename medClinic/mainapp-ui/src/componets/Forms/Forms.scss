@@ -1,36 +1,59 @@
 .loginForm {
     display: flex;
     flex-direction: column;
-    align-items: space-between;
+    align-items: center;
     justify-content: center;
-    padding: 15px 25px;
-    border: 3px solid #0FC0FC;
-    border-radius: 25px;
-    background-color: #DBF4FC;
+    padding: 15px 0px;
+    max-width: 320px;
+    width: 100%;
+    @media (min-width: 479.98px){
+        padding: 15px 25px;
+        max-width: 380px;
+    }
+    @media (min-width: 767.98px){
+        max-width: 410px;
+    }
+    @media (min-width: 991.98px){
+        max-width: 460px;
+    }
 
     &__button{
         font-weight: 600;
         min-height: 52px;
         font-size: 20px;
-        background-color: #0FC0FC;
-        color: #fff;
+        margin-top: 10px;
+    }
+    &__form{
         width: 100%;
-        &:hover{
-            @media (any-hover: hover){
-                background-color: #0B94C1;
+        padding-bottom: calc(15px + 25 * ((100vw - 320px) / 950));
+        padding-top: calc(15px + 15 * ((100vw - 320px) / 950));
+    }
+    &__password-link{
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: 18px;
+        span{
+            margin-right: 10px;
+        }
+    }
+    &__user-manual{
+        color: #616161;
+        transition: color 0.3s ease 0s;
+        font-size: 18px;
+        line-height: 120%;
+        margin: 15px 0;
+        &:hover {
+            @media (any-hover: hover) {
+                color: #0FC0FC;
             }
         }
-        &:disabled{
-            border-color: rgba(166, 166, 166, 0.45);
-            background-color: rgba(166, 166, 166, 0.45);
-            pointer-events: none;
-        }
-        margin-top: 10px;
     }
 }
 
 .form-control{
-    margin: 10px 0;
+    margin: 15px 0;
 }
 
 .input{
@@ -38,34 +61,44 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        width: 100%;
     }
 
     &__field {
-        padding: 5px;
-        margin:5px 0;
-        border: 1px solid #0FC0FC;
-        background-color: #fff;
+        width: 100%;
+        padding: 15px 5px 5px 5px;
+        // margin:5px 0;
+        // border: 1px solid #0FC0FC;
+        // background-color: #fff;
         color: #616161;
         font-size: 16px;
         font-weight: 500;
         line-height: 120%;
         &:focus{
-            border: 2px solid #0B94C1;
-            border-radius: 5px;
+            // border: 2px solid #0B94C1;
+            // border-radius: 5px;
         }
     }
 
     &__label {
-        color: #000;
-        font-size: 18px;
-        font-weight: 600;
+        color: #898989;
+        font-size: 16px;
+        font-weight: 500;
         line-height: 120%;
+        overflow: hidden;
+        opacity: 0;
+        transition: all 0.3s ease 0s;
     }
 
     &__error {
         color: red;
-        font-size: 16px;
-        font-weight: 500;
+        font-size: 14px;
     }
 
+}
+
+.auth_input{
+    border-bottom: 1px solid #d8d8d8;
+    background: transparent;
+    margin-bottom:10px;
 }

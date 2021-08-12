@@ -14,6 +14,7 @@ const FormikControl = (props) =>{
         case 'checkbox':
         case 'date':
         default: return null
-    }
+    } 
+    
 }
 export default FormikControl

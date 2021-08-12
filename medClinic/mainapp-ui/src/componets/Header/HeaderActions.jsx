@@ -14,6 +14,11 @@ const HeaderActions = (props) => {
             token: null,
             username: ""
         })
+        props.setCart({
+            id: 1,
+            total_products: 0,
+            products: [],
+        })
     }
 
     return(

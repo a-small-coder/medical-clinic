@@ -3,7 +3,10 @@ import React from 'react';
 import { postApiRequest } from '../../api_requests';
 import { setIsAuthAC, setIsLoadingAC, setIsNeedRedirectAC, setUserDataAC } from '../../redux/auth-reducer';
 import LoginForm from '../Forms/LoginForm';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import './Autorization.scss';
+import '../Forms/Forms.scss';
+import RegistrationForm from '../Forms/RegistrationForm';
 
 const ContentBody = (props) =>{
 
@@ -51,10 +54,17 @@ const ContentBody = (props) =>{
     }
     return (
         <main className="page">
-            <section className="page__notFound notFound">
-                <div className="notFound__container _container">
-                    <div className="notFound__content">
-                     <LoginForm handlerSubmit={onSubmitLoginForm}/>
+            <section className="page__base autorization-page">
+                <div className="autorization-page__container _container">
+                    <div className="autorization-page__content">
+                        <div className="autorization-page__top-block">
+                            <h3 className="autorization-page__title _title">Вход в личный кабинет</h3>
+                            <Link to="badlink" className="autorization-page__order-rezults _text-link">
+                                Посмотреть результаты по номеру заказа
+                            </Link>
+                        </div>
+                        <LoginForm handlerSubmit={onSubmitLoginForm} />
+                        
                     </div>
                 </div>
             </section>

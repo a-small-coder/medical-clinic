@@ -46,7 +46,7 @@ const Cart = (props) =>{
     }, [])
 
     // fail to get cart data from server
-    if (props.cart == null) {
+    if (props.cart == null || !props.isAuth) {
         return (
             <Redirect to={'/'} />
         )
@@ -83,6 +83,7 @@ let mapStateToProps = (state)=>{
     return {
         cart: state.header.cart,
         userToken: state.auth.user.token,
+        isAuth: state.auth.isAuth,
     }
 }
 let mapDispatchToProps = (dispatch)=>{
