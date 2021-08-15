@@ -7,6 +7,7 @@ import './Autorization.scss';
 import '../Forms/Forms.scss';
 import Login from './Login';
 import Registration from './Registration';
+import FormikTestForms from '../#FormikTutorial/FormikTestForms';
 
 const AuthPageBody = (props) =>{
 
@@ -55,6 +56,7 @@ const AuthPageBody = (props) =>{
 
     let isLogin = false
     let isRegistration = false
+    let isOtherForm = false
     const authType = props.history.location.pathname.split('/')[2]
     console.log(authType)
     switch (authType){
@@ -63,6 +65,9 @@ const AuthPageBody = (props) =>{
             break
         case 'registration':
             isRegistration = true;
+            break
+        case 'learning-formik':
+            isOtherForm = true;
             break
         default:
     }
@@ -74,6 +79,8 @@ const AuthPageBody = (props) =>{
                     <Login handlerSubmit={onSubmitLoginForm}/>:
                     isRegistration ? 
                     <Registration/> :
+                    isOtherForm ?
+                    <FormikTestForms/> :
                     <Redirect to={'/bad-link'}/>
                     }
                 </div>
