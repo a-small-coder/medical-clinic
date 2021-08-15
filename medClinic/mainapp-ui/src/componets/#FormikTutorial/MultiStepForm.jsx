@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import {ErrorMessage, Field, Form, Formik, useField} from 'formik';
-import {Box, Button, Card, CardContent, Checkbox, FormControlLabel, FormGroup, TextField, Typography, } from '@material-ui/core';
+import { ErrorMessage, Field, Form, Formik, useField } from 'formik';
+import { Box, Button, Card, CardContent, Checkbox, CircularProgress, FormControlLabel, FormGroup, TextField, Typography, } from '@material-ui/core';
 import * as Yup from 'yup';
-import {CheckboxWithLabel} from 'formik-material-ui';
+import { CheckboxWithLabel } from 'formik-material-ui';
+import TextError from '../Forms/TextError';
+
+const sleep = (time) => new Promise((acc) => setTimeout(acc, time));
+
 function MultiStepForm(props) {
     const initialValues = {
         firstName: '',
@@ -13,15 +17,10 @@ function MultiStepForm(props) {
     };
 
     const validationSchemaFirstStep = Yup.object({
-        money: Yup.mixed().when('millionaire', {
-            is: true,
-            then: Yup.number().required().min(1_000_000),
-            otherwise: Yup.number().required()
-        }),
-    })
-    const validationSchemaSecondStep = Yup.object({
         firstName: Yup.string().required().min(2).max(50),
         lastName: Yup.string().required().min(2).max(50),
+    })
+    const validationSchemaSecondStep = Yup.object({
         money: Yup.mixed().when('millionaire', {
             is: true,
             then: Yup.number().required().min(1_000_000),
@@ -30,12 +29,13 @@ function MultiStepForm(props) {
     })
     const validationSchemaThirdStep = Yup.object({
     })
-    const sumbmitHandler = (values, formikHelpers) =>{
+    const sumbmitHandler = (values, formikHelpers) => {
         return new Promise(res => {
             setTimeout(() => {
                 console.log(values);
                 console.log(formikHelpers);
                 console.log('---');
+                formikHelpers.resetForm()
                 res();
             }, 5000);
         })
@@ -44,23 +44,23 @@ function MultiStepForm(props) {
         <Card>
             <CardContent>
                 <Typography variant="h4">New Account</Typography>
-            
+
                 <FormikStepper
-                initialValues={initialValues}
-                onSubmit={sumbmitHandler}
+                    initialValues={initialValues}
+                    onSubmit={sumbmitHandler}
                 >
-                    <FormikStep >
+                    <FormikStep validationSchema={validationSchemaFirstStep}>
                         <Box marginBottom={10}>
                             <Box marginBottom={2}>
                                 <FormGroup>
                                     <Field name="firstName" as={TextField} label="Full Name" />
-                                    <ErrorMessage name="firstName" />
+                                    <ErrorMessage name="firstName" component={TextError} />
                                 </FormGroup>
                             </Box>
                             <Box marginBottom={2}>
                                 <FormGroup>
                                     <Field name="lastName" as={TextField} label="Last Name" />
-                                    <ErrorMessage name="lastName" />
+                                    <ErrorMessage name="lastName" component={TextError} />
                                 </FormGroup>
                             </Box>
                             <Box marginBottom={2}>
@@ -71,32 +71,32 @@ function MultiStepForm(props) {
                                         component={CheckboxWithLabel}
                                         Label={{ label: "I'm a millionaire" }}
                                     />
-                                    <ErrorMessage name="millionaire" />
+                                    <ErrorMessage name="millionaire" component={TextError} />
                                 </FormGroup>
                             </Box>
                         </Box>
                     </FormikStep>
-                    <FormikStep validationSchema={validationSchemaFirstStep}>
+                    <FormikStep validationSchema={validationSchemaSecondStep}>
                         <Box marginBottom={10}>
                             <Box marginBottom={2}>
                                 <FormGroup>
                                     <Field name="money" as={TextField} label="How much you have?" />
-                                    <ErrorMessage name="money" />
+                                    <ErrorMessage name="money" component={TextError} />
                                 </FormGroup>
                             </Box>
                         </Box>
                     </FormikStep>
-                    <FormikStep>
+                    <FormikStep validationSchema={validationSchemaThirdStep}>
                         <Box marginBottom={10}>
                             <Box marginBottom={2}>
                                 <FormGroup>
                                     <Field name="description" as={TextField} label="description" />
-                                    <ErrorMessage name="description" />
+                                    <ErrorMessage name="description" component={TextError} />
                                 </FormGroup>
                             </Box>
                         </Box>
                     </FormikStep>
-            </FormikStepper>
+                </FormikStepper>
             </CardContent>
         </Card>
 
@@ -113,7 +113,7 @@ export function MyCheckbox(props) {
     return <FormControlLabel control={<Checkbox {...props} {...field} />} label={props.label} />
 }
 
-export function FormikStep(props){
+export function FormikStep(props) {
     return <>{props.children}</>
 }
 
@@ -122,31 +122,49 @@ export function FormikStepper(props) {
     const [step, setStep] = useState(0)
     const currentChild = childrenArray[step]
 
-    function isLastStep(){
-        return step === childrenArray.length -1;
+    function isLastStep() {
+        return step === childrenArray.length - 1;
     }
 
     return (
-        <Formik {...props} 
-        validationSchema={currentChild.props.validationSchema}
-        onSubmit={async (values, helpers) => {
-            if (isLastStep()){
-                await props.onSubmit(values, helpers);
-            }
-            else{
-                setStep(s=> s+1);
-            }
-        }}
-        >
-            <Form autoComplete="off">
-            {currentChild}
-
-                {step > 0 ?
-                    <Button onClick={() => setStep(s => s - 1)}>Назад</Button> :
-                    null
+        <Formik {...props}
+            validationSchema={currentChild.props.validationSchema}
+            onSubmit={async (values, helpers) => {
+                if (isLastStep()) {
+                    await props.onSubmit(values, helpers);
+                    setStep(0)
                 }
-                <Button type="submit">{isLastStep() ? "Отправить" : "Далее"}</Button>
-            </Form>
+                else {
+                    setStep(s => s + 1);
+                }
+            }}
+        >
+            {({ isSubmitting }) => (
+                <Form autoComplete="off">
+                    {currentChild}
+
+                    {step > 0 ?
+                        <Button
+                            disabled={isSubmitting}
+                            variant="contained"
+                            color="primary"
+                            onClick={() => setStep(s => s - 1)}
+                        >
+                            Назад
+                        </Button> :
+                        null
+                    }
+                    <Button
+                        disabled={isSubmitting}
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                        startIcon={isSubmitting ? <CircularProgress size="1rem"/>: null}
+                    >
+                        {isSubmitting ? "Отправление" : isLastStep() ? "Отправить" : "Далее"}
+                    </Button>
+                </Form>
+            )}
         </Formik>
     );
 }
