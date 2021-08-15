@@ -9,6 +9,7 @@ import Login from './Login';
 import Registration from './Registration';
 import FormikTestForms from '../#FormikTutorial/FormikTestForms';
 import MultiStepForm from '../#FormikTutorial/MultiStepForm';
+import FormWithFieldArray from '../#FormikTutorial/FormWithFieldArray';
 
 const AuthPageBody = (props) =>{
 
@@ -59,6 +60,7 @@ const AuthPageBody = (props) =>{
     let isRegistration = false
     let isOtherForm = false
     let isMultiStepForm = false
+    let isFieldArrayForm = false
     const authType = props.history.location.pathname.split('/')[2]
     console.log(authType)
     switch (authType){
@@ -71,9 +73,12 @@ const AuthPageBody = (props) =>{
         case 'learning-formik':
             isOtherForm = true;
             break
-            case 'multistep-form':
-                isMultiStepForm = true;
-                break
+        case 'multistep-form':
+            isMultiStepForm = true;
+            break
+        case 'field-array-form':
+            isFieldArrayForm = true;
+            break
         default:
     }
     return (
@@ -88,6 +93,8 @@ const AuthPageBody = (props) =>{
                     <FormikTestForms/> :
                     isMultiStepForm ?
                     <MultiStepForm/> :
+                    isFieldArrayForm ?
+                    <FormWithFieldArray/> :
                     <Redirect to={'/bad-link'}/>
                     }
                 </div>
