@@ -33,15 +33,18 @@
         flex-direction: row-reverse;
         justify-content: flex-start;
         align-items: center;
-        font-size: 18px;
+        font-size: calc(16px + 2 * ((100vw - 320px) / 950));
         span{
             margin-right: 10px;
+        }
+        &::before{
+            color: #898989;
         }
     }
     &__user-manual{
         color: #616161;
         transition: color 0.3s ease 0s;
-        font-size: 18px;
+        font-size: calc(14px + 2 * ((100vw - 320px) / 950));
         line-height: 120%;
         margin: 15px 0;
         &:hover {
@@ -54,6 +57,13 @@
 
 .form-control{
     margin: 15px 0;
+    
+    &.checkbox-block label{
+        font-size: calc(16px + 2 * ((100vw - 320px) / 950));
+        font-weight: 500;
+        line-height: 120%;
+        color: #616161;
+    }
 }
 
 .input{
@@ -62,16 +72,14 @@
         flex-direction: column;
         align-items: flex-start;
         width: 100%;
+        position: relative;
     }
 
     &__field {
         width: 100%;
         padding: 15px 5px 5px 5px;
-        // margin:5px 0;
-        // border: 1px solid #0FC0FC;
-        // background-color: #fff;
         color: #616161;
-        font-size: 16px;
+        font-size: calc(16px + 2 * ((100vw - 320px) / 950));
         font-weight: 500;
         line-height: 120%;
 
@@ -79,7 +87,7 @@
 
     &__label {
         color: #898989;
-        font-size: 16px;
+        font-size: calc(16px + 2 * ((100vw - 320px) / 950));
         font-weight: 500;
         line-height: 120%;
         overflow: hidden;
@@ -94,7 +102,29 @@
 
     &__error {
         color: #f96f26;
-        font-size: 14px;
+        font-size: calc(14px + 2 * ((100vw - 320px) / 950));
+    }
+
+    &__rigth-icon{
+        position: absolute;
+        left: 90%;
+        top: 45%;
+        cursor: pointer;
+        color:#898989;
+        font-size: calc(14px + 4 * ((100vw - 320px) / 950));
+        &:hover {
+            @media (any-hover: hover) {
+                color: #0FC0FC;
+            }
+        }
+        &._active{
+            color: #0FC0FC;
+            &:hover {
+                @media (any-hover: hover) {
+                    color: #898989;
+                }
+            }
+        }
     }
 
 }

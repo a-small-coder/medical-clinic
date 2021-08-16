@@ -5,6 +5,20 @@ import TextError from './TextError';
 const Input = (props) =>{
     const {label, name, type, placeholder, standartOnBlur, isError, ...rest} = props
 
+    
+    const [inputType, setInputType] = useState(type)
+    const onPasswordFieldIconClick = (e) => {
+        if (inputType === 'password'){
+            setInputType('text')
+            setInputIconClass("input__rigth-icon _active _icon-search")
+        }
+        else{
+            setInputType('password')
+            setInputIconClass("input__rigth-icon _icon-search")
+        }
+    }
+
+    const [inputIconClass, setInputIconClass] = useState("input__rigth-icon _icon-search")
     const [labelClass, setLabelClass] = useState("input__label ")
     const [inputClass, setInputClass] = useState("input__field ")
     const [inputPlaceholder, setInputPlaceholder] = useState(placeholder)
@@ -39,11 +53,19 @@ const Input = (props) =>{
                 className={props.fieldClassName !== null ? inputClass + props.fieldClassName : inputClass}
                 id={name} 
                 name={name} 
-                type={type}
+                type={inputType}
                 placeholder={inputPlaceholder}
                 onFocus={focusHandler}
                 onBlur={blurHandler}
             />
+            {
+                type === 'password' ? 
+                    <span 
+                        className={inputIconClass} 
+                        onClick={onPasswordFieldIconClick}
+                    ></span> : null
+            }
+            
             <ErrorMessage name={name} component={TextError}/>
         </div>
     )
