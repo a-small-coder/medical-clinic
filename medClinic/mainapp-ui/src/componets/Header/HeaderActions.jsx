@@ -23,7 +23,7 @@ const HeaderActions = (props) => {
 
     return(
         <div className="header__actions actions-header">
-            <Link to="/auth/learning-formik" 
+            <Link to="/comming-soon" 
             className="actions-header__item actions-header__item_feed-back _icon-feed-back"></Link>
             <div className="actions-header__item cart-header">
                 <Link to="/cart" className="cart-header__icon _icon-cart" >

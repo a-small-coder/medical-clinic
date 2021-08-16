@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import React, { useState } from 'react';
+import React from 'react';
 import { postApiRequest } from '../../api_requests';
 import { setIsAuthAC, setIsLoadingAC, setIsNeedRedirectAC, setUserDataAC } from '../../redux/auth-reducer';
 import './Autorization.scss';

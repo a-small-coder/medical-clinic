@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import TextError from './TextError';
 
 function CheckBoxGroup(props) {
-    const {label, name, options, checkboxValue, isError, ...rest} = props
+    const {label, name, options, checkboxValue, isError} = props
 
     const inputRef = useRef(null)
     const [checked, setChecked] = useState(checkboxValue)

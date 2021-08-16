@@ -3,7 +3,7 @@ import { Field, ErrorMessage  } from 'formik';
 import TextError from './TextError';
 
 const Input = (props) =>{
-    const {label, name, type, placeholder, standartOnBlur, isError, ...rest} = props
+    const {label, name, type, placeholder, standartOnBlur, isError} = props
 
     
     const [inputType, setInputType] = useState(type)
@@ -37,7 +37,7 @@ const Input = (props) =>{
         setLabelClass("input__label _active ")
     }
     const blurHandler = (e) =>{
-        props.standartOnBlur(e)
+        standartOnBlur(e)
         setInputPlaceholder(placeholder)
         setLabelClass("input__label ")
     }
