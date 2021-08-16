@@ -9,12 +9,18 @@ function LoginForm(props){
 
     const initialValues = {
         username: '',
-        password: ''
+        password: '',
+        rememberMe: false,
     }
+
+    const checkBoxOptions = [
+        {key: 'Запомнить меня', value: 'rememberMe'},
+    ]
 
     const validation = Yup.object({
         username: Yup.string().required('Поле "Логин" обязательно для заполнения.'),
         password: Yup.string().required('Поле "Пароль" обязательно для заполнения.'),
+        rememberMe: Yup.boolean().isTrue('Поле "Запомнить меня" обязательно для заполнения.')
     })
 
     const onSubmit = (values, helpers) =>{
@@ -25,7 +31,7 @@ function LoginForm(props){
     return (
         <Formik initialValues={initialValues} validationSchema={validation} onSubmit={onSubmit}>
             {
-                ({ values, errors, touched, isSubmitting, isValid, handleBlur}) => {
+                ({ values, errors, touched, isSubmitting, isValid, handleBlur, handleChange, setFieldValue}) => {
                     console.log()
                     return (
                         <Form className="authForm loginForm" autoComplete="off" >
@@ -56,6 +62,17 @@ function LoginForm(props){
                                 >
                                     <span>Забыли пароль?</span>
                                 </Link>
+
+                                <FormikControl
+                                    control="checkbox"
+                                    name="rememberMe"
+                                    options={checkBoxOptions}
+                                    checkboxValue={values.rememberMe}
+                                    standartOnChenge={handleChange}
+                                    standartOnBlur={handleBlur}
+                                    setFieldValue={setFieldValue}
+                                    isError={errors.rememberMe && touched.rememberMe}
+                                />
 
                                 <Link 
                                     to="/user-manual" 

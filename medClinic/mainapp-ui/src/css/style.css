@@ -476,12 +476,7 @@ textarea.input {
 }
 
 .checkbox__input {
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  opacity: 0;
-  /* visibility: hidden; */
-  z-index: 110;
+  display: none;
 }
 
 .checkbox__input:checked + .checkbox__label::after {
