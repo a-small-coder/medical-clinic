@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import React from 'react';
+import React, { useState } from 'react';
 import { postApiRequest } from '../../api_requests';
 import { setIsAuthAC, setIsLoadingAC, setIsNeedRedirectAC, setUserDataAC } from '../../redux/auth-reducer';
 import './Autorization.scss';
@@ -9,7 +9,7 @@ import { BAD_LINK, MAIN_PAGE_NAME, redirectByPageType } from '../../App';
 
 const AuthPageBody = (props) =>{
 
-    const onSubmitLoginForm = (formData) =>{
+    const onSubmitLoginForm = (formData, errorMessageSetter, errorFieldName) =>{
         console.log("Form data", formData)
         const loginUrl = "http://127.0.0.1:8000/auth/"
         const userData = JSON.stringify(formData)
@@ -17,7 +17,6 @@ const AuthPageBody = (props) =>{
             console.log(response)
             if (response.status === 200){
                 props.setIsAuth(true)
-                props.setIsLoading(false)
                 props.setIsNeedRedirect(true)
                 props.setUserData({
                     userId: null,
@@ -27,11 +26,13 @@ const AuthPageBody = (props) =>{
             }           
         }
         const badResponseHandler = (err) => {
-            props.setIsLoading(false)
+            if (err.response.status === 400){
+                errorMessageSetter(errorFieldName, "Неверный логин или пароль")
+            }
+            
         }
         console.log(userData)
         postApiRequest(loginUrl, userData, goodResponseHandler, badResponseHandler)
-        props.setIsLoading(true)
     }
     if (props.auth.isNeedRedirect) {
         return (
@@ -60,7 +61,7 @@ const AuthPageBody = (props) =>{
                     <AuthFormControl 
                         control={authType}
                         submitLoginFormHandler={onSubmitLoginForm}
-                        errorHandler={redirectByPageType(BAD_LINK)} 
+                        errorHandler={redirectByPageType(BAD_LINK)}
                     />
                 </div>
             </section>

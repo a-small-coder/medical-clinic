@@ -46,6 +46,7 @@ function RegistrationForm(){
                             </div>
                             <ButtonsBlock isFormValid={formik.isValid} wrapperClass={"authForm__button-block"} formType={"registration"}/>
                         </Form>
+                        // <pre>{JSON.stringify({ values, errors, isValid, touched}, null, 3)}</pre>
                     )
                 }
             }

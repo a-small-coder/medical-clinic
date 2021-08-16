@@ -18,20 +18,18 @@ function LoginForm(props){
 
     const validation = Yup.object({
         username: Yup.string().required('Поле "Логин" обязательно для заполнения.'),
-        password: Yup.string().required('Поле "Пароль" обязательно для заполнения.'),
-        rememberMe: Yup.boolean().isTrue('Поле "Запомнить меня" обязательно для заполнения.')
+        password: Yup.string().required('Поле "Пароль" обязательно для заполнения.')
     })
 
     const onSubmit = (values, helpers) =>{
-        props.handlerSubmit(values)
-        helpers.resetForm()
+        props.handlerSubmit(values, helpers.setFieldError, 'password')
     }
 
     return (
         <Formik initialValues={initialValues} validationSchema={validation} onSubmit={onSubmit}>
             {
-                ({ values, errors, touched, isSubmitting, isValid, handleBlur, handleChange, setFieldValue}) => {
-                    console.log()
+                ({ values, errors, touched, isSubmitting, isValid, handleBlur, handleChange}) => {
+                    
                     return (
                         <Form className="authForm loginForm" autoComplete="off" >
                             <div className="authForm__form">
@@ -55,6 +53,7 @@ function LoginForm(props){
                                     standartOnBlur={handleBlur}
                                     isError={errors.password && touched.password}
                                 />
+                                
                                 <Link 
                                     to="/restore-password" 
                                     className="authForm__password-link  _text-link _icon-search"
@@ -83,7 +82,6 @@ function LoginForm(props){
                                 wrapperClass={"authForm__button-block"} 
                                 formType={"login"}
                             />
-                            <pre>{JSON.stringify({ values, errors, isValid }, null, 3)}</pre>
                         </Form>
                     )
                 }
