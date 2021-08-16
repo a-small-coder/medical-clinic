@@ -1,5 +1,6 @@
 import { Field } from 'formik';
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import TextError from './TextError';
 
 function CheckBoxGroup(props) {
@@ -13,14 +14,14 @@ function CheckBoxGroup(props) {
         setChecked(!checked)
     }
 
-    const [labelClass, setLabelClass] = useState("checkbox__label ")
+    const [labelClass, setLabelClass] = useState("checkbox__label")
 
     useEffect(() => {
         if (isError){
-            setLabelClass("checkbox__label _error ")
+            setLabelClass("checkbox__label _error")
         }
         else{
-            setLabelClass("checkbox__label ")
+            setLabelClass("checkbox__label")
         }
     }, [isError])
     
@@ -49,7 +50,17 @@ function CheckBoxGroup(props) {
                                         htmlFor={option.value}
                                         onClick={CheckBoxClickHandler}
                                     >
-                                        {option.key}
+                                        <div className={'checkbox-block__label-with-link'}>
+                                            <span>{option.key}</span>
+                                            {option.link ? 
+                                            <Link
+                                                to={option.link.ref}
+                                                className="_text-link"
+                                            >
+                                                <span>{option.link.text}</span>
+                                            </Link> : null   
+                                            }
+                                        </div>
                                     </label>
                                 </React.Fragment>
                             )

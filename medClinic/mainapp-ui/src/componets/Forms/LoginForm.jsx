@@ -28,7 +28,7 @@ function LoginForm(props){
     return (
         <Formik initialValues={initialValues} validationSchema={validation} onSubmit={onSubmit}>
             {
-                ({ values, errors, touched, isSubmitting, isValid, handleBlur, handleChange}) => {
+                ({ values, errors, touched, isValid, handleBlur, handleChange}) => {
                     
                     return (
                         <Form className="authForm loginForm" autoComplete="off" >

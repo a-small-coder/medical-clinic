@@ -502,8 +502,6 @@ textarea.input {
 
 .checkbox__label::before {
   content: "";
-  -ms-flex-item-align: start;
-      align-self: flex-start;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 24px;
           flex: 0 0 24px;
@@ -524,7 +522,6 @@ textarea.input {
   width: 16px;
   height: 16px;
   position: absolute;
-  top: 4px;
   left: 4px;
   background-color: #0B94C1;
   border-radius: 4px;

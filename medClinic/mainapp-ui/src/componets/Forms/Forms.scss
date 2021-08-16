@@ -7,14 +7,14 @@
     max-width: 320px;
     width: 100%;
     @media (min-width: 479.98px){
-        padding: 15px 25px;
+        padding: 15px 10px;
         max-width: 380px;
     }
     @media (min-width: 767.98px){
-        max-width: 410px;
+        max-width: 450px;
     }
     @media (min-width: 991.98px){
-        max-width: 460px;
+        max-width: 520px;
     }
 
     &__button{
@@ -26,7 +26,6 @@
     &__form{
         width: 100%;
         padding-bottom: calc(15px + 25 * ((100vw - 320px) / 950));
-        padding-top: calc(15px + 15 * ((100vw - 320px) / 950));
     }
     &__password-link{
         display: flex;
@@ -42,16 +41,17 @@
         }
     }
     &__user-manual{
-        color: #616161;
         transition: color 0.3s ease 0s;
         font-size: calc(14px + 2 * ((100vw - 320px) / 950));
         line-height: 120%;
         margin: 15px 0;
-        &:hover {
-            @media (any-hover: hover) {
-                color: #0FC0FC;
-            }
-        }
+    }
+}
+
+.registerForm{
+    .checkbox-block{
+        margin-bottom: calc(20px + 15 * ((100vw - 320px) / 950));
+        margin-top: calc(20px + 15 * ((100vw - 320px) / 950));
     }
 }
 
@@ -63,6 +63,29 @@
         font-weight: 500;
         line-height: 120%;
         color: #616161;
+    }
+}
+
+.checkbox-block {
+
+    &__label-with-link {
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+        font-size: calc(14px + 4 * ((100vw - 320px) / 950));
+        font-weight: 400;
+        line-height: 100%;
+
+        @media (min-width: 767.98px){
+            margin-left: 10px;
+        }
+
+        ._text-link{
+            font-size: calc(14px + 4 * ((100vw - 320px) / 950));
+            font-weight: 400;
+            line-height: 100%;
+            padding: 0;
+        }
     }
 }
 
@@ -144,4 +167,6 @@
             border: 2px solid #f96f26;
         }
     }
+
+    
 }
