@@ -3,9 +3,9 @@ import Paggination from '../Paggination/Paggination';
 import Product from './Product';
 import { connect } from 'react-redux';
 import { setCurrentPageAC, setProductsAC } from '../../redux/catalog-reducer';
-import {Redirect} from "react-router-dom";
 import urlStart, { deleteApiRequest, getApiResponse, putApiRequest } from '../../api_requests';
 import { setCartAC, setProductsCountInCartAC } from '../../redux/header-reducer';
+import { IN_WORK_PAGE_NAME, redirectByPageType } from '../../App';
 
 const Products = (props) => {
 
@@ -97,7 +97,7 @@ const Products = (props) => {
     let titleKey = props.products.category.substring(1) + '/'
     
     return Badresponse ? (
-        <Redirect to={"/page-in-work"} />
+        redirectByPageType(IN_WORK_PAGE_NAME)
     ) : props.products != null ? (
         <div className="analyze-section">
             <h2 className="analyze-section__title _title">{props.products.title[titleKey]}</h2>

@@ -2,10 +2,10 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { postApiRequest } from '../../api_requests';
 import { setIsAuthAC, setIsLoadingAC, setIsNeedRedirectAC, setUserDataAC } from '../../redux/auth-reducer';
-import {Redirect} from 'react-router-dom';
 import './Autorization.scss';
 import '../Forms/Forms.scss';
 import AuthFormControl from './AuthFormControl';
+import { BAD_LINK, MAIN_PAGE_NAME, redirectByPageType } from '../../App';
 
 const AuthPageBody = (props) =>{
 
@@ -35,7 +35,7 @@ const AuthPageBody = (props) =>{
     }
     if (props.auth.isNeedRedirect) {
         return (
-        <Redirect to={'/'}/>
+        redirectByPageType(MAIN_PAGE_NAME)
         )
     }
     if (props.auth.isLoading){
@@ -60,7 +60,7 @@ const AuthPageBody = (props) =>{
                     <AuthFormControl 
                         control={authType}
                         submitLoginFormHandler={onSubmitLoginForm}
-                        errorHandler={<Redirect to={'/bad-link'}/>} 
+                        errorHandler={redirectByPageType(BAD_LINK)} 
                     />
                 </div>
             </section>

@@ -3,9 +3,9 @@ import ProductMain from './MainBlock/ProductMain';
 import ProductInfo from './ProductInfo/ProductInfo';
 import { connect } from 'react-redux';
 import {setProductAC, switchProductActiveContentAC } from '../../redux/product-reducer';
-import {Redirect} from "react-router-dom";
 import IncludeProducts from './InculeProducts';
 import urlStart, { getApiResponse } from '../../api_requests';
+import { IN_WORK_PAGE_NAME, redirectByPageType } from '../../App';
 
 const ProductPage = (props) => {
     let productNameL = props.history.location.pathname.split("/");
@@ -48,7 +48,7 @@ const ProductPage = (props) => {
         getApiResponse(url, false, goodResponseHandler, badResponseHandler)
     }
     return Badresponse ? (
-        <Redirect to={"/page-in-work"}/>
+        redirectByPageType(IN_WORK_PAGE_NAME)
     ) : props.product.content != null ?(
         
             <section className="page__product analyze-product">

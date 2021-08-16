@@ -16,8 +16,10 @@ function LoginForm(props){
         password: Yup.string().required('Поле "Пароль" обязательно для заполнения.'),
     })
 
-    const onSubmit = values =>{
+    const onSubmit = (values, helpers) =>{
         props.handlerSubmit(values)
+        helpers.resetForm()
+        
     }
 
     return (
