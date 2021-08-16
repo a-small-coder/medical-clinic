@@ -4,6 +4,7 @@ import * as Yup from 'yup'
 import FormikControl from './FormikControl';
 import { Link } from 'react-router-dom';
 import ButtonsBlock from '../Autorization/ButtonsBlock';
+import { TextField } from '@material-ui/core';
 function LoginForm(props){
 
     const initialValues = {
@@ -19,31 +20,35 @@ function LoginForm(props){
     const onSubmit = (values, helpers) =>{
         props.handlerSubmit(values)
         helpers.resetForm()
-        
     }
 
     return (
         <Formik initialValues={initialValues} validationSchema={validation} onSubmit={onSubmit}>
             {
-                formik => {
+                ({ values, errors, touched, isSubmitting, isValid, handleBlur}) => {
+                    console.log()
                     return (
-                        <Form className="authForm loginForm">
+                        <Form className="authForm loginForm" autoComplete="off" >
                             <div className="authForm__form">
                                 <FormikControl 
                                     control='input' 
                                     type="text" 
                                     label='Логин' 
                                     name='username'
-                                    fieldClassName="auth_input" 
+                                    fieldClassName="auth_input"
                                     placeholder="Логин"
+                                    standartOnBlur={handleBlur}
+                                    isError={errors.username && touched.username}
                                 />
                                 <FormikControl 
                                     control='input' 
                                     type="password" 
                                     label='Пароль' 
                                     name='password' 
-                                    fieldClassName="auth_input" 
+                                    fieldClassName="auth_input"
                                     placeholder="Пароль"
+                                    standartOnBlur={handleBlur}
+                                    isError={errors.password && touched.password}
                                 />
                                 <Link 
                                     to="/restore-password" 
@@ -60,10 +65,11 @@ function LoginForm(props){
                                 </Link>
                             </div>
                             <ButtonsBlock 
-                                isFormValid={formik.isValid} 
+                                isFormValid={isValid} 
                                 wrapperClass={"authForm__button-block"} 
                                 formType={"login"}
                             />
+                            <pre>{JSON.stringify({ values, errors, isValid }, null, 3)}</pre>
                         </Form>
                     )
                 }
