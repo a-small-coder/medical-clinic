@@ -107,3 +107,11 @@
         border-bottom: 2px solid #f96f26;
     }
 }
+
+.checkbox__label{
+    &._error{
+        &::before{
+            border: 2px solid #f96f26;
+        }
+    }
+}

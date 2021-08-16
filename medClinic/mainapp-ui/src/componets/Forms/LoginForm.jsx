@@ -4,7 +4,6 @@ import * as Yup from 'yup'
 import FormikControl from './FormikControl';
 import { Link } from 'react-router-dom';
 import ButtonsBlock from '../Autorization/ButtonsBlock';
-import { TextField } from '@material-ui/core';
 function LoginForm(props){
 
     const initialValues = {
@@ -68,10 +67,8 @@ function LoginForm(props){
                                     name="rememberMe"
                                     options={checkBoxOptions}
                                     checkboxValue={values.rememberMe}
-                                    standartOnChenge={handleChange}
-                                    standartOnBlur={handleBlur}
-                                    setFieldValue={setFieldValue}
-                                    isError={errors.rememberMe && touched.rememberMe}
+                                    standartOnChange={handleChange}
+                                    isError={errors.rememberMe}
                                 />
 
                                 <Link 

@@ -486,9 +486,9 @@ textarea.input {
 }
 
 .checkbox__label {
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -497,9 +497,10 @@ textarea.input {
   letter-spacing: -0.3px;
   line-height: calc(20 / 16);
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
-.checkbox__label:before {
+.checkbox__label::before {
   content: "";
   -ms-flex-item-align: start;
       align-self: flex-start;

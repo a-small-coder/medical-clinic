@@ -1,5 +1,5 @@
-import { ErrorMessage, Field } from 'formik';
-import React, { useRef, useState } from 'react';
+import { Field } from 'formik';
+import React, { useEffect, useRef, useState } from 'react';
 import TextError from './TextError';
 
 function CheckBoxGroup(props) {
@@ -9,9 +9,21 @@ function CheckBoxGroup(props) {
     const [checked, setChecked] = useState(checkboxValue)
 
     const CheckBoxClickHandler = (e) =>{
-        props.setFieldValue(name, !checked)
+        props.standartOnChange(e)
         setChecked(!checked)
     }
+
+    const [labelClass, setLabelClass] = useState("checkbox__label ")
+
+    useEffect(() => {
+        if (isError){
+            setLabelClass("checkbox__label _error ")
+        }
+        else{
+            setLabelClass("checkbox__label ")
+        }
+    }, [isError])
+    
     return (
         <div  className="form-control checkbox-block">
             {label != null ? <label htmlFor={name}>{label}</label>: null}
@@ -22,22 +34,22 @@ function CheckBoxGroup(props) {
                             return (
                                 <React.Fragment key={option.key}>
                                     <input 
-                                    className="checkbox__input"
-                                    type="checkbox"
-                                    id={option.value}
-                                    {...field}
-                                    value={option.value}
-                                    checked={checkboxValue.box}
-                                    ref={inputRef}
+                                        className="checkbox__input"
+                                        type="checkbox"
+                                        id={option.value}
+                                        {...field}
+                                        value={option.value}
+                                        checked={checkboxValue.box}
+                                        ref={inputRef}
                                     />
+
                                     <label
-                                    id={option.value + " label"} 
-                                    className="checkbox__label"
-                                    htmlFor={option.value}
-                                    onClick={CheckBoxClickHandler}
+                                        id={option.value + " label"}
+                                        className={props.labelClassName != null ? labelClass + props.labelClassName : labelClass}
+                                        htmlFor={option.value}
+                                        onClick={CheckBoxClickHandler}
                                     >
                                         {option.key}
-                                        <span>{checked ? 'true' : 'false'}</span>
                                     </label>
                                 </React.Fragment>
                             )
@@ -45,7 +57,7 @@ function CheckBoxGroup(props) {
                     }
                 }
             </Field>
-            <ErrorMessage name={name} component={TextError}/>
+            {isError ? <TextError>{isError}</TextError> : null}
         </div>
     );
 }
