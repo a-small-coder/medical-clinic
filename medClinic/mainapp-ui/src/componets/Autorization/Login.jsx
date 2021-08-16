@@ -13,7 +13,7 @@ const Login =(props) =>{
                     Посмотреть результаты по номеру заказа
                 </Link>
             </div>
-            <LoginForm handlerSubmit={props.handlerSubmit} />
+            <LoginForm handlerSubmit={props.submitLoginFormHandler} />
         </div>
     );
 }

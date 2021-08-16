@@ -5,11 +5,7 @@ import { setIsAuthAC, setIsLoadingAC, setIsNeedRedirectAC, setUserDataAC } from 
 import {Redirect} from 'react-router-dom';
 import './Autorization.scss';
 import '../Forms/Forms.scss';
-import Login from './Login';
-import Registration from './Registration';
-import FormikTestForms from '../#FormikTutorial/FormikTestForms';
-import MultiStepForm from '../#FormikTutorial/MultiStepForm';
-import FormWithFieldArray from '../#FormikTutorial/FormWithFieldArray';
+import AuthFormControl from './AuthFormControl';
 
 const AuthPageBody = (props) =>{
 
@@ -55,48 +51,17 @@ const AuthPageBody = (props) =>{
         </main>
         )
     }
-
-    let isLogin = false
-    let isRegistration = false
-    let isOtherForm = false
-    let isMultiStepForm = false
-    let isFieldArrayForm = false
     const authType = props.history.location.pathname.split('/')[2]
     console.log(authType)
-    switch (authType){
-        case 'login':
-            isLogin = true;
-            break
-        case 'registration':
-            isRegistration = true;
-            break
-        case 'learning-formik':
-            isOtherForm = true;
-            break
-        case 'multistep-form':
-            isMultiStepForm = true;
-            break
-        case 'field-array-form':
-            isFieldArrayForm = true;
-            break
-        default:
-    }
     return (
         <main className="page">
             <section className="page__base autorization-page">
                 <div className="autorization-page__container _container">
-                    {isLogin ? 
-                    <Login handlerSubmit={onSubmitLoginForm}/>:
-                    isRegistration ? 
-                    <Registration/> :
-                    isOtherForm ?
-                    <FormikTestForms/> :
-                    isMultiStepForm ?
-                    <MultiStepForm/> :
-                    isFieldArrayForm ?
-                    <FormWithFieldArray/> :
-                    <Redirect to={'/bad-link'}/>
-                    }
+                    <AuthFormControl 
+                        control={authType}
+                        submitLoginFormHandler={onSubmitLoginForm}
+                        errorHandler={<Redirect to={'/bad-link'}/>} 
+                    />
                 </div>
             </section>
         </main>
