@@ -53,7 +53,7 @@ function CartInfoContainer(props) {
                     </div>
 
                     <div className="info-block__price-result price-result">
-                        <p className="price-result__text _title-standart">ИТОГ: </p>
+                        <p className="price-result__text _title-standart">Итого: </p>
                         <span className="price-result__result">109 000.00 p</span>
                     </div>
                 </div>

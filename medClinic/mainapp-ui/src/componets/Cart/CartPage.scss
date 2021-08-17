@@ -22,16 +22,33 @@
 
     &__content {
         display: flex;
+        @media (max-width: 991.98px){
+            flex-direction: column;
+        }
     }
 }
 
 .cart-side {
-    max-width: 450px;
-    margin-left: calc(20px + 20 * ((100vw - 320px) / 950));
-    margin-right: calc(0px + 10 * ((100vw - 320px) / 950));
+    @media (max-width: 991.98px){
+        border-top: 1px solid #d8d8d8;
+        padding-top: 25px;
+    }
+    
+    @media (min-width: 991.98px){
+        max-width: 380px;
+        margin-left: calc(0px + 40 * ((100vw - 320px) / 950));
+        margin-right: calc(0px + 10 * ((100vw - 320px) / 950));
+    }
+    @media (min-width: 1282px){
+        max-width: 430px;
+    }
 
     &__container {
-        padding: 15px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        @media (min-width: 991.98px){
+            padding: 15px;
+        }
     }
 }
 
@@ -42,8 +59,11 @@
     &__cart-order-form {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        padding: 25px 15px;
+        align-items: center;
+        
+        @media (min-width: 991.98px){
+            padding: 15px 25px;
+        }
     }
 
     &__info-block {
@@ -53,7 +73,11 @@
 .info-block {
     display: flex;
     flex-direction: column;
-    padding: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    @media (min-width: 991.98px){
+        padding: 15px;
+    }
 
     &__products-price {
         margin-bottom: 10px;
@@ -79,7 +103,7 @@
 
     &__title {
         display: inline-block;
-        font-size: 16px;
+        font-size: calc(14px + 2 * ((100vw - 320px) / 950));
         font-weight: 500;
         color: #898989;
         line-height: 120%;
@@ -90,6 +114,7 @@
         display: inline-block;
         min-width: 80px;
         text-align: end;
+        font-size: calc(16px + 2 * ((100vw - 320px) / 950));
     }
 }
 .price-result {
@@ -98,12 +123,12 @@
     padding: 15px 0;
 
     &__text {
-        font-size: 20px;
+        font-size: calc(18px + 2 * ((100vw - 320px) / 950));
     }
 
     &__result {
         color: #0FC0FC;
-        font-size: 24px;
+        font-size: calc(22px + 4 * ((100vw - 320px) / 950));
         font-weight: 700;
         line-height: 150%;
     }
