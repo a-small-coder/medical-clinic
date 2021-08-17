@@ -67,6 +67,15 @@
     @media (min-width: 767.98px){
         max-width: 400px;
     }
+
+    &__form{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .checkbox-block {
+        margin-top: 35px;
+    }
 }
 
 .form-control{

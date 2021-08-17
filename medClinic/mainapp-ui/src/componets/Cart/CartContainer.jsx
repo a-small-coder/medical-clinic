@@ -59,7 +59,6 @@ const Cart = (props) =>{
         if (props.cart.total_products === 0) {
             return <EmptyCart />
         }
-        // debugger
         return (
             <main className="page">
                 <section className="page__base cart-page">

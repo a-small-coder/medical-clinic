@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CartInfoFormControl from './CartInfoFormControl';
 import OfficeTypeSwitch from './OfficeTypeSwitch';
 import PriceInfoBlock from './PriceInfoBlock';
