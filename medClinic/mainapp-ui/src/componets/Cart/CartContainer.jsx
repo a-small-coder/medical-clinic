@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import urlStart, { deleteApiRequest, getApiResponse} from '../../api_requests';
 import { setIsAuthAC, setIsLoadingAC, setIsNeedRedirectAC, setUserDataAC } from '../../redux/auth-reducer';
+import {setCartIdAC, setChoosenOfficeAC, setOfficeTypeAC} from '../../redux/order-reducer';
 import EmptyCart from './EmptyCart';
 import CartProductsList from './CartProductsList';
 import LoadingSheme from '../Other/LoadingSheme';
@@ -14,7 +15,7 @@ const Cart = (props) =>{
 
     const [isRequest, setIsRequest] = useState(false)
 
-    const RemoveProductClickHandler = (productId, isCart) => {
+    const RemoveProductClickHandler = (productId) => {
         const addProductApiUrl = `${urlStart}cart/current_customer_cart/product_remove_from_cart/${productId}/`
         const goodResponseHandler = () => {
             let newCartProducts = []
@@ -65,7 +66,13 @@ const Cart = (props) =>{
                     <div className="cart-page__container _container">
                         <div className="cart-page__content">
                             <CartProductsList products={props.cart.products} productCloseClick={RemoveProductClickHandler}/>
-                            <CartInfoContainer products={props.cart.products}/>
+                            <CartInfoContainer 
+                                setOfficeType={props.setOfficeType}
+                                setChoosenOffice={props.setChoosenOffice}
+                                type_office={props.order.type_office}
+                                choosen_office={props.order.choosen_office}
+                                products={props.cart.products}
+                            />
                         </div>
                     </div>
                 </section>
@@ -76,8 +83,6 @@ const Cart = (props) =>{
 
     // waiting server response
     return <LoadingSheme page/>
-    
-    
 }
 
 let mapStateToProps = (state)=>{
@@ -85,6 +90,7 @@ let mapStateToProps = (state)=>{
         cart: state.header.cart,
         userToken: state.auth.user.token,
         isAuth: state.auth.isAuth,
+        order: state.order,
     }
 }
 let mapDispatchToProps = (dispatch)=>{
@@ -103,6 +109,15 @@ let mapDispatchToProps = (dispatch)=>{
         },
         setCart: (cart) =>{
             dispatch(setCartAC(cart));
+        },
+        setCartId: (cart_id) => {
+            dispatch(setCartIdAC(cart_id));
+        },
+        setOfficeType: (office_type) =>{
+            dispatch(setOfficeTypeAC(office_type));
+        },
+        setChoosenOffice: (choosen_office) =>{
+            dispatch(setChoosenOfficeAC(choosen_office))
         },
     }
 }
