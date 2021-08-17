@@ -2974,6 +2974,7 @@ body.ie ._ibg img {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   padding: 10px 0;
+  cursor: pointer;
 }
 
 .menu-product__arrow {
@@ -3146,8 +3147,8 @@ body.ie ._ibg img {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+    -ms-flex-pack: justify;
+        justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -3434,6 +3435,13 @@ body.ie ._ibg img {
 
   .product-info__body {
     width: 280px;
+  }
+
+  .subInfo__button{
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: center;
+    width: 100%;
   }
 
   .product-info__fixed-wrapper {

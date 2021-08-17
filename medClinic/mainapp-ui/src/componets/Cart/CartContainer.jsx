@@ -8,6 +8,7 @@ import LoadingSheme from '../Other/LoadingSheme';
 import './CartPage.scss';
 import { setCartAC } from '../../redux/header-reducer';
 import { MAIN_PAGE_NAME, redirectByPageType } from '../../App';
+import CartInfoContainer from './CartInfoContainer';
 
 const Cart = (props) =>{
 
@@ -63,8 +64,8 @@ const Cart = (props) =>{
                 <section className="page__base cart-page">
                     <div className="cart-page__container _container">
                         <div className="cart-page__content">
-                            <div className="cart-side"></div>
                             <CartProductsList products={props.cart.products} productCloseClick={RemoveProductClickHandler}/>
+                            <CartInfoContainer/>
                         </div>
                     </div>
                 </section>

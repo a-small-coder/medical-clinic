@@ -5,9 +5,60 @@
     align-items: center;
     padding-bottom: calc(30px + 30 * ((100vw - 320px) / 950));
     padding-top: calc(30px + 30 * ((100vw - 320px) / 950));
-    // @include adaptiv-value("padding-top", 50, 20, 1);
-    // @include adaptiv-value("padding-bottom", 50, 20, 1);
 }
+
+.cart-page {
+
+    &__container {
+    }
+
+    &__content {
+    }
+}
+
+.cart-side {
+
+    &__container {
+    }
+}
+
+.cart-info {
+
+    &__cart-order-form {
+    }
+
+    &__info-block {
+    }
+}
+.info-block {
+
+    &__products-price {
+    }
+
+    &__propduct-price-item {
+    }
+
+    &__price-result {
+    }
+}
+.propduct-price-item {
+
+    &__title {
+    }
+
+    &__price {
+    }
+}
+.price-result {
+
+    &__text {
+    }
+
+    &__result {
+    }
+}
+
+
 
 .cart-items div:last-child {
     border-bottom: none;
