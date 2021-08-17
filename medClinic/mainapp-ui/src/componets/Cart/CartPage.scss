@@ -5,6 +5,16 @@
     color: #000;
 }
 
+._circle-btn{
+    font-weight: 600;
+    font-size: calc(16px + 2 * ((100vw - 320px) / 950));
+    width: 100%;
+    min-width: 100px;
+    margin: 0;
+    border: 2px solid;
+    border-radius: 30px;
+}
+
 .loading-block {
     display: flex;
     flex-direction: column;
@@ -60,10 +70,6 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        
-        @media (min-width: 991.98px){
-            padding: 0px 25px;
-        }
     }
 
     &__info-block {
@@ -71,7 +77,17 @@
     }
 
     &__office-type{
-        margin-bottom: 25px;
+        padding-bottom: 25px;
+        border-bottom: 1px solid #d8d8d8;
+    }
+
+    &__confirm{
+        margin-top: 20px;
+        min-height: 52px;
+
+        @media (min-width: 991.98px){
+            max-width: 350px;
+        }
     }
 }
 
@@ -80,6 +96,9 @@
 
     &__switching{
         display: flex;
+        @media (min-width: 1282px){
+            padding: 0px 25px;
+        }
 
         button:not(:last-child){
             border-top-right-radius: 0;
@@ -94,13 +113,6 @@
     }
 
     &__button{
-        font-weight: 600;
-        font-size: calc(16px + 2 * ((100vw - 320px) / 950));
-        width: 100%;
-        min-width: 100px;
-        margin: 0;
-        border: 2px solid;
-        border-radius: 30px;
 
         &._active{
             background-color: #0FC0FC;

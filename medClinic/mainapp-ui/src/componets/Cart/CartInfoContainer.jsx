@@ -1,4 +1,5 @@
 import React from 'react';
+import CartInfoFormControl from './CartInfoFormControl';
 import OfficeTypeSwitch from './OfficeTypeSwitch';
 import PriceInfoBlock from './PriceInfoBlock';
 
@@ -28,13 +29,15 @@ function CartInfo(props) {
             <div className="cart-side__container cart-info">
                 <div className="cart-info__cart-order">
                     <OfficeTypeSwitch type_office={props.type_office} officeOptionHandler={props.setOfficeType}/>
-                    <button 
-                        className="button-block__button btn _filled-btn _blue"
-                        type='submit' 
-                    >
-                        ОФОРМИТЬ ЗАКАЗ
-                    </button>
+                    <CartInfoFormControl type_office={props.type_office}/>
+                    <button
+                    className="cart-info__confirm btn _circle-btn _filled-btn _green"
+                    type='submit'
+                >
+                    ОФОРМИТЬ ЗАКАЗ
+                </button>
                 </div>
+                
                 <PriceInfoBlock productsElements={productsElements} result_price={result_price}/>
             </div>
         </div>
