@@ -52,7 +52,7 @@ function CheckBoxGroup(props) {
                                     >
                                         <div className={'checkbox-block__label-with-link'}>
                                             <span>{option.key}</span>
-                                            {option.link ? 
+                                            {option.link != null ? 
                                             <Link
                                                 to={option.link.ref}
                                                 className="_text-link"

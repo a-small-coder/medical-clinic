@@ -6,7 +6,8 @@ const SET_CHOOSEN_OFFICE = "SET_CHOOSEN_OFFICE";
 let initialState = {
     cart_id: 0,
     type_office: '',
-    choosen_office: 'Палата №6'
+    choosen_office: 'Палата №6',
+    
     
 }
 

@@ -11,7 +11,6 @@ const Registration =(props) =>{
                     Посмотреть результаты по номеру заказа
                 </Link>
             </div>
-            {/* <LoginForm handlerSubmit={onSubmitLoginForm} /> */}
             <RegistrationForm />
         </div>
     );

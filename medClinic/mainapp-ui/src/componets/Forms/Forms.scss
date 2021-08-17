@@ -55,6 +55,20 @@
     }
 }
 
+.order-form{
+
+    padding: 15px 0px;
+    max-width: 300px;
+    width: 100%;
+    @media (min-width: 479.98px){
+        padding: 15px 10px;
+        max-width: 350px;
+    }
+    @media (min-width: 767.98px){
+        max-width: 400px;
+    }
+}
+
 .form-control{
     margin: 15px 0;
     
