@@ -6,6 +6,7 @@ import './Autorization.scss';
 import '../Forms/Forms.scss';
 import AuthFormControl from './AuthFormControl';
 import { BAD_LINK, MAIN_PAGE_NAME, redirectByPageType } from '../../App';
+import LoadingSheme from '../Other/LoadingSheme';
 
 const AuthPageBody = (props) =>{
 
@@ -41,15 +42,7 @@ const AuthPageBody = (props) =>{
     }
     if (props.auth.isLoading){
         return (
-            <main className="page">
-            <section className="page__notFound notFound">
-                <div className="notFound__container _container">
-                    <div className="notFound__content">
-                     Loading...
-                    </div>
-                </div>
-            </section>
-        </main>
+            <LoadingSheme page/>
         )
     }
     const authType = props.history.location.pathname.split('/')[2]

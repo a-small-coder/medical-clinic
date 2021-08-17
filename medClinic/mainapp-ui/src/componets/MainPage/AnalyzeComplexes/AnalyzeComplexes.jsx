@@ -2,11 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Analyze from './Analyze';
 import Swiper from 'react-id-swiper';
+import LoadingSheme from '../../Other/LoadingSheme';
 const AnalyzeComplexes = (props) => {
 
     const sliderRef = React.useRef(null);
     if (props.analyzes.length === 0){
-        return <div>Loading...</div>
+        return <LoadingSheme page/>
     }
     let analyzeEkements = props.analyzes.map(a => <Analyze key={a.id} number={`0 ${a.id}`} title={a.title_min} text={"популярный комплекс"} img={a.small_image} link={a.slug}/>)
 

@@ -6,7 +6,7 @@ import './css/style.css';
 import Catalog from './componets/Catalog/Catalog';
 import ProductPage from './componets/ProductPage/ProductPage';
 import InWork from './componets/InWork/InWork';
-import ScrollToTop from './componets/ScrollToTop';
+import ScrollToTop from './componets/Other/ScrollToTop';
 import AuthPage from './componets/Autorization/AuthPageContainer';
 import { setCartAC } from './redux/header-reducer';
 import { connect } from 'react-redux';

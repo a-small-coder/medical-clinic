@@ -4,7 +4,7 @@ import urlStart, { deleteApiRequest, getApiResponse} from '../../api_requests';
 import { setIsAuthAC, setIsLoadingAC, setIsNeedRedirectAC, setUserDataAC } from '../../redux/auth-reducer';
 import EmptyCart from './EmptyCart';
 import CartProductsList from './CartProductsList';
-import LoadingSheme from '../LoadingSheme';
+import LoadingSheme from '../Other/LoadingSheme';
 import './CartPage.scss';
 import { setCartAC } from '../../redux/header-reducer';
 import { MAIN_PAGE_NAME, redirectByPageType } from '../../App';
@@ -74,7 +74,7 @@ const Cart = (props) =>{
     }
 
     // waiting server response
-    return <LoadingSheme />
+    return <LoadingSheme page/>
     
     
 }

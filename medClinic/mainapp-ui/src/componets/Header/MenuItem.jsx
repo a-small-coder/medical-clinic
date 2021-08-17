@@ -1,6 +1,6 @@
 import React, {useRef, useCallback} from 'react';
 import { Link } from 'react-router-dom';
-import {slideUp, slideDown} from '../Spoiler';
+import {slideUp, slideDown} from '../Other/Spoiler';
 import MenuSubItem from './MenuSubItem';
 const MenuItem = (props) => {
 

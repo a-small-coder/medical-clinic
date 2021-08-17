@@ -6,6 +6,7 @@ import { setCurrentPageAC, setProductsAC } from '../../redux/catalog-reducer';
 import urlStart, { deleteApiRequest, getApiResponse, putApiRequest } from '../../api_requests';
 import { setCartAC, setProductsCountInCartAC } from '../../redux/header-reducer';
 import { IN_WORK_PAGE_NAME, redirectByPageType } from '../../App';
+import LoadingSheme from '../Other/LoadingSheme';
 
 const Products = (props) => {
 
@@ -108,7 +109,7 @@ const Products = (props) => {
         </div>
     ) : (
         <div className="analyze-section">
-            Loading...
+            <LoadingSheme block/>
         </div>
     );
 }
