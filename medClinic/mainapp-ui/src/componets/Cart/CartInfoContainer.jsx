@@ -1,6 +1,26 @@
 import React from 'react';
 
 function CartInfoContainer(props) {
+
+    let productsElements
+    let result_price = 0
+    if (props.products != null){
+        productsElements = props.products.map(
+            a => {
+                result_price += Number(a.final_price)
+            return (
+                <div key={a.id} className="info-block__propduct-price-item propduct-price-item">
+                    <span className="propduct-price-item__title">
+                        {a.analyze.title}
+                    </span>
+                    <span className="propduct-price-item__price _title-standart">
+                        {Number(a.final_price)} p
+                    </span>
+                </div>
+            )
+            });
+    }
+
     return (
         <div className="cart-side">
             <div className="cart-side__container cart-info">
@@ -17,44 +37,12 @@ function CartInfoContainer(props) {
                         <div className="info-block__products-price-title _title-standart">
                             Ваши товары:
                         </div>
-                        <div className="info-block__propduct-price-item propduct-price-item">
-                            <span className="propduct-price-item__title">
-                                Какое-то там оооооооочень длинное, прям неимоверно огромное и 
-                                нескончаемое название одного из товаров в корзине
-                            </span>
-                            <span className="propduct-price-item__price _title-standart">
-                                19 895 p
-                            </span>
-                        </div>
-                        <div className="info-block__propduct-price-item propduct-price-item">
-                            <span className="propduct-price-item__title">
-                                Какое-то там название одного из товаров в корзине
-                            </span>
-                            <span className="propduct-price-item__price _title-standart">
-                                895 p
-                            </span>
-                        </div>
-                        <div className="info-block__propduct-price-item propduct-price-item">
-                            <span className="propduct-price-item__title">
-                                Какое-то там длинное, название одного из товаров в корзине
-                            </span>
-                            <span className="propduct-price-item__price _title-standart">
-                                9 895 p
-                            </span>
-                        </div>
-                        <div className="info-block__propduct-price-item propduct-price-item">
-                            <span className="propduct-price-item__title">
-                                Какое-то название товара
-                            </span>
-                            <span className="propduct-price-item__price _title-standart">
-                                9 895 p
-                            </span>
-                        </div>
+                        {productsElements}
                     </div>
 
                     <div className="info-block__price-result price-result">
                         <p className="price-result__text _title-standart">Итого: </p>
-                        <span className="price-result__result">109 000.00 p</span>
+                        <span className="price-result__result">{result_price}.00 p</span>
                     </div>
                 </div>
             </div>

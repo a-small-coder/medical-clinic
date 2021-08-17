@@ -65,7 +65,7 @@ const Cart = (props) =>{
                     <div className="cart-page__container _container">
                         <div className="cart-page__content">
                             <CartProductsList products={props.cart.products} productCloseClick={RemoveProductClickHandler}/>
-                            <CartInfoContainer/>
+                            <CartInfoContainer products={props.cart.products}/>
                         </div>
                     </div>
                 </section>
