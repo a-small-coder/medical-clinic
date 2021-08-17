@@ -1,5 +1,4 @@
 import React from 'react';
-import urlStart, { deleteApiRequest } from '../../api_requests';
 import Product from '../Catalog/Product';
 
 const CartProductsList = (props) => {

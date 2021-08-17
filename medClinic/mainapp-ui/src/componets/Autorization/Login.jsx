@@ -9,11 +9,11 @@ const Login =(props) =>{
         <div className="autorization-page__content">
             <div className="autorization-page__top-block">
                 <h3 className="autorization-page__title _title">Вход в личный кабинет</h3>
-                <Link to="order-results" className="autorization-page__order-rezults _text-link">
+                <Link to="/order-results" className="autorization-page__order-rezults _text-link">
                     Посмотреть результаты по номеру заказа
                 </Link>
             </div>
-            <LoginForm handlerSubmit={props.handlerSubmit} />
+            <LoginForm handlerSubmit={props.submitLoginFormHandler} errorMessage={props.errorMessage}/>
         </div>
     );
 }

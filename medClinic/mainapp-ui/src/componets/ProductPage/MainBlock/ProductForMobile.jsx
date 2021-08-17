@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Description from './Description';
-import {slideUp, slideDown} from '../../Spoiler';
+import {slideUp, slideDown} from '../../Other/Spoiler';
 
 const ProductForMobile = () => {
 

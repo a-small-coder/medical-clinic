@@ -6,7 +6,7 @@ import './css/style.css';
 import Catalog from './componets/Catalog/Catalog';
 import ProductPage from './componets/ProductPage/ProductPage';
 import InWork from './componets/InWork/InWork';
-import ScrollToTop from './componets/ScrollToTop';
+import ScrollToTop from './componets/Other/ScrollToTop';
 import AuthPage from './componets/Autorization/AuthPageContainer';
 import { setCartAC } from './redux/header-reducer';
 import { connect } from 'react-redux';
@@ -40,7 +40,7 @@ function App(props) {
         <ScrollToTop />
         <Header />
         <Switch>
-          <Redirect exact from={"/catalog"} to={"catalog/all-analyzes"} ></Redirect>
+          <Redirect exact from={"/catalog"} to={"catalog/all-analyzes"}/>
           {/* <Redirect from={"/analyzes/analyzes/all-analyzes/<:pk>"} to={"analyze/<:pk>"} ></Redirect> */}
           <Route exact path="/catalog/:category" component={Catalog} />
           <Route exact path="/catalog/:category/:id" component={ProductPage} />
@@ -76,3 +76,20 @@ let mapDispatchToProps = (dispatch)=>{
 const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
 
 export default AppContainer;
+
+export function redirectByPageType(page, exact=false, from=null) {
+  switch(page){
+    case MAIN_PAGE_NAME:
+      return <Redirect to={'/'}/>
+    case IN_WORK_PAGE_NAME:
+      return <Redirect to={'/page-comming-soon'}/>
+    case BAD_LINK:
+      return <Redirect to={'/bad-link'}/>
+    default:
+      return <Redirect to={'/'}/>
+  }
+}
+
+export const MAIN_PAGE_NAME = 'Main'
+export const IN_WORK_PAGE_NAME = 'InWork'
+export const BAD_LINK = 'BadLink'

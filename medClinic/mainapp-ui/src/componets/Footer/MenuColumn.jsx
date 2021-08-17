@@ -1,5 +1,5 @@
 import React, {useCallback, useRef} from 'react';
-import {slideUp, slideDown} from '../Spoiler';
+import {slideUp, slideDown} from '../Other/Spoiler';
 import MenuSubItem from '../Header/MenuSubItem';
 const MenuColumn = (props) => {
 

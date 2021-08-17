@@ -1,6 +1,10 @@
 import React from 'react';
 import Input from './Input';
 import TextArea from './TextArea';
+import CheckBoxGroup from './CheckBoxGroup';
+import Select from './Select';
+import RadioButtons from './RadioButtons';
+import DatePiker from './DatePiker';
 
 const FormikControl = (props) =>{
     const {control, ...rest} = props
@@ -10,9 +14,13 @@ const FormikControl = (props) =>{
         case 'textarea':
             return <TextArea {...rest}/>
         case 'select':
+            return <Select {...rest} />
         case 'radio':
+            return <RadioButtons {...rest}/>
         case 'checkbox':
+            return <CheckBoxGroup {...rest}/>
         case 'date':
+            return <DatePiker {...rest}/>
         default: return null
     } 
     

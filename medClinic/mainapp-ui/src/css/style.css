@@ -476,12 +476,7 @@ textarea.input {
 }
 
 .checkbox__input {
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  opacity: 0;
-  /* visibility: hidden; */
-  z-index: 110;
+  display: none;
 }
 
 .checkbox__input:checked + .checkbox__label::after {
@@ -491,9 +486,9 @@ textarea.input {
 }
 
 .checkbox__label {
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -502,12 +497,11 @@ textarea.input {
   letter-spacing: -0.3px;
   line-height: calc(20 / 16);
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
-.checkbox__label:before {
+.checkbox__label::before {
   content: "";
-  -ms-flex-item-align: start;
-      align-self: flex-start;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 24px;
           flex: 0 0 24px;
@@ -528,7 +522,6 @@ textarea.input {
   width: 16px;
   height: 16px;
   position: absolute;
-  top: 4px;
   left: 4px;
   background-color: #0B94C1;
   border-radius: 4px;
@@ -1597,9 +1590,6 @@ body.ie ._ibg img {
   display: none;
 }
 
-/*
-
-*/
 
 .footer__body {
   border-top: 1px solid #d8d8d8;
@@ -2984,6 +2974,7 @@ body.ie ._ibg img {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   padding: 10px 0;
+  cursor: pointer;
 }
 
 .menu-product__arrow {
@@ -3156,8 +3147,8 @@ body.ie ._ibg img {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+    -ms-flex-pack: justify;
+        justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -3444,6 +3435,13 @@ body.ie ._ibg img {
 
   .product-info__body {
     width: 280px;
+  }
+
+  .subInfo__button{
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: center;
+    width: 100%;
   }
 
   .product-info__fixed-wrapper {

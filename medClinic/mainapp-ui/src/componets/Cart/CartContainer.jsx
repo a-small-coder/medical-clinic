@@ -2,18 +2,20 @@ import { connect } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import urlStart, { deleteApiRequest, getApiResponse} from '../../api_requests';
 import { setIsAuthAC, setIsLoadingAC, setIsNeedRedirectAC, setUserDataAC } from '../../redux/auth-reducer';
-import {Redirect } from 'react-router-dom';
+import {setCartIdAC, setChoosenOfficeAC, setOfficeTypeAC} from '../../redux/order-reducer';
 import EmptyCart from './EmptyCart';
 import CartProductsList from './CartProductsList';
-import LoadingSheme from '../LoadingSheme';
+import LoadingSheme from '../Other/LoadingSheme';
 import './CartPage.scss';
 import { setCartAC } from '../../redux/header-reducer';
+import { MAIN_PAGE_NAME, redirectByPageType } from '../../App';
+import CartInfoContainer from './CartInfoContainer';
 
 const Cart = (props) =>{
 
     const [isRequest, setIsRequest] = useState(false)
 
-    const RemoveProductClickHandler = (productId, isCart) => {
+    const RemoveProductClickHandler = (productId) => {
         const addProductApiUrl = `${urlStart}cart/current_customer_cart/product_remove_from_cart/${productId}/`
         const goodResponseHandler = () => {
             let newCartProducts = []
@@ -48,7 +50,7 @@ const Cart = (props) =>{
     // fail to get cart data from server
     if (props.cart == null || !props.isAuth) {
         return (
-            <Redirect to={'/'} />
+            redirectByPageType(MAIN_PAGE_NAME)
         )
     }
 
@@ -57,14 +59,19 @@ const Cart = (props) =>{
         if (props.cart.total_products === 0) {
             return <EmptyCart />
         }
-        // debugger
         return (
             <main className="page">
                 <section className="page__base cart-page">
                     <div className="cart-page__container _container">
                         <div className="cart-page__content">
-                            <div className="cart-side"></div>
                             <CartProductsList products={props.cart.products} productCloseClick={RemoveProductClickHandler}/>
+                            <CartInfoContainer 
+                                setOfficeType={props.setOfficeType}
+                                setChoosenOffice={props.setChoosenOffice}
+                                type_office={props.order.type_office}
+                                choosen_office={props.order.choosen_office}
+                                products={props.cart.products}
+                            />
                         </div>
                     </div>
                 </section>
@@ -74,9 +81,7 @@ const Cart = (props) =>{
     }
 
     // waiting server response
-    return <LoadingSheme />
-    
-    
+    return <LoadingSheme page/>
 }
 
 let mapStateToProps = (state)=>{
@@ -84,6 +89,7 @@ let mapStateToProps = (state)=>{
         cart: state.header.cart,
         userToken: state.auth.user.token,
         isAuth: state.auth.isAuth,
+        order: state.order,
     }
 }
 let mapDispatchToProps = (dispatch)=>{
@@ -102,6 +108,15 @@ let mapDispatchToProps = (dispatch)=>{
         },
         setCart: (cart) =>{
             dispatch(setCartAC(cart));
+        },
+        setCartId: (cart_id) => {
+            dispatch(setCartIdAC(cart_id));
+        },
+        setOfficeType: (office_type) =>{
+            dispatch(setOfficeTypeAC(office_type));
+        },
+        setChoosenOffice: (choosen_office) =>{
+            dispatch(setChoosenOfficeAC(choosen_office))
         },
     }
 }

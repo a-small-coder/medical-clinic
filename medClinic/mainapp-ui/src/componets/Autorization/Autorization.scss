@@ -5,6 +5,14 @@
     padding: 5px 0;
     color: #0FC0FC;
     transition: all 0.3s ease 0s;
+    text-decoration: underline;
+        
+    @media (any-hover: hover) {
+        text-decoration: none;
+            &:hover {
+                color: #0B94C1;
+        }
+    }
 }
 
 ._filled-btn {
@@ -17,6 +25,7 @@
         &:hover {
             @media (any-hover: hover) {
                 background-color: #00b388;
+                opacity: 0.8;
             }
         }
     }
@@ -41,6 +50,7 @@
 
 .autorization-page {
     padding-bottom: calc(30px + 40 * ((100vw - 320px) / 950));
+    margin-top: 100px;
 
     &__content{
         display: flex;
@@ -49,7 +59,7 @@
     }
 
     &__top-block {
-        margin-bottom: calc(20px + 30 * ((100vw - 320px) / 950));
+        margin-bottom: calc(10px + 5 * ((100vw - 320px) / 950));
         ;
     }
 
@@ -62,6 +72,7 @@
         display: block;
         border-top: 1px solid #d8d8d8;
         margin-top: 10px;
+        text-decoration: none;
     }
 
 }
@@ -75,15 +86,11 @@
     &__button {
         font-weight: 600;
         min-height: 52px;
-        font-size: 20px;
+        font-size: calc(18px + 2 * ((100vw - 320px) / 950));
         width: 100%;
         max-width: 300px;
         min-width: 130px;
-        &:hover{
-            @media (any-hover: hover){
-                opacity: 0.8;
-            }
-        }
+        
         &:not(:last-child){
             margin-bottom: 20px;
         }

@@ -1,3 +1,20 @@
+._title-standart{
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 150%;
+    color: #000;
+}
+
+._circle-btn{
+    font-weight: 600;
+    font-size: calc(16px + 2 * ((100vw - 320px) / 950));
+    width: 100%;
+    min-width: 100px;
+    margin: 0;
+    border: 2px solid;
+    border-radius: 30px;
+}
+
 .loading-block {
     display: flex;
     flex-direction: column;
@@ -5,9 +22,184 @@
     align-items: center;
     padding-bottom: calc(30px + 30 * ((100vw - 320px) / 950));
     padding-top: calc(30px + 30 * ((100vw - 320px) / 950));
-    // @include adaptiv-value("padding-top", 50, 20, 1);
-    // @include adaptiv-value("padding-bottom", 50, 20, 1);
 }
+
+.cart-page {
+
+    &__container {
+        
+    }
+
+    &__content {
+        display: flex;
+        @media (max-width: 991.98px){
+            flex-direction: column;
+        }
+    }
+}
+
+.cart-side {
+    @media (max-width: 991.98px){
+        border-top: 1px solid #d8d8d8;
+        padding-top: 25px;
+    }
+    
+    @media (min-width: 991.98px){
+        max-width: 380px;
+        margin-left: calc(0px + 40 * ((100vw - 320px) / 950));
+        margin-right: calc(0px + 10 * ((100vw - 320px) / 950));
+    }
+    @media (min-width: 1282px){
+        max-width: 430px;
+    }
+
+    &__container {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        @media (min-width: 991.98px){
+            padding: 15px;
+        }
+    }
+}
+
+.cart-info {
+    display: flex;
+    flex-direction: column;
+
+    &__cart-order {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__info-block {
+        margin: 10px 0;
+    }
+
+    &__office-type{
+        padding-bottom: 25px;
+        border-bottom: 1px solid #d8d8d8;
+    }
+
+    &__confirm{
+        margin-top: 20px;
+        align-self: center;
+        min-height: 52px;
+
+        @media (min-width: 991.98px){
+            max-width: 350px;
+        }
+    }
+}
+
+.office-type-block{
+    width: 100%;
+
+    &__switching{
+        display: flex;
+        @media (min-width: 1282px){
+            padding: 0px 25px;
+        }
+
+        button:not(:last-child){
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-right: 1px solid #0FC0FC;
+        }
+        button:last-child{
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-left: 1px solid #0FC0FC;
+        }
+    }
+
+    &__button{
+
+        &._active{
+            background-color: #0FC0FC;
+            color: #fff;
+            border-color:#0FC0FC;
+        }
+
+        &:hover {
+            @media (any-hover: hover) {
+                background-color: #0FC0FC;
+                color: #fff;
+                border-color:#0FC0FC;
+            }
+        }
+    }
+
+    
+
+}
+
+.info-block {
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    @media (min-width: 991.98px){
+        padding: 15px;
+    }
+
+    &__products-price {
+        margin-bottom: 10px;
+        border-bottom: 1px solid #d8d8d8;
+    }
+
+    &__products-price-title{
+        padding: 10px 0;
+    }
+
+    &__propduct-price-item {
+
+    }
+
+    &__price-result {
+        
+    }
+}
+.propduct-price-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+
+    &__title {
+        display: inline-block;
+        font-size: calc(14px + 2 * ((100vw - 320px) / 950));
+        font-weight: 500;
+        color: #898989;
+        line-height: 120%;
+        margin-right: 15px;
+    }
+
+    &__price {
+        display: inline-block;
+        min-width: 80px;
+        text-align: end;
+        font-size: calc(16px + 2 * ((100vw - 320px) / 950));
+    }
+}
+.price-result {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+
+    &__text {
+        font-size: calc(18px + 2 * ((100vw - 320px) / 950));
+    }
+
+    &__result {
+        color: #0FC0FC;
+        font-size: calc(22px + 4 * ((100vw - 320px) / 950));
+        font-weight: 700;
+        line-height: 150%;
+    }
+}
+
+
 
 .cart-items div:last-child {
     border-bottom: none;

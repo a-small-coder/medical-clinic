@@ -2,15 +2,15 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { postApiRequest } from '../../api_requests';
 import { setIsAuthAC, setIsLoadingAC, setIsNeedRedirectAC, setUserDataAC } from '../../redux/auth-reducer';
-import {Redirect} from 'react-router-dom';
 import './Autorization.scss';
 import '../Forms/Forms.scss';
-import Login from './Login';
-import Registration from './Registration';
+import AuthFormControl from './AuthFormControl';
+import { BAD_LINK, MAIN_PAGE_NAME, redirectByPageType } from '../../App';
+import LoadingSheme from '../Other/LoadingSheme';
 
 const AuthPageBody = (props) =>{
 
-    const onSubmitLoginForm = (formData) =>{
+    const onSubmitLoginForm = (formData, errorMessageSetter, errorFieldName) =>{
         console.log("Form data", formData)
         const loginUrl = "http://127.0.0.1:8000/auth/"
         const userData = JSON.stringify(formData)
@@ -18,7 +18,6 @@ const AuthPageBody = (props) =>{
             console.log(response)
             if (response.status === 200){
                 props.setIsAuth(true)
-                props.setIsLoading(false)
                 props.setIsNeedRedirect(true)
                 props.setUserData({
                     userId: null,
@@ -28,54 +27,35 @@ const AuthPageBody = (props) =>{
             }           
         }
         const badResponseHandler = (err) => {
-            props.setIsLoading(false)
+            if (err.response.status === 400){
+                errorMessageSetter(errorFieldName, "Неверный логин или пароль")
+            }
+            
         }
         console.log(userData)
         postApiRequest(loginUrl, userData, goodResponseHandler, badResponseHandler)
-        props.setIsLoading(true)
     }
-    if (props.auth.isNeedRedirect) {
+    if (props.auth.isNeedRedirect || props.auth.isAuth) {
         return (
-        <Redirect to={'/'}/>
+        redirectByPageType(MAIN_PAGE_NAME)
         )
     }
     if (props.auth.isLoading){
         return (
-            <main className="page">
-            <section className="page__notFound notFound">
-                <div className="notFound__container _container">
-                    <div className="notFound__content">
-                     Loading...
-                    </div>
-                </div>
-            </section>
-        </main>
+            <LoadingSheme page/>
         )
     }
-
-    let isLogin = false
-    let isRegistration = false
     const authType = props.history.location.pathname.split('/')[2]
     console.log(authType)
-    switch (authType){
-        case 'login':
-            isLogin = true;
-            break
-        case 'registration':
-            isRegistration = true;
-            break
-        default:
-    }
     return (
         <main className="page">
             <section className="page__base autorization-page">
                 <div className="autorization-page__container _container">
-                    {isLogin ? 
-                    <Login handlerSubmit={onSubmitLoginForm}/>:
-                    isRegistration ? 
-                    <Registration/> :
-                    <Redirect to={'/bad-link'}/>
-                    }
+                    <AuthFormControl 
+                        control={authType}
+                        submitLoginFormHandler={onSubmitLoginForm}
+                        errorHandler={redirectByPageType(BAD_LINK)}
+                    />
                 </div>
             </section>
         </main>

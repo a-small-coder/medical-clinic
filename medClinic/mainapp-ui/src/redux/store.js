@@ -5,6 +5,7 @@ import catalogReducer from "./catalog-reducer";
 import productReducer from "./product-reducer";
 import mainPageReducer from "./mainPage-reducer";
 import authReducer from "./auth-reducer";
+import orderReducer from "./order-reducer";
 
 
 let reducers = combineReducers({
@@ -13,7 +14,8 @@ let reducers = combineReducers({
     catalog: catalogReducer,
     productPage: productReducer,
     mainPage: mainPageReducer,
-    auth: authReducer, 
+    auth: authReducer,
+    order: orderReducer, 
 })
 
 let store = createStore(reducers);
