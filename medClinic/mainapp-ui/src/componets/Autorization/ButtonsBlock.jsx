@@ -6,6 +6,21 @@ const ButtonsBlock = (props) =>{
     // formType: <string>
     // isFormValid: <bool>
     // wrapperClass: <string>
+    // redirectToAuthPage : <bool>
+
+    if (props.redirectToAuthPage){
+        return (
+            <div className={props.wrapperClass + " button-block"}>
+
+                <Link to="/auth/login" className="button-block__button btn _filled-btn _green">Войти</Link>
+
+                <Link to="/auth/registration" className="_title-standart">
+                    Ещё не зарегистрированы?
+                </Link>
+            </div>
+        )
+    }
+    
     const isLoginForm = props.formType === 'login'
     
     return (
