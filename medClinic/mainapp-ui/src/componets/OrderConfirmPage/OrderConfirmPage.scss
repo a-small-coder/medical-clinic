@@ -1,11 +1,135 @@
+.message-block{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid;
+    border-radius: 10px;
+    min-width: 280px;
+    min-height: 48px;
+    font-weight: 500;
+    line-height: 120%;
+    text-align: center;
+    font-size: calc(16px + 2 * ((100vw - 320px) / 950));
+    position: relative;
+    padding: 15px 20px;
+    margin-top: 25px;
+
+    &::before{
+        content: "";
+        border: 10px solid transparent;
+        border-bottom: 9px solid #ff6a13;
+        position: absolute;
+        left: auto;
+        right: auto;
+        bottom: calc(48px + 3 * ((100vw - 320px) / 950));
+    }
+
+    &._orange{
+        color: #fff;
+        border-color: #ff6a13;
+        background-color: #ff6a13;
+    }
+}
+
 .order-conformation-page {
 
     &__container {
+
+        @media (min-width: 991.98px){
+            width: 991.98px;
+        }
 
     }
 
     &__content {
         display: flex;
         justify-content: space-between;
+        @media (max-width: 991.98px){
+            flex-direction: column;
+            margin-bottom: 40px;
+        }
+    }
+
+    &__top-block{
+        max-width: 450px;
+        margin-bottom: calc(25px + 15 * ((100vw - 320px) / 950));
+        @media (max-width: 991.98px){
+            margin: 0 auto;
+        }
+    }
+
+    &__main-block{
+
+
+    }
+    &__confirm-block{
+
+    }
+}
+
+.main-block-order{
+    padding: calc(20px + 20 * ((100vw - 320px) / 950));
+
+    &__title{
+        font-size: calc(22px + 4 * ((100vw - 320px) / 950));
+    }
+
+    .info-block{
+        padding: 0;
+        margin: 0;
+    }
+}
+
+.confirm-block-order {
+    padding: 25px 0;
+
+    &__confirm {
+        margin-bottom: calc(25px + 20 * ((100vw - 320px) / 950));
+    }
+
+    &__autorization {
+        margin-top: calc(30px + 10 * ((100vw - 320px) / 950));
+    }
+
+    @media (max-width: 991.98px){
+        &__confirm {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+    }
+    @media (min-width: 479.98px){
+        padding: calc(20px + 20 * ((100vw - 320px) / 950));
+    }
+}
+
+.confirm-order {
+
+    &__confirm-btn {
+        min-width: 280px;
+
+        &:disabled{
+            background: #dde4e5;
+            color: #b6c1c2;
+            border-color: #dde4e5;
+        }
+    }
+
+    &__error-message{
+
+    }
+
+}
+
+.autorization-order {
+
+    &__button-block {
+        margin-top: calc(10px + 15 * ((100vw - 320px) / 950));
+    }
+
+    &__title{
+        font-size: calc(24px + 4 * ((100vw - 320px) / 950));
+        margin: 0 auto;
+        text-align: center;
     }
 } 
