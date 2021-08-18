@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import ButtonsBlock from '../Autorization/ButtonsBlock';
 import TopBlockTitle from '../Autorization/TopBlockTitle';
 import PriceInfoBlock from '../Cart/PriceInfoBlock';
 import LoadingSheme from '../Other/LoadingSheme';
+import './OrderConfirmPage.scss';
 
 function OrderConformation(props) {
 
+    const TitleWrapperClass = "order-conformation-page__top-block"
     const page_title = "Подтверждение Заказа"
     const link_under_page_title = {
         ref: "/cart",
@@ -32,13 +35,63 @@ function OrderConformation(props) {
             });
     }
 
+    const confirmClickHandler = (e) =>{
+        props.history.push("/user/profile/orders")
+    }
+
     return (
         <main class="page">
             <section class="page__base order-conformation-page">
                 <div class="order-conformation-page__container _container">
+                    <TopBlockTitle
+                        title={page_title}
+                        link={link_under_page_title}
+                        wrapperClass={TitleWrapperClass}
+                    />
                     <div class="order-conformation-page__content">
-                        <TopBlockTitle title={page_title} link={link_under_page_title}/>
-                        <PriceInfoBlock productsElements={productsElements} result_price={result_price}/>
+                        <div className="order-conformation-page__main-block main-block-order">
+                            <h5 className="main-block-order__title _title-standart">
+                                Состав заказа:
+                            </h5>
+                            <PriceInfoBlock
+                                productsElements={productsElements}
+                                result_price={result_price}
+                            />
+                        </div>
+                        <div className="order-conformation-page__confirm-block confirm-block-order">
+                            <div className="confirm-block-order__confirm confirm-order">
+                                <button
+                                    className="confirm-order__confirm-btn btn _circle-btn _filled-btn _green"
+                                    disabled={!props.isAuth}
+                                    onClick={confirmClickHandler}
+                                >
+                                    ОФОРМИТЬ ЗАКАЗ
+                                </button>
+
+                                {
+                                    !props.isAuth ?
+                                        <div className="confirm-order__error-message message-block _orange">
+                                            Необходио авторизоваться
+                                        </div>
+                                        : null
+                                }
+
+                            </div>
+                            {
+
+                                !props.isAuth ?
+                                    <div className="confirm-block-order__autorization autorization-order">
+                                        <h5 className="autorization-order__title _title-standart">
+                                            Авторизация
+                                        </h5>
+                                        <ButtonsBlock
+                                            redirectToAuthPage={true}
+                                            wrapperClass={"autorization-order__button-block"}
+                                        />
+                                    </div>
+                                    : null
+                            }
+                        </div>
                     </div>
                 </div>
             </section>
