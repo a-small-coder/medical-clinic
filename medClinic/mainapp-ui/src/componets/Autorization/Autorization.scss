@@ -62,7 +62,9 @@
         margin-bottom: calc(10px + 5 * ((100vw - 320px) / 950));
         ;
     }
+}
 
+.top-block{
     &__title {
         text-align: start;
         font-weight: 600;
@@ -74,8 +76,9 @@
         margin-top: 10px;
         text-decoration: none;
     }
-
+    
 }
+
 .button-block {
 
     width: 100%;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import LoadingSheme from './Other/LoadingSheme';
+import LoadingSheme from '../Other/LoadingSheme';
 
 function OrderConformation(props) {
     return (

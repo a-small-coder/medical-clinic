@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 import urlStart, { getApiResponse } from './api_requests';
 import { setIsAuthAC } from './redux/auth-reducer';
 import CartPage from './componets/Cart/CartContainer';
+import OrderConformationContainer from './componets/OrderConfirmPage/OrderConformation';
 
 function App(props) {
 
@@ -48,6 +49,7 @@ function App(props) {
           <Route exact path="/" component={MainPage} />
           <Route path='/auth' component={AuthPage} />
           <Route path="/cart" component={CartPage}/>
+          <Route path="/cart/order-conformation" component={OrderConformationContainer}/>
           <Route component={InWork} />
         </Switch>
         <Footer />
