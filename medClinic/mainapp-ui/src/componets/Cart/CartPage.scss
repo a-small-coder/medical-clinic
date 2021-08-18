@@ -32,6 +32,7 @@
 
     &__content {
         display: flex;
+        justify-content: space-between;
         @media (max-width: 991.98px){
             flex-direction: column;
         }
@@ -45,12 +46,9 @@
     }
     
     @media (min-width: 991.98px){
-        max-width: 380px;
-        margin-left: calc(0px + 40 * ((100vw - 320px) / 950));
+        width: calc(360px + 40 * ((100vw - 320px) / 950));
+        padding-left: calc(0px + 40 * ((100vw - 320px) / 950));
         margin-right: calc(0px + 10 * ((100vw - 320px) / 950));
-    }
-    @media (min-width: 1282px){
-        max-width: 430px;
     }
 
     &__container {
@@ -93,7 +91,7 @@
 
     &__visit-place {
         margin: 10px 0px;
-        border-bottom: 1px solid;
+        border-bottom: 1px solid #d8d8d8;
     }
 
 }
@@ -153,7 +151,7 @@
     &__switching{
         display: flex;
         @media (min-width: 1282px){
-            padding: 0px 25px;
+            min-width: 355px;
         }
 
         button:not(:last-child){
@@ -256,8 +254,12 @@
 
 
 
-.cart-items div:last-child {
-    border-bottom: none;
+.cart-items {
+    flex: 1;
+
+    div:last-child {
+        border-bottom: none;
+    }
 }
 
 .empty-cart {
