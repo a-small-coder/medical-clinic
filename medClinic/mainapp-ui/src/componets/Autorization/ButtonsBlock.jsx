@@ -17,7 +17,9 @@ const ButtonsBlock = (props) =>{
             }
             <div className="button-block__link-wrapper link-wrapper">
                 <span className="link-wrapper__line"></span>
-                <div className="link-wrapper__text">Ещё не зарегистрированы?</div>
+                <div className="link-wrapper__text">
+                    {isLoginForm ? "Ещё не зарегистрированы?" : "Уже зарегистрированы?"}
+                </div>
             </div>
             {
                 isLoginForm ?

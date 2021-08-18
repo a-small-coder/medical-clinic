@@ -90,7 +90,62 @@
             max-width: 350px;
         }
     }
+
+    &__visit-place {
+        margin: 10px 0px;
+        border-bottom: 1px solid;
+    }
+
 }
+
+.visit-place {
+    width: 100%;
+    padding: 15px 0 25px 15px;
+
+    &__region {
+    }
+
+    &__item {
+        display: flex;
+        color: #0FC0FC;
+        font-size: calc(16px + 4 * ((100vw - 320px) / 950));
+        font-weight: 500;
+        line-height: 120%;
+        &::before{
+            width: 32px;
+            font-size: 20px;
+        }
+        @media (min-width: 479.98px){
+            &::before{
+                font-size: 24px;
+                width: 48px;
+            }
+        }
+
+        span{
+            font-weight: 700;
+            font-size: calc(18px + 4 * ((100vw - 320px) / 950));
+        }
+        
+    }
+
+    &__office {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__title {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 32px;
+        font-weight: 400;
+        font-size: calc(14px + 2 * ((100vw - 320px) / 950));
+        @media (min-width: 479.98px){
+            margin-left: 48px;
+        }
+    }
+}
+
 
 .office-type-block{
     width: 100%;

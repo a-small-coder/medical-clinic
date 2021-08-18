@@ -9,7 +9,7 @@ function CartInfoFormControl(props) {
         case 'home':
             return <OrderConformationForm {...rest}/>
         case 'in office':
-            return <OfficeVisitOption {...rest}/>
+            return <OfficeVisitOption {...rest} type_office={control}/>
         default:
             return (
                 <button
