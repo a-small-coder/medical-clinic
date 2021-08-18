@@ -78,6 +78,9 @@
         padding: 0;
         margin: 0;
     }
+    @media (min-width: 1282px){
+        padding-left: 0;
+    }
 }
 
 .confirm-block-order {
@@ -98,8 +101,18 @@
         }
 
     }
+    @media (min-width: 1282px){
+        padding-right: 0;
+
+        &__confirm {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+    }
     @media (min-width: 479.98px){
         padding: calc(20px + 20 * ((100vw - 320px) / 950));
+        
     }
 }
 
@@ -125,6 +138,18 @@
 
     &__button-block {
         margin-top: calc(10px + 15 * ((100vw - 320px) / 950));
+
+        ._title-standart{
+            color: #0FC0FC;
+            text-decoration: underline;
+            @media (any-hover: hover) {
+                text-decoration: none;
+            }
+            &:hover {
+                text-decoration: underline;
+                
+            }
+        }
     }
 
     &__title{

@@ -48,7 +48,7 @@ function App(props) {
           {/* <Route exact path="/home"component={MainPage}/> */}
           <Route exact path="/" component={MainPage} />
           <Route path='/auth' component={AuthPage} />
-          <Route path="/cart" component={CartPage}/>
+          <Route exact path="/cart" component={CartPage}/>
           <Route path="/cart/order-conformation" component={OrderConformationContainer}/>
           <Route component={InWork} />
         </Switch>
