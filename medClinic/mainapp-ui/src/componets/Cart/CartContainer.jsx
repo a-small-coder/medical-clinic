@@ -67,6 +67,7 @@ const Cart = (props) =>{
                             <CartProductsList products={props.cart.products} productCloseClick={RemoveProductClickHandler}/>
                             <CartInfoContainer 
                                 setOfficeType={props.setOfficeType}
+                                history={props.history}
                                 setChoosenOffice={props.setChoosenOffice}
                                 type_office={props.order.type_office}
                                 choosen_office={props.order.choosen_office}

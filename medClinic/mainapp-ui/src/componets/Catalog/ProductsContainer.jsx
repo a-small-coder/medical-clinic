@@ -100,7 +100,7 @@ const Products = (props) => {
     if (Badresponse){
         return redirectByPageType(IN_WORK_PAGE_NAME)
     }
-    if (props.products != null){
+    if (productsElements.length > 0){
         return (
             <div className="analyze-section">
                 <h2 className="analyze-section__title _title">{props.products.title[titleKey]}</h2>
@@ -114,7 +114,6 @@ const Products = (props) => {
     }
     return (
         <div className="analyze-section">
-            Loading...
             <LoadingSheme block={true}/>
         </div>
     )
