@@ -97,21 +97,27 @@ const Products = (props) => {
     
     let titleKey = props.products.category.substring(1) + '/'
     
-    return Badresponse ? (
-        redirectByPageType(IN_WORK_PAGE_NAME)
-    ) : props.products != null ? (
-        <div className="analyze-section">
-            <h2 className="analyze-section__title _title">{props.products.title[titleKey]}</h2>
-            <div className="analyze-section__items">
-                {productsElements}
+    if (Badresponse){
+        return redirectByPageType(IN_WORK_PAGE_NAME)
+    }
+    if (props.products != null){
+        return (
+            <div className="analyze-section">
+                <h2 className="analyze-section__title _title">{props.products.title[titleKey]}</h2>
+                <div className="analyze-section__items">
+                    {productsElements}
+                </div>
+                <Paggination pagesCount={pagesCount} totalPage={props.products.currentPage} PageChenge={onPageChenged} />
             </div>
-            <Paggination pagesCount={pagesCount} totalPage={props.products.currentPage} PageChenge={onPageChenged} />
-        </div>
-    ) : (
+
+        )
+    }
+    return (
         <div className="analyze-section">
-            <LoadingSheme block/>
+            Loading...
+            <LoadingSheme block={true}/>
         </div>
-    );
+    )
 }
 
 let mapStateToProps = (state)=>{

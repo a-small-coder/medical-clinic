@@ -6,6 +6,7 @@ import {setProductAC, switchProductActiveContentAC } from '../../redux/product-r
 import IncludeProducts from './InculeProducts';
 import urlStart, { getApiResponse } from '../../api_requests';
 import { IN_WORK_PAGE_NAME, redirectByPageType } from '../../App';
+import LoadingSheme from '../Other/LoadingSheme';
 
 const ProductPage = (props) => {
     let productNameL = props.history.location.pathname.split("/");
@@ -47,38 +48,32 @@ const ProductPage = (props) => {
         }
         getApiResponse(url, false, goodResponseHandler, badResponseHandler)
     }
-    return Badresponse ? (
-        redirectByPageType(IN_WORK_PAGE_NAME)
-    ) : props.product.content != null ?(
-        
+    if (Badresponse) {
+        return redirectByPageType(IN_WORK_PAGE_NAME)
+    }
+    if (props.product.content != null) {
+        return (
+
             <section className="page__product analyze-product">
                 <div className="analyze-product__container _container">
                     <div className="analyze-product__body">
                         <h1 className="analyze-product__title _title"><span>{props.product.title}</span></h1>
                         <div className="analyze-product__content">
                             <div className="analyze-product__main product-main">
-                                
+
                                 <ProductMain switchProductActiveContent={props.switchProductActiveContent} product={props.product} />
-                                {props.product.isAcomplex ? <IncludeProducts products={props.product.included_analyzes}/> : ""}
+                                {props.product.isAcomplex ? <IncludeProducts products={props.product.included_analyzes} /> : ""}
                             </div>
                             <ProductInfo product={props.product} />
                         </div>
                     </div>
                 </div>
             </section>
-    ) : (
-        <section className="page__product analyze-product">
-                <div className="analyze-product__container _container">
-                    <div className="analyze-product__body">
-                        <h1 className="analyze-product__title _title"><span>{props.product.title}</span></h1>
-                        <div className="analyze-product__content">
-                            Looading...
-                        </div>
-                    </div>
-                </div>
-            </section>
+        )
+    }
+    return (
+        <LoadingSheme page={true} />
     )
-    ;
 }
 
 let mapStateToProps = (state)=>{
