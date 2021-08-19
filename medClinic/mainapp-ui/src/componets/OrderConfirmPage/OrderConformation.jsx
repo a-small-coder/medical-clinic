@@ -40,15 +40,15 @@ function OrderConformation(props) {
     }
 
     return (
-        <main class="page">
-            <section class="page__base order-conformation-page">
-                <div class="order-conformation-page__container _container">
+        <main className="page">
+            <section className="page__base order-conformation-page">
+                <div className="order-conformation-page__container _container">
                     <TopBlockTitle
                         title={page_title}
                         link={link_under_page_title}
                         wrapperClass={TitleWrapperClass}
                     />
-                    <div class="order-conformation-page__content">
+                    <div className="order-conformation-page__content">
                         <div className="order-conformation-page__main-block main-block-order">
                             <h5 className="main-block-order__title _title-standart">
                                 Состав заказа:

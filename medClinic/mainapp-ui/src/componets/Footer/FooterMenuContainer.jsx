@@ -1,22 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import MenuColumn from './MenuColumn';
 import { connect } from 'react-redux';
-import {disactiveteSpoilerAC, activateSpoilerAC, switchSpoilerModAC} from '../../redux/footer-reducer'
 const FooterMenu = (props) => {
 
-    const [windowWidth, setWindowWidth] = useState(0);
-    const spoilerClassName = "footer__menu menu-footer";
-    useEffect(() => {
-        setWindowWidth(window.innerWidth);
-    }, [])
+    const spoilerClassName = "footer__menu menu-footer _init";
 
 
     const menuColumElements = props.nav.categories.map(c => 
-    <MenuColumn key={c.id} category={c} disactivateSpoiler={props.disactivateSpoiler} activateSpoiler={props.activateSpoiler} isSpoilerInit={props.nav.initSpoiler}/>
+    <MenuColumn key={c.id} category={c}/>
     )
 
     return (
-        <div data-spollers="768, max" className={props.nav.initSpoiler ? spoilerClassName + " _init" : spoilerClassName} >
+        <div className={spoilerClassName} >
             {menuColumElements}
         </div>
     );
@@ -29,15 +24,6 @@ let mapStateToProps = (state)=>{
 }
 let mapDispatchToProps = (dispatch)=>{
     return{
-        disactivateSpoiler: (id) => {
-            dispatch(disactiveteSpoilerAC(id));
-        },
-        activateSpoiler: (id) => {
-            dispatch(activateSpoilerAC(id));
-        },
-        switchSpoilerMod: (mode) =>{
-            dispatch(switchSpoilerModAC(mode));
-        }
 
     }
 }
