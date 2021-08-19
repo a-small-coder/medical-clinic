@@ -2,6 +2,7 @@ import React from 'react';
 import PopupItem from './PopupItem';
 import { connect } from 'react-redux';
 import { activateCheckBoxAC, disactiveteCheckBoxAC, showHiddenPopupAC } from '../../../redux/catalog-reducer';
+import CatalogFilterForm from '../../Forms/CatalogFilterForm';
 
 const FilterPopup = (props) => {
 
@@ -17,32 +18,18 @@ const FilterPopup = (props) => {
         category = {items: []};
     }
     let popupElements = category.items.map(
-        a => <PopupItem key={a.slug} text={a.text} is_active={a.is_active } categorySlug={category.slug} itemSlug={a.slug}
-        activateCheckBoxHandler={props.activateCheckBoxHandler} disactivateCheckBoxHandler={props.disactivateCheckBoxHandler}/>
+        ctgry => (
+            {key:  ctgry.text, value:  ctgry.slug, link: null}
+        )
     );
-
-    const closePopupHandler = () => {
-        props.showHiddenPopup("");
-    }
     
     return (
-        <div className={popupClassName}>
-            <div className="popup__content">
-                <div className="popup__body popup-filter">
-                    <div className="popup-filter__header">
-                        <div className="popup__close _icon-close"onClick={closePopupHandler}></div>
-                        <div className="popup-filter__title">{category.title}</div>
-                    </div>
-                    <div className="popup-filter__items">
-                    {popupElements}
-                    </div>
-                    <div className="popup-filter__footer">
-                        <button className="popup-filter__send btn" onClick={closePopupHandler}>Показать</button>
-                        <button className="popup-filter__clear btn btn_white" onClick={closePopupHandler}>Очистить</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <CatalogFilterForm 
+            title={category.title} 
+            wrapperClassName={popupClassName} 
+            showHiddenPopup={props.showHiddenPopup}
+            checkboxesData={popupElements}
+        />
     );
 }
 

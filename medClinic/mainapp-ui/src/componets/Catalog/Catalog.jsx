@@ -29,7 +29,6 @@ const Catalog = (props) => {
 }
 
 let mapStateToProps = (state)=>{
-    //debugger;
     return {
         category: state.catalog.products.category
     }

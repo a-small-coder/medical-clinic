@@ -68,6 +68,7 @@ function LoginForm(props){
                                     checkboxValue={values.rememberMe}
                                     standartOnChange={handleChange}
                                     isError={errors.rememberMe}
+                                    wrapperClassName={"form-control checkbox-block"}
                                 />
 
                                 <Link 

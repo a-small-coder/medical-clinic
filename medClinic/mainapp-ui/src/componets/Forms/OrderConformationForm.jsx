@@ -106,6 +106,7 @@ function OrderConformationForm(props) {
                                     checkboxValue={values.acceptTermAndConditions}
                                     standartOnChange={handleChange}
                                     isError={errors.acceptTermAndConditions}
+                                    wrapperClassName={"form-control checkbox-block"}
                                 />
 
                                 <FormikControl
@@ -115,6 +116,7 @@ function OrderConformationForm(props) {
                                     checkboxValue={values.acceptMailing}
                                     standartOnChange={handleChange}
                                     isError={errors.acceptMailing}
+                                    wrapperClassName={"form-control checkbox-block"}
                                 />
 
                                 <button

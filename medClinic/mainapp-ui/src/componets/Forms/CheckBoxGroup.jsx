@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import TextError from './TextError';
 
 function CheckBoxGroup(props) {
-    const {label, name, options, checkboxValue, isError} = props
+    const {label, name, options, checkboxValue, isError, wrapperClassName} = props
 
     const inputRef = useRef(null)
     const [checked, setChecked] = useState(checkboxValue)
@@ -13,7 +13,6 @@ function CheckBoxGroup(props) {
         props.standartOnChange(e)
         setChecked(!checked)
     }
-
     const [labelClass, setLabelClass] = useState("checkbox__label")
 
     useEffect(() => {
@@ -24,16 +23,22 @@ function CheckBoxGroup(props) {
             setLabelClass("checkbox__label")
         }
     }, [isError])
-    
+
+    let itemClassName = ""
+    if (props.itemClassName != null) {
+        itemClassName = props.itemClassName
+    }
+
     return (
-        <div  className="form-control checkbox-block">
+        <div  className={wrapperClassName}>
+        
             {label != null ? <label htmlFor={name}>{label}</label>: null}
             <Field name={name}>
                 {
                     ({field}) => {
-                        return options.map(option =>{
+                        return options.map((option, i) =>{
                             return (
-                                <React.Fragment key={option.key}>
+                                <div className={itemClassName} key={i}>
                                     <input 
                                         className="checkbox__input"
                                         type="checkbox"
@@ -62,14 +67,14 @@ function CheckBoxGroup(props) {
                                             }
                                         </div>
                                     </label>
-                                </React.Fragment>
+                                </div>
                             )
                         })
                     }
                 }
             </Field>
             {isError ? <TextError>{isError}</TextError> : null}
-        </div>
+            </div>
     );
 }
 

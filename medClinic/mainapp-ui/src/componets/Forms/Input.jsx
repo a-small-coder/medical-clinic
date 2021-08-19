@@ -5,6 +5,10 @@ import TextError from './TextError';
 const Input = (props) =>{
     const {label, name, type, placeholder, standartOnBlur, isError} = props
 
+    let wrapperClassName = "form-control input__block"
+    if (props.wrapperClassName != null){
+        wrapperClassName = props.wrapperClassName
+    }
     
     const [inputType, setInputType] = useState(type)
     const onPasswordFieldIconClick = (e) => {
@@ -42,7 +46,7 @@ const Input = (props) =>{
         setLabelClass("input__label ")
     }
     return (
-        <div className="form-control input__block">
+        <div className={wrapperClassName}>
             <label 
                 className={props.labelClassName != null ? labelClass + props.labelClassName : labelClass} 
                 htmlFor={name}
