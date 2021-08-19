@@ -1,58 +1,71 @@
-import React, {useRef, useCallback} from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-import {slideUp, slideDown} from '../Other/Spoiler';
 import MenuSubItem from './MenuSubItem';
 const MenuItem = (props) => {
 
-    // props:
-    // isSpoilerInit
-    // category: {
-    //     category: "анализы",
-    //         sub_categories: [
-    //             { id: 1, sub_category: "каталог анализов", link: "" },
-    //             { id: 2, sub_category: "уникальные анализы", link: "" },
-    //             { id: 3, sub_category: "комплексы анализов", link: "" },
-    //         ],
-    //       spoilerActive: false,
-    //       link: ""
-    // }
-    // disactivateSpoiler();
-    // activateSpoiler();
-    const contentRef = useRef(null);
-    let isNeedSubList;
-    let buttonClassName;
-    isNeedSubList = props.category.sub_categories.length > 0
-    isNeedSubList ? buttonClassName = "menu__arrow _icon-arrow-down" : buttonClassName = "menu__arrow";
-    const contentClassName = "menu__sub-list";
-    
-    const _slideDown = useCallback(slideDown, []);
-    const _slideUp = useCallback(slideUp, []);
+    // flags from props
+    const isSpoiler = props.isBurgerShowed
+    const isNeedSubList = props.category.sub_categories.length > 0
 
-    let subMenuElements = props.category.sub_categories.map(s =>
-        <MenuSubItem key={s.id} title={s.sub_category} link={"/" + props.category.slug + "/" + s.slug} classLi={"menu__sub-item"} classLink={"menu__sub-link"}/>
-    )
-    
-    const onSpoilerClick = () =>{
-        if (props.isSpoilerInit){
-            if (props.category.spoilerActive){
-                props.disactivateSpoiler(props.category.id);
-                _slideUp(contentRef);
-            }
-            else{
-                props.activateSpoiler(props.category.id);
-                _slideDown(contentRef);
-            }
-        }
-        
+    const [menuItemHover, setMenuItemHover] = useState(false)
+    const [subListHidden, setSubListHidden] = useState(true)
+
+    // classes
+    let menuItemClassName = "menu__item"
+    if (menuItemHover){
+        menuItemClassName = "menu__item _hover"
     }
 
+    let buttonClassName = "menu__arrow";
+    let contentClassName = "menu__sub-list";
+    if (isNeedSubList) {
+        buttonClassName += " _icon-arrow-down"
+    }
+    else{
+        contentClassName= "hidden"
+    }
+
+    if(subListHidden){
+        contentClassName += " _hidden"
+    }
+    else{
+        buttonClassName += " _active"
+    }
+    
+    // for menuItem
+    const menuItemLink = "/" + props.category.slug
+    
+    let subMenuElements = props.category.sub_categories.map(s => {
+        return (
+            <MenuSubItem 
+                key={s.id} 
+                title={s.sub_category} 
+                link={menuItemLink + "/" + s.slug} 
+                classLi={"menu__sub-item"} 
+                classLink={"menu__sub-link"}
+            />
+        )
+    })
+    
+    const onSpoilerClick = () =>{
+        console.log("Spoiler mode: ", isSpoiler)
+        if (!isSpoiler){
+            setMenuItemHover(!menuItemHover)
+        }
+        else{
+            setSubListHidden(!subListHidden)
+        }
+    }
     return (
-        <li className="menu__item">
-            <Link to={"/" + props.category.slug} className="menu__link" >{props.category.category}</Link>
-            <button data-spoller type="button"
-                className={props.category.spoilerActive ? buttonClassName + " _active" : buttonClassName}
-                onClick={onSpoilerClick}></button>
-            <ul className={isNeedSubList ? contentClassName + (props.category.spoilerActive ? " _slide-up" : " _slide-down") : "hidden"} ref={contentRef}>
+        <li className={menuItemClassName}>
+            <Link to={menuItemLink} className="menu__link" >{props.category.category}</Link>
+
+            <button type="button"
+                className={buttonClassName}
+                onClick={onSpoilerClick}>
+            </button>
+
+            <ul className={contentClassName}>
                 {subMenuElements}
             </ul>
         </li>
@@ -60,3 +73,15 @@ const MenuItem = (props) => {
 }
 
 export default MenuItem;
+
+// props:
+    //isBurgerShowed : <bool>
+    // category: {
+    //     category: "анализы",
+    //         sub_categories: [
+    //             { id: 1, sub_category: "каталог анализов", link: "" },
+    //             { id: 2, sub_category: "уникальные анализы", link: "" },
+    //             { id: 3, sub_category: "комплексы анализов", link: "" },
+    //         ],
+    //       link: ""
+    // }

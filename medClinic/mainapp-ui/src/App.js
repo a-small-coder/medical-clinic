@@ -8,12 +8,13 @@ import ProductPage from './componets/ProductPage/ProductPage';
 import InWork from './componets/InWork/InWork';
 import ScrollToTop from './componets/Other/ScrollToTop';
 import AuthPage from './componets/Autorization/AuthPageContainer';
-import { setCartAC } from './redux/header-reducer';
+import { setCartAC, switchSpoilerModAC } from './redux/header-reducer';
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
 import urlStart, { getApiResponse } from './api_requests';
 import { setIsAuthAC } from './redux/auth-reducer';
 import CartPage from './componets/Cart/CartContainer';
+import OrderConformationContainer from './componets/OrderConfirmPage/OrderConformation';
 
 function App(props) {
 
@@ -38,16 +39,15 @@ function App(props) {
     <BrowserRouter>
       <div className="wrapper _loaded">
         <ScrollToTop />
-        <Header />
+        <Header initSpoiler={props.initSpoiler} setSpoilerMode={props.setSpoilerMode}/>
         <Switch>
           <Redirect exact from={"/catalog"} to={"catalog/all-analyzes"}/>
-          {/* <Redirect from={"/analyzes/analyzes/all-analyzes/<:pk>"} to={"analyze/<:pk>"} ></Redirect> */}
           <Route exact path="/catalog/:category" component={Catalog} />
           <Route exact path="/catalog/:category/:id" component={ProductPage} />
-          {/* <Route exact path="/home"component={MainPage}/> */}
           <Route exact path="/" component={MainPage} />
           <Route path='/auth' component={AuthPage} />
-          <Route path="/cart" component={CartPage}/>
+          <Route exact path="/cart" component={CartPage}/>
+          <Route path="/cart/order-conformation" component={OrderConformationContainer}/>
           <Route component={InWork} />
         </Switch>
         <Footer />
@@ -56,22 +56,26 @@ function App(props) {
   );
 }
 
-let mapStateToProps = (state)=>{
-  //debugger;
-    return {
-        cart: state.header.cart,
-        userToken: state.auth.user.token,
-    }
+let mapStateToProps = (state) => {
+  return {
+    initSpoiler: state.header.nav.initSpoiler,
+    cart: state.header.cart,
+    userToken: state.auth.user.token,
+  }
 }
-let mapDispatchToProps = (dispatch)=>{
-    return{
-        setCart: (cart) =>{
-            dispatch(setCartAC(cart));
-        },
-        setIsAuth: (isAuth) => {
-          dispatch(setIsAuthAC(isAuth));
-        }
+
+let mapDispatchToProps = (dispatch) => {
+  return {
+    setCart: (cart) => {
+      dispatch(setCartAC(cart));
+    },
+    setIsAuth: (isAuth) => {
+      dispatch(setIsAuthAC(isAuth));
+    },
+    setSpoilerMode: (spoilerMode) => {
+      dispatch(switchSpoilerModAC(spoilerMode));
     }
+  }
 }
 const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
 

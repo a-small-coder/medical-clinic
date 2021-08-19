@@ -64,23 +64,6 @@ const Products = (props) => {
         }
     }
 
-    const isProductInCart = (id, cartProducts) =>{
-        for (let product of cartProducts){
-            if (id === product.analyze.id){
-                return true
-            }
-        }
-        return false
-    }
-
-    const getProductInCartId = (productId, cartProducts) =>{
-        for (let product of cartProducts){
-            if (productId === product.analyze.id){
-                return product.id
-            }
-        }
-        return null
-    }
 
     let productsElements
     let pagesCount = Math.ceil(props.totalCount / props.pageSize)
@@ -97,21 +80,26 @@ const Products = (props) => {
     
     let titleKey = props.products.category.substring(1) + '/'
     
-    return Badresponse ? (
-        redirectByPageType(IN_WORK_PAGE_NAME)
-    ) : props.products != null ? (
-        <div className="analyze-section">
-            <h2 className="analyze-section__title _title">{props.products.title[titleKey]}</h2>
-            <div className="analyze-section__items">
-                {productsElements}
+    if (Badresponse){
+        return redirectByPageType(IN_WORK_PAGE_NAME)
+    }
+    if (productsElements.length > 0){
+        return (
+            <div className="analyze-section">
+                <h2 className="analyze-section__title _title">{props.products.title[titleKey]}</h2>
+                <div className="analyze-section__items">
+                    {productsElements}
+                </div>
+                <Paggination pagesCount={pagesCount} totalPage={props.products.currentPage} PageChenge={onPageChenged} />
             </div>
-            <Paggination pagesCount={pagesCount} totalPage={props.products.currentPage} PageChenge={onPageChenged} />
-        </div>
-    ) : (
+
+        )
+    }
+    return (
         <div className="analyze-section">
-            <LoadingSheme block/>
+            <LoadingSheme block={true}/>
         </div>
-    );
+    )
 }
 
 let mapStateToProps = (state)=>{
@@ -145,3 +133,23 @@ let mapDispatchToProps = (dispatch)=>{
 const ProductsContainer = connect(mapStateToProps, mapDispatchToProps)(Products);
 
 export default ProductsContainer;
+
+
+
+export function isProductInCart (id, cartProducts) {
+    for (let product of cartProducts){
+        if (id === product.analyze.id){
+            return true
+        }
+    }
+    return false
+}
+
+export function getProductInCartId (productId, cartProducts) {
+    for (let product of cartProducts){
+        if (productId === product.analyze.id){
+            return product.id
+        }
+    }
+    return null
+}

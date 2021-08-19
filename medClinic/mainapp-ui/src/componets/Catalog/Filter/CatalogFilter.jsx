@@ -6,11 +6,11 @@ const CatalogFilter = () => {
 
     return (
         <aside className="catalog__sidebar filter">
-            <form data-message="filter" data-test action="#" className="filter__form filter-form">
+            <div className="filter__form filter-form">
                 <FormItems/>
                 <FilterPopup/>
 
-            </form>
+            </div>
         </aside>
     );
 }

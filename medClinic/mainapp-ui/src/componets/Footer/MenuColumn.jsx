@@ -1,37 +1,34 @@
-import React, {useCallback, useRef} from 'react';
-import {slideUp, slideDown} from '../Other/Spoiler';
+import React, {useState} from 'react';
 import MenuSubItem from '../Header/MenuSubItem';
 const MenuColumn = (props) => {
 
-    const buttonClassName = "menu-footer__title _footer-title";
-    const contentClassName = "menu-footer__list";
-    const contentRef = useRef(null);
-    const _slideDown = useCallback(slideDown, []);
-    const _slideUp = useCallback(slideUp, []);
+    let buttonClassName = "menu-footer__title _footer-title";
+    let contentClassName = "menu-footer__list";
 
+    const [isSpoilerActive, setSpoilerActive] = useState(true)
+
+    if (isSpoilerActive){
+        buttonClassName += " _active"
+    }
+    else {
+        contentClassName += " _hidden"
+    }
     let menuElements = props.category.sub_categories.map(s =>
         <MenuSubItem key={s.id} title={s.sub_category} link={s.link} classLi={""} classLink={"menu-footer__link"}/>
     )
 
     const onSpoilerClick = () =>{
-        if (props.isSpoilerInit){
-            if (props.category.spoilerActive){
-                props.disactivateSpoiler(props.category.id);
-                _slideUp(contentRef);
-            }
-            else{
-                props.activateSpoiler(props.category.id);
-                _slideDown(contentRef);
-            }
-        }
-        
+        setSpoilerActive(!isSpoilerActive)
     }
     return (
         <div className="menu-footer__column">
             <button type="button"
-                className={props.category.spoilerActive ? buttonClassName + " _active" : buttonClassName}
-                onClick={onSpoilerClick}>{props.category.category}</button>
-            <ul className={props.category.spoilerActive ? contentClassName + " _slide-up" : contentClassName + " _slide-down"} ref={contentRef}>
+                className={buttonClassName}
+                onClick={onSpoilerClick}
+            >
+                {props.category.category}
+            </button>
+            <ul className={contentClassName}>
                 {menuElements}
             </ul>
         </div>

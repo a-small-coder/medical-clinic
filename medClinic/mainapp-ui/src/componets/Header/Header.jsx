@@ -1,28 +1,32 @@
-import React, { useCallback, useRef, useEffect} from 'react';
+import React, { useCallback, useRef, useEffect, useState} from 'react';
 import HeaderMainContainer from './HeaderMainContainer';
 import HeaderActions from './HeaderActions';
 import HeaderSearchContainer from './HeaderSearchContainer';
 const Header = (props) => {
+    
 
-    const iconMenu = useRef();
-    const iconMenuContainer = useRef();
-    const setIconMenuActive = useCallback(() => {
-        
-            iconMenuContainer.current.classList.toggle("_active");
-        
-    }, []);
-    const iconMenuClick = () => {
-        if (iconMenu.current != null) {
-            iconMenu.current.addEventListener("click", setIconMenuActive);
-        };
+    // icon-menu
+    const [isIconMenuActive, setIsIconMenuActive] = useState(false)
+
+    let headerBodyClassName = "header__body"
+    let iconMenuClassName = "icon-menu"
+    if (isIconMenuActive){
+        iconMenuClassName += " _active"
+        headerBodyClassName += " _active"
+    }
+    const iconMenuClickHandler = () => {
+        setIsIconMenuActive(!isIconMenuActive)
+        props.setSpoilerMode(!props.initSpoiler)
+        console.log(!props.initSpoiler)
     };
-    useEffect(()=>{
-        iconMenu.current.addEventListener("click", setIconMenuActive);
-    }, []);
+
+
+    // header scroll 
     const headerRef = useRef();
     useEffect(() => {
         document.addEventListener("scroll", handleScroll);
     }, []);
+
     const isBottom = (el) =>{
         return el.getBoundingClientRect().bottom <= window.innerHeight;
         
@@ -50,11 +54,11 @@ const Header = (props) => {
     return (<header className="header" ref={headerRef}>
         <div className="header__wrapper">
             <div className="header__container _container">
-                <div className="header__body" ref={iconMenuContainer}>
+                <div className={headerBodyClassName}>
                     <HeaderMainContainer/>
                     <HeaderSearchContainer />
                     <HeaderActions />
-                    <button className="icon-menu" ref={iconMenu} onClick={iconMenuClick}>
+                    <button className={iconMenuClassName} onClick={iconMenuClickHandler}>
                         <span></span>
                         <span></span>
                         <span></span>

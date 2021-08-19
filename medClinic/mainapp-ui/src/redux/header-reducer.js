@@ -12,7 +12,7 @@ let initialState = {
         defaultSearchText: "Поиск по сайту"
     },
     nav: {
-        initSpoiler: false,
+        initSpoiler: false, // depricated
         categories: []
     },
     cart: {

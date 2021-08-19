@@ -8,6 +8,7 @@ import AboutUs from './AboutUs/AboutUs';
 import { connect } from 'react-redux';
 import { setProductsAC, setAboutUsAC, setAchivmentsSmallAC, setAnalyzesComplexesAC, setCurrentPageUnicProductsAC, setStocksAC, setTopServisesAC, setTopServisesSlidesAC } from '../../redux/mainPage-reducer';
 import urlStart, { getApiResponse } from '../../api_requests';
+import LoadingSheme from '../Other/LoadingSheme';
 
 const MainPage = (props) => {
 
@@ -65,28 +66,28 @@ const MainPage = (props) => {
         <main className="page">
             {props.topSevices.slides.length !== 0 ? 
              <TopService serviceData={props.topSevices}/>:
-             ""}
+             <LoadingSheme block={true}/>} 
 
             {props.mainPage.achivmentsSmall.length !== 0 ?
             <Achivments achivments={props.mainPage.achivmentsSmall}/> : 
-            ""} 
+            <LoadingSheme block={true}/>} 
             
             {props.mainPage.products.items.length !== 0 ?
             <UnicProducts products={props.mainPage.products.items} 
             onShowMoreClick={showMoreClickHandler} isButtonHidden={buttonIsHiden}/> :
-            ""}
+            <LoadingSheme block={true}/>} 
             
            {props.analiyzesComplex.length !== 0 ?
             <AnalyzeComplexes analyzes={props.analiyzesComplex}/>: 
-            ""} 
+            <LoadingSheme block={true}/>} 
 
             {props.mainPage.stocks.length !== 0 ?
             <Stocks stocks={props.mainPage.stocks}/> : 
-            ""} 
+            <LoadingSheme block={true}/>}  
             
             {props.aboutUs.length !== 0 ?
             <AboutUs aboutUs={props.aboutUs}/>: 
-            ""} 
+            <LoadingSheme block={true}/>} 
             
         </main>
     );

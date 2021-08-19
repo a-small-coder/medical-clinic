@@ -32,6 +32,7 @@
 
     &__content {
         display: flex;
+        justify-content: space-between;
         @media (max-width: 991.98px){
             flex-direction: column;
         }
@@ -45,12 +46,9 @@
     }
     
     @media (min-width: 991.98px){
-        max-width: 380px;
-        margin-left: calc(0px + 40 * ((100vw - 320px) / 950));
+        width: calc(420px + 40 * ((100vw - 320px) / 950));
+        padding-left: calc(0px + 40 * ((100vw - 320px) / 950));
         margin-right: calc(0px + 10 * ((100vw - 320px) / 950));
-    }
-    @media (min-width: 1282px){
-        max-width: 430px;
     }
 
     &__container {
@@ -85,12 +83,72 @@
         margin-top: 20px;
         align-self: center;
         min-height: 52px;
+        &:disabled{
+            background: #dde4e5;
+            color: #b6c1c2;
+            border-color: #dde4e5;
+        }
 
         @media (min-width: 991.98px){
             max-width: 350px;
         }
     }
+
+    &__visit-place {
+        margin: 10px 0px;
+        border-bottom: 1px solid #d8d8d8;
+    }
+
 }
+
+.visit-place {
+    width: 100%;
+    padding: 15px 0 25px 15px;
+
+    &__region {
+    }
+
+    &__item {
+        display: flex;
+        color: #0FC0FC;
+        font-size: calc(16px + 4 * ((100vw - 320px) / 950));
+        font-weight: 500;
+        line-height: 120%;
+        &::before{
+            width: 32px;
+            font-size: 20px;
+        }
+        @media (min-width: 479.98px){
+            &::before{
+                font-size: 24px;
+                width: 48px;
+            }
+        }
+
+        span{
+            font-weight: 700;
+            font-size: calc(18px + 4 * ((100vw - 320px) / 950));
+        }
+        
+    }
+
+    &__office {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__title {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 32px;
+        font-weight: 400;
+        font-size: calc(14px + 2 * ((100vw - 320px) / 950));
+        @media (min-width: 479.98px){
+            margin-left: 48px;
+        }
+    }
+}
+
 
 .office-type-block{
     width: 100%;
@@ -98,7 +156,7 @@
     &__switching{
         display: flex;
         @media (min-width: 1282px){
-            padding: 0px 25px;
+            min-width: 355px;
         }
 
         button:not(:last-child){
@@ -201,8 +259,12 @@
 
 
 
-.cart-items div:last-child {
-    border-bottom: none;
+.cart-items {
+    flex: 1;
+
+    div:last-child {
+        border-bottom: none;
+    }
 }
 
 .empty-cart {

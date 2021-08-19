@@ -123,6 +123,7 @@ function RegistrationForm(){
                                     checkboxValue={values.acceptTermAndConditions}
                                     standartOnChange={handleChange}
                                     isError={errors.acceptTermAndConditions}
+                                    wrapperClassName={"form-control checkbox-block"}
                                 />
 
                                 <Link

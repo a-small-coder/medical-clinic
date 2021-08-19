@@ -30,7 +30,7 @@ function CartInfo(props) {
             <div className="cart-side__container cart-info">
                 <div className="cart-info__cart-order">
                     <OfficeTypeSwitch type_office={props.type_office} officeOptionHandler={props.setOfficeType}/>
-                    <CartInfoFormControl control={props.type_office}/>
+                    <CartInfoFormControl control={props.type_office} history={props.history}/>
                 </div>
                 
                 <PriceInfoBlock productsElements={productsElements} result_price={result_price}/>

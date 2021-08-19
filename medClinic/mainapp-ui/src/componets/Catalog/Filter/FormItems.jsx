@@ -2,6 +2,7 @@ import React from 'react';
 import Group from './Group';
 import { connect } from 'react-redux';
 import { showHiddenPopupAC } from '../../../redux/catalog-reducer';
+import CatalogSearchForm from '../../Forms/CatalogSearchForm';
 
 const FormItems = (props) => {
     let groupElements = props.filter.categories.map(
@@ -11,12 +12,7 @@ const FormItems = (props) => {
 
     return (
         <div className="filter-form__items">
-            <div className="filter-form__item">
-                <div className="filter-form__search search-form-filter">
-                    <button data-spoller type="button" className="filter-form__btn _icon-search" ></button>
-                    <input autoComplete="off" type="text" name="form[]" data-value="Поиск по анализам" className="filter-form__input" />
-                </div>
-            </div>
+            <CatalogSearchForm/>
 
             {groupElements}
 

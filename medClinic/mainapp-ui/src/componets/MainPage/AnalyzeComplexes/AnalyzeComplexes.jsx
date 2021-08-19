@@ -7,7 +7,7 @@ const AnalyzeComplexes = (props) => {
 
     const sliderRef = React.useRef(null);
     if (props.analyzes.length === 0){
-        return <LoadingSheme page/>
+        return <LoadingSheme page={true}/>
     }
     let analyzeEkements = props.analyzes.map(a => <Analyze key={a.id} number={`0 ${a.id}`} title={a.title_min} text={"популярный комплекс"} img={a.small_image} link={a.slug}/>)
 
