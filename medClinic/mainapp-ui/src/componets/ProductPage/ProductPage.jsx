@@ -24,7 +24,6 @@ const ProductPage = (props) => {
 
         const url = `${urlStart}${productLink}`
         const goodResponseHandler = (response) =>{
-            // debugger
             let product = response
             let isAcomplex = product.complex_type != null
             if (!isAcomplex){
@@ -62,7 +61,7 @@ const ProductPage = (props) => {
                             <div className="analyze-product__main product-main">
 
                                 <ProductMain switchProductActiveContent={props.switchProductActiveContent} product={props.product} />
-                                {props.product.isAcomplex ? <IncludeProducts products={props.product.included_analyzes} /> : ""}
+                                {props.product.isAcomplex ? <IncludeProducts products={props.product.included_analyzes} /> : null}
                             </div>
                             <ProductInfo product={props.product} />
                         </div>

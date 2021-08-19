@@ -3,21 +3,8 @@ import { Link } from 'react-router-dom';
 import MenuSubItem from './MenuSubItem';
 const MenuItem = (props) => {
 
-    // props:
-    //isBurgerShowed : <bool>
-    // category: {
-    //     category: "анализы",
-    //         sub_categories: [
-    //             { id: 1, sub_category: "каталог анализов", link: "" },
-    //             { id: 2, sub_category: "уникальные анализы", link: "" },
-    //             { id: 3, sub_category: "комплексы анализов", link: "" },
-    //         ],
-    //       link: ""
-    // }
-
     // flags from props
     const isSpoiler = props.isBurgerShowed
-    // props.category.spoilerActive
     const isNeedSubList = props.category.sub_categories.length > 0
 
     const [menuItemHover, setMenuItemHover] = useState(false)
@@ -86,3 +73,15 @@ const MenuItem = (props) => {
 }
 
 export default MenuItem;
+
+// props:
+    //isBurgerShowed : <bool>
+    // category: {
+    //     category: "анализы",
+    //         sub_categories: [
+    //             { id: 1, sub_category: "каталог анализов", link: "" },
+    //             { id: 2, sub_category: "уникальные анализы", link: "" },
+    //             { id: 3, sub_category: "комплексы анализов", link: "" },
+    //         ],
+    //       link: ""
+    // }

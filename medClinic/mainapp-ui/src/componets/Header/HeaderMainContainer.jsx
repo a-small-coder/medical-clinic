@@ -1,17 +1,10 @@
-import {switchSpoilerModAC, setCategoriesAC} from '../../redux/header-reducer'
+import {setCategoriesAC} from '../../redux/header-reducer'
 import {connect} from 'react-redux';
 import React from 'react';
 import MenuItem from './MenuItem';
 import { Link } from 'react-router-dom';
 import * as axios from 'axios'
 const HeaderMain = (props) => {
-
-    // props:
-    // nav
-    // categories
-    // disactivateSpoiler()
-    // activateSpoiler()
-    // switchSpoilerMod()
 
     if (props.categories.length === 0){
         axios.get('http://127.0.0.1:8000/api/navigation/').then(response => {
@@ -20,7 +13,6 @@ const HeaderMain = (props) => {
     }
 
     const spoilerClassName = "menu__list";
-
 
     const menuItemElements = props.nav.categories.map(c => 
         <MenuItem key={c.id} category={c} isBurgerShowed={props.initSpoiler}/>
@@ -40,7 +32,6 @@ const HeaderMain = (props) => {
     );
 }
 
-
 let mapStateToProps = (state)=>{
     return {
         initSpoiler: state.header.nav.initSpoiler,
@@ -50,9 +41,6 @@ let mapStateToProps = (state)=>{
 }
 let mapDispatchToProps = (dispatch)=>{
     return{
-        switchSpoilerMod: (mode) =>{
-            dispatch(switchSpoilerModAC(mode));
-        },
         setCategories: (categories) =>{
             dispatch(setCategoriesAC(categories));
         }
@@ -63,3 +51,4 @@ let mapDispatchToProps = (dispatch)=>{
 const HeaderMainContainer = connect(mapStateToProps, mapDispatchToProps)(HeaderMain);
 
 export default HeaderMainContainer;
+
