@@ -3,6 +3,16 @@ import ProductSide from './ProductSide';
 
 const ProductInfo = (props) => {
 
+    const onBuyClick = () =>{
+        props.BuyClick()
+    }
+
+    let buttonBuyClassName = "product-info__buy btn _circle-btn _filled-btn _blue _icon-cart"
+
+    if (props.inCart){
+        buttonBuyClassName = "product-info__buy btn _circle-btn _filled-btn _green _icon-cart"
+    }
+
     let productSideGenerate = () =>{
         let p = props.product;
         return (
@@ -15,11 +25,11 @@ const ProductInfo = (props) => {
                     <span className="price-result__result">{p.price + " руб."}</span>
                 </div>
                 <button
-                    className="product-info__buy btn _circle-btn _filled-btn _blue _icon-cart"
+                    className={buttonBuyClassName}
                     type='submit'
-                    onClick={""}
+                    onClick={onBuyClick}
                 >
-                    В корзину
+                    {props.inCart ? "Перейти в корзину" : "Добавить в корзину"}
                 </button>
             </div>
         )

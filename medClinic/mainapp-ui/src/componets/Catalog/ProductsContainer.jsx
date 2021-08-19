@@ -64,23 +64,6 @@ const Products = (props) => {
         }
     }
 
-    const isProductInCart = (id, cartProducts) =>{
-        for (let product of cartProducts){
-            if (id === product.analyze.id){
-                return true
-            }
-        }
-        return false
-    }
-
-    const getProductInCartId = (productId, cartProducts) =>{
-        for (let product of cartProducts){
-            if (productId === product.analyze.id){
-                return product.id
-            }
-        }
-        return null
-    }
 
     let productsElements
     let pagesCount = Math.ceil(props.totalCount / props.pageSize)
@@ -150,3 +133,23 @@ let mapDispatchToProps = (dispatch)=>{
 const ProductsContainer = connect(mapStateToProps, mapDispatchToProps)(Products);
 
 export default ProductsContainer;
+
+
+
+export function isProductInCart (id, cartProducts) {
+    for (let product of cartProducts){
+        if (id === product.analyze.id){
+            return true
+        }
+    }
+    return false
+}
+
+export function getProductInCartId (productId, cartProducts) {
+    for (let product of cartProducts){
+        if (productId === product.analyze.id){
+            return product.id
+        }
+    }
+    return null
+}

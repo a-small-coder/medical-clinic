@@ -4,9 +4,11 @@ import ProductInfo from './ProductInfo/ProductInfo';
 import { connect } from 'react-redux';
 import {setProductAC, switchProductActiveContentAC } from '../../redux/product-reducer';
 import IncludeProducts from './InculeProducts';
-import urlStart, { getApiResponse } from '../../api_requests';
+import urlStart, { deleteApiRequest, getApiResponse, putApiRequest } from '../../api_requests';
 import { IN_WORK_PAGE_NAME, redirectByPageType } from '../../App';
 import LoadingSheme from '../Other/LoadingSheme';
+import { getProductInCartId, isProductInCart } from '../Catalog/ProductsContainer';
+import { setCartAC } from '../../redux/header-reducer';
 
 const ProductPage = (props) => {
     let productNameL = props.history.location.pathname.split("/");
@@ -47,6 +49,27 @@ const ProductPage = (props) => {
         }
         getApiResponse(url, false, goodResponseHandler, badResponseHandler)
     }
+
+    const isInCart = isProductInCart(props.product.id, props.cart_products)
+
+    const buttonBuyClickHandler = () => {
+        const goodResponseHandler = () =>{
+            const cartUrl = `${urlStart}cart/current_customer_cart/`
+            const setCartFromResponse = (responseData) => {
+                props.setCart(responseData)
+            }
+            getApiResponse(cartUrl, props.userToken, setCartFromResponse)
+        }
+        if (isInCart) {
+            props.history.push('/cart');
+        }
+        else {
+            const addProductApiUrl = `${urlStart}cart/current_customer_cart/add_to_cart/${props.product.id}/`
+            putApiRequest(addProductApiUrl, props.userToken, goodResponseHandler)
+        }
+    }
+
+
     if (Badresponse) {
         return redirectByPageType(IN_WORK_PAGE_NAME)
     }
@@ -63,7 +86,7 @@ const ProductPage = (props) => {
                                 <ProductMain switchProductActiveContent={props.switchProductActiveContent} product={props.product} />
                                 {props.product.isAcomplex ? <IncludeProducts products={props.product.included_analyzes} /> : null}
                             </div>
-                            <ProductInfo product={props.product} />
+                            <ProductInfo product={props.product} BuyClick={buttonBuyClickHandler} inCart={isInCart}/>
                         </div>
                     </div>
                 </div>
@@ -77,8 +100,10 @@ const ProductPage = (props) => {
 
 let mapStateToProps = (state)=>{
     return {
+        cart_products: state.header.cart.products,
         product: state.productPage.product,
-        productCategoryPath: state.catalog.products.category
+        productCategoryPath: state.catalog.products.category,
+        userToken: state.auth.user.token,
     }
 }
 let mapDispatchToProps = (dispatch)=>{
@@ -88,7 +113,10 @@ let mapDispatchToProps = (dispatch)=>{
         },
         setProduct: (product, isAcomplex) =>{
             dispatch(setProductAC(product, isAcomplex))
-        }
+        },
+        setCart: (cart) =>{
+            dispatch(setCartAC(cart))
+        },
 
     }
 }
