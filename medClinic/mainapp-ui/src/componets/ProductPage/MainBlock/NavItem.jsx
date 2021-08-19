@@ -2,15 +2,16 @@
 import React from 'react';
 const NavItem = (props) => {
 
-    const className = props.active_block ? "menu-product__link _selected" : "menu-product__link"
+    const className = props.active_block ? "menu-product__item _selected" : "menu-product__item"
     const onTitleClick = () =>{
         props.switchProductActiveContent(props.id);
     }
 
     return (
-        <li className="menu-product__item">
-            <h4 to="#" className={className} onClick={onTitleClick}>{props.title}</h4>
-            <button data-spoller type="button" className="menu-product__arrow _icon-arrow-down"></button>
+        <li className={className} onClick={onTitleClick}>
+            <h4 to="#" className={"menu-product__link"} >{props.title}</h4>
+            <div className="menu-product__circle"></div>
+            {/* <button type="button" className="menu-product__arrow"></button> */}
 
         </li>
     );
