@@ -10,14 +10,6 @@ const FooterMenu = (props) => {
         setWindowWidth(window.innerWidth);
     }, [])
 
-    useEffect(()=>{
-        if (windowWidth <= 768){
-            props.switchSpoilerMod(true);
-        }
-        else {
-            props.switchSpoilerMod(false);
-        }
-    }, [windowWidth]);
 
     const menuColumElements = props.nav.categories.map(c => 
     <MenuColumn key={c.id} category={c} disactivateSpoiler={props.disactivateSpoiler} activateSpoiler={props.activateSpoiler} isSpoilerInit={props.nav.initSpoiler}/>

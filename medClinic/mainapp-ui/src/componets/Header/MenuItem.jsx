@@ -1,9 +1,10 @@
-import React, {useRef, useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import MenuSubItem from './MenuSubItem';
 const MenuItem = (props) => {
 
     // props:
+    //isBurgerShowed : <bool>
     // category: {
     //     category: "анализы",
     //         sub_categories: [
@@ -11,16 +12,16 @@ const MenuItem = (props) => {
     //             { id: 2, sub_category: "уникальные анализы", link: "" },
     //             { id: 3, sub_category: "комплексы анализов", link: "" },
     //         ],
-    //       spoilerActive: false,
     //       link: ""
     // }
 
     // flags from props
-    const isSpoiler = false
+    const isSpoiler = props.isBurgerShowed
     // props.category.spoilerActive
     const isNeedSubList = props.category.sub_categories.length > 0
 
     const [menuItemHover, setMenuItemHover] = useState(false)
+    const [subListHidden, setSubListHidden] = useState(true)
 
     // classes
     let menuItemClassName = "menu__item"
@@ -32,16 +33,16 @@ const MenuItem = (props) => {
     let contentClassName = "menu__sub-list";
     if (isNeedSubList) {
         buttonClassName += " _icon-arrow-down"
-        if (isSpoiler) {
-            buttonClassName += " _active"
-            contentClassName += " _slide-up"
-        }
-        else {
-            contentClassName += " _slide-down"
-        }
     }
     else{
         contentClassName= "hidden"
+    }
+
+    if(subListHidden){
+        contentClassName += " _hidden"
+    }
+    else{
+        buttonClassName += " _active"
     }
     
     // for menuItem
@@ -54,21 +55,22 @@ const MenuItem = (props) => {
                 title={s.sub_category} 
                 link={menuItemLink + "/" + s.slug} 
                 classLi={"menu__sub-item"} 
-                classLink={"menu__sub-link"}/>
+                classLink={"menu__sub-link"}
+            />
         )
     })
     
     const onSpoilerClick = () =>{
+        console.log("Spoiler mode: ", isSpoiler)
         if (!isSpoiler){
             setMenuItemHover(!menuItemHover)
         }
-        
+        else{
+            setSubListHidden(!subListHidden)
+        }
     }
-
     return (
-        
         <li className={menuItemClassName}>
-            {console.log(menuItemClassName)}
             <Link to={menuItemLink} className="menu__link" >{props.category.category}</Link>
 
             <button type="button"

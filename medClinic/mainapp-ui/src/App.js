@@ -8,7 +8,7 @@ import ProductPage from './componets/ProductPage/ProductPage';
 import InWork from './componets/InWork/InWork';
 import ScrollToTop from './componets/Other/ScrollToTop';
 import AuthPage from './componets/Autorization/AuthPageContainer';
-import { setCartAC } from './redux/header-reducer';
+import { setCartAC, switchSpoilerModAC } from './redux/header-reducer';
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
 import urlStart, { getApiResponse } from './api_requests';
@@ -39,7 +39,7 @@ function App(props) {
     <BrowserRouter>
       <div className="wrapper _loaded">
         <ScrollToTop />
-        <Header />
+        <Header initSpoiler={props.initSpoiler} setSpoilerMode={props.setSpoilerMode}/>
         <Switch>
           <Redirect exact from={"/catalog"} to={"catalog/all-analyzes"}/>
           <Route exact path="/catalog/:category" component={Catalog} />
@@ -56,21 +56,26 @@ function App(props) {
   );
 }
 
-let mapStateToProps = (state)=>{
-    return {
-        cart: state.header.cart,
-        userToken: state.auth.user.token,
-    }
+let mapStateToProps = (state) => {
+  return {
+    initSpoiler: state.header.nav.initSpoiler,
+    cart: state.header.cart,
+    userToken: state.auth.user.token,
+  }
 }
-let mapDispatchToProps = (dispatch)=>{
-    return{
-        setCart: (cart) =>{
-            dispatch(setCartAC(cart));
-        },
-        setIsAuth: (isAuth) => {
-          dispatch(setIsAuthAC(isAuth));
-        }
+
+let mapDispatchToProps = (dispatch) => {
+  return {
+    setCart: (cart) => {
+      dispatch(setCartAC(cart));
+    },
+    setIsAuth: (isAuth) => {
+      dispatch(setIsAuthAC(isAuth));
+    },
+    setSpoilerMode: (spoilerMode) => {
+      dispatch(switchSpoilerModAC(spoilerMode));
     }
+  }
 }
 const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
 

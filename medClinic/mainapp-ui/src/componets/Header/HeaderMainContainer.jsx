@@ -1,6 +1,6 @@
-import {disactiveteSpoilerAC, activateSpoilerAC, switchSpoilerModAC, setCategoriesAC} from '../../redux/header-reducer'
+import {switchSpoilerModAC, setCategoriesAC} from '../../redux/header-reducer'
 import {connect} from 'react-redux';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import MenuItem from './MenuItem';
 import { Link } from 'react-router-dom';
 import * as axios from 'axios'
@@ -23,7 +23,7 @@ const HeaderMain = (props) => {
 
 
     const menuItemElements = props.nav.categories.map(c => 
-        <MenuItem key={c.id} category={c}/>
+        <MenuItem key={c.id} category={c} isBurgerShowed={props.initSpoiler}/>
     )
 
     return (
@@ -43,18 +43,13 @@ const HeaderMain = (props) => {
 
 let mapStateToProps = (state)=>{
     return {
+        initSpoiler: state.header.nav.initSpoiler,
         nav: state.header.nav,
         categories: state.header.nav.categories
     }
 }
 let mapDispatchToProps = (dispatch)=>{
     return{
-        disactivateSpoiler: (id) => {
-            dispatch(disactiveteSpoilerAC(id));
-        },
-        activateSpoiler: (id) => {
-            dispatch(activateSpoilerAC(id));
-        },
         switchSpoilerMod: (mode) =>{
             dispatch(switchSpoilerModAC(mode));
         },
