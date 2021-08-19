@@ -42,10 +42,8 @@ function App(props) {
         <Header />
         <Switch>
           <Redirect exact from={"/catalog"} to={"catalog/all-analyzes"}/>
-          {/* <Redirect from={"/analyzes/analyzes/all-analyzes/<:pk>"} to={"analyze/<:pk>"} ></Redirect> */}
           <Route exact path="/catalog/:category" component={Catalog} />
           <Route exact path="/catalog/:category/:id" component={ProductPage} />
-          {/* <Route exact path="/home"component={MainPage}/> */}
           <Route exact path="/" component={MainPage} />
           <Route path='/auth' component={AuthPage} />
           <Route exact path="/cart" component={CartPage}/>
@@ -59,7 +57,6 @@ function App(props) {
 }
 
 let mapStateToProps = (state)=>{
-  //debugger;
     return {
         cart: state.header.cart,
         userToken: state.auth.user.token,
