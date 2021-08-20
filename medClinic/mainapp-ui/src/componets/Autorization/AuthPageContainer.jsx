@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import { postApiRequest } from '../../api_requests';
+import { postApiRequest } from '../../support_functions/api_requests';
 import { setIsAuthAC, setIsLoadingAC, setIsNeedRedirectAC, setUserDataAC } from '../../redux/auth-reducer';
-import './Autorization.scss';
-import '../Forms/Forms.scss';
-import AuthFormControl from './AuthFormControl';
+import '../../styles/Autorization/Autorization.scss';
+import '../../styles/Forms/Forms.scss';
 import { BAD_LINK, MAIN_PAGE_NAME, redirectByPageType } from '../../App';
-import LoadingSheme from '../Other/LoadingSheme';
+import LoadingSheme from '../SupportsComponents/LoadingSheme';
+import AuthFormControl from './AutorizationTypes/AuthFormControl';
 
 const AuthPageBody = (props) =>{
 
@@ -15,7 +15,6 @@ const AuthPageBody = (props) =>{
         const loginUrl = "http://127.0.0.1:8000/auth/"
         const userData = JSON.stringify(formData)
         const goodResponseHandler = (response)=>{
-            console.log(response)
             if (response.status === 200){
                 props.setIsAuth(true)
                 props.setIsNeedRedirect(true)
@@ -32,7 +31,6 @@ const AuthPageBody = (props) =>{
             }
             
         }
-        console.log(userData)
         postApiRequest(loginUrl, userData, goodResponseHandler, badResponseHandler)
     }
     if (props.auth.isNeedRedirect || props.auth.isAuth) {
@@ -46,7 +44,6 @@ const AuthPageBody = (props) =>{
         )
     }
     const authType = props.history.location.pathname.split('/')[2]
-    console.log(authType)
     return (
         <main className="page">
             <section className="page__base autorization-page">

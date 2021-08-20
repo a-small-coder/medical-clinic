@@ -1,5 +1,5 @@
 import React from 'react';
-import FormItems from './FormItems';
+import FormItems from './FilterGroupsContainer';
 import FilterPopup from './FilterPopupContainer';
 
 const CatalogFilter = () => {

@@ -1,8 +1,7 @@
 import React from 'react';
-import PopupItem from './PopupItem';
 import { connect } from 'react-redux';
 import { activateCheckBoxAC, disactiveteCheckBoxAC, showHiddenPopupAC } from '../../../redux/catalog-reducer';
-import CatalogFilterForm from '../../Forms/CatalogFilterForm';
+import CatalogFilterForm from '../../Forms/CatalogPage/CatalogFilterForm';
 
 const FilterPopup = (props) => {
 
@@ -19,15 +18,42 @@ const FilterPopup = (props) => {
     }
     let popupElements = category.items.map(
         ctgry => (
-            {key:  ctgry.text, value:  ctgry.slug, link: null}
+            {key:  ctgry.text, value:  ctgry.slug, link: null, chebox_value: ctgry.is_active}
         )
     );
-    
+
+    const submitPopupFormHandler = (formData) =>{
+        let newCategoryItems
+        let active_count = 0
+        if (formData != null ){
+            newCategoryItems = category.items.map(
+                item => {
+                    for (const category in formData.categories){
+                        if (formData.categories[category] === item.slug){
+                            active_count += 1
+                            return {...item, is_active: true}
+                        }
+                    }
+                    return item
+                }
+            )
+            props.activateCheckBoxHandler(category.slug, newCategoryItems, active_count)
+        }
+        else {
+            newCategoryItems = category.items.map(
+                item => {
+                    return {...item, is_active: false}
+                }
+            )
+        }
+        props.activateCheckBoxHandler(category.slug, newCategoryItems, active_count)
+        props.showHiddenPopup("")
+    }
     return (
         <CatalogFilterForm 
             title={category.title} 
             wrapperClassName={popupClassName} 
-            showHiddenPopup={props.showHiddenPopup}
+            onSubmitForm={submitPopupFormHandler}
             checkboxesData={popupElements}
         />
     );
@@ -46,8 +72,8 @@ let mapDispatchToProps = (dispatch)=>{
         disactivateCheckBoxHandler: (categorySlug, itemSlug) =>{
             dispatch(disactiveteCheckBoxAC(categorySlug, itemSlug));
         },
-        activateCheckBoxHandler: (categorySlug, itemSlug) =>{
-            dispatch(activateCheckBoxAC(categorySlug, itemSlug));
+        activateCheckBoxHandler: (categorySlug, itemSlug, active_count) =>{
+            dispatch(activateCheckBoxAC(categorySlug, itemSlug, active_count));
         }
 
     }

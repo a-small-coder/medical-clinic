@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Analyze from './Analyze';
 import Swiper from 'react-id-swiper';
-import LoadingSheme from '../../Other/LoadingSheme';
+import LoadingSheme from '../../SupportsComponents/LoadingSheme';
 const AnalyzeComplexes = (props) => {
 
     const sliderRef = React.useRef(null);

@@ -1,7 +1,8 @@
 import React, { useCallback, useRef, useEffect, useState} from 'react';
-import HeaderMainContainer from './HeaderMainContainer';
-import HeaderActions from './HeaderActions';
-import HeaderSearchContainer from './HeaderSearchContainer';
+import HeaderActionsContainer from './ActionsBlocks/HeaderActionsContainer';
+import HeaderSearchContainer from './ActionsBlocks/HeaderSearchContainer';
+import HeaderMainContainer from './Navigation/HeaderMainContainer'
+
 const Header = (props) => {
     
 
@@ -17,7 +18,6 @@ const Header = (props) => {
     const iconMenuClickHandler = () => {
         setIsIconMenuActive(!isIconMenuActive)
         props.setSpoilerMode(!props.initSpoiler)
-        console.log(!props.initSpoiler)
     };
 
 
@@ -25,6 +25,7 @@ const Header = (props) => {
     const headerRef = useRef();
     useEffect(() => {
         document.addEventListener("scroll", handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const isBottom = (el) =>{
@@ -57,7 +58,7 @@ const Header = (props) => {
                 <div className={headerBodyClassName}>
                     <HeaderMainContainer/>
                     <HeaderSearchContainer />
-                    <HeaderActions />
+                    <HeaderActionsContainer />
                     <button className={iconMenuClassName} onClick={iconMenuClickHandler}>
                         <span></span>
                         <span></span>

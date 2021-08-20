@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductForPC from './ProductForPC';
 import Description from './Description'
-import LoadingSheme from '../../Other/LoadingSheme';
+import LoadingSheme from '../../SupportsComponents/LoadingSheme';
 const ProductMain = (props) => {
     let contentBlock;
     let productsLen = props.product.content.length
@@ -22,7 +22,6 @@ const ProductMain = (props) => {
         let descpitionsElements = contentBlock.items.map(i => (
             <Description key={i.pos} title={i.title} text={i.text}/>
         ))
-        console.log(descpitionsElements)
 
         return (
             <div className="product-main__menu menu-product">
