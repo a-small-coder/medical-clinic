@@ -8,7 +8,6 @@ const FormItems = (props) => {
     let groupElements = props.filter.categories.map(
         a => <Group key={a.slug} title={a.title} active_count={a.active_count} showHiddenPopup={props.showHiddenPopup} curCategory={a.slug}/>
     );
-    
 
     return (
         <div className="filter-form__items">

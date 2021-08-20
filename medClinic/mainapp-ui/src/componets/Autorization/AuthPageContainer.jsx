@@ -15,7 +15,6 @@ const AuthPageBody = (props) =>{
         const loginUrl = "http://127.0.0.1:8000/auth/"
         const userData = JSON.stringify(formData)
         const goodResponseHandler = (response)=>{
-            console.log(response)
             if (response.status === 200){
                 props.setIsAuth(true)
                 props.setIsNeedRedirect(true)
@@ -32,7 +31,6 @@ const AuthPageBody = (props) =>{
             }
             
         }
-        console.log(userData)
         postApiRequest(loginUrl, userData, goodResponseHandler, badResponseHandler)
     }
     if (props.auth.isNeedRedirect || props.auth.isAuth) {
@@ -46,7 +44,6 @@ const AuthPageBody = (props) =>{
         )
     }
     const authType = props.history.location.pathname.split('/')[2]
-    console.log(authType)
     return (
         <main className="page">
             <section className="page__base autorization-page">

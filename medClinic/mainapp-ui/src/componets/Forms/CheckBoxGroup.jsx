@@ -48,7 +48,6 @@ function CheckBoxGroup(props) {
                 {
                     ({field}) => {
                         return options.map((option, i) =>{
-                            console.log("checkboxValue: ", checkboxValue)
                             return (
                                 <div className={itemClassName} key={i}>
                                     <input 

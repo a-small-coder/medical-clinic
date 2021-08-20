@@ -48,7 +48,6 @@ const MenuItem = (props) => {
     })
     
     const onSpoilerClick = () =>{
-        console.log("Spoiler mode: ", isSpoiler)
         if (!isSpoiler){
             setMenuItemHover(!menuItemHover)
         }

@@ -25,21 +25,22 @@ const FilterPopup = (props) => {
 
     const submitPopupFormHandler = (formData) =>{
         if (formData != null ){
+            let active_count = 0
             const newCategoryItems = category.items.map(
                 item => {
                     for (const category in formData.categories){
                         if (formData.categories[category] === item.slug){
+                            active_count += 1
                             return {...item, is_active: true}
                         }
                     }
                     return item
                 }
             )
-            props.activateCheckBoxHandler(category.slug, newCategoryItems, formData.categories.length)
+            props.activateCheckBoxHandler(category.slug, newCategoryItems, active_count)
         }
         props.showHiddenPopup("")
     }
-    
     return (
         <CatalogFilterForm 
             title={category.title} 

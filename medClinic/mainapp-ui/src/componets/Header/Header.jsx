@@ -17,7 +17,6 @@ const Header = (props) => {
     const iconMenuClickHandler = () => {
         setIsIconMenuActive(!isIconMenuActive)
         props.setSpoilerMode(!props.initSpoiler)
-        console.log(!props.initSpoiler)
     };
 
 
