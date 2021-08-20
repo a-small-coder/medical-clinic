@@ -19,7 +19,7 @@ const FilterPopup = (props) => {
     }
     let popupElements = category.items.map(
         ctgry => (
-            {key:  ctgry.text, value:  ctgry.slug, link: null, chebox_values: ctgry.is_active}
+            {key:  ctgry.text, value:  ctgry.slug, link: null, chebox_value: ctgry.is_active}
         )
     );
 

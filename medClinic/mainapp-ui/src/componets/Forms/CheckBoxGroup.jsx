@@ -8,10 +8,22 @@ function CheckBoxGroup(props) {
 
     const inputRef = useRef(null)
     const [checked, setChecked] = useState(checkboxValue)
-
+// htmlFor <-> input.id
     const CheckBoxClickHandler = (e) =>{
         props.standartOnChange(e)
-        setChecked(!checked)
+        let target = e.currentTarget.htmlFor
+        let needRemove = checked.indexOf(target) !== -1
+        let checkedCopy = []
+        checked.forEach(el => {
+            if (el !== target){
+                checkedCopy.push(el)
+            }
+        });
+        if (!needRemove){
+            checkedCopy.push(target)  
+        }
+        setChecked(checkedCopy)
+        
     }
     const [labelClass, setLabelClass] = useState("checkbox__label")
 
@@ -37,6 +49,7 @@ function CheckBoxGroup(props) {
                 {
                     ({field}) => {
                         return options.map((option, i) =>{
+                            console.log("checkboxValue: ", checkboxValue)
                             return (
                                 <div className={itemClassName} key={i}>
                                     <input 
@@ -45,7 +58,7 @@ function CheckBoxGroup(props) {
                                         id={option.value}
                                         {...field}
                                         value={option.value}
-                                        checked={checkboxValue.box}
+                                        checked={checkboxValue.indexOf(option.value) !== -1}
                                         ref={inputRef}
                                     />
 
@@ -56,7 +69,7 @@ function CheckBoxGroup(props) {
                                         onClick={CheckBoxClickHandler}
                                     >
                                         <div className={'checkbox-block__label-with-link'}>
-                                            <span>{option.key}</span>
+                                            <span id={option.value + " text"}>{option.key}</span>
                                             {option.link != null ? 
                                             <Link
                                                 to={option.link.ref}
