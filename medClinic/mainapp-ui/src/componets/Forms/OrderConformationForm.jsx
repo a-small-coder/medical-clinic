@@ -2,25 +2,37 @@ import React from 'react';
 import {Formik, Form} from 'formik';
 import * as Yup from 'yup'
 import FormikControl from './FormikControl';
+import { getInitValuesFromCheckboxData } from './CatalogFilterForm';
 
 function OrderConformationForm(props) {
 
-    const acceptTermsCBOptions = [
+    // const checkBoxesOptions = [
+    //     {
+    //         key: 'Я даю согласие на ', 
+    //         value: 'acceptTermAndConditions',
+    //         chebox_value: true,
+    //         link: {
+    //             text: "обработку персональных данных", 
+    //             ref: "/personal-conversations"
+    //         }
+    //     },
+    //     {
+    //         key: 'Подписаться на рассылку по e-mail ', 
+    //         value: 'acceptMailing',
+    //         chebox_value: true,
+    //         link: null
+    //     },
+    // ]
+
+    const checkBoxOptions = [
         {
             key: 'Я даю согласие на ', 
-            value: 'acceptTermAndConditions',
+            value: 'confirmUserData',
+            chebox_value: true,
             link: {
                 text: "обработку персональных данных", 
                 ref: "/personal-conversations"
             }
-        },
-    ]
-
-    const acceptMailingCBOptions = [
-        {
-            key: 'Подписаться на рассылку по e-mail ', 
-            value: 'acceptMailing',
-            link: null
         },
     ]
 
@@ -29,8 +41,8 @@ function OrderConformationForm(props) {
         adress: '',
         phoneNumber: '',
         email: '',
-        acceptTermAndConditions: false,
-        acceptMailing: false,
+        acceptTermAndConditions: getInitValuesFromCheckboxData(checkBoxOptions),
+        // checkboxes: getInitValuesFromCheckboxData(checkBoxesOptions),
     }
 
     const validation = Yup.object({
@@ -40,7 +52,7 @@ function OrderConformationForm(props) {
         email: Yup.string()
             .email('Неверный формат почтового адреса')
             .required('Поле "Email" обязательно для заполнения.'),
-        acceptTermAndConditions: Yup.boolean().isTrue("Необходимо подтвердить согласие на обработку персональных данных"),
+        acceptTermAndConditions: Yup.array().min(1,"Необходимо подтвердить согласие на обработку персональных данных"),
     })
 
     const onSubmit = values =>{
@@ -99,17 +111,29 @@ function OrderConformationForm(props) {
                                     isError={errors.email && touched.email}
                                 />
 
+                                
+
                                 <FormikControl
                                     control="checkbox"
                                     name="acceptTermAndConditions"
-                                    options={acceptTermsCBOptions}
+                                    options={checkBoxOptions}
                                     checkboxValue={values.acceptTermAndConditions}
                                     standartOnChange={handleChange}
                                     isError={errors.acceptTermAndConditions}
                                     wrapperClassName={"form-control checkbox-block"}
                                 />
 
-                                <FormikControl
+                                {/* <FormikControl
+                                    control="checkbox"
+                                    name="checkboxes"
+                                    options={checkBoxesOptions}
+                                    checkboxValue={values.checkboxes}
+                                    standartOnChange={handleChange}
+                                    isError={errors.checkboxes}
+                                    wrapperClassName={"form-control checkbox-block"}
+                                /> */}
+
+                                {/* <FormikControl
                                     control="checkbox"
                                     name="acceptMailing"
                                     options={acceptMailingCBOptions}
@@ -117,7 +141,7 @@ function OrderConformationForm(props) {
                                     standartOnChange={handleChange}
                                     isError={errors.acceptMailing}
                                     wrapperClassName={"form-control checkbox-block"}
-                                />
+                                /> */}
 
                                 <button
                                     className="cart-info__confirm btn _circle-btn _filled-btn _green"

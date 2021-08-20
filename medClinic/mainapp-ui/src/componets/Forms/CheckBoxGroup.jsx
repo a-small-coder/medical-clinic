@@ -8,7 +8,6 @@ function CheckBoxGroup(props) {
 
     const inputRef = useRef(null)
     const [checked, setChecked] = useState(checkboxValue)
-// htmlFor <-> input.id
     const CheckBoxClickHandler = (e) =>{
         props.standartOnChange(e)
         let target = e.currentTarget.htmlFor

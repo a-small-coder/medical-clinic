@@ -4,16 +4,18 @@ import * as Yup from 'yup'
 import FormikControl from './FormikControl';
 import ButtonsBlock from '../Autorization/ButtonsBlock';
 import { Link } from 'react-router-dom';
+import { getInitValuesFromCheckboxData } from './CatalogFilterForm';
 function RegistrationForm(){
     const checkBoxOptions = [
         {
             key: 'Я даю согласие на ', 
             value: 'confirmUserData',
+            chebox_value: true,
             link: {
                 text: "обработку персональных данных", 
                 ref: "/personal-conversations"
-        }
-    },
+            }
+        },
     ]
 
     const initialValues = {
@@ -23,7 +25,7 @@ function RegistrationForm(){
         email: '',
         password: '',
         confirm_password: '' ,
-        acceptTermAndConditions: false,
+        acceptTermAndConditions: getInitValuesFromCheckboxData(checkBoxOptions),
     }
 
     const validation = Yup.object({
@@ -38,7 +40,7 @@ function RegistrationForm(){
             .min(6, "Пароль должен содержать 6 или более символов")
             .max(25, "Пароль не может содержать более 24 символов"),
         confirm_password: Yup.string().oneOf([Yup.ref('password'), ''], 'Пароли не совпадают.').required('Подтвердите пароль.'),
-        acceptTermAndConditions: Yup.boolean().isTrue("Необходимо подтвердить согласие на обработку персональных данных"),
+        acceptTermAndConditions: Yup.array().min(1,"Необходимо подтвердить согласие на обработку персональных данных"),
     })
 
     const onSubmit = values =>{

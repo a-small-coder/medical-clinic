@@ -4,17 +4,17 @@ import * as Yup from 'yup'
 import FormikControl from './FormikControl';
 import { Link } from 'react-router-dom';
 import ButtonsBlock from '../Autorization/ButtonsBlock';
+import { getInitValuesFromCheckboxData } from './CatalogFilterForm';
 function LoginForm(props){
+    const checkBoxOptions = [
+        {key: 'Запомнить меня', value: 'rememberMe', chebox_value: false,},
+    ]
 
     const initialValues = {
         username: '',
         password: '',
-        rememberMe: false,
+        rememberMe: getInitValuesFromCheckboxData(checkBoxOptions),
     }
-
-    const checkBoxOptions = [
-        {key: 'Запомнить меня', value: 'rememberMe'},
-    ]
 
     const validation = Yup.object({
         username: Yup.string().required('Поле "Логин" обязательно для заполнения.'),

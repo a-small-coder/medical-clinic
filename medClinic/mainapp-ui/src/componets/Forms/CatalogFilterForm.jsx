@@ -5,16 +5,8 @@ import FormikControl from './FormikControl';
 
 
 function CatalogFilterForm(props) {
-
-    let categoriesInit = []
-    props.checkboxesData.forEach(element => {
-        if (element.chebox_value){
-            categoriesInit.push(element.value)
-        }
-    });
-    console.log("categoriesInit", categoriesInit)
     const initialValues = {
-        categories: categoriesInit,
+        categories: getInitValuesFromCheckboxData(props.checkboxesData),
     }
 
     const validation = Yup.object({})
@@ -72,3 +64,13 @@ function CatalogFilterForm(props) {
 }
 
 export default CatalogFilterForm;
+
+export function getInitValuesFromCheckboxData (checkboxesDataArray){
+    let categoriesInit = []
+    checkboxesDataArray.forEach(element => {
+        if (element.chebox_value){
+            categoriesInit.push(element.value)
+        }
+    });
+    return categoriesInit
+}
