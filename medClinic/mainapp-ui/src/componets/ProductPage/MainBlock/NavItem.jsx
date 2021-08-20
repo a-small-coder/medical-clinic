@@ -11,7 +11,6 @@ const NavItem = (props) => {
         <li className={className} onClick={onTitleClick}>
             <h4 to="#" className={"menu-product__link"} >{props.title}</h4>
             <div className="menu-product__circle"></div>
-            {/* <button type="button" className="menu-product__arrow"></button> */}
 
         </li>
     );

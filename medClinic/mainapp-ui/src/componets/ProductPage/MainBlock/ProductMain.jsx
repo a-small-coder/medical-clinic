@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductForPC from './ProductForPC';
 import Description from './Description'
-import LoadingSheme from '../../Other/LoadingSheme';
+import LoadingSheme from '../../SupportsComponents/LoadingSheme';
 const ProductMain = (props) => {
     let contentBlock;
     let productsLen = props.product.content.length

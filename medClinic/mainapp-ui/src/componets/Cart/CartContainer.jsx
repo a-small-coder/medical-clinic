@@ -1,15 +1,15 @@
 import { connect } from 'react-redux';
 import React, { useEffect, useState } from 'react';
-import urlStart, { deleteApiRequest, getApiResponse} from '../../api_requests';
+import urlStart, { deleteApiRequest, getApiResponse} from '../../support_functions/api_requests';
 import { setIsAuthAC, setIsLoadingAC, setIsNeedRedirectAC, setUserDataAC } from '../../redux/auth-reducer';
 import {setCartIdAC, setChoosenOfficeAC, setOfficeTypeAC} from '../../redux/order-reducer';
 import EmptyCart from './EmptyCart';
 import CartProductsList from './CartProductsList';
-import LoadingSheme from '../Other/LoadingSheme';
-import './CartPage.scss';
+import LoadingSheme from '../SupportsComponents/LoadingSheme';
+import '../../styles/CartPage/CartPage.scss';
 import { setCartAC } from '../../redux/header-reducer';
 import { MAIN_PAGE_NAME, redirectByPageType } from '../../App';
-import CartInfoContainer from './CartInfoContainer';
+import CartInfoContainer from './CartSideBar/CartInfoContainer';
 
 const Cart = (props) =>{
 

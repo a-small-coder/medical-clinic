@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ButtonsBlock from '../Autorization/ButtonsBlock';
-import TopBlockTitle from '../Autorization/TopBlockTitle';
-import PriceInfoBlock from '../Cart/PriceInfoBlock';
-import LoadingSheme from '../Other/LoadingSheme';
-import './OrderConfirmPage.scss';
+import '../../styles/OrderConfirmPage/OrderConfirmPage.scss';
+import PriceInfoBlock from '../Cart/CartSideBar/PriceInfoBlock';
+import ButtonsBlock from '../SupportsComponents/ButtonsBlock';
+import TopBlockTitle from '../SupportsComponents/TopBlockTitle';
 
 function OrderConformation(props) {
 

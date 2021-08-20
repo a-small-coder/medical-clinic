@@ -1,20 +1,20 @@
-import Header from './componets/Header/Header';
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
-import Footer from './componets/Footer/Footer';
-import MainPage from './componets/MainPage/MainPage';
-import './css/style.css';
-import Catalog from './componets/Catalog/Catalog';
-import ProductPage from './componets/ProductPage/ProductPage';
-import InWork from './componets/InWork/InWork';
-import ScrollToTop from './componets/Other/ScrollToTop';
-import AuthPage from './componets/Autorization/AuthPageContainer';
-import { setCartAC, switchSpoilerModAC } from './redux/header-reducer';
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
-import urlStart, { getApiResponse } from './api_requests';
 import { setIsAuthAC } from './redux/auth-reducer';
-import CartPage from './componets/Cart/CartContainer';
-import OrderConformationContainer from './componets/OrderConfirmPage/OrderConformation';
+import { setCartAC, switchSpoilerModAC } from './redux/header-reducer';
+import './styles/style.css';
+import urlStart, { getApiResponse } from "./support_functions/api_requests";
+import ScrollToTop from "./componets/SupportsComponents/ScrollToTop"
+import Header from "./componets/Header/Header"
+import Catalog from "./componets/Catalog/Catalog"
+import ProductPageContainer from "./componets/ProductPage/ProductPageContainer";
+import MainPageContainer from "./componets/MainPage/MainPageContainer";
+import AuthPageContainer from "./componets/Autorization/AuthPageContainer";
+import CartContainer from "./componets/Cart/CartContainer";
+import OrderConformationContainer from "./componets/OrderConfirmPage/OrderConformation";
+import InWork from "./componets/InWorkPage/InWork";
+import Footer from "./componets/Footer/Footer";
 
 function App(props) {
 
@@ -43,10 +43,10 @@ function App(props) {
         <Switch>
           <Redirect exact from={"/catalog"} to={"catalog/all-analyzes"}/>
           <Route exact path="/catalog/:category" component={Catalog} />
-          <Route exact path="/catalog/:category/:id" component={ProductPage} />
-          <Route exact path="/" component={MainPage} />
-          <Route path='/auth' component={AuthPage} />
-          <Route exact path="/cart" component={CartPage}/>
+          <Route exact path="/catalog/:category/:id" component={ProductPageContainer} />
+          <Route exact path="/" component={MainPageContainer} />
+          <Route path='/auth' component={AuthPageContainer} />
+          <Route exact path="/cart" component={CartContainer}/>
           <Route path="/cart/order-conformation" component={OrderConformationContainer}/>
           <Route component={InWork} />
         </Switch>

@@ -1,8 +1,7 @@
 import React from 'react';
-import PopupItem from './PopupItem';
 import { connect } from 'react-redux';
 import { activateCheckBoxAC, disactiveteCheckBoxAC, showHiddenPopupAC } from '../../../redux/catalog-reducer';
-import CatalogFilterForm from '../../Forms/CatalogFilterForm';
+import CatalogFilterForm from '../../Forms/CatalogPage/CatalogFilterForm';
 
 const FilterPopup = (props) => {
 

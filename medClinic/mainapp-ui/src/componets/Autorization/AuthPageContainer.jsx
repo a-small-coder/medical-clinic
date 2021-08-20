@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import { postApiRequest } from '../../api_requests';
+import { postApiRequest } from '../../support_functions/api_requests';
 import { setIsAuthAC, setIsLoadingAC, setIsNeedRedirectAC, setUserDataAC } from '../../redux/auth-reducer';
-import './Autorization.scss';
-import '../Forms/Forms.scss';
-import AuthFormControl from './AuthFormControl';
+import '../../styles/Autorization/Autorization.scss';
+import '../../styles/Forms/Forms.scss';
 import { BAD_LINK, MAIN_PAGE_NAME, redirectByPageType } from '../../App';
-import LoadingSheme from '../Other/LoadingSheme';
+import LoadingSheme from '../SupportsComponents/LoadingSheme';
+import AuthFormControl from './AutorizationTypes/AuthFormControl';
 
 const AuthPageBody = (props) =>{
 

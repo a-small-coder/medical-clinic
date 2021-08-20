@@ -1,7 +1,7 @@
 import React from 'react';
-import FooterSubscribe from './FooterSubscribe';
-import FooterMain from './FooterMain';
-import FooterMenuContainer from './FooterMenuContainer';
+import FooterMain from './MainBlock/FooterMain'
+import FooterMenuContainer from './Menu/FooterMenuContainer'
+import FooterSubscribe from './Menu/FooterSubscribe';
 const Footer = () => {
     return (
         <footer className="footer">

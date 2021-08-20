@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import { getBadCategory, setCurrentPageAC, setProductsCategoryAC } from '../../redux/catalog-reducer';
 import CatalogFilter from './Filter/CatalogFilter';
-import ProductsContainer from './ProductsContainer';
 import { connect } from 'react-redux';
+import ProductsContainer from './ProductCard/ProductsContainer';
 const Catalog = (props) => {
 
     const category = props.history.location.pathname.slice(1, props.history.location.pathname.length)
