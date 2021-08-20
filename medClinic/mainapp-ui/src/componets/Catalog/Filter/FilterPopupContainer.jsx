@@ -24,9 +24,10 @@ const FilterPopup = (props) => {
     );
 
     const submitPopupFormHandler = (formData) =>{
+        let newCategoryItems
+        let active_count = 0
         if (formData != null ){
-            let active_count = 0
-            const newCategoryItems = category.items.map(
+            newCategoryItems = category.items.map(
                 item => {
                     for (const category in formData.categories){
                         if (formData.categories[category] === item.slug){
@@ -39,6 +40,14 @@ const FilterPopup = (props) => {
             )
             props.activateCheckBoxHandler(category.slug, newCategoryItems, active_count)
         }
+        else {
+            newCategoryItems = category.items.map(
+                item => {
+                    return {...item, is_active: false}
+                }
+            )
+        }
+        props.activateCheckBoxHandler(category.slug, newCategoryItems, active_count)
         props.showHiddenPopup("")
     }
     return (

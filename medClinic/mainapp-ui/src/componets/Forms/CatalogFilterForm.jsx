@@ -11,14 +11,11 @@ function CatalogFilterForm(props) {
 
     const validation = Yup.object({})
 
-    const onSubmit = values =>{
+    const onSubmit = (values) =>{
         console.log("Form data", values);
         props.onSubmitForm(values);
     }
-
-    const closePopup = () =>{
-        props.onSubmitForm();
-    }
+    
 
     return (
         <Formik initialValues={initialValues} validationSchema={validation} onSubmit={onSubmit}>
@@ -26,8 +23,8 @@ function CatalogFilterForm(props) {
                 
                 ({values, errors, resetForm, handleChange}) => {
                     const clearForm = () => {
-                        props.onSubmitForm(values);
-                        resetForm()
+                        props.onSubmitForm();
+                        resetForm();
                     }
                     return (
                         <Form className="filter-form__item" autoComplete="off">
@@ -35,7 +32,7 @@ function CatalogFilterForm(props) {
                                 <div className="popup__content">
                                     <div className="popup__body popup-filter">
                                         <div className="popup-filter__header">
-                                            <div className="popup__close _icon-close" onClick={closePopup}></div>
+                                            <button className="popup__close _icon-close" type="submit"></button>
                                             <div className="popup-filter__title">{props.title}</div>
                                         </div>
                                             <FormikControl
