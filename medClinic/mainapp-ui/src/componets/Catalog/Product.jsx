@@ -1,9 +1,9 @@
 import React, {useRef} from 'react';
 import { Link } from 'react-router-dom';
+import ProductBuyButton from './ProductBuyButton';
 import './Proguct.scss';
 
 const Product = (props) => {
-    const buttonBuyRef = useRef(null)
 
     const onButtonBuyClick = ()=>{
         props.buttonButClickHandler(props.id, props.InCart)
@@ -12,6 +12,13 @@ const Product = (props) => {
     let buttonCartClassName = "analyze-item__buy btn _icon-cart"
     if (props.InCart){
         buttonCartClassName += " _active"
+    }
+
+    const buttonBuyData = {
+        inCart: props.forCart, 
+        buttonClickHandler: onButtonBuyClick, 
+        buttonClassName: buttonCartClassName, 
+        showButton: props.showBuyButton
     }
 
     return (
@@ -28,16 +35,8 @@ const Product = (props) => {
                 </div>
             </div>
             <div className="analyze-item__buy-container">
-                <div className="analyze-item__price">{props.price} р</div>
-                {props.forCart ?
-                    <button type="button" ref={buttonBuyRef} onClick={onButtonBuyClick}
-                        className={"cart-item__close _icon-close"} title="Удалить из корзины">
-                    </button> :
-                    <button type="button" ref={buttonBuyRef} onClick={onButtonBuyClick}
-                        className={buttonCartClassName} title="Добавить в корзину">
-                    </button>
-                }
-                
+                 <div className="analyze-item__price">{props.price != null ? props.price + " р": null}</div> 
+                <ProductBuyButton {...buttonBuyData}/>
             </div>
             
         </div>
@@ -45,3 +44,21 @@ const Product = (props) => {
 }
 
 export default Product;
+
+export function getBuyButton(inCart, buttonClickHandler, buttonClassName, showButton=true){
+    if (showButton) {
+        if (inCart) {
+            return (
+                <button type="button"  onClick={buttonClickHandler}
+                    className={"cart-item__close _icon-close"} title="Удалить из корзины">
+                </button>
+            )
+        }
+        return (
+            <button type="button"  onClick={buttonClickHandler}
+                className={buttonClassName} title="Добавить в корзину">
+            </button>
+        )
+    }
+    return null
+}

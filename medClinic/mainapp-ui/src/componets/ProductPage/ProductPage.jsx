@@ -4,25 +4,24 @@ import ProductInfo from './ProductInfo/ProductInfo';
 import { connect } from 'react-redux';
 import {setProductAC, switchProductActiveContentAC } from '../../redux/product-reducer';
 import IncludeProducts from './InculeProducts';
-import urlStart, { deleteApiRequest, getApiResponse, putApiRequest } from '../../api_requests';
+import urlStart, {getApiResponse, putApiRequest } from '../../api_requests';
 import { IN_WORK_PAGE_NAME, redirectByPageType } from '../../App';
 import LoadingSheme from '../Other/LoadingSheme';
-import { getProductInCartId, isProductInCart } from '../Catalog/ProductsContainer';
+import {isProductInCart } from '../Catalog/ProductsContainer';
 import { setCartAC } from '../../redux/header-reducer';
 
 const ProductPage = (props) => {
-    let productNameL = props.history.location.pathname.split("/");
-    let productName = Number(productNameL[productNameL.length - 1])
+    const [isRequestSend, sendIsRequestSend] = useState(false)
     let productLink = props.history.location.pathname.slice(1, props.history.location.pathname.length)
-    let isfalseProduct = productName !== props.product.id
     const [Badresponse, setNeedRender] = useState(false);
     useEffect(() =>{
         if (Badresponse){
             console.log("hey! it's a bad response")
+            sendIsRequestSend(false)
         }
         
     }, [Badresponse])
-    if (isfalseProduct && !Badresponse){
+    if (!isRequestSend){
 
         const url = `${urlStart}${productLink}`
         const goodResponseHandler = (response) =>{
@@ -47,7 +46,9 @@ const ProductPage = (props) => {
             setNeedRender(true)
             console.log(err)
         }
+        sendIsRequestSend(true)
         getApiResponse(url, false, goodResponseHandler, badResponseHandler)
+        
     }
 
     const isInCart = isProductInCart(props.product.id, props.cart_products)
@@ -84,7 +85,7 @@ const ProductPage = (props) => {
                             <div className="analyze-product__main product-main">
 
                                 <ProductMain switchProductActiveContent={props.switchProductActiveContent} product={props.product} />
-                                {props.product.isAcomplex ? <IncludeProducts products={props.product.included_analyzes} /> : null}
+                                {props.product.isAcomplex ? <IncludeProducts products={props.product.included_analyzes} buyClick={buttonBuyClickHandler}/> : null}
                             </div>
                             <ProductInfo product={props.product} BuyClick={buttonBuyClickHandler} inCart={isInCart}/>
                         </div>

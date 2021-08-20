@@ -7,8 +7,8 @@ const InculeProducts = (props) => {
     let productsElements
     if (props.products != null){
         productsElements = props.products.map(
-            a => <Product key={a.id} title={a.title} time={a.time} number={a.number}
-                slug={a.id} price={a.price} mainSlug={"catalog/all-analyzes"} forCart={false} />);
+            a => <Product key={a.id} title={a.title} time={a.time} number={a.number} showBuyButton={false}
+                slug={a.id} price={null} mainSlug={"catalog/all-analyzes"} forCart={false} />);
     }
 
 
