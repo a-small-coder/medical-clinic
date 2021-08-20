@@ -7,27 +7,27 @@ import FormikControl from './FormikControl';
 function CatalogFilterForm(props) {
 
     const initialValues = {
-        categories: '',
+        categories: [],
     }
 
     const validation = Yup.object({})
 
     const onSubmit = values =>{
         console.log("Form data", values);
-        props.showHiddenPopup("");
+        props.onSubmitForm(values);
     }
 
     const closePopup = () =>{
-        props.showHiddenPopup("");
+        props.onSubmitForm();
     }
 
     return (
         <Formik initialValues={initialValues} validationSchema={validation} onSubmit={onSubmit}>
             {
                 
-                ({values, errors, touched, isValid, handleBlur, resetForm, handleChange}) => {
+                ({values, errors, resetForm, handleChange}) => {
                     const clearForm = () => {
-                        props.showHiddenPopup("");
+                        props.onSubmitForm(values);
                         resetForm()
                     }
                     return (

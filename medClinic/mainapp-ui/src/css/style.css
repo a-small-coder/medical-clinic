@@ -1265,6 +1265,7 @@ body.ie ._ibg img {
   font-size: 24px;
   font-weight: 600;
   line-height: 150%;
+  text-transform: uppercase;
 }
 
 .popup-filter__items {
@@ -1328,6 +1329,7 @@ body.ie ._ibg img {
   text-align: center;
   background-color: #0FC0FC;
   color: #fff;
+  font-size: calc(16px + 4 * ((100vw - 320px) / 950));
   -webkit-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
@@ -1341,7 +1343,7 @@ body.ie ._ibg img {
           flex: 0 0 16.1290322581%;
   border-radius: 30px;
   border: 1px solid #0FC0FC;
-  font-size: 22px;
+  font-size: calc(16px + 4 * ((100vw - 320px) / 950));
   font-weight: 500;
   line-height: 150%;
 }
@@ -3526,10 +3528,6 @@ body.ie ._ibg img {
 
   .popup-filter__items {
     margin-bottom: calc(15px + 35 * ((100vw - 320px) / 950));
-  }
-
-  .popup-filter__clear {
-    font-size: calc(16px + 6 * ((100vw - 320px) / 950));
   }
 
   .header__search {

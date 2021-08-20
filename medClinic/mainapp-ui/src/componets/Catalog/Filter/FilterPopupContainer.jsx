@@ -19,15 +19,32 @@ const FilterPopup = (props) => {
     }
     let popupElements = category.items.map(
         ctgry => (
-            {key:  ctgry.text, value:  ctgry.slug, link: null}
+            {key:  ctgry.text, value:  ctgry.slug, link: null, chebox_values: ctgry.is_active}
         )
     );
+
+    const submitPopupFormHandler = (formData) =>{
+        if (formData != null ){
+            const newCategoryItems = category.items.map(
+                item => {
+                    for (const category in formData.categories){
+                        if (formData.categories[category] === item.slug){
+                            return {...item, is_active: true}
+                        }
+                    }
+                    return item
+                }
+            )
+            props.activateCheckBoxHandler(category.slug, newCategoryItems, formData.categories.length)
+        }
+        props.showHiddenPopup("")
+    }
     
     return (
         <CatalogFilterForm 
             title={category.title} 
             wrapperClassName={popupClassName} 
-            showHiddenPopup={props.showHiddenPopup}
+            onSubmitForm={submitPopupFormHandler}
             checkboxesData={popupElements}
         />
     );
@@ -46,8 +63,8 @@ let mapDispatchToProps = (dispatch)=>{
         disactivateCheckBoxHandler: (categorySlug, itemSlug) =>{
             dispatch(disactiveteCheckBoxAC(categorySlug, itemSlug));
         },
-        activateCheckBoxHandler: (categorySlug, itemSlug) =>{
-            dispatch(activateCheckBoxAC(categorySlug, itemSlug));
+        activateCheckBoxHandler: (categorySlug, itemSlug, active_count) =>{
+            dispatch(activateCheckBoxAC(categorySlug, itemSlug, active_count));
         }
 
     }

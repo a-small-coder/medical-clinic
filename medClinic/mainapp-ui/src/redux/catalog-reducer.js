@@ -79,17 +79,11 @@ const catalogReducer = (state = initialState, action) =>{
             stateCopy.filter = {...state.filter};
             stateCopy.filter.categories = state.filter.categories.map(c =>{
                 if (action.categorySlug === c.slug){
-                    let categoryCopy = {...c, active_count: c.active_count + 1};
-                    categoryCopy.items = c.items.map(i => {
-                        if (action.itemSlug === i.slug){
-                            return {...i, is_active: true}
-                        }
-                        return {...i}
-                    })
-                    return categoryCopy
+                    return {...c, active_count: action.active_count, items: action.categoryItems}
                 }
                 return {...c}
             });
+
             return stateCopy
         }
         case DISACTIVATE_CHECKBOX: {
@@ -127,7 +121,7 @@ const catalogReducer = (state = initialState, action) =>{
 export const getBadCategory = () =>({type: BAD_CATEGORY})
 export const setProductsAC = (items, totalCount, category, pageSize) =>({type: SET_PRODUCTS, items, totalCount, category, pageSize});
 export const setProductsCategoryAC = (category) => ({type: SET_PRODUCTS_CATEGORY, category})
-export const activateCheckBoxAC = (categorySlug, itemSlug) =>({type: ACTIVATE_CHECKBOX, categorySlug: categorySlug, itemSlug: itemSlug});
+export const activateCheckBoxAC = (categorySlug, categoryItems, active_count) =>({type: ACTIVATE_CHECKBOX, categorySlug, categoryItems, active_count});
 export const disactiveteCheckBoxAC = (categorySlug, itemSlug) =>({type: DISACTIVATE_CHECKBOX, categorySlug: categorySlug, itemSlug: itemSlug});
 export const showHiddenPopupAC = (current_category) => ({type: CHANGE_FILTER_POPUP_SHOW_STATE, current_category: current_category});
 export const setCurrentPageAC = (totalPage) =>({type: SET_CURRENT_PAGE, currentPage: totalPage});
