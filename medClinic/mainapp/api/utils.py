@@ -77,5 +77,6 @@ def get_cart_or_create_for_anon(request):
                 qty=(item['qty'] if item['qty'] > 0 else -1 * item['qty']),
                 # negative quantity = freebies
             )
+            cartItem.save()
         print(cart, cart.id, sep=' | ')
     return cart
