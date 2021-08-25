@@ -4,7 +4,6 @@ from rest_framework.authtoken.models import Token
 
 from ...models import (
     SearchGroup,
-    GenderType,
     ComplexType,
     AboutUsCategory,
     AboutUsContentBlock,
@@ -17,13 +16,6 @@ class SearchGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = SearchGroup
         fields = '__all__'
-
-
-class GenderTypeSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = GenderType
-        fields = ['id', 'slug']
 
 
 class ComplexTypeSerializer(serializers.ModelSerializer):
