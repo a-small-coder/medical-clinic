@@ -176,42 +176,58 @@ class AnalyzeContentBlock(models.Model):
 # ================================================================================
 # ===============================Cart=============================================
 # ================================================================================
-class CartAnalyze(models.Model):
+class CartItem(models.Model):
     user = models.ForeignKey(
         'Customer', verbose_name='Покупатель', on_delete=models.CASCADE)
     cart = models.ForeignKey(
         'Cart', on_delete=models.CASCADE,
-        verbose_name='Корзина', related_name='related_products')
+        verbose_name='Корзина', related_name='cart_items')
     qty = models.PositiveIntegerField(default=1, verbose_name='Количество товара')
-    analyze = models.ForeignKey(Analyze, verbose_name='Товар', on_delete=models.CASCADE)
-    final_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Общая цена')
+    product = models.ForeignKey(Product, verbose_name='Товар', on_delete=models.CASCADE)
+    final_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Общая цена', default=0.00)
 
     def __str__(self):
-        return "Анализ: {} (для корзины)".format(self.analyze.title)
+        return "Товар: {} (для корзины)".format(self.product.title_min)
+
+    @property
+    def get_final_price(self):
+        total = self.product.price * self.qty
+        return total
 
     def save(self, *args, **kwargs):
-        self.final_price = self.qty * self.analyze.price
+        if self.id:
+            self.final_price = self.get_final_price
         super().save(*args, **kwargs)
 
 
 class Cart(models.Model):
-
     owner = models.ForeignKey(
         'Customer', null=True, verbose_name='Владелец', on_delete=models.CASCADE)
-    products = models.ManyToManyField(CartAnalyze, blank=True, related_name='related_cart')
-    total_products = models.PositiveIntegerField(default=0)
-    final_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Общая цена', default=0)
     in_order = models.BooleanField(default=False)
     for_anonymous_user = models.BooleanField(default=False)
+    total_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Общая цена', default=0.00)
+    qty = models.PositiveIntegerField(default=1, verbose_name='Количество товара')
 
     def __str__(self):
-        return str(self.id)
+        return f"{str(self.id)} | {self.owner}"
 
     def save(self, *args, **kwargs):
         if self.id:
-            self.total_products = self.products.count()
-            self.final_price = sum([cproduct.final_price for cproduct in self.products.all()])
+            self.total_price = self.get_cart_total
+            self.qty = self.get_cart_items_count
         super().save(*args, **kwargs)
+
+    @property
+    def get_cart_total(self):
+        orders_items = self.cart_items.all()
+        total = sum([item.get_final_price for item in orders_items])
+        return total
+
+    @property
+    def get_cart_items_count(self):
+        orders_items = self.cart_items.all()
+        total = sum([item.qty for item in orders_items])
+        return total
 
 
 class Customer(models.Model):
