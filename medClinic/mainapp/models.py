@@ -109,7 +109,7 @@ class Product(models.Model):
 class AnalyzeComplex(Product):
 
     complex_type = models.ForeignKey(ComplexType, verbose_name="Тип комплекса", on_delete=models.CASCADE)
-    gender = models.CharField(max_length=7, choices=GENDER_CHOICES, verbose_name="Гендер ", default=any_gender)
+    gender = models.CharField(max_length=32, choices=GENDER_CHOICES, verbose_name="Гендер ", default=any_gender)
     is_popular = models.BooleanField(default=False, verbose_name="Популярный товар")
     in_top_five_list = models.BooleanField(
         default=False, verbose_name='Входит в Топ-5 косплексов (добавить на слайдер компексов)'
@@ -137,7 +137,7 @@ class Analyze(Product):
                                 blank=True)
     search_group = models.ForeignKey(SearchGroup, verbose_name='В ходит в группу исследований',
                                      on_delete=models.PROTECT)
-    gender = models.CharField(max_length=7, choices=GENDER_CHOICES, verbose_name="Гендер ", default=any_gender)
+    gender = models.CharField(max_length=32, choices=GENDER_CHOICES, verbose_name="Гендер ", default=any_gender)
     time = models.CharField(max_length=31, verbose_name='Срок исполнения')
     is_popular = models.BooleanField(default=False, verbose_name="Популярный товар")
     vendor_code = models.CharField(verbose_name='Артикул', max_length=63)
@@ -151,10 +151,10 @@ class Analyze(Product):
 
 
 class AnalyzeContentBlock(models.Model):
-    DESCRIPTION = 'DS'
-    PREPARATIONS = "PR"
-    INDICATIONS_FOR_USE = 'IU'
-    FEEDBACK = 'FB'
+    DESCRIPTION = 'DESCRIPTION'
+    PREPARATIONS = "PREPARATIONS"
+    INDICATIONS_FOR_USE = 'INDICATIONS_FOR_USE'
+    FEEDBACK = 'FEEDBACK'
     CONTENT_CATEGORY_CHOICES = [
         (DESCRIPTION, 'Описание'),
         (PREPARATIONS, 'Подготовка'),
@@ -163,7 +163,7 @@ class AnalyzeContentBlock(models.Model):
     ]
     analyze = models.ForeignKey(Analyze, on_delete=models.CASCADE, verbose_name='Для анализа')
     analyze_content_category = models.CharField(
-        max_length=2, verbose_name='Категория блока', choices=CONTENT_CATEGORY_CHOICES, default=DESCRIPTION
+        max_length=32, verbose_name='Категория блока', choices=CONTENT_CATEGORY_CHOICES, default=DESCRIPTION
     )
     title = models.CharField(max_length=255, verbose_name='Заголовок блока')
     text = models.TextField(verbose_name='Текст блока', default="")
