@@ -208,7 +208,7 @@ class CartAnalyze(models.Model):
     final_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Общая цена')
 
     def __str__(self):
-        return "Анализ: {} (для корзины)".format(self.analyze.tittle)
+        return "Анализ: {} (для корзины)".format(self.analyze.title)
 
     def save(self, *args, **kwargs):
         self.final_price = self.qty * self.analyze.price
