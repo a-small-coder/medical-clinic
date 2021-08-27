@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { getInitValuesFromCheckboxData } from '../CatalogPage/CatalogFilterForm';
 import FormikControl from '../BaseComponents/FormikControl';
 import ButtonsBlock from '../../SupportsComponents/ButtonsBlock';
-function RegistrationForm(){
+function RegistrationForm(props){
     const checkBoxOptions = [
         {
             key: 'Я даю согласие на ', 
@@ -43,8 +43,9 @@ function RegistrationForm(){
         acceptTermAndConditions: Yup.array().min(1,"Необходимо подтвердить согласие на обработку персональных данных"),
     })
 
-    const onSubmit = values =>{
+    const onSubmit = (values, helpers) =>{
         console.log("Form data", values)
+        props.handlerSubmit(values, helpers.setFieldError, 'email')
     }
 
     return (

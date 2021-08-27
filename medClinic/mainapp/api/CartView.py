@@ -21,6 +21,7 @@ class CartViewSet(viewsets.ModelViewSet):
         user = request.user
         if user.is_authenticated:
             cart = Cart.objects.filter(owner=user.customer, for_anonymous_user=False).first()
+            print('\n\n', cart, ' hello \n\n')
         else:
             cart = get_cart_or_create_for_anon(request)
         return cart
@@ -31,6 +32,7 @@ class CartViewSet(viewsets.ModelViewSet):
             product=product,
             cart=cart
         )
+        print('\n\n', cart_product, ' hello \n\n')
         return cart_product, created
 
     @action(methods=['get'], detail=False)
@@ -42,8 +44,10 @@ class CartViewSet(viewsets.ModelViewSet):
     @action(methods=['put'], detail=False, url_path='current_customer_cart/add_to_cart/(?P<product_id>\d+)')
     def product_add_to_cart(self, *args, **kwargs):
         cart = self.get_cart(self.request)
-        analyze = get_object_or_404(Product, id=kwargs['product_id'])
-        cart_product, created = self._get_or_create_cart_product(cart, analyze)
+        product = get_object_or_404(Product, id=kwargs['product_id'])
+        print('\n\n', product, ' hello \n\n')
+        cart_product, created = self._get_or_create_cart_product(cart, product)
+
         if created:
             cart_product.qty = 1
             cart_product.save()

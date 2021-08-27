@@ -44,7 +44,7 @@ class AnalyzeComplexTopServicesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AnalyzeComplex
-        fields = ['id', 'title_min', 'description', 'price', 'big_image', 'slug', 'small_image']
+        fields = ['id', 'title_min', 'preview_description', 'price', 'big_image', 'slug', 'small_image']
 
 
 # complex all fields with data about analyzes, gender, and complex
@@ -69,7 +69,7 @@ class AnalyzeRetrieveSerializer(serializers.ModelSerializer):
 
     complex = AnalyzeComplexForeignSerializer()
     search_group = serializers.SerializerMethodField()
-    text_content = serializers.SerializerMethodField()
+    content = serializers.SerializerMethodField()
 
     class Meta:
         model = Analyze
@@ -80,8 +80,15 @@ class AnalyzeRetrieveSerializer(serializers.ModelSerializer):
         return SearchGroup.objects.get(analyze=obj).title
 
     @staticmethod
-    def get_text_content(obj):
+    def get_content(obj):
         return AnalyzeContentBlockSerializer(AnalyzeContentBlock.objects.filter(analyze=obj), many=True).data
+
+
+class UnicAnalyzeListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Analyze
+        fields = ['id', 'title', 'preview_description', 'price', 'slug', 'small_image']
 
 
 class AnalyzeContentBlockSerializer(serializers.ModelSerializer):

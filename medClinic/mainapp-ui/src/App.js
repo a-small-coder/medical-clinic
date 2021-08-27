@@ -41,7 +41,7 @@ function App(props) {
         <ScrollToTop />
         <Header initSpoiler={props.initSpoiler} setSpoilerMode={props.setSpoilerMode}/>
         <Switch>
-          <Redirect exact from={"/catalog"} to={"catalog/all-analyzes"}/>
+          <Route exact path="/catalog" component={Catalog} />
           <Route exact path="/catalog/:category" component={Catalog} />
           <Route exact path="/catalog/:category/:id" component={ProductPageContainer} />
           <Route exact path="/" component={MainPageContainer} />

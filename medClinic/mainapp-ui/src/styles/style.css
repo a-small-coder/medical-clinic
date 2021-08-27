@@ -2465,11 +2465,11 @@ body.ie ._ibg img {
 }
 
 .slider-aboutus__text {
-  max-width: 100%;
   color: #616161;
   font-size: 20px;
   font-weight: normal;
   line-height: 150%;
+  text-align: justify;
 }
 
 .slider-aboutus__text:not(:last-child) {
@@ -3274,7 +3274,7 @@ body.ie ._ibg img {
   }
 
   .slider-aboutus__text {
-    max-width: 80%;
+    max-width: 75%;
   }
 
   .paggination__page-number {
@@ -3469,6 +3469,13 @@ body.ie ._ibg img {
     margin-left:auto;
     margin-right: auto;
   }
+/* 
+  .products__items {
+    display: -ms-grid;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: 32px;
+  } */
 }
 
 @media (min-width: 1282px) {

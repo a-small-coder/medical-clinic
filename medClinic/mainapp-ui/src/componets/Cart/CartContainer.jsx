@@ -40,6 +40,7 @@ const Cart = (props) =>{
             // get user data - in future
             const cartUrl = `${urlStart}cart/current_customer_cart/`
             const setCartFromResponse = (responseData) => {
+                debugger
                 props.setCart(responseData)
                 setIsRequest(true)
             }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ProductMain from './MainBlock/ProductMain';
 import ProductInfo from './ProductSidebar/ProductInfo';
 import { connect } from 'react-redux';
@@ -11,44 +11,13 @@ import { setCartAC } from '../../redux/header-reducer';
 import { isProductInCart } from '../Catalog/ProductCard/ProductsContainer';
 
 const ProductPage = (props) => {
-    const [isRequestSend, sendIsRequestSend] = useState(false)
+    const [currentLink, setCurrentLink] = useState(null)
     let productLink = props.history.location.pathname.slice(1, props.history.location.pathname.length)
     const [Badresponse, setNeedRender] = useState(false);
-    useEffect(() =>{
-        if (Badresponse){
-            console.log("hey! it's a bad response")
-            sendIsRequestSend(false)
-        }
-        
-    }, [Badresponse])
-    if (!isRequestSend){
 
-        const url = `${urlStart}${productLink}`
-        const goodResponseHandler = (response) =>{
-            let product = response
-            let isAcomplex = product.complex_type != null
-            if (!isAcomplex){
-                for (let i=0; i < product.content.length; i++){
-                    if (i === 0){
-                        product.content[i].active_block = true
-                    }
-                    else{
-                        product.content[i].active_block = false
-                    }
-                }
-            }
-            else{
-                product.content = []
-            }
-            props.setProduct(product, isAcomplex)
-        }
-        const badResponseHandler = (err) =>{
-            setNeedRender(true)
-            console.log(err)
-        }
-        sendIsRequestSend(true)
-        getApiResponse(url, false, goodResponseHandler, badResponseHandler)
-        
+    if (currentLink !== productLink){
+        getProductData(productLink, props.setProduct, setNeedRender)
+        setCurrentLink(productLink)
     }
 
     const isInCart = isProductInCart(props.product.id, props.cart_products)
@@ -84,7 +53,7 @@ const ProductPage = (props) => {
                         <div className="analyze-product__content">
                             <div className="analyze-product__main product-main">
 
-                                <ProductMain switchProductActiveContent={props.switchProductActiveContent} product={props.product} />
+                                <ProductMain switchActiveContentCategory={props.switchProductActiveContent} product={props.product} />
                                 {props.product.isAcomplex ? <IncludeProducts products={props.product.included_analyzes} buyClick={buttonBuyClickHandler}/> : null}
                             </div>
                             <ProductInfo product={props.product} BuyClick={buttonBuyClickHandler} inCart={isInCart}/>
@@ -124,3 +93,28 @@ let mapDispatchToProps = (dispatch)=>{
 const ProductPageContainer = connect(mapStateToProps, mapDispatchToProps)(ProductPage);
 
 export default ProductPageContainer;
+
+function getProductData(productLink, setProduct, setNeedRender) {
+    const url = `${urlStart}${productLink}`
+    const goodResponseHandler = (response) =>{
+        let product = response
+        let isAcomplex = product.complex_type != null
+        if (!isAcomplex){
+            if (product.content.length > 0){
+                product.active_content_category = product.content[0].analyze_content_category
+            }
+            else{
+                product.active_content_category = "DESCRIPTION"
+            }
+        }
+        else{
+            product.content = []
+        }
+        setProduct(product, isAcomplex)
+    }
+    const badResponseHandler = (err) =>{
+        setNeedRender(true)
+        console.log(err)
+    }
+    getApiResponse(url, false, goodResponseHandler, badResponseHandler)
+}

@@ -12,6 +12,9 @@ const Products = (props) => {
 
     let catagoryName = props.history.location.pathname
     let apiLink = catagoryName.slice(1, props.history.location.pathname.length)
+    if (apiLink === 'catalog') {
+        apiLink += '/all'
+    }
     const [Badresponse, setNeedRedirect] = useState(false);
     useEffect(() =>{
         if (Badresponse){
@@ -72,7 +75,7 @@ const Products = (props) => {
             a => {
                 const isInCart = isProductInCart(a.id, props.cart.products)
             return <Product key={a.id} id={a.id} title={a.title} time={a.time} number={a.number}
-                slug={a.id} price={a.price} mainSlug={props.history.location.pathname} vendor_code={a.vendor_code} 
+                slug={a.id} price={a.price} mainSlug={apiLink} vendor_code={a.vendor_code} 
                 InCart={isInCart} buttonButClickHandler={buttonButClickHandler} forCart={false}
                 />
             });
@@ -83,7 +86,7 @@ const Products = (props) => {
     if (Badresponse){
         return redirectByPageType(IN_WORK_PAGE_NAME)
     }
-    if (productsElements.length > 0){
+    if (productsElements && productsElements.length > 0){
         return (
             <div className="analyze-section">
                 <h2 className="analyze-section__title _title">{props.products.title[titleKey]}</h2>

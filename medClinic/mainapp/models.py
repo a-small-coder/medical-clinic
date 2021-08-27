@@ -177,8 +177,6 @@ class AnalyzeContentBlock(models.Model):
 # ===============================Cart=============================================
 # ================================================================================
 class CartItem(models.Model):
-    user = models.ForeignKey(
-        'Customer', verbose_name='Покупатель', on_delete=models.CASCADE)
     cart = models.ForeignKey(
         'Cart', on_delete=models.CASCADE,
         verbose_name='Корзина', related_name='cart_items')

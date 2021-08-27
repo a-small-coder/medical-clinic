@@ -4,7 +4,7 @@ const NavItem = (props) => {
 
     const className = props.active_block ? "menu-product__item _selected" : "menu-product__item"
     const onTitleClick = () =>{
-        props.switchProductActiveContent(props.id);
+        props.switchActiveCategory(props.category);
     }
 
     return (

@@ -3,7 +3,7 @@ import UnicProduct from './UnicProduct';
 const UnicProducts = (props) => {
     let productElements = props.products.map(
         p => <UnicProduct 
-        key={p.id} title={p.title} description={p.description} 
+        key={p.id} title={p.title} description={p.preview_description} 
         img={p.small_image} slug={p.slug} markers={p.markers}
         />);
     

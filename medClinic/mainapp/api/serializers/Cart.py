@@ -30,13 +30,14 @@ class CartItemSerializer(serializers.ModelSerializer):
 
 class CartSerializer(serializers.ModelSerializer):
 
-    included_products = serializers.SerializerMethodField()
+    products = serializers.SerializerMethodField()
     owner = CustomerSerializer()
 
     class Meta:
         model = Cart
-        fields = '__all__'
+        fields = ['id', 'products', 'qty', 'total_price', 'for_anonymous_user', 'owner', 'in_order']
 
     @staticmethod
-    def get_included_products(obj):
+    def get_products(obj):
+        print(CartItem.objects.filter(cart=obj))
         return CartItemSerializer(CartItem.objects.filter(cart=obj), many=True).data

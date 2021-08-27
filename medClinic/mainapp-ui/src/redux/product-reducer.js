@@ -14,14 +14,7 @@ const productReducer = (state = initialState, action) =>{
         ...state};
     switch (action.type){
         case SWITCH_PRODUCT_ACTIVE_CONTENT: {
-            // debugger;
-            stateCopy.product = {...state.product}
-            stateCopy.product.content = state.product.content.map(c => {
-                if (action.activeContentId === c.id){
-                    return {...c, active_block: true}
-                }
-                return {...c, active_block: false}
-            })
+            stateCopy.product = {...state.product, active_content_category: action.content_category}
             return stateCopy;
         }
         case SET_PRODUCT:{
@@ -33,6 +26,6 @@ const productReducer = (state = initialState, action) =>{
             return state;
     }
 }
-export const switchProductActiveContentAC = (activeContentId) =>({type: SWITCH_PRODUCT_ACTIVE_CONTENT, activeContentId});
+export const switchProductActiveContentAC = (content_category) =>({type: SWITCH_PRODUCT_ACTIVE_CONTENT, content_category});
 export const setProductAC = (product, isAcomplex) =>({type: SET_PRODUCT, product, isAcomplex});
 export default productReducer;
