@@ -84,7 +84,8 @@ def get_cart_or_create_for_anon(request):
 
 def create_new_anon():
     user_last_id = User.objects.all().last().id
-    new_anonymous_username = f'unknown{user_last_id}'
+    new_anon_user_id = user_last_id + 1
+    new_anonymous_username = f'unknown{new_anon_user_id}'
     new_anonymous = User.objects.create_user(new_anonymous_username)
-    token = Token.objects.get_or_create(user=new_anonymous)
-    return new_anonymous
+    token, created = Token.objects.get_or_create(user=new_anonymous)
+    return new_anonymous, token

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { useEffect } from 'react';
 import { setIsAuthAC, setUserDataAC } from './redux/auth-reducer';
 import { setCartAC, switchSpoilerModAC } from './redux/header-reducer';
+import { useCookies } from "react-cookie";
 import './styles/style.css';
 import urlStart, { getApiResponse } from "./support_functions/api_requests";
 import ScrollToTop from "./componets/SupportsComponents/ScrollToTop"
@@ -17,24 +18,21 @@ import InWork from "./componets/InWorkPage/InWork";
 import Footer from "./componets/Footer/Footer";
 
 function App(props) {
+  const [cookies, setCookie] = useCookies(["user"]);
 
   useEffect(() => {
-
-    // проверка на анонимность юзера, получение его id, токена и корзины
-
-    if (props.userToken) {
-      // user data
-      getUserData(props.userToken, props.setUserData,  props.setIsAuth(false))
-      
-      // user cart
-      getUserCart(props.userToken, props.setCart,  props.setIsAuth(false))
-
-      props.setIsAuth(true)
-
+    let user = getStorageUser()
+    let token
+    if (user){
+      setCookie("user", {USER_ID: user.USER_ID}, {
+        path: "/"
+      });
+      token = user.token
     }
-    else {
-      getAnonumousUserId()
+    else{
+      token = null
     }
+    getActualUser(token, props.setUserData)
   }, [])
 
   return (
@@ -103,24 +101,22 @@ export const MAIN_PAGE_NAME = 'Main'
 export const IN_WORK_PAGE_NAME = 'InWork'
 export const BAD_LINK = 'BadLink'
 
-
-// user data
-export function getUserData(token, setUserData, onBadResponse) {
-  const userUrl = `${urlStart}auth/users/user-data/`
-  const setUserFromResponse = (response) => {
-    const userData = {
-      userId: response.id,
-      token: token,
-      username: response.username,
-      first_name: response.first_name,
-      last_name: response.last_name,
-      email: response.email,
-      customer: response.customer,
-    }
-    setUserData(userData)
-  }
-  getApiResponse(userUrl, token, setUserFromResponse, onBadResponse)
-}
+// export function getUserData(token, setUserData, onBadResponse) {
+//   const userUrl = `${urlStart}auth/users/user-data/`
+//   const setUserFromResponse = (response) => {
+//     const userData = {
+//       userId: response.id,
+//       token: token,
+//       username: response.username,
+//       first_name: response.first_name,
+//       last_name: response.last_name,
+//       email: response.email,
+//       customer: response.customer,
+//     }
+//     setUserData(userData)
+//   }
+//   getApiResponse(userUrl, token, setUserFromResponse, onBadResponse)
+// }
 
 // user cart
 export function getUserCart(token, setCart, onBadResponse){
@@ -132,28 +128,47 @@ export function getUserCart(token, setCart, onBadResponse){
   getApiResponse(cartUrl, token, setCartFromResponse, onBadResponse)
 }
 
-export function getAnonumousUserId(setUserData){
-  const cartUrl = `${urlStart}auth/users/check-for-anon/`
-  const setCartFromResponse = (responseData) => {
+
+// user data
+export function getActualUser(token, setUserData){
+  const url = `${urlStart}auth/users/user-data/`
+  const setUserFromResponse = (response) => {
+    debugger
     let userData = {
-      userId: responseData.user_id,
-      username: null,
-      token: responseData.token,
+      userId: response.user.id,
+      username: response.user.username,
+      first_name: response.user.first_name,
+      last_name: response.user.last_name,
+      email: response.user.email,
+      customer: response.user.customer,
+      token: response.token,
     }
-    localStorage.setItem('userId', JSON.stringify(userData.userId));
+    if (response.is_anon){
+      userData.username = null
+    }
+    setStorageUser(userData.userId, userData.token)
     setUserData(userData)
   }
 
-  getApiResponse(cartUrl, null, setCartFromResponse)
+  getApiResponse(url, token, setUserFromResponse)
 }
 
-export function authHeader() {
+// localStorage
+export function getStorageUser() {
   let user = JSON.parse(localStorage.getItem('user'));
 
-  if (user && user.token) {
-      return { 'Authorization': 'Token ' + user.token };
+  if (user && user.USER_ID) {
+      return user;
   } else {
-      return {};
+      return null;
   }
+}
+
+export function setStorageUser(user_id, token) {
+  let user = {
+    USER_ID: user_id,
+    token: token
+  }
+  localStorage.setItem('user', JSON.stringify(user));
 }
 
