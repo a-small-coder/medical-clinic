@@ -9,7 +9,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from django.shortcuts import get_object_or_404
 from rest_framework.authtoken.models import Token
 
-from .utils import create_new_anon
+from .utils import *
 from ..models import *
 
 from .serializers.Navigation import *
@@ -83,34 +83,16 @@ class UserView(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    # @action(methods=['get'], detail=False, url_path='user-data')
-    # def get_user_data(self, *args, **kwargs):
-    #     user = self.request.user
-    #     if user.is_authenticated:
-    #         return response.Response(UserSerializer(user).data)
-    #     return response.Response({'message': 'unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
-
     @action(methods=['get'], detail=False, url_path='user-data')
     def get_user_data(self, *args, **kwargs):
         user = self.request.user
         if user.is_authenticated:
-            token = Token.objects.get(user=user)
-            return response.Response({'user': UserSerializer(user).data, 'is_anon': False, 'token': token.key})
+            token_key = Token.objects.get(user=user).key
+            is_anon = user.username == f'unknown{user.id}'
         else:
-            cookie_user_id = json.loads(self.request.COOKIES['user'])['USER_ID']
-            if cookie_user_id and cookie_user_id > 0:  # cookie has USER_ID
-                try:
-                    cookie_user = User.objects.get(id=cookie_user_id)
-                    token = Token.objects.get(user=cookie_user)
-                except:
-                    cookie_user, token = create_new_anon()
-                is_anon = cookie_user.username == f'unknown{cookie_user.id}'
-                return response.Response({'user': UserSerializer(cookie_user).data, 'is_anon': is_anon, 'token': token.key})
-            # cookie has no USER_ID
-            else:
-                new_anonymous, token = create_new_anon()
-                print(token)
-                return response.Response({'user': UserSerializer(new_anonymous).data, 'is_anon': True, 'token': token.key})
+            user, token_key = create_new_anon()
+            is_anon = True
+        return response.Response({'user': UserSerializer(user).data, 'is_anon': is_anon, 'token': token_key})
 
 
 class RegisterView(viewsets.ModelViewSet):

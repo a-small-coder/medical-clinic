@@ -1,6 +1,9 @@
 import json
 
+from rest_framework import response
+
 from .serializers.Cart import CartSerializer
+from .serializers.Other import UserSerializer
 from ..models import *
 from .serializers.Analyzes import *
 from rest_framework.authtoken.models import Token
@@ -88,4 +91,5 @@ def create_new_anon():
     new_anonymous_username = f'unknown{new_anon_user_id}'
     new_anonymous = User.objects.create_user(new_anonymous_username)
     token, created = Token.objects.get_or_create(user=new_anonymous)
-    return new_anonymous, token
+    return new_anonymous, token.key
+

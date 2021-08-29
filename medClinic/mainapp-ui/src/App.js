@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { useEffect } from 'react';
 import { setIsAuthAC, setUserDataAC } from './redux/auth-reducer';
 import { setCartAC, switchSpoilerModAC } from './redux/header-reducer';
-import { useCookies } from "react-cookie";
 import './styles/style.css';
 import urlStart, { getApiResponse } from "./support_functions/api_requests";
 import ScrollToTop from "./componets/SupportsComponents/ScrollToTop"
@@ -18,20 +17,9 @@ import InWork from "./componets/InWorkPage/InWork";
 import Footer from "./componets/Footer/Footer";
 
 function App(props) {
-  const [cookies, setCookie] = useCookies(["user"]);
 
   useEffect(() => {
-    let user = getStorageUser()
-    let token
-    if (user){
-      setCookie("user", {USER_ID: user.USER_ID}, {
-        path: "/"
-      });
-      token = user.token
-    }
-    else{
-      token = null
-    }
+    let token = getStorageUserToken()
     getActualUser(token, props.setUserData)
   }, [])
 
@@ -101,23 +89,6 @@ export const MAIN_PAGE_NAME = 'Main'
 export const IN_WORK_PAGE_NAME = 'InWork'
 export const BAD_LINK = 'BadLink'
 
-// export function getUserData(token, setUserData, onBadResponse) {
-//   const userUrl = `${urlStart}auth/users/user-data/`
-//   const setUserFromResponse = (response) => {
-//     const userData = {
-//       userId: response.id,
-//       token: token,
-//       username: response.username,
-//       first_name: response.first_name,
-//       last_name: response.last_name,
-//       email: response.email,
-//       customer: response.customer,
-//     }
-//     setUserData(userData)
-//   }
-//   getApiResponse(userUrl, token, setUserFromResponse, onBadResponse)
-// }
-
 // user cart
 export function getUserCart(token, setCart, onBadResponse){
   const cartUrl = `${urlStart}cart/current_customer_cart/`
@@ -154,11 +125,11 @@ export function getActualUser(token, setUserData){
 }
 
 // localStorage
-export function getStorageUser() {
+export function getStorageUserToken() {
   let user = JSON.parse(localStorage.getItem('user'));
 
-  if (user && user.USER_ID) {
-      return user;
+  if (user && user.token) {
+      return user.token;
   } else {
       return null;
   }
