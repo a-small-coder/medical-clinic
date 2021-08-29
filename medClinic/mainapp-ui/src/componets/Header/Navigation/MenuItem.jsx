@@ -34,7 +34,6 @@ const MenuItem = (props) => {
     
     // for menuItem
     const menuItemLink = "/" + props.category.slug
-    
     let subMenuElements = props.category.sub_categories.map(s => {
         return (
             <MenuSubItem 
@@ -55,20 +54,28 @@ const MenuItem = (props) => {
             setSubListHidden(!subListHidden)
         }
     }
+    if (subMenuElements.length > 0){
+        return (
+            <li className={menuItemClassName}>
+                <div className="menu__link" >{props.category.category}</div>
+    
+                <button type="button"
+                    className={buttonClassName}
+                    onClick={onSpoilerClick}>
+                </button>
+    
+                <ul className={contentClassName}>
+                    {subMenuElements}
+                </ul>
+            </li>
+        );
+    }
     return (
         <li className={menuItemClassName}>
             <Link to={menuItemLink} className="menu__link" >{props.category.category}</Link>
-
-            <button type="button"
-                className={buttonClassName}
-                onClick={onSpoilerClick}>
-            </button>
-
-            <ul className={contentClassName}>
-                {subMenuElements}
-            </ul>
         </li>
     );
+    
 }
 
 export default MenuItem;

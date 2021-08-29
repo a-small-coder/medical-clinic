@@ -1,7 +1,7 @@
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
-import { setIsAuthAC } from './redux/auth-reducer';
+import { setIsAuthAC, setUserDataAC } from './redux/auth-reducer';
 import { setCartAC, switchSpoilerModAC } from './redux/header-reducer';
 import './styles/style.css';
 import urlStart, { getApiResponse } from "./support_functions/api_requests";
@@ -19,20 +19,8 @@ import Footer from "./componets/Footer/Footer";
 function App(props) {
 
   useEffect(() => {
-    if (props.userToken) {
-      // get user data - in future
-      const cartUrl = `${urlStart}cart/current_customer_cart/`
-      const setCartFromResponse = (responseData) => {
-        props.setCart(responseData)
-        props.setIsAuth(true)
-
-      }
-      const onBadResponse = (err) => {
-        console.log(err)
-        props.setIsAuth(false)
-      }
-      getApiResponse(cartUrl, props.userToken, setCartFromResponse, onBadResponse, )
-    }
+    let token = getStorageUserToken()
+    getActualUser(token, props.setUserData, props.setIsAuth)
   }, [])
 
   return (
@@ -41,7 +29,7 @@ function App(props) {
         <ScrollToTop />
         <Header initSpoiler={props.initSpoiler} setSpoilerMode={props.setSpoilerMode}/>
         <Switch>
-          <Redirect exact from={"/catalog"} to={"catalog/all-analyzes"}/>
+          <Route exact path="/catalog" component={Catalog} />
           <Route exact path="/catalog/:category" component={Catalog} />
           <Route exact path="/catalog/:category/:id" component={ProductPageContainer} />
           <Route exact path="/" component={MainPageContainer} />
@@ -74,7 +62,10 @@ let mapDispatchToProps = (dispatch) => {
     },
     setSpoilerMode: (spoilerMode) => {
       dispatch(switchSpoilerModAC(spoilerMode));
-    }
+    },
+    setUserData: (userData) =>{
+      dispatch(setUserDataAC(userData));
+    },
   }
 }
 const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
@@ -97,3 +88,56 @@ export function redirectByPageType(page, exact=false, from=null) {
 export const MAIN_PAGE_NAME = 'Main'
 export const IN_WORK_PAGE_NAME = 'InWork'
 export const BAD_LINK = 'BadLink'
+
+// user cart
+export function getUserCart(token, setCart, onBadResponse){
+  const cartUrl = `${urlStart}cart/current_customer_cart/`
+  const setCartFromResponse = (responseData) => {
+    setCart(responseData)
+  }
+
+  getApiResponse(cartUrl, token, setCartFromResponse, onBadResponse)
+}
+
+
+// user data
+export function getActualUser(token, setUserData, setIsAuth){
+  const url = `${urlStart}auth/users/user-data/`
+  const setUserFromResponse = (response) => {
+    let userData = {
+      userId: response.user.id,
+      username: response.user.username,
+      first_name: response.user.first_name,
+      last_name: response.user.last_name,
+      email: response.user.email,
+      customer: response.user.customer,
+      token: response.token,
+    }
+    if (response.is_anon){
+      userData.username = null
+    }
+    setUserData(userData)
+    setIsAuth(true)
+  }
+
+  getApiResponse(url, token, setUserFromResponse)
+}
+
+// localStorage
+export function getStorageUserToken() {
+  let user = JSON.parse(localStorage.getItem('user'));
+
+  if (user && user.token) {
+      return user.token;
+  } else {
+      return null;
+  }
+}
+
+export function setStorageUser(token) {
+  let user = {
+    token: token
+  }
+  localStorage.setItem('user', JSON.stringify(user));
+}
+

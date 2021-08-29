@@ -10,24 +10,50 @@ import AuthFormControl from './AutorizationTypes/AuthFormControl';
 
 const AuthPageBody = (props) =>{
 
+    function authUser (userdata, errorMessageSetter, errorFieldName) {
+        const loginUrl = "http://127.0.0.1:8000/auth/"
+            
+            const goodResponseHandler = (response)=>{
+                if (response.status === 200){
+                    props.setIsAuth(true)
+                    props.setIsNeedRedirect(true)
+                    props.setUserData({
+                        userId: null,
+                        token: response.data.token,
+                        username: ""
+                    })
+                }           
+            }
+            const badResponseHandler = (err) => {
+                if (err.response.status === 400){
+                    errorMessageSetter(errorFieldName, "Неверный логин или пароль")
+                }
+                
+            }
+            postApiRequest(loginUrl, userdata, goodResponseHandler, badResponseHandler)
+    }
+
     const onSubmitLoginForm = (formData, errorMessageSetter, errorFieldName) =>{
         console.log("Form data", formData)
-        const loginUrl = "http://127.0.0.1:8000/auth/"
+        const userData = JSON.stringify(formData)
+        authUser(userData, errorMessageSetter, errorFieldName)
+    }
+    const onSubmitRegisterForm = (formData, errorMessageSetter, errorFieldName) =>{
+        console.log("Form data", formData)
+        const loginUrl = "http://127.0.0.1:8000/api/auth/register/register_user/"
         const userData = JSON.stringify(formData)
         const goodResponseHandler = (response)=>{
             if (response.status === 200){
-                props.setIsAuth(true)
-                props.setIsNeedRedirect(true)
-                props.setUserData({
-                    userId: null,
-                    token: response.data.token,
-                    username: ""
-                })
+                let userdata = {}
+                console.log("new username", response.data.username)
+                userdata.username = response.data.username
+                userdata.password = formData.password
+                authUser(userdata, errorMessageSetter, errorFieldName)
             }           
         }
         const badResponseHandler = (err) => {
             if (err.response.status === 400){
-                errorMessageSetter(errorFieldName, "Неверный логин или пароль")
+                errorMessageSetter(errorFieldName, err.detail)
             }
             
         }
@@ -51,6 +77,7 @@ const AuthPageBody = (props) =>{
                     <AuthFormControl 
                         control={authType}
                         submitLoginFormHandler={onSubmitLoginForm}
+                        submitRegisterForm={onSubmitRegisterForm}
                         errorHandler={redirectByPageType(BAD_LINK)}
                     />
                 </div>

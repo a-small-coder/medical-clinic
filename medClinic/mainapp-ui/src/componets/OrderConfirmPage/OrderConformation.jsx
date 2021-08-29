@@ -24,7 +24,7 @@ function OrderConformation(props) {
             return (
                 <div key={a.id} className="info-block__propduct-price-item propduct-price-item">
                     <span className="propduct-price-item__title">
-                        {a.analyze.title}
+                        {a.product.title}
                     </span>
                     <span className="propduct-price-item__price _title-standart">
                         {Number(a.final_price)} p

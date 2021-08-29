@@ -1,3 +1,5 @@
+import { setStorageUser } from "../App";
+
 const SET_IS_AUTH = "SET_IS_AUTH";
 const SET_IS_LOADING = "SET_IS_LOADING";
 const SET_IS_NEED_REDIRECT = "SET_IS_NEED_REDIRECT";
@@ -5,13 +7,13 @@ const SET_USER_DATA = "SET_USER_DATA";
 
 
 let initialState = {
-    isAuth : true,
+    isAuth : false,
     isLoading: false,
     isNeedRedirect: false,
     user : {
-        userId: 1,
-        token: "a001e6a862da56a707d8e658ef2f6b9dc421b3f2",
-        username: "admin"
+        // userId: 5,
+        // token: "78ff1b3d6448bf2c08141a9f54053befb30fdcac",
+        // username: "	horse2 white"
     },
     
 }
@@ -36,6 +38,7 @@ const authReducer = (state = initialState, action) =>{
         case SET_USER_DATA: {
             
             let stateCopy = {...state, user: {...action.userData}}
+            setStorageUser(stateCopy.user.token)
             return stateCopy
         }
         default: 
