@@ -1,17 +1,13 @@
-from rest_framework import viewsets, response, status, permissions
+from rest_framework import viewsets, status
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from collections import OrderedDict
 from django.contrib.auth.models import User
 from rest_framework.decorators import action
-from django.contrib.auth import authenticate, login, logout
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
-from django.shortcuts import get_object_or_404
-from rest_framework.authtoken.models import Token
 
 from .utils import *
 from ..models import *
-
 from .serializers.Navigation import *
 from .serializers.Other import *
 from ..models import *

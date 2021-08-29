@@ -14,7 +14,6 @@ class CartViewSet(viewsets.ModelViewSet):
     serializer_class = CartSerializer
     queryset = Cart.objects.all()
     authentication_classes = [TokenAuthentication, SessionAuthentication, BasicAuthentication]
-    # permission_classes = [IsAuthenticated]
 
     @staticmethod
     def get_cart(request):
@@ -28,9 +27,7 @@ class CartViewSet(viewsets.ModelViewSet):
                 cart = Cart.objects.create(owner=customer)
                 cart.save()
             else:
-                print('\n\n', customer, ' hello \n\n')
                 cart = Cart.objects.filter(owner=customer[0], for_anonymous_user=False).first()
-                print('\n\n', cart, ' hello \n\n')
         else:
             cart = get_cart_or_create_for_anon(request)
         return cart
@@ -41,7 +38,6 @@ class CartViewSet(viewsets.ModelViewSet):
             product=product,
             cart=cart
         )
-        print('\n\n', cart_product, ' hello \n\n')
         return cart_product, created
 
     @action(methods=['get'], detail=False)

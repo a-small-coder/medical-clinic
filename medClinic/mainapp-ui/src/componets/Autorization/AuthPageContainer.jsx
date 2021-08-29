@@ -17,7 +17,6 @@ const AuthPageBody = (props) =>{
                 if (response.status === 200){
                     props.setIsAuth(true)
                     props.setIsNeedRedirect(true)
-                    debugger
                     props.setUserData({
                         userId: null,
                         token: response.data.token,

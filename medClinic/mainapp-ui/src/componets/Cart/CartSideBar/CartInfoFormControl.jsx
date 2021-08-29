@@ -9,10 +9,16 @@ function CartInfoFormControl(props) {
     const confirmClickHandler = (e) =>{
         props.history.push("cart/order-conformation")
     }
+    let user = {...props.userData}
+    
     const home_visit_form_init = {}
     if (props.userData){
-        let user = {...props.userData}
-        home_visit_form_init.fullName = `${user.username} ${user.last_name}`
+        if (user.username){
+            home_visit_form_init.fullName = `${user.username} ${user.last_name}`
+        }
+        else{
+            home_visit_form_init.fullName = null
+        }
         home_visit_form_init.address = user.customer.address
         home_visit_form_init.phone = user.customer.phone
         home_visit_form_init.email = user.email

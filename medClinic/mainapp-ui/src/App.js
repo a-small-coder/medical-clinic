@@ -20,7 +20,7 @@ function App(props) {
 
   useEffect(() => {
     let token = getStorageUserToken()
-    getActualUser(token, props.setUserData)
+    getActualUser(token, props.setUserData, props.setIsAuth)
   }, [])
 
   return (
@@ -101,10 +101,9 @@ export function getUserCart(token, setCart, onBadResponse){
 
 
 // user data
-export function getActualUser(token, setUserData){
+export function getActualUser(token, setUserData, setIsAuth){
   const url = `${urlStart}auth/users/user-data/`
   const setUserFromResponse = (response) => {
-    debugger
     let userData = {
       userId: response.user.id,
       username: response.user.username,
@@ -117,8 +116,8 @@ export function getActualUser(token, setUserData){
     if (response.is_anon){
       userData.username = null
     }
-    setStorageUser(userData.userId, userData.token)
     setUserData(userData)
+    setIsAuth(true)
   }
 
   getApiResponse(url, token, setUserFromResponse)
@@ -135,9 +134,8 @@ export function getStorageUserToken() {
   }
 }
 
-export function setStorageUser(user_id, token) {
+export function setStorageUser(token) {
   let user = {
-    USER_ID: user_id,
     token: token
   }
   localStorage.setItem('user', JSON.stringify(user));
