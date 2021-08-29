@@ -38,7 +38,7 @@ const Cart = (props) =>{
     useEffect(() => {
         if (props.userToken) {
             // get user data - in future
-            
+
             // user cart 
             const cartUrl = `${urlStart}cart/current_customer_cart/`
             const setCartFromResponse = (responseData) => {

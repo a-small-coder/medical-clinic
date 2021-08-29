@@ -105,7 +105,11 @@ export function getUserData(token, setUserData, onBadResponse) {
     const userData = {
       userId: response.id,
       token: token,
-      username: response.username
+      username: response.username,
+      first_name: response.first_name,
+      last_name: response.last_name,
+      email: response.email,
+      customer: response.customer,
     }
     setUserData(userData)
   }

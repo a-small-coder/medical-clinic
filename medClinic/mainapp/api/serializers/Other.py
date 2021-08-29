@@ -7,8 +7,8 @@ from ...models import (
     ComplexType,
     AboutUsCategory,
     AboutUsContentBlock,
-    OurAchievements
-    )
+    OurAchievements, Customer
+)
 
 
 class SearchGroupSerializer(serializers.ModelSerializer):
@@ -53,13 +53,25 @@ class OurAchievementsSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    customer = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'password']
+        fields = ['id', 'username', 'first_name', 'last_name', 'password', 'email', 'customer']
         extra_kwargs = {'password': {'write_only': True, 'required': True}}
+
+    @staticmethod
+    def get_customer(obj):
+        return CustomerSerializer(Customer.objects.filter(user=obj), many=False).data
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
         Token.objects.create(user=user)
         return user
+
+
+class CustomerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Customer
+        fields = ['phone', 'address']

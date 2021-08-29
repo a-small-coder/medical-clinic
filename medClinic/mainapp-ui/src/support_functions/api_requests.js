@@ -13,6 +13,7 @@ export function getApiResponse(apiUrl, token=false, goodResponseHandler = standa
     axios.get(apiUrl, {headers: option}).then(response => {
         console.log(response.data)
         goodResponseHandler(response.data)
+        
     }).catch(err => {
         console.log(err)
         badResponseHandler()
@@ -78,6 +79,7 @@ export function standartGoodResponseHandler(response) {
 }
 
 export function standartErrorResponseHandler(err) {
+    debugger
     if (err.response) {
         // Request made and server responded
         console.log(err.response.data);

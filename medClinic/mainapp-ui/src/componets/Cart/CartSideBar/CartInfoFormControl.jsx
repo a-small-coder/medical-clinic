@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import OrderConformationForm from '../../Forms/CartPage/OrderConformationForm';
 import OfficeVisitOption from './OfficeVisitOption';
 
@@ -8,10 +9,18 @@ function CartInfoFormControl(props) {
     const confirmClickHandler = (e) =>{
         props.history.push("cart/order-conformation")
     }
-
+    const home_visit_form_init = {}
+    if (props.userData){
+        let user = {...props.userData}
+        home_visit_form_init.fullName = `${user.username} ${user.last_name}`
+        home_visit_form_init.address = user.customer.address
+        home_visit_form_init.phone = user.customer.phone
+        home_visit_form_init.email = user.email
+    }
+    
     switch (control){
         case 'home':
-            return <OrderConformationForm {...rest}/>
+            return <OrderConformationForm {...rest} init={home_visit_form_init}/>
         case 'in office':
             return <OfficeVisitOption {...rest} type_office={control}/>
         default:
@@ -28,4 +37,14 @@ function CartInfoFormControl(props) {
     }
 }
 
-export default CartInfoFormControl;
+let mapStateToProps = (state) =>{
+    return {
+        userData: state.auth.user
+    }
+}
+let mapDispatchToProps = (dispatch) => {
+    return {}
+}
+const CartInfoFormControlContainer = connect(mapStateToProps, mapDispatchToProps)(CartInfoFormControl);
+
+export default CartInfoFormControlContainer;

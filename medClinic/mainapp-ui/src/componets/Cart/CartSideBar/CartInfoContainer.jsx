@@ -1,6 +1,6 @@
 import React from 'react';
 import OfficeTypeSwitch from './OfficeTypeSwitch'
-import CartInfoFormControl from './CartInfoFormControl'
+import CartInfoFormControlContainer from './CartInfoFormControl'
 import PriceInfoBlock from './PriceInfoBlock';
 
 function CartInfo(props) {
@@ -24,13 +24,12 @@ function CartInfo(props) {
             )
             });
     }
-
     return (
         <div className="cart-side">
             <div className="cart-side__container cart-info">
                 <div className="cart-info__cart-order">
                     <OfficeTypeSwitch type_office={props.type_office} officeOptionHandler={props.setOfficeType}/>
-                    <CartInfoFormControl control={props.type_office} history={props.history}/>
+                    <CartInfoFormControlContainer control={props.type_office} history={props.history}/>
                 </div>
                 
                 <PriceInfoBlock productsElements={productsElements} result_price={result_price}/>

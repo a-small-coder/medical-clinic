@@ -92,7 +92,7 @@ class UserView(viewsets.ModelViewSet):
         user = self.request.user
         if user.is_authenticated:
             return response.Response(UserSerializer(user).data)
-        return response.Response(status=status.HTTP_401_UNAUTHORIZED)
+        return response.Response({'message': 'unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class RegisterView(viewsets.ModelViewSet):
