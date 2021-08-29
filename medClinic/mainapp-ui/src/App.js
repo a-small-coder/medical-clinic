@@ -1,7 +1,7 @@
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
-import { setIsAuthAC } from './redux/auth-reducer';
+import { setIsAuthAC, setUserDataAC } from './redux/auth-reducer';
 import { setCartAC, switchSpoilerModAC } from './redux/header-reducer';
 import './styles/style.css';
 import urlStart, { getApiResponse } from "./support_functions/api_requests";
@@ -20,18 +20,14 @@ function App(props) {
 
   useEffect(() => {
     if (props.userToken) {
-      // get user data - in future
-      const cartUrl = `${urlStart}cart/current_customer_cart/`
-      const setCartFromResponse = (responseData) => {
-        props.setCart(responseData)
-        props.setIsAuth(true)
+      // user data
+      getUserData(props.userToken, props.setUserData,  props.setIsAuth(false))
+      
+      // user cart
+      getUserCart(props.userToken, props.setCart,  props.setIsAuth(false))
 
-      }
-      const onBadResponse = (err) => {
-        console.log(err)
-        props.setIsAuth(false)
-      }
-      getApiResponse(cartUrl, props.userToken, setCartFromResponse, onBadResponse, )
+      props.setIsAuth(true)
+
     }
   }, [])
 
@@ -74,7 +70,10 @@ let mapDispatchToProps = (dispatch) => {
     },
     setSpoilerMode: (spoilerMode) => {
       dispatch(switchSpoilerModAC(spoilerMode));
-    }
+    },
+    setUserData: (userData) =>{
+      dispatch(setUserDataAC(userData));
+    },
   }
 }
 const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
@@ -97,3 +96,28 @@ export function redirectByPageType(page, exact=false, from=null) {
 export const MAIN_PAGE_NAME = 'Main'
 export const IN_WORK_PAGE_NAME = 'InWork'
 export const BAD_LINK = 'BadLink'
+
+
+// user data
+export function getUserData(token, setUserData, onBadResponse) {
+  const userUrl = `${urlStart}auth/users/user-data/`
+  const setUserFromResponse = (response) => {
+    const userData = {
+      userId: response.id,
+      token: token,
+      username: response.username
+    }
+    setUserData(userData)
+  }
+  getApiResponse(userUrl, token, setUserFromResponse, onBadResponse)
+}
+
+// user cart
+export function getUserCart(token, setCart, onBadResponse){
+  const cartUrl = `${urlStart}cart/current_customer_cart/`
+  const setCartFromResponse = (responseData) => {
+    setCart(responseData)
+  }
+
+  getApiResponse(cartUrl, token, setCartFromResponse, onBadResponse)
+}

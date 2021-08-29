@@ -82,36 +82,17 @@ class OurAchievementsViewSet(viewsets.ModelViewSet):
     serializer_class = OurAchievementsSerializer
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserView(viewsets.ModelViewSet):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-
-class AuthViewSet(viewsets.ModelViewSet):
-
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = (permissions.AllowAny,)
-
-    @action(methods=['post'], detail=False, url_path='login')
-    def login_user(self, *args, **kwargs):
-        # print(self.request.data['username'])
-        username = self.request.data['username']
-        password = self.request.data['password']
-        user = authenticate(self.request, username=username, password=password)
-        if user is not None:
-            login(self.request, user)
-            return response.Response({'detail': "User successfully authorized"})
-        user = User.objects.filter(username=username)
-        if user is not None:
-            return response.Response({'detail': "Wrong password"})
-        return response.Response({'detail': 'Wrong username'})
-
-    @action(methods=['get'], detail=False, url_path='logout')
-    def logout_user(self, *args, **kwargs):
-        logout(self.request)
-        return response.Response({'detail': 'User successfully logout'})
+    @action(methods=['get'], detail=False, url_path='user-data')
+    def get_user_data(self, *args, **kwargs):
+        user = self.request.user
+        if user.is_authenticated:
+            return response.Response(UserSerializer(user).data)
+        return response.Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
 class RegisterView(viewsets.ModelViewSet):

@@ -20,8 +20,17 @@ class CartViewSet(viewsets.ModelViewSet):
     def get_cart(request):
         user = request.user
         if user.is_authenticated:
-            cart = Cart.objects.filter(owner=user.customer, for_anonymous_user=False).first()
-            print('\n\n', cart, ' hello \n\n')
+            customer = Customer.objects.filter(user=user)
+
+            if not customer:
+                customer = Customer.objects.create(user=user)
+                customer.save()
+                cart = Cart.objects.create(owner=customer)
+                cart.save()
+            else:
+                print('\n\n', customer, ' hello \n\n')
+                cart = Cart.objects.filter(owner=customer[0], for_anonymous_user=False).first()
+                print('\n\n', cart, ' hello \n\n')
         else:
             cart = get_cart_or_create_for_anon(request)
         return cart
