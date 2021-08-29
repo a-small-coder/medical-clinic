@@ -19,6 +19,9 @@ import Footer from "./componets/Footer/Footer";
 function App(props) {
 
   useEffect(() => {
+
+    // проверка на анонимность юзера, получение его id, токена и корзины
+
     if (props.userToken) {
       // user data
       getUserData(props.userToken, props.setUserData,  props.setIsAuth(false))
@@ -28,6 +31,9 @@ function App(props) {
 
       props.setIsAuth(true)
 
+    }
+    else {
+      getAnonumousUserId()
     }
   }, [])
 
@@ -125,3 +131,29 @@ export function getUserCart(token, setCart, onBadResponse){
 
   getApiResponse(cartUrl, token, setCartFromResponse, onBadResponse)
 }
+
+export function getAnonumousUserId(setUserData){
+  const cartUrl = `${urlStart}auth/users/check-for-anon/`
+  const setCartFromResponse = (responseData) => {
+    let userData = {
+      userId: responseData.user_id,
+      username: null,
+      token: responseData.token,
+    }
+    localStorage.setItem('userId', JSON.stringify(userData.userId));
+    setUserData(userData)
+  }
+
+  getApiResponse(cartUrl, null, setCartFromResponse)
+}
+
+export function authHeader() {
+  let user = JSON.parse(localStorage.getItem('user'));
+
+  if (user && user.token) {
+      return { 'Authorization': 'Token ' + user.token };
+  } else {
+      return {};
+  }
+}
+

@@ -3,7 +3,7 @@ import json
 from .serializers.Cart import CartSerializer
 from ..models import *
 from .serializers.Analyzes import *
-
+from rest_framework.authtoken.models import Token
 
 def get_cookie_cart(request):
     # Create empty cart for now for non-logged in user
@@ -80,3 +80,11 @@ def get_cart_or_create_for_anon(request):
             cartItem.save()
         print(cart, cart.id, sep=' | ')
     return cart
+
+
+def create_new_anon():
+    user_last_id = User.objects.all().last().id
+    new_anonymous_username = f'unknown{user_last_id}'
+    new_anonymous = User.objects.create_user(new_anonymous_username)
+    token = Token.objects.get_or_create(user=new_anonymous)
+    return new_anonymous

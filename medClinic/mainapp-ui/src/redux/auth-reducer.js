@@ -5,13 +5,13 @@ const SET_USER_DATA = "SET_USER_DATA";
 
 
 let initialState = {
-    isAuth : true,
+    isAuth : false,
     isLoading: false,
     isNeedRedirect: false,
     user : {
-        userId: 5,
-        token: "78ff1b3d6448bf2c08141a9f54053befb30fdcac",
-        username: "	horse2 white"
+        // userId: 5,
+        // token: "78ff1b3d6448bf2c08141a9f54053befb30fdcac",
+        // username: "	horse2 white"
     },
     
 }
