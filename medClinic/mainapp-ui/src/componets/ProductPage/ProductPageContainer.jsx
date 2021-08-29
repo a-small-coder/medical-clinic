@@ -97,6 +97,7 @@ export default ProductPageContainer;
 function getProductData(productLink, setProduct, setNeedRender) {
     const url = `${urlStart}${productLink}`
     const goodResponseHandler = (response) =>{
+        // debugger
         let product = response
         let isAcomplex = product.complex_type != null
         if (!isAcomplex){

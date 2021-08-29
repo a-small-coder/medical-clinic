@@ -140,7 +140,7 @@ export default ProductsContainer;
 
 export function isProductInCart (id, cartProducts) {
     for (let product of cartProducts){
-        if (id === product.analyze.id){
+        if (id === product.product.id){
             return true
         }
     }
@@ -149,7 +149,7 @@ export function isProductInCart (id, cartProducts) {
 
 export function getProductInCartId (productId, cartProducts) {
     for (let product of cartProducts){
-        if (productId === product.analyze.id){
+        if (productId === product.product.id){
             return product.id
         }
     }

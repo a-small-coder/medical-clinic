@@ -8,14 +8,14 @@ function CartInfo(props) {
 
     let productsElements
     let result_price = 0
-    if (props.products != null){
+    if (props.products && props.products.length > 0){
         productsElements = props.products.map(
             a => {
                 result_price += Number(a.final_price)
             return (
                 <div key={a.id} className="info-block__propduct-price-item propduct-price-item">
                     <span className="propduct-price-item__title">
-                        {a.analyze.title}
+                        {a.product.title}
                     </span>
                     <span className="propduct-price-item__price _title-standart">
                         {Number(a.final_price)} p
