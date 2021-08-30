@@ -79,7 +79,6 @@ export function standartGoodResponseHandler(response) {
 }
 
 export function standartErrorResponseHandler(err) {
-    debugger
     if (err.response) {
         // Request made and server responded
         console.log(err.response.data);
@@ -95,3 +94,38 @@ export function standartErrorResponseHandler(err) {
 }
 
 export default SERVER_API_START_URL
+
+// user cart
+export function getUserCart(token, setCart, onBadResponse){
+    const cartUrl = `${SERVER_API_START_URL}cart/current_customer_cart/`
+    const setCartFromResponse = (responseData) => {
+      setCart(responseData)
+    }
+  
+    getApiResponse(cartUrl, token, setCartFromResponse, onBadResponse)
+  }
+  
+  
+  // user data
+  export function getActualUser(token, setUserData, setIsAuth){
+    const url = `${SERVER_API_START_URL}auth/users/user-data/`
+    const setUserFromResponse = (response) => {
+      let userData = {
+        userId: response.user.id,
+        username: response.user.username,
+        first_name: response.user.first_name,
+        last_name: response.user.last_name,
+        email: response.user.email,
+        customer: response.user.customer,
+        token: response.token,
+      }
+      if (response.is_anon){
+        userData.username = null
+      }
+      setUserData(userData)
+      setIsAuth(true)
+    }
+  
+    getApiResponse(url, token, setUserFromResponse)
+  }
+  

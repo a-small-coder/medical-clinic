@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { setIsAuthAC, setUserDataAC } from './redux/auth-reducer';
 import { setCartAC, switchSpoilerModAC } from './redux/header-reducer';
 import './styles/style.css';
-import urlStart, { getApiResponse } from "./support_functions/api_requests";
+import { getActualUser} from "./support_functions/api_requests";
 import ScrollToTop from "./componets/SupportsComponents/ScrollToTop"
 import Header from "./componets/Header/Header"
 import Catalog from "./componets/Catalog/Catalog"
@@ -15,6 +15,7 @@ import CartContainer from "./componets/Cart/CartContainer";
 import OrderConformationContainer from "./componets/OrderConfirmPage/OrderConformation";
 import InWork from "./componets/InWorkPage/InWork";
 import Footer from "./componets/Footer/Footer";
+import { getStorageUserToken } from "./support_functions/utils";
 
 function App(props) {
 
@@ -90,58 +91,3 @@ export const MAIN_PAGE_NAME = 'Main'
 export const IN_WORK_PAGE_NAME = 'InWork'
 export const BAD_LINK = 'BadLink'
 
-// user cart
-export function getUserCart(token, setCart, onBadResponse){
-  const cartUrl = `${urlStart}cart/current_customer_cart/`
-  const setCartFromResponse = (responseData) => {
-    setCart(responseData)
-  }
-
-  getApiResponse(cartUrl, token, setCartFromResponse, onBadResponse)
-}
-
-
-// user data
-export function getActualUser(token, setUserData, setIsAuth){
-  const url = `${urlStart}auth/users/user-data/`
-  const setUserFromResponse = (response) => {
-    let userData = {
-      userId: response.user.id,
-      username: response.user.username,
-      first_name: response.user.first_name,
-      last_name: response.user.last_name,
-      email: response.user.email,
-      customer: response.user.customer,
-      token: response.token,
-    }
-    if (response.is_anon){
-      userData.username = null
-    }
-    setUserData(userData)
-    setIsAuth(true)
-  }
-
-  getApiResponse(url, token, setUserFromResponse)
-}
-
-// localStorage
-export function getStorageUserToken() {
-  let user = JSON.parse(localStorage.getItem('user'));
-
-  if (user && user.token) {
-      return user.token;
-  } else {
-      return null;
-  }
-}
-
-export function setStorageUser(token) {
-  let user = {
-    token: token
-  }
-  localStorage.setItem('user', JSON.stringify(user));
-}
-
-export function removeStorageUser(){
-  localStorage.removeItem('user')
-}

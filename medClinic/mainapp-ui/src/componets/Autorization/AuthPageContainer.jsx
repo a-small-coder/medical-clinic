@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
-import React, { useState } from 'react';
+import React from 'react';
 import { postApiRequest } from '../../support_functions/api_requests';
 import { setIsAuthAC, setIsLoadingAC, setIsNeedRedirectAC, setUserDataAC } from '../../redux/auth-reducer';
 import '../../styles/Autorization/Autorization.scss';
 import '../../styles/Forms/Forms.scss';
-import { BAD_LINK, MAIN_PAGE_NAME, redirectByPageType, removeStorageUser, setStorageUser } from '../../App';
+import { BAD_LINK, MAIN_PAGE_NAME, redirectByPageType} from '../../App';
 import LoadingSheme from '../SupportsComponents/LoadingSheme';
 import AuthFormControl from './AutorizationTypes/AuthFormControl';
+import { setStorageUser, removeStorageUser } from '../../support_functions/utils';
 
 const AuthPageBody = (props) =>{
 
