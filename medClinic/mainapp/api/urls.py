@@ -22,5 +22,6 @@ router.register('cart', CartViewSet, basename='cart')
 router.register('achievements', OurAchievementsViewSet, basename='achievements')
 router.register('auth/users', UserView, basename='users')
 router.register('auth/register', RegisterView, basename='registration')
+router.register('orders', OrderView, basename='order')
 urlpatterns = []
 urlpatterns += router.urls

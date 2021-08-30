@@ -3,9 +3,9 @@ import json
 from django.db import models
 from django.contrib.auth import get_user_model
 # Create your models here.
+from django.utils import timezone
 
 User = get_user_model()
-
 male = 'male'
 female = "female"
 any_gender = 'any'
@@ -265,15 +265,18 @@ class Customer(models.Model):
 
 class Order(models.Model):
 
-    customer = models.OneToOneField(Customer, verbose_name='Покупатель', on_delete=models.PROTECT)
-    cart = models.OneToOneField(Cart, verbose_name='Товары', on_delete=models.PROTECT)
+    customer = models.ForeignKey(Customer, verbose_name='Покупатель', on_delete=models.PROTECT)
+    cart = models.ForeignKey(Cart, verbose_name='Товары', on_delete=models.PROTECT)
     place = models.CharField(max_length=255, verbose_name='Адрес', null=True)
     place_type = models.CharField(max_length=8, choices=ADDRESS_TYPE, default=None, verbose_name='Тип адреса')
     status = models.CharField(max_length=32, choices=ORDER_STATUSES, default=IN_PROCESSING, verbose_name='Статус')
-    date_create = models.DateTimeField(verbose_name='Дата создания', auto_created=True)
-    date_done = models.DateTimeField(verbose_name='Даза завершения', default=None, blank=True)
+    date_create = models.DateTimeField(verbose_name='Дата создания', default=timezone.now)
+    date_done = models.DateTimeField(verbose_name='Дата завершения (автоматически)', null=True, default=None, blank=True)
 
     def __str__(self):
         return f'Заказ №{self.id} {self.customer}'
 
-
+    def save(self, *args, **kwargs):
+        if self.status == "COMPLETED" or self.status == "CANCELED":
+            self.date_done = timezone.now()
+        super(Order, self).save(*args, **kwargs)

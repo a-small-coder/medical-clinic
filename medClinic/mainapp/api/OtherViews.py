@@ -122,3 +122,26 @@ class RegisterView(viewsets.ModelViewSet):
             return response.Response({'detail': 'User successfully register', 'username': username}, status=status.HTTP_200_OK)
         return response.Response({'detail': 'Email уже привязан к другому аккаунту'}, status=status.HTTP_400_BAD_REQUEST)
 
+
+class OrderView(viewsets.ModelViewSet):
+
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+    @action(methods=['post'], detail=False, url_path='create')
+    def create_order(self, *args, **kwargs):
+        customer = Customer.objects.get(user=self.request.user)
+        cart_id = self.request.data['cart_id']
+        cart = Cart.objects.get(pk=cart_id)
+        place_type_key = int(self.request.data['place_type'])  # 0 or 1
+        place_type = ADDRESS_TYPE[place_type_key][0]
+        Order.objects.create(customer=customer, cart=cart, place_type=place_type)
+        return response.Response({'detail': 'success'}, status=status.HTTP_200_OK)
+
+    @action(methods=['get'], detail=False, url_path='current_user_orders')
+    def get_user_orders(self, *args, **kwargs):
+        customer = Customer.objects.get(user=self.request.user)
+        orders = Order.objects.filter(customer=customer)
+        if orders:
+            return response.Response(OrderSerializer(orders, many=True).data)
+        return response.Response({'detail': 'Current user has no orders'}, status=status.HTTP_204_NO_CONTENT)
