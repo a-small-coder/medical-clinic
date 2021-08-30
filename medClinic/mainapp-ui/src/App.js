@@ -21,6 +21,7 @@ function App(props) {
   useEffect(() => {
     let token = getStorageUserToken()
     getActualUser(token, props.setUserData, props.setIsAuth)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -141,3 +142,6 @@ export function setStorageUser(token) {
   localStorage.setItem('user', JSON.stringify(user));
 }
 
+export function removeStorageUser(){
+  localStorage.removeItem('user')
+}
