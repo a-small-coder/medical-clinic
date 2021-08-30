@@ -37,15 +37,20 @@ export function putApiRequest(apiUrl, token=false, goodResponseHandler = standar
     })
     
 }
-export function postApiRequest(apiUrl, data, goodResponseHandler = standartGoodResponseHandler, badResponseHandler = standartErrorResponseHandler) {
+export function postApiRequest(apiUrl, data, goodResponseHandler = standartGoodResponseHandler, badResponseHandler = standartErrorResponseHandler, token=false) {
     console.log(`Send post request: ${apiUrl}`)
+    const option = {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    if (token){
+        option["Authorization"] = `Token ${token}`
+        console.log(`With token: ${token}`)
+    }
     axios({
         method: 'post',
         url: apiUrl,
         data: data,
-        headers: {
-          "Content-type": "application/json; charset=UTF-8"
-        }
+        headers: option
       }).then(response => {
         goodResponseHandler(response)
     }).catch((err) =>{
@@ -79,7 +84,6 @@ export function standartGoodResponseHandler(response) {
 }
 
 export function standartErrorResponseHandler(err) {
-    debugger
     if (err.response) {
         // Request made and server responded
         console.log(err.response.data);
@@ -95,3 +99,48 @@ export function standartErrorResponseHandler(err) {
 }
 
 export default SERVER_API_START_URL
+
+// user cart
+export function getUserCart(token, setCart, onBadResponse){
+    const cartUrl = `${SERVER_API_START_URL}cart/current_customer_cart/`
+    const setCartFromResponse = (responseData) => {
+      setCart(responseData)
+    }
+  
+    getApiResponse(cartUrl, token, setCartFromResponse, onBadResponse)
+  }
+  
+  
+  // user data
+  export function getActualUser(token, setUserData, setIsAuth){
+    const url = `${SERVER_API_START_URL}auth/users/user-data/`
+    const setUserFromResponse = (response) => {
+      let userData = {
+        userId: response.user.id,
+        username: response.user.username,
+        first_name: response.user.first_name,
+        last_name: response.user.last_name,
+        email: response.user.email,
+        customer: response.user.customer,
+        token: response.token,
+        is_anon: response.is_anon,
+      }
+      setUserData(userData)
+      setIsAuth(true)
+    }
+  
+    getApiResponse(url, token, setUserFromResponse)
+  }
+
+export function createOrder(token, data, setCart){
+    const url = `${SERVER_API_START_URL}orders/create/`
+    const setNewCartResponse = (response) => {
+        if (response.cart.products == null){
+            response.cart.products = []
+        }
+        setCart(response.cart)
+      }
+    debugger
+    postApiRequest(url, data, setNewCartResponse, ()=>{}, token)
+}
+  

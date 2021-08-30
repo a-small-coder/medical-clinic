@@ -2,13 +2,8 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
-from ...models import (
-    SearchGroup,
-    ComplexType,
-    AboutUsCategory,
-    AboutUsContentBlock,
-    OurAchievements, Customer
-)
+from .Cart import CartSerializer
+from ...models import *
 
 
 class SearchGroupSerializer(serializers.ModelSerializer):
@@ -75,3 +70,13 @@ class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = ['phone', 'address']
+
+
+class OrderSerializer(serializers.ModelSerializer):
+
+    customer = CustomerSerializer()
+    cart = CartSerializer()
+
+    class Meta:
+        model = Order
+        fields = ['id', 'customer', 'cart', 'place_type', 'place', 'status', 'date_create', 'date_done']

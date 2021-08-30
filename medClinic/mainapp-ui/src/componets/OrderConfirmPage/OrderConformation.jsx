@@ -1,11 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { setCookie } from 'react-use-cookie';
+import { setCartAC } from '../../redux/header-reducer';
 import '../../styles/OrderConfirmPage/OrderConfirmPage.scss';
+import { createOrder } from '../../support_functions/api_requests';
 import PriceInfoBlock from '../Cart/CartSideBar/PriceInfoBlock';
-import ButtonsBlock from '../SupportsComponents/ButtonsBlock';
 import TopBlockTitle from '../SupportsComponents/TopBlockTitle';
+import CreateOrder from './CreateOrder';
 
 function OrderConformation(props) {
+
+    const saveCart = (cart_id, place) => {
+        setCookie('cart_id', cart_id);
+        setCookie('place_type', place);
+        setCookie('make_order', true);
+    };
 
     const TitleWrapperClass = "order-conformation-page__top-block"
     const page_title = "Подтверждение Заказа"
@@ -35,7 +44,34 @@ function OrderConformation(props) {
     }
 
     const confirmClickHandler = (e) =>{
+        setCookie('make_order', false);
+        const data = {
+            cart_id: props.cart.id,
+        }
+        let place
+        if (props.order.type_office === 'office'){
+            place = 0
+        }else {
+            place = 1
+        }
+        data.place_type = place
+        debugger
+        createOrder(props.userToken, data, props.setCart)
         props.history.push("/user/profile/orders")
+    }
+    const btnActions = {
+        auth: (path) => {
+            let place
+            debugger
+            if (props.order.type_office === 'in office'){
+                place = 0
+            }else {
+                place = 1
+            }
+
+            saveCart(props.cart.id, place)
+            props.history.push(path)
+        },
     }
 
     return (
@@ -57,40 +93,7 @@ function OrderConformation(props) {
                                 result_price={result_price}
                             />
                         </div>
-                        <div className="order-conformation-page__confirm-block confirm-block-order">
-                            <div className="confirm-block-order__confirm confirm-order">
-                                <button
-                                    className="confirm-order__confirm-btn btn _circle-btn _filled-btn _green"
-                                    disabled={!props.isAuth}
-                                    onClick={confirmClickHandler}
-                                >
-                                    ОФОРМИТЬ ЗАКАЗ
-                                </button>
-
-                                {
-                                    !props.isAuth ?
-                                        <div className="confirm-order__error-message message-block _orange">
-                                            Необходио авторизоваться
-                                        </div>
-                                        : null
-                                }
-
-                            </div>
-                            {
-
-                                !props.isAuth ?
-                                    <div className="confirm-block-order__autorization autorization-order">
-                                        <h5 className="autorization-order__title _title-standart">
-                                            Авторизация
-                                        </h5>
-                                        <ButtonsBlock
-                                            redirectToAuthPage={true}
-                                            wrapperClass={"autorization-order__button-block"}
-                                        />
-                                    </div>
-                                    : null
-                            }
-                        </div>
+                        <CreateOrder confirmClickHandler={confirmClickHandler} needAuth={props.is_anon} btnActions={btnActions}/>
                     </div>
                 </div>
             </section>
@@ -103,11 +106,16 @@ let mapStateToProps = (state)=>{
         cart: state.header.cart,
         userToken: state.auth.user.token,
         isAuth: state.auth.isAuth,
+        is_anon: state.auth.user.is_anon,
         order: state.order,
     }
 }
 let mapDispatchToProps = (dispatch)=>{
-    return {}
+    return {
+        setCart: (cart) =>{
+            dispatch(setCartAC(cart));
+        },
+    }
 }
 const OrderConformationContainer = connect(mapStateToProps, mapDispatchToProps)(OrderConformation);
 

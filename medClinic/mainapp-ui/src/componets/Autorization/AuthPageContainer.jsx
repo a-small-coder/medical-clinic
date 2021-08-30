@@ -4,13 +4,14 @@ import { postApiRequest } from '../../support_functions/api_requests';
 import { setIsAuthAC, setIsLoadingAC, setIsNeedRedirectAC, setUserDataAC } from '../../redux/auth-reducer';
 import '../../styles/Autorization/Autorization.scss';
 import '../../styles/Forms/Forms.scss';
-import { BAD_LINK, MAIN_PAGE_NAME, redirectByPageType } from '../../App';
+import { BAD_LINK, MAIN_PAGE_NAME, redirectByPageType} from '../../App';
 import LoadingSheme from '../SupportsComponents/LoadingSheme';
 import AuthFormControl from './AutorizationTypes/AuthFormControl';
+import { setStorageUser, removeStorageUser } from '../../support_functions/utils';
 
 const AuthPageBody = (props) =>{
 
-    function authUser (userdata, errorMessageSetter, errorFieldName) {
+    function authUser (userdata, errorMessageSetter, errorFieldName, needRemember=false) {
         const loginUrl = "http://127.0.0.1:8000/auth/"
             
             const goodResponseHandler = (response)=>{
@@ -22,6 +23,12 @@ const AuthPageBody = (props) =>{
                         token: response.data.token,
                         username: ""
                     })
+                    if (needRemember){
+                        setStorageUser(response.data.token)
+                    }
+                    else{
+                        removeStorageUser()
+                    }
                 }           
             }
             const badResponseHandler = (err) => {
@@ -36,7 +43,7 @@ const AuthPageBody = (props) =>{
     const onSubmitLoginForm = (formData, errorMessageSetter, errorFieldName) =>{
         console.log("Form data", formData)
         const userData = JSON.stringify(formData)
-        authUser(userData, errorMessageSetter, errorFieldName)
+        authUser(userData, errorMessageSetter, errorFieldName, formData.rememberMe)
     }
     const onSubmitRegisterForm = (formData, errorMessageSetter, errorFieldName) =>{
         console.log("Form data", formData)

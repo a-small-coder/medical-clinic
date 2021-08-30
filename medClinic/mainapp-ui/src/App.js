@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { setIsAuthAC, setUserDataAC } from './redux/auth-reducer';
 import { setCartAC, switchSpoilerModAC } from './redux/header-reducer';
 import './styles/style.css';
-import urlStart, { getApiResponse } from "./support_functions/api_requests";
+import { createOrder, getActualUser} from "./support_functions/api_requests";
 import ScrollToTop from "./componets/SupportsComponents/ScrollToTop"
 import Header from "./componets/Header/Header"
 import Catalog from "./componets/Catalog/Catalog"
@@ -15,13 +15,23 @@ import CartContainer from "./componets/Cart/CartContainer";
 import OrderConformationContainer from "./componets/OrderConfirmPage/OrderConformation";
 import InWork from "./componets/InWorkPage/InWork";
 import Footer from "./componets/Footer/Footer";
+import { getStorageUserToken } from "./support_functions/utils";
+import { getCookie, setCookie } from 'react-use-cookie';
 
 function App(props) {
 
   useEffect(() => {
     let token = getStorageUserToken()
     getActualUser(token, props.setUserData, props.setIsAuth)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+  console.log('state', props.state)
+
+  const goToOrders = (path) =>{
+    return <Redirect to={path}/>
+  }
+
+  createOrderAfterAuth(props.user, createOrder, props.setCart, goToOrders)
 
   return (
     <BrowserRouter>
@@ -49,6 +59,8 @@ let mapStateToProps = (state) => {
     initSpoiler: state.header.nav.initSpoiler,
     cart: state.header.cart,
     userToken: state.auth.user.token,
+    user: state.auth.user,
+    state: state,
   }
 }
 
@@ -89,55 +101,18 @@ export const MAIN_PAGE_NAME = 'Main'
 export const IN_WORK_PAGE_NAME = 'InWork'
 export const BAD_LINK = 'BadLink'
 
-// user cart
-export function getUserCart(token, setCart, onBadResponse){
-  const cartUrl = `${urlStart}cart/current_customer_cart/`
-  const setCartFromResponse = (responseData) => {
-    setCart(responseData)
-  }
-
-  getApiResponse(cartUrl, token, setCartFromResponse, onBadResponse)
-}
-
-
-// user data
-export function getActualUser(token, setUserData, setIsAuth){
-  const url = `${urlStart}auth/users/user-data/`
-  const setUserFromResponse = (response) => {
-    let userData = {
-      userId: response.user.id,
-      username: response.user.username,
-      first_name: response.user.first_name,
-      last_name: response.user.last_name,
-      email: response.user.email,
-      customer: response.user.customer,
-      token: response.token,
+export function createOrderAfterAuth(user, createOrder, setCart, goToOrders=()=>{}) {
+  let make_order = getCookie('make_order')
+  if (make_order == true) {
+    debugger
+    if (user && !user.is_anon) {
+      const data = {
+        cart_id: getCookie('cart_id'),
+        place_type: getCookie('place_type')
     }
-    if (response.is_anon){
-      userData.username = null
+      createOrder(user.token, data, setCart)
+      setCookie('make_order', false);
+      goToOrders("/user/profile/orders")
     }
-    setUserData(userData)
-    setIsAuth(true)
-  }
-
-  getApiResponse(url, token, setUserFromResponse)
-}
-
-// localStorage
-export function getStorageUserToken() {
-  let user = JSON.parse(localStorage.getItem('user'));
-
-  if (user && user.token) {
-      return user.token;
-  } else {
-      return null;
   }
 }
-
-export function setStorageUser(token) {
-  let user = {
-    token: token
-  }
-  localStorage.setItem('user', JSON.stringify(user));
-}
-

@@ -24,12 +24,14 @@ class CartViewSet(viewsets.ModelViewSet):
             if not customer:
                 customer = Customer.objects.create(user=user)
                 customer.save()
-                cart = Cart.objects.create(owner=customer)
+                is_anon = user.username == f'unknown{user.id}'
+                cart = Cart.objects.create(owner=customer, for_anonymous_user=is_anon)
                 cart.save()
             else:
-                cart = Cart.objects.filter(owner=customer[0], for_anonymous_user=False).first()
+                cart = Cart.objects.filter(owner=customer[0]).first()
         else:
-            cart = get_cart_or_create_for_anon(request)
+            print('\n\n', user, ' hello \n\n')
+            cart, created = Cart.objects.create(for_anonymous_user=True)
         return cart
 
     @staticmethod
@@ -51,6 +53,7 @@ class CartViewSet(viewsets.ModelViewSet):
         cart = self.get_cart(self.request)
         product = get_object_or_404(Product, id=kwargs['product_id'])
         print('\n\n', product, ' hello \n\n')
+        print('\n\n', cart, ' hello \n\n')
         cart_product, created = self._get_or_create_cart_product(cart, product)
 
         if created:

@@ -12,7 +12,7 @@ function CartInfoFormControl(props) {
     let user = {...props.userData}
     
     const home_visit_form_init = {}
-    if (props.userData){
+    if (user && !user.is_anon){
         if (user.username){
             home_visit_form_init.fullName = `${user.username} ${user.last_name}`
         }
