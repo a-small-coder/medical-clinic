@@ -132,14 +132,15 @@ export function getUserCart(token, setCart, onBadResponse){
     getApiResponse(url, token, setUserFromResponse)
   }
 
-export function createOrder(token, cart, setCart){
-    const url = `${SERVER_API_START_URL}order/create-order/`
+export function createOrder(token, data, setCart){
+    const url = `${SERVER_API_START_URL}orders/create/`
     const setNewCartResponse = (response) => {
         if (response.cart.products == null){
             response.cart.products = []
         }
         setCart(response.cart)
       }
-    postApiRequest(url, cart, setNewCartResponse, ()=>{}, token)
+    debugger
+    postApiRequest(url, data, setNewCartResponse, ()=>{}, token)
 }
   

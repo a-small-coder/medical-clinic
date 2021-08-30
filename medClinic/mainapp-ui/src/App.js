@@ -28,7 +28,7 @@ function App(props) {
   console.log('state', props.state)
 
   const goToOrders = (path) =>{
-    props.history.push(path)
+    return <Redirect to={path}/>
   }
 
   createOrderAfterAuth(props.user, createOrder, props.setCart, goToOrders)
@@ -103,10 +103,14 @@ export const BAD_LINK = 'BadLink'
 
 export function createOrderAfterAuth(user, createOrder, setCart, goToOrders=()=>{}) {
   let make_order = getCookie('make_order')
-  if (make_order) {
+  if (make_order == true) {
+    debugger
     if (user && !user.is_anon) {
-      const cart = getCookie('cart');
-      createOrder(user.token, cart, setCart)
+      const data = {
+        cart_id: getCookie('cart_id'),
+        place_type: getCookie('place_type')
+    }
+      createOrder(user.token, data, setCart)
       setCookie('make_order', false);
       goToOrders("/user/profile/orders")
     }

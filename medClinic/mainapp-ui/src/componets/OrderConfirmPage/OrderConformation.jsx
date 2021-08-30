@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { setCookie } from 'react-use-cookie';
+import { setCartAC } from '../../redux/header-reducer';
 import '../../styles/OrderConfirmPage/OrderConfirmPage.scss';
 import { createOrder } from '../../support_functions/api_requests';
 import PriceInfoBlock from '../Cart/CartSideBar/PriceInfoBlock';
@@ -9,8 +10,9 @@ import CreateOrder from './CreateOrder';
 
 function OrderConformation(props) {
 
-    const saveCart = cart => {
-        setCookie('cart', cart);
+    const saveCart = (cart_id, place) => {
+        setCookie('cart_id', cart_id);
+        setCookie('place_type', place);
         setCookie('make_order', true);
     };
 
@@ -43,12 +45,31 @@ function OrderConformation(props) {
 
     const confirmClickHandler = (e) =>{
         setCookie('make_order', false);
-        createOrder(props.userToken, props.cart)
+        const data = {
+            cart_id: props.cart.id,
+        }
+        let place
+        if (props.order.type_office === 'office'){
+            place = 0
+        }else {
+            place = 1
+        }
+        data.place_type = place
+        debugger
+        createOrder(props.userToken, data, props.setCart)
         props.history.push("/user/profile/orders")
     }
     const btnActions = {
         auth: (path) => {
-            saveCart(props.cart)
+            let place
+            debugger
+            if (props.order.type_office === 'in office'){
+                place = 0
+            }else {
+                place = 1
+            }
+
+            saveCart(props.cart.id, place)
             props.history.push(path)
         },
     }
@@ -90,7 +111,11 @@ let mapStateToProps = (state)=>{
     }
 }
 let mapDispatchToProps = (dispatch)=>{
-    return {}
+    return {
+        setCart: (cart) =>{
+            dispatch(setCartAC(cart));
+        },
+    }
 }
 const OrderConformationContainer = connect(mapStateToProps, mapDispatchToProps)(OrderConformation);
 
