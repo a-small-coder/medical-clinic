@@ -37,15 +37,20 @@ export function putApiRequest(apiUrl, token=false, goodResponseHandler = standar
     })
     
 }
-export function postApiRequest(apiUrl, data, goodResponseHandler = standartGoodResponseHandler, badResponseHandler = standartErrorResponseHandler) {
+export function postApiRequest(apiUrl, data, goodResponseHandler = standartGoodResponseHandler, badResponseHandler = standartErrorResponseHandler, token=false) {
     console.log(`Send post request: ${apiUrl}`)
+    const option = {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    if (token){
+        option["Authorization"] = `Token ${token}`
+        console.log(`With token: ${token}`)
+    }
     axios({
         method: 'post',
         url: apiUrl,
         data: data,
-        headers: {
-          "Content-type": "application/json; charset=UTF-8"
-        }
+        headers: option
       }).then(response => {
         goodResponseHandler(response)
     }).catch((err) =>{
@@ -126,4 +131,15 @@ export function getUserCart(token, setCart, onBadResponse){
   
     getApiResponse(url, token, setUserFromResponse)
   }
+
+export function createOrder(token, cart, setCart){
+    const url = `${SERVER_API_START_URL}order/create-order/`
+    const setNewCartResponse = (response) => {
+        if (response.cart.products == null){
+            response.cart.products = []
+        }
+        setCart(response.cart)
+      }
+    postApiRequest(url, cart, setNewCartResponse, ()=>{}, token)
+}
   

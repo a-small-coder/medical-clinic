@@ -43,7 +43,6 @@ const AuthPageBody = (props) =>{
     const onSubmitLoginForm = (formData, errorMessageSetter, errorFieldName) =>{
         console.log("Form data", formData)
         const userData = JSON.stringify(formData)
-        debugger
         authUser(userData, errorMessageSetter, errorFieldName, formData.rememberMe)
     }
     const onSubmitRegisterForm = (formData, errorMessageSetter, errorFieldName) =>{

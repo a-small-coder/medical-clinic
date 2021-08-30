@@ -25,6 +25,7 @@ function CreateOrder(props) {
                     </h5>
                     <ButtonsBlock
                         redirectToAuthPage={true}
+                        btnActions={props.btnActions}
                         wrapperClass={"autorization-order__button-block"}
                     />
                 </div>

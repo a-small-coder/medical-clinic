@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { setCookie } from 'react-use-cookie';
 import '../../styles/OrderConfirmPage/OrderConfirmPage.scss';
+import { createOrder } from '../../support_functions/api_requests';
 import PriceInfoBlock from '../Cart/CartSideBar/PriceInfoBlock';
 import TopBlockTitle from '../SupportsComponents/TopBlockTitle';
 import CreateOrder from './CreateOrder';
@@ -41,8 +42,15 @@ function OrderConformation(props) {
     }
 
     const confirmClickHandler = (e) =>{
+        setCookie('make_order', false);
+        createOrder(props.userToken, props.cart)
         props.history.push("/user/profile/orders")
-        saveCart(props.cart)
+    }
+    const btnActions = {
+        auth: (path) => {
+            saveCart(props.cart)
+            props.history.push(path)
+        },
     }
 
     return (
@@ -64,7 +72,7 @@ function OrderConformation(props) {
                                 result_price={result_price}
                             />
                         </div>
-                        <CreateOrder confirmClickHandler={confirmClickHandler} needAuth={props.is_anon}/>
+                        <CreateOrder confirmClickHandler={confirmClickHandler} needAuth={props.is_anon} btnActions={btnActions}/>
                     </div>
                 </div>
             </section>
