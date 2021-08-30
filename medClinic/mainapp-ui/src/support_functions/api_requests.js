@@ -118,9 +118,7 @@ export function getUserCart(token, setCart, onBadResponse){
         email: response.user.email,
         customer: response.user.customer,
         token: response.token,
-      }
-      if (response.is_anon){
-        userData.username = null
+        is_anon: response.is_anon,
       }
       setUserData(userData)
       setIsAuth(true)

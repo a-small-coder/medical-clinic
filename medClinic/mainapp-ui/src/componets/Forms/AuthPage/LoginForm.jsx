@@ -23,7 +23,6 @@ function LoginForm(props){
 
     const onSubmit = (values, helpers) =>{
         values.rememberMe = values.rememberMe.length > 0
-        debugger
         props.handlerSubmit(values, helpers.setFieldError, 'password')
     }
 

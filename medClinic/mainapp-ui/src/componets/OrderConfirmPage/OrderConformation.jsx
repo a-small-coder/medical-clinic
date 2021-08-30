@@ -1,11 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { setCookie } from 'react-use-cookie';
 import '../../styles/OrderConfirmPage/OrderConfirmPage.scss';
 import PriceInfoBlock from '../Cart/CartSideBar/PriceInfoBlock';
-import ButtonsBlock from '../SupportsComponents/ButtonsBlock';
 import TopBlockTitle from '../SupportsComponents/TopBlockTitle';
+import CreateOrder from './CreateOrder';
 
 function OrderConformation(props) {
+
+    const saveCart = cart => {
+        setCookie('cart', cart);
+        setCookie('make_order', true);
+    };
 
     const TitleWrapperClass = "order-conformation-page__top-block"
     const page_title = "Подтверждение Заказа"
@@ -36,6 +42,7 @@ function OrderConformation(props) {
 
     const confirmClickHandler = (e) =>{
         props.history.push("/user/profile/orders")
+        saveCart(props.cart)
     }
 
     return (
@@ -57,40 +64,7 @@ function OrderConformation(props) {
                                 result_price={result_price}
                             />
                         </div>
-                        <div className="order-conformation-page__confirm-block confirm-block-order">
-                            <div className="confirm-block-order__confirm confirm-order">
-                                <button
-                                    className="confirm-order__confirm-btn btn _circle-btn _filled-btn _green"
-                                    disabled={!props.isAuth}
-                                    onClick={confirmClickHandler}
-                                >
-                                    ОФОРМИТЬ ЗАКАЗ
-                                </button>
-
-                                {
-                                    !props.isAuth ?
-                                        <div className="confirm-order__error-message message-block _orange">
-                                            Необходио авторизоваться
-                                        </div>
-                                        : null
-                                }
-
-                            </div>
-                            {
-
-                                !props.isAuth ?
-                                    <div className="confirm-block-order__autorization autorization-order">
-                                        <h5 className="autorization-order__title _title-standart">
-                                            Авторизация
-                                        </h5>
-                                        <ButtonsBlock
-                                            redirectToAuthPage={true}
-                                            wrapperClass={"autorization-order__button-block"}
-                                        />
-                                    </div>
-                                    : null
-                            }
-                        </div>
+                        <CreateOrder confirmClickHandler={confirmClickHandler} needAuth={props.is_anon}/>
                     </div>
                 </div>
             </section>
@@ -103,6 +77,7 @@ let mapStateToProps = (state)=>{
         cart: state.header.cart,
         userToken: state.auth.user.token,
         isAuth: state.auth.isAuth,
+        is_anon: state.auth.user.is_anon,
         order: state.order,
     }
 }

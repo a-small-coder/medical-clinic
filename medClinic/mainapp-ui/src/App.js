@@ -24,6 +24,7 @@ function App(props) {
     getActualUser(token, props.setUserData, props.setIsAuth)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+  console.log('state', props.state)
 
   return (
     <BrowserRouter>
@@ -51,6 +52,7 @@ let mapStateToProps = (state) => {
     initSpoiler: state.header.nav.initSpoiler,
     cart: state.header.cart,
     userToken: state.auth.user.token,
+    state: state,
   }
 }
 

@@ -23,7 +23,6 @@ const AuthPageBody = (props) =>{
                         token: response.data.token,
                         username: ""
                     })
-                    debugger
                     if (needRemember){
                         setStorageUser(response.data.token)
                     }
