@@ -1,18 +1,17 @@
 import React from 'react';
-import OrderConformationForm from '../Forms/CartPage/OrderConformationForm';
 
-function ProfileContent(props) {
+function ChangePassword(props) {
     return (
         <div className="main-profile">
             <div className="main-profile__title _title-standart">
-                Base information 
+                Сменить пароль
             </div>
 
             <div className="main-profile__content">
-                <OrderConformationForm init={{}} onSubmit={()=>{}}/>
+                форма для смены пароля
             </div>
         </div>
     );
 }
 
-export default ProfileContent;
+export default ChangePassword;

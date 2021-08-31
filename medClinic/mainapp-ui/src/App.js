@@ -95,11 +95,14 @@ export function redirectByPageType(page, exact=false, from=null) {
       return <Redirect to={'/page-comming-soon'}/>
     case BAD_LINK:
       return <Redirect to={'/bad-link'}/>
+    case AUTHENTIFICATION:
+      return <Redirect to={'/auth/login'} />
     default:
       return <Redirect to={'/'}/>
   }
 }
 
+export const AUTHENTIFICATION = 'AUTHENTIFICATION'
 export const MAIN_PAGE_NAME = 'Main'
 export const IN_WORK_PAGE_NAME = 'InWork'
 export const BAD_LINK = 'BadLink'

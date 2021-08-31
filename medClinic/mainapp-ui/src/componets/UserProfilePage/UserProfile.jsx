@@ -2,7 +2,10 @@ import React from 'react';
 import TopBlockTitle from '../SupportsComponents/TopBlockTitle';
 import ProfileNavigation from './ProfileNavigation';
 import '../../styles/ProfilePage/ProfilePage.scss'
-import ProfileContent from './ProfileContent';
+import ContentController from './ContentController';
+import { Redirect } from 'react-router-dom';
+import { AUTHENTIFICATION, redirectByPageType } from '../../App';
+import { connect } from 'react-redux';
 
 function UserProfile(props) {
     const TitleWrapperClass = "user-profile-page__top-block"
@@ -13,6 +16,17 @@ function UserProfile(props) {
         {id: 2, title: 'История заказов', slug: 'orders'},
         {id: 3, title: 'Смемнить пароль', slug: 'change_password'},
     ]
+
+    // user has not authentificate
+    if (props.auth.user.is_anon){
+        redirectByPageType(AUTHENTIFICATION)
+    }
+
+    // get subcomponent's control from url
+    let currentPage = props.history.location.pathname.split('/')[3]
+    if (currentPage === ''){
+        return <Redirect to="/user/profile/base_information"/>
+    }
 
     return (
         <main className="page">
@@ -28,7 +42,7 @@ function UserProfile(props) {
                         </div>
 
                         <div className="user-profile-page__main-block">
-                            <ProfileContent/>
+                            <ContentController control={currentPage}/>
                         </div>
                     </div>
                 </div>
@@ -36,5 +50,14 @@ function UserProfile(props) {
         </main>
     );
 }
-
-export default UserProfile;
+let mapStateToProps = (state)=>{
+    return {
+        auth: state.auth.isAuth,
+    }
+}
+let mapDispatchToProps = (dispatch)=>{
+    return{
+    }
+}
+const UserProfileContainer = connect(mapStateToProps, mapDispatchToProps)(UserProfile);
+export default UserProfileContainer;
