@@ -20,7 +20,6 @@ const HeaderActions = (props) => {
             products: [],
         })
     }
-    debugger
     return(
         <div className="header__actions actions-header">
             <Link to="/comming-soon" 
