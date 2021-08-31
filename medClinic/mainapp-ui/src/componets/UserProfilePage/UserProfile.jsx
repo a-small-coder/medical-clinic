@@ -52,7 +52,7 @@ function UserProfile(props) {
 }
 let mapStateToProps = (state)=>{
     return {
-        auth: state.auth.isAuth,
+        auth: state.auth,
     }
 }
 let mapDispatchToProps = (dispatch)=>{

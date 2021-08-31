@@ -1,5 +1,5 @@
 import React from 'react';
-import OrderConformationForm from '../../Forms/CartPage/OrderConformationForm';
+import BaseInformationForm from '../../Forms/ProfilePage/BaseInformationForm';
 
 function BaseInformation(props) {
     return (
@@ -8,8 +8,8 @@ function BaseInformation(props) {
                 Общая информация
             </div>
 
-            <div className="main-profile__content">
-                <OrderConformationForm init={{}} onSubmit={() => { }} />
+            <div className="main-profile__content user-info">
+                <BaseInformationForm init={{}} onSubmit={() => { }} />
             </div>
         </div>
     );

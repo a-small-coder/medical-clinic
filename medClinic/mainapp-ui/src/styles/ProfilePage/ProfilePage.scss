@@ -25,7 +25,7 @@
 }
 
 .navigation-profile{
-    width: 320px;
+    min-width: 320px;
     padding: 0 15px;
 
     &__menu{
@@ -81,5 +81,42 @@
 
     &__content{
 
+    }
+}
+
+.user-info{
+
+    &-form{
+
+    }
+
+    &__form{
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &__row{
+        display: flex;
+        flex: 1 1 100%;
+        justify-content: space-between;
+        align-items: baseline;
+        .form-control{
+            width: 40%;
+        }
+
+        &.one-el{
+            justify-content: flex-start;
+        }
+    }
+    &__column{
+        flex: 1 1 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__confirm{
+        border: 1px solid #0FC0FC;
+        min-width: 240px;
+        height: 48px;
     }
 }

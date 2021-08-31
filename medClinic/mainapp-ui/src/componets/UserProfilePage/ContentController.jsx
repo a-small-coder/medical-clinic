@@ -2,7 +2,7 @@ import React from 'react';
 import LoadingSheme from '../SupportsComponents/LoadingSheme';
 import BaseInformation from './Content/BaseInformation';
 import ChangePassword from './Content/ChangePassword';
-import UserOrders from './UserOrders';
+import UserOrders from './Content/UserOrders';
 
 function ContentController(props) {
     const {control, ...rest} = props
