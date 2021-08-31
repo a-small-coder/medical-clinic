@@ -17,6 +17,7 @@ import InWork from "./componets/InWorkPage/InWork";
 import Footer from "./componets/Footer/Footer";
 import { getStorageUserToken } from "./support_functions/utils";
 import { getCookie, setCookie } from 'react-use-cookie';
+import UserProfile from "./componets/UserProfilePage/UserProfile";
 
 function App(props) {
 
@@ -46,6 +47,7 @@ function App(props) {
           <Route path='/auth' component={AuthPageContainer} />
           <Route exact path="/cart" component={CartContainer}/>
           <Route path="/cart/order-conformation" component={OrderConformationContainer}/>
+          <Route path="/user/profile/" component={UserProfile}/>
           <Route component={InWork} />
         </Switch>
         <Footer />
