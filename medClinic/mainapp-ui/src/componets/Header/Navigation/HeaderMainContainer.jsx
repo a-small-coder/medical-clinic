@@ -1,6 +1,5 @@
-import {setCategoriesAC} from '../../../redux/header-reducer'
+import {setCartAC, setCategoriesAC} from '../../../redux/header-reducer'
 import {connect} from 'react-redux';
-import React from 'react';
 import MenuItem from './MenuItem';
 import { Link } from 'react-router-dom';
 import * as axios from 'axios'
@@ -36,15 +35,14 @@ let mapStateToProps = (state)=>{
     return {
         initSpoiler: state.header.nav.initSpoiler,
         nav: state.header.nav,
-        categories: state.header.nav.categories
+        categories: state.header.nav.categories,
     }
 }
 let mapDispatchToProps = (dispatch)=>{
     return{
         setCategories: (categories) =>{
             dispatch(setCategoriesAC(categories));
-        }
-
+        },
     }
 }
 

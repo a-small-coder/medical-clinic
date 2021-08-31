@@ -1,10 +1,16 @@
 import React, { useCallback, useRef, useEffect, useState} from 'react';
+import { getUserCart } from '../../support_functions/api_requests';
 import HeaderActionsContainer from './ActionsBlocks/HeaderActionsContainer';
 import HeaderSearchContainer from './ActionsBlocks/HeaderSearchContainer';
 import HeaderMainContainer from './Navigation/HeaderMainContainer'
 
 const Header = (props) => {
     
+    useEffect(() => {
+        if (props.user && props.user.token){
+            getUserCart(props.user.token, props.setCart, ()=>{})
+        }
+    }, [props.user, props.setCart])
 
     // icon-menu
     const [isIconMenuActive, setIsIconMenuActive] = useState(false)

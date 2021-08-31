@@ -37,7 +37,7 @@ function App(props) {
     <BrowserRouter>
       <div className="wrapper _loaded">
         <ScrollToTop />
-        <Header initSpoiler={props.initSpoiler} setSpoilerMode={props.setSpoilerMode}/>
+        <Header initSpoiler={props.initSpoiler} setSpoilerMode={props.setSpoilerMode} user={props.user} setCart={props.setCart}/>
         <Switch>
           <Route exact path="/catalog" component={Catalog} />
           <Route exact path="/catalog/:category" component={Catalog} />
