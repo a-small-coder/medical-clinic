@@ -49,13 +49,13 @@ function OrderConformation(props) {
             cart_id: props.cart.id,
         }
         let place
-        if (props.order.type_office === 'office'){
+        if (props.order.type_office === 'in office'){
             place = 0
         }else {
             place = 1
         }
         data.place_type = place
-        debugger
+        console.log("customer data:", props.order.customer)
         createOrder(props.userToken, data, props.setCart)
         props.history.push("/user/profile/orders")
     }
@@ -68,7 +68,7 @@ function OrderConformation(props) {
             }else {
                 place = 1
             }
-
+            console.log("customer data:", props.order.customer)
             saveCart(props.cart.id, place)
             props.history.push(path)
         },

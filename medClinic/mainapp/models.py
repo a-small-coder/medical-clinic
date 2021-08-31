@@ -250,6 +250,11 @@ class Cart(models.Model):
         total = sum([item.qty for item in orders_items])
         return total
 
+    def put_in_order(self):
+        self.in_order = True
+        self.for_anonymous_user = False
+        self.save()
+
 
 class Customer(models.Model):
 
@@ -262,11 +267,16 @@ class Customer(models.Model):
             return self.user.username
         return "Покупатель {} {}".format(self.user.first_name, self.user.last_name)
 
+    @property
+    def get_full_name(self):
+        return self.user.username + self.user.last_name
+
 
 class Order(models.Model):
 
     customer = models.ForeignKey(Customer, verbose_name='Покупатель', on_delete=models.PROTECT)
     cart = models.ForeignKey(Cart, verbose_name='Товары', on_delete=models.PROTECT)
+    # notification_email = models.EmailField(verbose_name='почта для рассылки оповещений')
     place = models.CharField(max_length=255, verbose_name='Адрес', null=True)
     place_type = models.CharField(max_length=8, choices=ADDRESS_TYPE, default=None, verbose_name='Тип адреса')
     status = models.CharField(max_length=32, choices=ORDER_STATUSES, default=IN_PROCESSING, verbose_name='Статус')
