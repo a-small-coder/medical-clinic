@@ -57,7 +57,6 @@ function OrderConformationForm(props) {
     const onSubmit = values =>{
         console.log("Form data", values)
         props.onSubmit(values)
-        props.history.push('/cart/order-conformation');
     }
 
     return (

@@ -31,7 +31,7 @@ function App(props) {
     return <Redirect to={path}/>
   }
 
-  createOrderAfterAuth(props.user, createOrder, props.setCart, goToOrders)
+  createOrderAfterAuth(props.user, props.customer, createOrder, props.setCart, goToOrders)
 
   return (
     <BrowserRouter>
@@ -60,6 +60,7 @@ let mapStateToProps = (state) => {
     cart: state.header.cart,
     userToken: state.auth.user.token,
     user: state.auth.user,
+    customer: state.order.customer,
     state: state,
   }
 }
@@ -101,14 +102,15 @@ export const MAIN_PAGE_NAME = 'Main'
 export const IN_WORK_PAGE_NAME = 'InWork'
 export const BAD_LINK = 'BadLink'
 
-export function createOrderAfterAuth(user, createOrder, setCart, goToOrders=()=>{}) {
+export function createOrderAfterAuth(user, customer, createOrder, setCart, goToOrders=()=>{}) {
   let make_order = getCookie('make_order')
   if (make_order == true) {
     debugger
     if (user && !user.is_anon) {
       const data = {
         cart_id: getCookie('cart_id'),
-        place_type: getCookie('place_type')
+        place_type: getCookie('place_type'),
+        customer: customer
     }
       createOrder(user.token, data, setCart)
       setCookie('make_order', false);

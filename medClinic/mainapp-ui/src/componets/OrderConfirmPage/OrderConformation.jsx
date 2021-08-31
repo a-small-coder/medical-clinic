@@ -55,6 +55,7 @@ function OrderConformation(props) {
             place = 1
         }
         data.place_type = place
+        data.customer = props.order.customer
         console.log("customer data:", props.order.customer)
         createOrder(props.userToken, data, props.setCart)
         props.history.push("/user/profile/orders")
@@ -73,7 +74,7 @@ function OrderConformation(props) {
             props.history.push(path)
         },
     }
-
+    const needAuth = props.is_anon && props.order.type_office === "in office";
     return (
         <main className="page">
             <section className="page__base order-conformation-page">
@@ -93,7 +94,7 @@ function OrderConformation(props) {
                                 result_price={result_price}
                             />
                         </div>
-                        <CreateOrder confirmClickHandler={confirmClickHandler} needAuth={props.is_anon} btnActions={btnActions}/>
+                        <CreateOrder confirmClickHandler={confirmClickHandler} needAuth={needAuth} btnActions={btnActions}/>
                     </div>
                 </div>
             </section>

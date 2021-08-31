@@ -1,16 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import VisitPlace from './VisitPlace';
 
 function OfficeVisitOption(props) {
     return (
         <React.Fragment>
             <VisitPlace type_office={props.type_office}/>
-            <Link to="/cart/order-conformation"
+            <button onClick={props.onButtonClick}
                 className="cart-info__confirm btn _circle-btn _filled-btn _green"
             >
                 ОФОРМИТЬ ЗАКАЗ
-            </Link>
+            </button>
         </React.Fragment>
     );
 }

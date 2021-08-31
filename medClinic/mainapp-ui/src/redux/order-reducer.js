@@ -5,7 +5,7 @@ const SET_CUSTOMER = "SET_CUSTOMER"
 
 let initialState = {
     cart_id: 0,
-    type_office: '',
+    type_office: "", // 0 - "in office" or 1 - "home"
     choosen_office: 'Палата №6',
     
     

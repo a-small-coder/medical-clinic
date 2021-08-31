@@ -9,34 +9,28 @@ function CartInfoFormControl(props) {
 
     let user = {...props.userData}
     
-    const home_visit_form_init = {}
-    if (user && !user.is_anon){
-        if (user.username){
-            home_visit_form_init.fullName = `${user.username} ${user.last_name}`
-        }
-        else{
-            home_visit_form_init.fullName = null
-        }
-        home_visit_form_init.address = user.customer.address
-        home_visit_form_init.phone = user.customer.phone
-        home_visit_form_init.email = user.email
-    }
+    const home_visit_form_init = getCustomerData(user)
 
     const formSubmitHandler = (formData) => {
         const customer_data = {
-            full_name: formData.fullName,
+            fullName: formData.fullName,
             address: formData.adress,
             phone: formData.phoneNumber,
-            notification_email: formData.email
+            email: formData.email
         }
         props.setCustomer(customer_data)
+        props.history.push('/cart/order-conformation');
+    }
+    const confirmClickHandler= () => {
+        props.setCustomer(getCustomerData(user))
+        props.history.push("/cart/order-conformation")
     }
     
     switch (control){
         case 'home':
             return <OrderConformationForm {...rest} init={home_visit_form_init} onSubmit={formSubmitHandler}/>
         case 'in office':
-            return <OfficeVisitOption {...rest} type_office={control}/>
+            return <OfficeVisitOption {...rest} type_office={control} onButtonClick={confirmClickHandler}/>
         default:
             return (
                 <button
@@ -66,3 +60,19 @@ let mapDispatchToProps = (dispatch) => {
 const CartInfoFormControlContainer = connect(mapStateToProps, mapDispatchToProps)(CartInfoFormControl);
 
 export default CartInfoFormControlContainer;
+
+export function getCustomerData(user) {
+    const customer = {}
+    if (user && !user.is_anon){
+        if (user.username){
+            customer.fullName = `${user.username} ${user.last_name}`
+        }
+        else{
+            customer.fullName = null
+        }
+        customer.address = user.customer.address
+        customer.phone = user.customer.phone
+        customer.email = user.email
+    }
+    return customer
+}
