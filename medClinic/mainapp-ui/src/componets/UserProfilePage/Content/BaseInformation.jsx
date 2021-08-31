@@ -4,8 +4,8 @@ import BaseInformationForm from '../../Forms/ProfilePage/BaseInformationForm';
 function BaseInformation(props) {
     return (
         <div className="main-profile">
-            <div className="main-profile__title _title-standart">
-                Общая информация
+            <div className="main-profile__title">
+                Общая информация:
             </div>
 
             <div className="main-profile__content user-info">

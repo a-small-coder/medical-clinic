@@ -37,7 +37,8 @@ function BaseInformationForm(props) {
                                     <FormikControl 
                                         control='input' 
                                         type="text" 
-                                        label='Фамилия' 
+                                        label='Фамилия'
+                                        alwaysShowLabel={true} 
                                         name='firstName' 
                                         fieldClassName="auth_input" 
                                         placeholder=""
@@ -47,7 +48,8 @@ function BaseInformationForm(props) {
                                     <FormikControl 
                                         control='input' 
                                         type="text" 
-                                        label='Имя' 
+                                        label='Имя'
+                                        alwaysShowLabel={true} 
                                         name='secondName' 
                                         fieldClassName="auth_input" 
                                         placeholder=""
@@ -60,7 +62,8 @@ function BaseInformationForm(props) {
                                     <FormikControl 
                                         control='input' 
                                         type="text" 
-                                        label='Отчество' 
+                                        label='Отчество'
+                                        alwaysShowLabel={true} 
                                         name='fatherName' 
                                         fieldClassName="auth_input" 
                                         placeholder=""
@@ -75,6 +78,7 @@ function BaseInformationForm(props) {
                                         control='input'
                                         type="text"
                                         label='Адрес'
+                                        alwaysShowLabel={true}
                                         name='adress'
                                         fieldClassName="auth_input"
                                         placeholder=""
@@ -85,7 +89,8 @@ function BaseInformationForm(props) {
                                     <FormikControl
                                         control='input' 
                                         type="text" 
-                                        label='Номер телефона' 
+                                        label='Номер телефона'
+                                        alwaysShowLabel={true} 
                                         name='phoneNumber' 
                                         fieldClassName="auth_input" 
                                         placeholder=""

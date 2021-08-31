@@ -11,6 +11,7 @@
         display: flex;
         @media (max-width: 991.98px){
             flex-direction: column;
+            padding-top: 0;
         }
         padding: 25px 0;
         margin-top: calc(25px + 15 * ((100vw - 320px) / 950));
@@ -22,11 +23,18 @@
             flex-direction: column;
         }
     }
+
+    &__navigation{
+        @media (max-width: 991.98px){
+            margin-bottom: 25px;
+        }
+    }
 }
 
 .navigation-profile{
     min-width: 320px;
     padding: 0 15px;
+    
 
     &__menu{
 
@@ -51,7 +59,7 @@
     &__link{
         text-decoration: none;
         color: #898989;
-        font-size: calc(14px + 4 * ((100vw - 320px) / 950));
+        font-size: 18px;
 
         &_selected{
             color: #0FC0FC;
@@ -72,11 +80,15 @@
 
 .main-profile{
     flex: 1 1 auto;
+    @media (max-width: 991.98px){
+        padding: 15px;
+    }
 
     &__title{
-
-        font-weight: 400;
+        color: #00b388;
+        font-weight: 500;
         font-size: calc(20px + 4 * ((100vw - 320px) / 950));
+        margin-bottom: 15px;
     }
 
     &__content{
@@ -98,15 +110,21 @@
     &__row{
         display: flex;
         flex: 1 1 100%;
-        justify-content: space-between;
+        flex-wrap: wrap;
         align-items: baseline;
-        .form-control{
-            width: 40%;
+        .form-control {
+            width: 100%;
         }
-
-        &.one-el{
-            justify-content: flex-start;
+        @media (min-width: 767.98px){
+            justify-content: space-between;
+            .form-control {
+                width: 45%;
+            }
+            &.one-el {
+                justify-content: flex-start;
+            }
         }
+        
     }
     &__column{
         flex: 1 1 100%;
@@ -118,5 +136,8 @@
         border: 1px solid #0FC0FC;
         min-width: 240px;
         height: 48px;
+        @media (max-width: 767.98px){
+            margin: auto;
+        }
     }
 }
