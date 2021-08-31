@@ -20,16 +20,18 @@ function BaseInformationForm(props) {
 
     const validation = Yup.object({ })
 
-    const onSubmit = values =>{
+    const onSubmit = (values, helpers) =>{
         values.confirmSending = values.confirmSending.length > 0
         console.log("Form data", values)
         props.onSubmit(values)
+        values.confirmSending=getInitValuesFromCheckboxData(checkBoxOptions)
+        helpers.resetForm()
     }
 
     return (
         <Formik initialValues={initialValues} validationSchema={validation} onSubmit={onSubmit}>
             {
-                ({ values, errors, touched, isValid, handleBlur, handleChange}) => {
+                ({ values, errors, touched, isValid, handleBlur, handleChange, fo}) => {
                     return (
                         <Form className="user-info-form" autoComplete="off">
                             <div className="user-info__form">
