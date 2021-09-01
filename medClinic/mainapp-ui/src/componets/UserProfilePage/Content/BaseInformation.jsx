@@ -3,7 +3,7 @@ import BaseInformationForm from '../../Forms/ProfilePage/BaseInformationForm';
 
 function BaseInformation(props) {
     return (
-        <div className="main-profile">
+        <div className="main-profile_conteiner">
             <div className="main-profile__title">
                 Общая информация:
             </div>
