@@ -19,7 +19,7 @@ function UserProfile(props) {
 
     const userOrders = [
         {
-            id: 7,
+            id: 100247,
             customer: {
                 phone: null,
                 address: null
@@ -86,8 +86,152 @@ function UserProfile(props) {
             },
             place_type: "OFFICE",
             place: null,
-            status: "IN_PROCESSING",
-            date_create: "2021-09-01T06:20:50.191455Z",
+            status: "В обработке",
+            date_create: "2021-01-01T06:20:50.191455Z",
+            date_done: null
+        },
+        {
+            id: 12342,
+            customer: {
+                phone: null,
+                address: null
+            },
+            cart: {
+                id: 15,
+                products: [
+                    {
+                        id: 25,
+                        product: {
+                            id: 15,
+                            completion_time: "1 рабочий день",
+                            vendor_code: "9",
+                            title: "Креатинин (в крови) (Creatinine)",
+                            title_min: "Креатинин в крови",
+                            price: "270.00",
+                            preview_description: "Описание появится позже",
+                            slug: "creatinine"
+                        },
+                        qty: 1,
+                        final_price: "270.00"
+                    },
+                    {
+                        id: 26,
+                        product: {
+                            id: 14,
+                            completion_time: "1 рабочий день",
+                            vendor_code: "8",
+                            title: "Холестерин общий (холестерин, Cholesterol total)",
+                            title_min: "Холестерин общий",
+                            price: "320.00",
+                            preview_description: "Описание появится позже",
+                            slug: "cholesterol_total"
+                        },
+                        qty: 1,
+                        final_price: "320.00"
+                    },
+                    {
+                        id: 27,
+                        product: {
+                            id: 19,
+                            completion_time: "3 рабочих дня",
+                            vendor_code: "13u",
+                            title: "Диагностика ОРВИ",
+                            title_min: "Диагностика ОРВИ",
+                            price: "1490.00",
+                            preview_description: "Описание появится позже",
+                            slug: "unic_orvi"
+                        },
+                        qty: 1,
+                        final_price: "1490.00"
+                    },
+                ],
+                qty: 3,
+                total_price: "2400.00",
+                for_anonymous_user: false,
+                owner: {
+                    id: 11,
+                    user: "Вася Васильевич",
+                    phone: null,
+                    address: null
+                },
+                in_order: true
+            },
+            place_type: "OFFICE",
+            place: null,
+            status: "Ожидает оплаты",
+            date_create: "2021-09-31T06:20:50.191455Z",
+            date_done: null
+        },
+        {
+            id: 83769,
+            customer: {
+                phone: null,
+                address: null
+            },
+            cart: {
+                id: 15,
+                products: [
+                    {
+                        id: 25,
+                        product: {
+                            id: 15,
+                            completion_time: "1 рабочий день",
+                            vendor_code: "9",
+                            title: "Креатинин (в крови) (Creatinine)",
+                            title_min: "Креатинин в крови",
+                            price: "270.00",
+                            preview_description: "Описание появится позже",
+                            slug: "creatinine"
+                        },
+                        qty: 1,
+                        final_price: "270.00"
+                    },
+                    {
+                        id: 26,
+                        product: {
+                            id: 14,
+                            completion_time: "1 рабочий день",
+                            vendor_code: "8",
+                            title: "Холестерин общий (холестерин, Cholesterol total)",
+                            title_min: "Холестерин общий",
+                            price: "320.00",
+                            preview_description: "Описание появится позже",
+                            slug: "cholesterol_total"
+                        },
+                        qty: 1,
+                        final_price: "320.00"
+                    },
+                    {
+                        id: 27,
+                        product: {
+                            id: 19,
+                            completion_time: "3 рабочих дня",
+                            vendor_code: "13u",
+                            title: "Диагностика ОРВИ",
+                            title_min: "Диагностика ОРВИ",
+                            price: "1490.00",
+                            preview_description: "Описание появится позже",
+                            slug: "unic_orvi"
+                        },
+                        qty: 1,
+                        final_price: "1490.00"
+                    },
+                ],
+                qty: 3,
+                total_price: "2400.00",
+                for_anonymous_user: false,
+                owner: {
+                    id: 11,
+                    user: "Вася Васильевич",
+                    phone: null,
+                    address: null
+                },
+                in_order: true
+            },
+            place_type: "OFFICE",
+            place: null,
+            status: "Завершен",
+            date_create: "2021-11-01T06:20:50.191455Z",
             date_done: null
         },
     ]

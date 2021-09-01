@@ -11,7 +11,7 @@ function ContentController(props) {
             return <BaseInformation {...rest} init={user_info}/>
         }
         case "orders":{
-            return <UserOrders {...rest} />
+            return <UserOrders {...rest}/>
         }
         case "change_password":{
             return <ChangePassword {...rest}/>
