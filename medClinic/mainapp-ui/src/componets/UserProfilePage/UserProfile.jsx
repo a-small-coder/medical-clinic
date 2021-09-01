@@ -14,7 +14,7 @@ function UserProfile(props) {
     const navigation_categories = [
         {id: 1, title: 'Общая информация', slug: 'base_information'},
         {id: 2, title: 'История заказов', slug: 'orders'},
-        {id: 3, title: 'Смемнить пароль', slug: 'change_password'},
+        {id: 3, title: 'Сменить пароль', slug: 'change_password'},
     ]
 
     // user has not authentificate

@@ -34,7 +34,6 @@ function BaseInformationForm(props) {
     const onSubmit = (values, helpers) =>{
         values.confirmSending = values.confirmSending.length > 0
         let formdata = {...values, confirmSending: values.confirmSending.length > 0}
-        console.log("Form data", formdata)
         props.onSubmit(formdata)
     }
 
@@ -42,7 +41,6 @@ function BaseInformationForm(props) {
         <Formik enableReinitialize initialValues={initialValues} validationSchema={validation} onSubmit={onSubmit}>
             {
                 ({ values, errors, touched, isValid, handleBlur, handleChange}) => {
-                    console.log("initialValues ", initialValues)
                     return (
                         <Form className="user-info-form" autoComplete="off">
                             <div className="user-info__form">
@@ -128,7 +126,7 @@ function BaseInformationForm(props) {
                                         type='submit'
                                         disabled={!isValid}
                                     >
-                                        Изменить
+                                        Сменить пароль
                                     </button>
                                 </div>
 
