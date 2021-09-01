@@ -9,7 +9,7 @@ function ChangePassword(props) {
             </div>
 
             <div className="main-profile__content">
-                <ChangePasswordForm onSubmit={() => { }}/>
+                <ChangePasswordForm onSubmit={props.onSubmit}/>
             </div>
         </div>
     );

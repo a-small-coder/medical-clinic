@@ -3,7 +3,7 @@ import React from 'react';
 function Order(props) {
     return (
         <div>
-            |{props.l}|
+            <pre>{JSON.stringify(props.l, null, 3)}</pre>
         </div>
     );
 }

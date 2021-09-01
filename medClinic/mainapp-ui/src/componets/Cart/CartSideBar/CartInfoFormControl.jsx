@@ -64,8 +64,8 @@ export default CartInfoFormControlContainer;
 export function getCustomerData(user) {
     const customer = {}
     if (user && !user.is_anon){
-        if (user.username){
-            customer.fullName = `${user.username} ${user.last_name}`
+        if (user.first_name){
+            customer.fullName = `${user.last_name} ${user.first_name} ${user.father_name}`
         }
         else{
             customer.fullName = null

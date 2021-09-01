@@ -37,7 +37,7 @@ function OrderConformationForm(props) {
     ]
     const initialValues = {
         fullName: props.init.fullName != null? props.init.fullName : '',
-        adress: props.init.adress != null? props.init.adress : '',
+        adress: props.init.address != null? props.init.address : '',
         phoneNumber: props.init.phone != null? props.init.phone : '',
         email: props.init.email != null? props.init.email : '',
         acceptTermAndConditions: getInitValuesFromCheckboxData(checkBoxOptions),

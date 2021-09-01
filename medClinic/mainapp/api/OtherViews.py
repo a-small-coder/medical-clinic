@@ -90,6 +90,26 @@ class UserView(viewsets.ModelViewSet):
             is_anon = True
         return response.Response({'user': UserSerializer(user).data, 'is_anon': is_anon, 'token': token_key})
 
+    @action(methods=['post'], detail=False, url_path='update_user_data')
+    def update_user_date(self, *args, **kwargs):
+        user = self.request.user
+        customer = Customer.objects.get(user=user)
+        customer.first_name = self.request.data['firstName']
+        customer.second_name = self.request.data['secondName']
+        customer.father_name = self.request.data['fatherName']
+        customer.address = self.request.data['adress']
+        customer.phone = self.request.data['phoneNumber']
+        customer.save()
+        user.customer = customer
+        user.save()
+        return response.Response({'detail': 'success'})
+
+    @action(methods=['post'], detail=False, url_path='change_password')
+    def change_password(self, *args, **kwargs):
+        user = self.request.user
+        user.set_password(self.request.data['password'])
+        return response.Response({'detail': 'success'})
+
 
 class RegisterView(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication, SessionAuthentication, BasicAuthentication]
@@ -106,17 +126,20 @@ class RegisterView(viewsets.ModelViewSet):
             userfirstname = self.request.data['firstName']
             userlastname = self.request.data['secondName']
             fatherName = self.request.data['fatherName']
-            username = f'{userfirstname} {userlastname}'
+            username = f'Пользователь _{user.id}'
             new_user = User.objects.create(
-                first_name=userfirstname,
-                last_name=fatherName,
                 username=username,
                 email=userEmail
             )
             new_user.save()
             new_user.set_password(self.request.data['password'])
             new_user.save()
-            customer = Customer.objects.create(user=new_user)
+            customer = Customer.objects.create(
+                user=new_user,
+                first_name=userfirstname,
+                second_name=userlastname,
+                father_name=fatherName
+            )
             Cart.objects.create(owner=customer)
             Token.objects.get_or_create(user=new_user)
             return response.Response({'detail': 'User successfully register', 'username': username}, status=status.HTTP_200_OK)

@@ -118,8 +118,9 @@ export function getUserCart(token, setCart, onBadResponse){
       let userData = {
         userId: response.user.id,
         username: response.user.username,
-        first_name: response.user.first_name,
-        last_name: response.user.last_name,
+        first_name: response.user.customer.first_name,
+        last_name: response.user.customer.second_name,
+        father_name: response.user.customer.father_name,
         email: response.user.email,
         customer: response.user.customer,
         token: response.token,

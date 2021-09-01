@@ -54,7 +54,7 @@ function ChangePasswordForm(props) {
                                         type='submit'
                                         disabled={!isValid}
                                     >
-                                        Изменить
+                                        Сменить пароль
                                     </button>
 
                             </div>

@@ -6,6 +6,7 @@ import ContentController from './ContentController';
 import { Redirect } from 'react-router-dom';
 import { AUTHENTIFICATION, redirectByPageType } from '../../App';
 import { connect } from 'react-redux';
+import SERVER_API_START_URL, { getApiResponse, postApiRequest } from '../../support_functions/api_requests';
 
 function UserProfile(props) {
     const TitleWrapperClass = "user-profile-page__top-block"
@@ -253,12 +254,18 @@ function UserProfile(props) {
         let user = props.auth.user
         user_info = {
             firstName: user.first_name,
-            secondName: user.username.split(' ')[1],
-            fatherName: user.last_name,
-            adress: user.customer.adress,
+            secondName: user.last_name,
+            fatherName: user.father_name,
+            adress: user.customer.address,
             phone: user.customer.phone,
             email: user.email,
         }
+    }
+    const userInfoSubmitHandler = (formdata) =>{
+        updateUserData(props.auth.user.token, formdata)
+    }
+    const changePasswordSubmithandler = (formdata) => {
+        changeUserPassword(props.auth.uset.token, formdata)
     }
 
     return (
@@ -275,7 +282,14 @@ function UserProfile(props) {
                         </div>
 
                         <div className="user-profile-page__main-block">
-                            <ContentController control={currentPage} user_info={user_info} orders={userOrders} location={props.history.location.pathname}/>
+                            <ContentController 
+                                control={currentPage} 
+                                user_info={user_info} 
+                                orders={userOrders} 
+                                location={props.history.location.pathname} 
+                                onInfoSubmit={userInfoSubmitHandler}
+                                onPasswordSubmit={changePasswordSubmithandler}
+                            />
                         </div>
                     </div>
                 </div>
@@ -294,3 +308,21 @@ let mapDispatchToProps = (dispatch)=>{
 }
 const UserProfileContainer = connect(mapStateToProps, mapDispatchToProps)(UserProfile);
 export default UserProfileContainer;
+
+function updateUserData(token, data){
+    const url = `${SERVER_API_START_URL}auth/users/update_user_data/`
+    const responseHandler = (responseData) => {
+      console.log(responseData)
+    }
+  
+    postApiRequest(url, data, responseHandler, ()=>{}, token)
+  }
+
+  function changeUserPassword(token, data){
+    const url = `${SERVER_API_START_URL}auth/users/change_password/`
+    const responseHandler = (responseData) => {
+      console.log(responseData)
+    }
+  
+    postApiRequest(url, data, responseHandler, ()=>{}, token)
+  }

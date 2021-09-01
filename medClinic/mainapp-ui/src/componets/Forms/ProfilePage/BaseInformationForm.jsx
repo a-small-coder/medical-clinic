@@ -10,8 +10,7 @@ function BaseInformationForm(props) {
         {key: 'Подписаться на рассылку', value: 'confirmSending', chebox_value: true,},
     ]
 
-    const initialValues =
-    {
+    const initialValues = {
         firstName: props.init.firstName != null ? props.init.firstName : '',
         secondName: props.init.secondName != null ? props.init.secondName : '',
         fatherName: props.init.fatherName != null ? props.init.fatherName : '',
@@ -19,7 +18,7 @@ function BaseInformationForm(props) {
         phoneNumber: props.init.phone != null ? props.init.phone : '',
         confirmSending: getInitValuesFromCheckboxData(checkBoxOptions),
     }
-    console.log("initialValues ", initialValues)
+    
     
 
     const validation = Yup.object({
@@ -32,9 +31,10 @@ function BaseInformationForm(props) {
      })
 
     const onSubmit = (values, helpers) =>{
-        values.confirmSending = values.confirmSending.length > 0
         let formdata = {...values, confirmSending: values.confirmSending.length > 0}
+        console.log("formdata ", formdata)
         props.onSubmit(formdata)
+
     }
 
     return (
@@ -50,7 +50,7 @@ function BaseInformationForm(props) {
                                         type="text" 
                                         label='Фамилия'
                                         alwaysShowLabel={true} 
-                                        name='firstName' 
+                                        name='secondName' 
                                         fieldClassName="auth_input" 
                                         placeholder=""
                                         standartOnBlur={handleBlur}
@@ -61,7 +61,7 @@ function BaseInformationForm(props) {
                                         type="text" 
                                         label='Имя'
                                         alwaysShowLabel={true} 
-                                        name='secondName' 
+                                        name='firstName' 
                                         fieldClassName="auth_input" 
                                         placeholder=""
                                         standartOnBlur={handleBlur}
@@ -126,7 +126,7 @@ function BaseInformationForm(props) {
                                         type='submit'
                                         disabled={!isValid}
                                     >
-                                        Сменить пароль
+                                        Изменить
                                     </button>
                                 </div>
 

@@ -57,7 +57,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     @staticmethod
     def get_customer(obj):
-        return CustomerSerializer(Customer.objects.filter(user=obj), many=False).data
+        return CustomerSerializer(Customer.objects.filter(user=obj), many=True).data[0]
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
@@ -69,7 +69,7 @@ class CustomerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Customer
-        fields = ['phone', 'address']
+        fields = ['phone', 'address', 'first_name', 'second_name', 'father_name']
 
 
 class OrderSerializer(serializers.ModelSerializer):

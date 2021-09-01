@@ -259,17 +259,20 @@ class Cart(models.Model):
 class Customer(models.Model):
 
     user = models.OneToOneField(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=127, verbose_name='Имя', null=True, default=None)
+    second_name = models.CharField(max_length=127, verbose_name='Фамилия', null=True, default=None)
+    father_name = models.CharField(max_length=127, verbose_name='Отчество', null=True, default=None)
     phone = models.CharField(max_length=20, verbose_name='Номер', null=True, blank=True)
     address = models.CharField(max_length=255, verbose_name='Адрес', null=True, blank=True)
 
     def __str__(self):
-        if not (self.user.first_name and self.user.last_name):
+        if not (self.first_name and self.second_name):
             return self.user.username
-        return "Покупатель {} {}".format(self.user.first_name, self.user.last_name)
+        return "Покупатель {} {}".format(self.first_name, self.second_name)
 
     @property
     def get_full_name(self):
-        return self.user.username + self.user.last_name
+        return f'{self.first_name}  {self.second_name} {self.father_name}'
 
 
 class Order(models.Model):

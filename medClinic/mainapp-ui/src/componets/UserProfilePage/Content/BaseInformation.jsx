@@ -13,7 +13,7 @@ function BaseInformation(props) {
                     <div className="user-info__row_item"><span>Email: </span> {props.init.email}</div>
                     {/* <div className="user-info__row_item"><span>Датарегистрации: </span> 01.09.2021</div> */}
                 </div>
-                <BaseInformationForm init={props.init} onSubmit={() => { }} />
+                <BaseInformationForm init={props.init} onSubmit={props.onSubmit} />
             </div>
         </div>
     );
