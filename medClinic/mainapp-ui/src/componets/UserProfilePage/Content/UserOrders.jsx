@@ -19,6 +19,7 @@ function UserOrders(props) {
                         <div className="orders-table__cell _table-title">Заказ №</div>
                         <div className="orders-table__cell _table-title">Статус</div>
                         <div className="orders-table__cell _table-title">Дата</div>
+                        <div className="orders-table__cell _table-title"></div>
                         {orders}
                     </div>
                 </div>

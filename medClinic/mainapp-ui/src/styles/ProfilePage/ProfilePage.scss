@@ -196,7 +196,7 @@
 
 .orders-table{
     display: grid;
-    grid-template-columns: 0.75fr 1fr 1fr;
+    grid-template-columns: 0.75fr 1fr 0.85fr 0.15fr;
 
     &__cell{
         min-width: 70px;
@@ -219,6 +219,12 @@
         &._filled{
             background-color: #DBF4FC;
             color:#828282;
+        }
+
+        &._icon-arrow-link{
+            &:hover{
+                color:#0FC0FC;
+            }
         }
     }
 

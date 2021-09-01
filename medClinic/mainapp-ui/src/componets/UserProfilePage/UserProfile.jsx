@@ -275,7 +275,7 @@ function UserProfile(props) {
                         </div>
 
                         <div className="user-profile-page__main-block">
-                            <ContentController control={currentPage} user_info={user_info} orders={userOrders}/>
+                            <ContentController control={currentPage} user_info={user_info} orders={userOrders} location={props.history.location.pathname}/>
                         </div>
                     </div>
                 </div>
