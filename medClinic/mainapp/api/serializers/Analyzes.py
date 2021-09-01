@@ -1,16 +1,56 @@
 from rest_framework import serializers
+from ...models import *
 
-from .Other import GenderTypeSerializer, SearchGroupSerializer, ComplexTypeSerializer
-from ...models import (
-    Analyze, AnalyzeContentBlock, AnalyseContentCategory, AnalyzeComplex
-)
+
+class ProductSerializer(serializers.ModelSerializer):
+
+    completion_time = serializers.SerializerMethodField()
+    vendor_code = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+    @staticmethod
+    def get_completion_time(obj):
+        analyze_qs = Analyze.objects.filter(slug=obj.slug)
+        if not analyze_qs:
+            return None
+        analyze = Analyze.objects.get(slug=obj.slug)
+        return analyze.time
+
+    @staticmethod
+    def get_vendor_code(obj):
+        analyze_qs = Analyze.objects.filter(slug=obj.slug)
+        if not analyze_qs:
+            return None
+        analyze = Analyze.objects.get(slug=obj.slug)
+        return analyze.vendor_code
+
+
+class AnalyzeComplexForeignSerializer(serializers.ModelSerializer):
+    complex_type = serializers.SerializerMethodField()
+
+    class Meta:
+        model = AnalyzeComplex
+        fields = ['id', 'title', 'title_min', 'complex_type']
+
+    @staticmethod
+    def get_complex_type(obj):
+        return ComplexType.objects.get(analyzecomplex=obj).complex_type
+
+
+class AnalyzeComplexTopServicesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AnalyzeComplex
+        fields = ['id', 'title_min', 'preview_description', 'price', 'big_image', 'slug', 'small_image']
 
 
 # complex all fields with data about analyzes, gender, and complex
-class AnalyzeComplexSerializer(serializers.ModelSerializer):
+class AnalyzeComplexRetrieveSerializer(serializers.ModelSerializer):
     included_analyzes = serializers.SerializerMethodField()
-    gender = GenderTypeSerializer()
-    complex_type = ComplexTypeSerializer()
+    complex_type = serializers.SerializerMethodField()
 
     class Meta:
         model = AnalyzeComplex
@@ -18,95 +58,44 @@ class AnalyzeComplexSerializer(serializers.ModelSerializer):
 
     @staticmethod
     def get_included_analyzes(obj):
-        return AnalyzeListSerializer(Analyze.objects.filter(complex=obj), many=True).data
+        return ProductSerializer(Analyze.objects.filter(complex=obj), many=True).data
+
+    @staticmethod
+    def get_complex_type(obj):
+        return ComplexType.objects.get(analyzecomplex=obj).complex_type
 
 
-# complex all fields
-class AnalyzeComplexForeignSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = AnalyzeComplex
-        fields = '__all__'
-
-
-class AnalyzeComplexTopServicesSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = AnalyzeComplex
-        fields = ['id', 'title_min', 'description', 'price', 'big_image', 'slug', 'small_image']
-
-
-# ================================================================================
-# ===============================Analyzes=========================================
-# ================================================================================
-
-# analyze all fields with data about complex, gender, search_group
-class AnalyzeListSerializer(serializers.ModelSerializer):
-
-    complex = AnalyzeComplexForeignSerializer()
-    # print(AnalyzeComplex.objects.filter(id=1))
-    gender = GenderTypeSerializer()
-    search_group = SearchGroupSerializer()
-
-    class Meta:
-        model = Analyze
-        fields = '__all__'
-
-    # @staticmethod
-    # def get_complex(obj):
-    #     return AnalyzeComplexSerializer(AnalyzeComplex.objects.filter(id=obj.id)).data
-    #
-    # @staticmethod
-    # def get_gender(obj):
-    #     return GenderTypeSerializer(GenderType.objects.filter(id=obj.id)).data
-    #
-    # @staticmethod
-    # def get_search_group(obj):
-    #     return SearchGroupSerializer(SearchGroup.objects.filter(id=obj.id)).data
-
-
-# analyze for analyze page with content data
 class AnalyzeRetrieveSerializer(serializers.ModelSerializer):
 
+    complex = AnalyzeComplexForeignSerializer()
+    search_group = serializers.SerializerMethodField()
     content = serializers.SerializerMethodField()
 
     class Meta:
         model = Analyze
-        fields = ['id', 'title', 'title_min', 'price', 'time', 'is_popular', 'vendor_code', 'is_unic', 'content', 'complex']
+        fields = '__all__'
+
+    @staticmethod
+    def get_search_group(obj):
+        return SearchGroup.objects.get(analyze=obj).title
 
     @staticmethod
     def get_content(obj):
-        return AnalyseContentCategorySerializer(AnalyseContentCategory.objects.filter(analyze=obj), many=True).data
+        return AnalyzeContentBlockSerializer(AnalyzeContentBlock.objects.filter(analyze=obj), many=True).data
 
 
-# analyze all fields for complex data (catalog page)
-class AnalyzeSerializer(serializers.ModelSerializer):
+class UnicAnalyzeListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Analyze
-        fields = '__all__'
+        fields = ['id', 'title', 'preview_description', 'price', 'slug', 'small_image']
 
 
-# analyze category for analyze content (analyze page)
-class AnalyseContentCategorySerializer(serializers.ModelSerializer):
-
-    items = serializers.SerializerMethodField()
-
-    class Meta:
-        model = AnalyseContentCategory
-        fields = ['title', 'items', 'id']
-
-    @staticmethod
-    def get_items(obj):
-        return AnalyzeContentBlockSerializer(AnalyzeContentBlock.objects.filter(analyze_content_category=obj), many=True).data
-
-
-# content for analyze (analyze page)
 class AnalyzeContentBlockSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AnalyzeContentBlock
-        fields = ['title', 'text', 'pos', 'id']
+        fields = ['id', 'analyze_content_category', 'title',  'text', 'pos']
 
 
 

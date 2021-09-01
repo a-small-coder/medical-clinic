@@ -27,6 +27,13 @@ const Input = (props) =>{
     const [inputClass, setInputClass] = useState("input__field ")
     const [inputPlaceholder, setInputPlaceholder] = useState(placeholder)
 
+    
+    useEffect(() => {
+        if (props.alwaysShowLabel){
+            setLabelClass("input__label _active ")
+        }
+    }, [props.alwaysShowLabel])
+
     useEffect(() => {
         if (isError){
             setInputClass("input__field _error ")
@@ -38,12 +45,17 @@ const Input = (props) =>{
 
     const focusHandler = (e) =>{
         setInputPlaceholder("");
-        setLabelClass("input__label _active ")
+        if(!props.alwaysShowLabel){
+            setLabelClass("input__label _active ")
+        }
+        
     }
     const blurHandler = (e) =>{
         standartOnBlur(e)
         setInputPlaceholder(placeholder)
-        setLabelClass("input__label ")
+        if(!props.alwaysShowLabel){
+            setLabelClass("input__label ")
+        }
     }
     return (
         <div className={wrapperClassName}>

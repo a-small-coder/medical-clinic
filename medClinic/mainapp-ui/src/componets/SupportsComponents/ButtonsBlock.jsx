@@ -9,14 +9,22 @@ const ButtonsBlock = (props) =>{
     // redirectToAuthPage : <bool>
 
     if (props.redirectToAuthPage){
+
+        const onLoginClick = ()=>{
+            props.btnActions.auth("/auth/login")
+        }
+        const onRegisterClick = ()=>{
+            props.btnActions.auth("/auth/registration")
+        }
+
         return (
             <div className={props.wrapperClass + " button-block"}>
 
-                <Link to="/auth/login" className="button-block__button btn _filled-btn _green">Войти</Link>
+                <button onClick={onLoginClick} className="button-block__button btn _filled-btn _green">Войти</button>
 
-                <Link to="/auth/registration" className="_title-standart">
+                <button onClick={onRegisterClick} className="_title-standart">
                     Ещё не зарегистрированы?
-                </Link>
+                </button>
             </div>
         )
     }

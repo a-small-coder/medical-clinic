@@ -1,20 +1,16 @@
-from rest_framework import viewsets, response, status, permissions
+from rest_framework import viewsets, status
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from collections import OrderedDict
 from django.contrib.auth.models import User
 from rest_framework.decorators import action
-from django.contrib.auth import authenticate, login, logout
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 
-from .serializers.Navigation import NavigationCategorySerializer, NavigationCategoryDetailSerializer, \
-    SubNavigationCategorySerializer, SubNavigationCategoryRetrieveSerializer
-from .serializers.Other import AboutUsCategorySerializer, OurAchievementsSerializer, UserSerializer
-from ..models import (
-    NavigationCategory,
-    SubNavigationCategory,
-    AboutUsCategory,
-    OurAchievements
-)
+from .utils import *
+from ..models import *
+from .serializers.Navigation import *
+from .serializers.Other import *
+from ..models import *
 
 
 class NavigationCategoryViewSet(viewsets.ModelViewSet):
@@ -78,35 +74,99 @@ class OurAchievementsViewSet(viewsets.ModelViewSet):
     serializer_class = OurAchievementsSerializer
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserView(viewsets.ModelViewSet):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+    @action(methods=['get'], detail=False, url_path='user-data')
+    def get_user_data(self, *args, **kwargs):
+        user = self.request.user
+        if user.is_authenticated:
+            token_key = Token.objects.get(user=user).key
+            is_anon = user.username == f'unknown{user.id}'
+        else:
+            user, token_key = create_new_anon()
+            is_anon = True
+        return response.Response({'user': UserSerializer(user).data, 'is_anon': is_anon, 'token': token_key})
 
-class AuthViewSet(viewsets.ModelViewSet):
+    @action(methods=['post'], detail=False, url_path='update_user_data')
+    def update_user_date(self, *args, **kwargs):
+        user = self.request.user
+        customer = Customer.objects.get(user=user)
+        customer.first_name = self.request.data['firstName']
+        customer.second_name = self.request.data['secondName']
+        customer.father_name = self.request.data['fatherName']
+        customer.address = self.request.data['adress']
+        customer.phone = self.request.data['phoneNumber']
+        customer.save()
+        user.customer = customer
+        user.save()
+        return response.Response({'detail': 'success'})
 
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = (permissions.AllowAny,)
-
-    @action(methods=['post'], detail=False, url_path='login')
-    def login_user(self, *args, **kwargs):
-        # print(self.request.data['username'])
-        username = self.request.data['username']
-        password = self.request.data['password']
-        user = authenticate(self.request, username=username, password=password)
-        if user is not None:
-            login(self.request, user)
-            return response.Response({'detail': "User successfully authorized"})
-        user = User.objects.filter(username=username)
-        if user is not None:
-            return response.Response({'detail': "Wrong password"})
-        return response.Response({'detail': 'Wrong username'})
-
-    @action(methods=['get'], detail=False, url_path='logout')
-    def logout_user(self, *args, **kwargs):
-        logout(self.request)
-        return response.Response({'detail': 'User successfully logout'})
+    @action(methods=['post'], detail=False, url_path='change_password')
+    def change_password(self, *args, **kwargs):
+        user = self.request.user
+        user.set_password(self.request.data['password'])
+        return response.Response({'detail': 'success'})
 
 
+class RegisterView(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication, SessionAuthentication, BasicAuthentication]
+
+    @action(methods=['post'], detail=False)
+    def register_user(self, *args, **kwargs):
+
+        userEmail = self.request.data['email']
+
+        user = User.objects.filter(email=userEmail)
+        print(user)
+        if not user:
+            print(self.request.data)
+            userfirstname = self.request.data['firstName']
+            userlastname = self.request.data['secondName']
+            fatherName = self.request.data['fatherName']
+            username = f'Пользователь _{user.id}'
+            new_user = User.objects.create(
+                username=username,
+                email=userEmail
+            )
+            new_user.save()
+            new_user.set_password(self.request.data['password'])
+            new_user.save()
+            customer = Customer.objects.create(
+                user=new_user,
+                first_name=userfirstname,
+                second_name=userlastname,
+                father_name=fatherName
+            )
+            Cart.objects.create(owner=customer)
+            Token.objects.get_or_create(user=new_user)
+            return response.Response({'detail': 'User successfully register', 'username': username}, status=status.HTTP_200_OK)
+        return response.Response({'detail': 'Email уже привязан к другому аккаунту'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class OrderView(viewsets.ModelViewSet):
+
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+    @action(methods=['post'], detail=False, url_path='create')
+    def create_order(self, *args, **kwargs):
+        customer = Customer.objects.get(user=self.request.user)
+        cart_id = self.request.data['cart_id']
+        cart = Cart.objects.get(pk=cart_id)
+        place_type_key = int(self.request.data['place_type'])  # 0 or 1
+        place_type = ADDRESS_TYPE[place_type_key][0]
+        cart.put_in_order()
+        Order.objects.create(customer=customer, cart=cart, place_type=place_type)
+        Cart.objects.create(owner=customer)
+        return response.Response({'detail': 'success'}, status=status.HTTP_200_OK)
+
+    @action(methods=['get'], detail=False, url_path='current_user_orders')
+    def get_user_orders(self, *args, **kwargs):
+        customer = Customer.objects.get(user=self.request.user)
+        orders = Order.objects.filter(customer=customer)
+        if orders:
+            return response.Response(OrderSerializer(orders, many=True).data)
+        return response.Response({'detail': 'Current user has no orders'}, status=status.HTTP_204_NO_CONTENT)

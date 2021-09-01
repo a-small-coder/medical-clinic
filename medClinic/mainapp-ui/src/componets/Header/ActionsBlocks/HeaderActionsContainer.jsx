@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setIsAuthAC, setIsNeedRedirectAC, setUserDataAC } from '../../../redux/auth-reducer';
 import { setCartAC } from '../../../redux/header-reducer';
-import LogoutAction from './LogoutAction';
+import UserActions from './UserActions';
 const HeaderActions = (props) => {
 
     const logoutClickHandler = () => {
@@ -20,7 +20,6 @@ const HeaderActions = (props) => {
             products: [],
         })
     }
-
     return(
         <div className="header__actions actions-header">
             <Link to="/comming-soon" 
@@ -33,12 +32,7 @@ const HeaderActions = (props) => {
                     <ul className="cart-header__list cart-list"></ul>
                 </div>
             </div>
-            {props.auth.isAuth ? 
-            <LogoutAction clikHandler={logoutClickHandler}/> : 
-
-            <Link to="/auth/login" 
-            className="actions-header__item actions-header__item_user _icon-user"></Link>
-            }
+            <UserActions is_auth={!props.auth.user.is_anon} onLogoutClick={logoutClickHandler}/>
         </div>
     )
 }

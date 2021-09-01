@@ -35,19 +35,18 @@ function OrderConformationForm(props) {
             }
         },
     ]
-
     const initialValues = {
-        fullName: '',
-        adress: '',
-        phoneNumber: '',
-        email: '',
+        fullName: props.init.fullName != null? props.init.fullName : '',
+        adress: props.init.address != null? props.init.address : '',
+        phoneNumber: props.init.phone != null? props.init.phone : '',
+        email: props.init.email != null? props.init.email : '',
         acceptTermAndConditions: getInitValuesFromCheckboxData(checkBoxOptions),
         // checkboxes: getInitValuesFromCheckboxData(checkBoxesOptions),
     }
 
     const validation = Yup.object({
-        fullName: Yup.string().required('Поле "Имя" обязательно для заполнения.'),
-        adress: Yup.string().required('Поле "Фамилия" обязательно для заполнения.'),
+        fullName: Yup.string().required('Поле "ФИО" обязательно для заполнения.'),
+        adress: Yup.string().required('Поле "Адрес" обязательно для заполнения.'),
         phoneNumber: Yup.string().required('Поле "Номер телефона" обязательно для заполнения.'),
         email: Yup.string()
             .email('Неверный формат почтового адреса')
@@ -57,7 +56,7 @@ function OrderConformationForm(props) {
 
     const onSubmit = values =>{
         console.log("Form data", values)
-        props.history.push('/cart/order-conformation');
+        props.onSubmit(values)
     }
 
     return (

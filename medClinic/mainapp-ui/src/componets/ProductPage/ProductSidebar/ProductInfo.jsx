@@ -22,7 +22,7 @@ const ProductInfo = (props) => {
                 <ProductSide title={"Цена:"} text={p.price + " руб."} subtext={p.subprice} />
                 <div className="product-info__price-result price-result">
                     <p className="price-result__text _title-standart">Итого: </p>
-                    <span className="price-result__result">{p.price + " руб."}</span>
+                    <span className="price-result__result">{Number(p.price) + ' руб.'}</span>
                 </div>
                 <button
                     className={buttonBuyClassName}

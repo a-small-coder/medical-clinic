@@ -14,7 +14,7 @@ const Registration =(props) =>{
     return (
         <div className="autorization-page__content">
             <TopBlockTitle title={page_title} link={link_under_page_title} wrapperClass={TitleWrapperClass}/>
-            <RegistrationForm />
+            <RegistrationForm handlerSubmit={props.submitRegisterForm} errorMessage={props.errorMessage}/>
         </div>
     );
 }

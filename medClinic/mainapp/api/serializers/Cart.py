@@ -1,18 +1,6 @@
 from rest_framework import serializers
 
-from .Analyzes import AnalyzeSerializer
-from...models import (
-    Cart, CartAnalyze, Customer
-    )
-
-
-class CartProductSerializer(serializers.ModelSerializer):
-
-    analyze = AnalyzeSerializer()
-
-    class Meta:
-        model = CartAnalyze
-        fields = ['id', 'analyze', 'qty', 'final_price']
+from .Analyzes import *
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -31,11 +19,25 @@ class CustomerSerializer(serializers.ModelSerializer):
         return ' '.join([first_name, last_name])
 
 
+class CartItemSerializer(serializers.ModelSerializer):
+
+    product = ProductSerializer()
+
+    class Meta:
+        model = CartItem
+        fields = ['id', 'product', 'qty', 'final_price']
+
+
 class CartSerializer(serializers.ModelSerializer):
 
-    products = CartProductSerializer(many=True)
+    products = serializers.SerializerMethodField()
     owner = CustomerSerializer()
 
     class Meta:
         model = Cart
-        fields = '__all__'
+        fields = ['id', 'products', 'qty', 'total_price', 'for_anonymous_user', 'owner', 'in_order']
+
+    @staticmethod
+    def get_products(obj):
+        print(CartItem.objects.filter(cart=obj))
+        return CartItemSerializer(CartItem.objects.filter(cart=obj), many=True).data

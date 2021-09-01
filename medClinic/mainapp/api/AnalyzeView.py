@@ -1,23 +1,52 @@
 from rest_framework import viewsets, response, status, filters
 
 from .OtherViews import CatalogPagination
-from .serializers.Analyzes import AnalyzeSerializer, AnalyzeListSerializer, AnalyzeRetrieveSerializer, \
-    AnalyseContentCategorySerializer, AnalyzeContentBlockSerializer
-from ..models import (
-    Analyze,
-    AnalyseContentCategory,
-    AnalyzeContentBlock
-)
+from .serializers.Analyzes import *
+from ..models import *
 
 
-class AnalyseViewSet(viewsets.ModelViewSet):
+class ProductsView(viewsets.ModelViewSet):
 
-    queryset = Analyze.objects.all().order_by('id')
-    serializer_class = AnalyzeSerializer
+    queryset = Product.objects.order_by('price')
+    serializer_class = ProductSerializer
+    pagination_class = CatalogPagination
+
+
+class ComplexesView(viewsets.ModelViewSet):
+    queryset = AnalyzeComplex.objects.order_by('price')
+    serializer_class = AnalyzeComplexRetrieveSerializer
     pagination_class = CatalogPagination
 
     action_to_serializer = {
-        "list": AnalyzeListSerializer,
+        "list": ProductSerializer,
+        "retrieve": AnalyzeComplexRetrieveSerializer
+    }
+
+    def get_serializer_class(self):
+        print(self.action)
+        return self.action_to_serializer.get(
+            self.action,
+            self.serializer_class
+        )
+
+
+class ComplexAnalyzesTopServicesViewSet(viewsets.ModelViewSet):
+    queryset = AnalyzeComplex.objects.filter(on_main_page=True)
+    serializer_class = AnalyzeComplexTopServicesSerializer
+
+
+class ComplexAnalyzesTopFiveViewSet(viewsets.ModelViewSet):
+    queryset = AnalyzeComplex.objects.filter(in_top_five_list=True)
+    serializer_class = AnalyzeComplexTopServicesSerializer
+
+
+class AnalyzesView(viewsets.ModelViewSet):
+    queryset = Analyze.objects.order_by('price')
+    serializer_class = AnalyzeRetrieveSerializer
+    pagination_class = CatalogPagination
+
+    action_to_serializer = {
+        "list": ProductSerializer,
         "retrieve": AnalyzeRetrieveSerializer
     }
 
@@ -31,11 +60,11 @@ class AnalyseViewSet(viewsets.ModelViewSet):
 class UnicAnalyseViewSet(viewsets.ModelViewSet):
 
     queryset = Analyze.objects.filter(is_unic=True)
-    serializer_class = AnalyzeSerializer
+    serializer_class = AnalyzeRetrieveSerializer
     pagination_class = CatalogPagination
 
     action_to_serializer = {
-        "list": AnalyzeSerializer,
+        "list": UnicAnalyzeListSerializer,
         "retrieve": AnalyzeRetrieveSerializer
     }
 
@@ -44,12 +73,6 @@ class UnicAnalyseViewSet(viewsets.ModelViewSet):
             self.action,
             self.serializer_class
         )
-
-
-class AnalyseContentCategoryViewSet(viewsets.ModelViewSet):
-
-    queryset = AnalyseContentCategory.objects.all()
-    serializer_class = AnalyseContentCategorySerializer
 
 
 class AnalyzeContentBlockViewSet(viewsets.ModelViewSet):
