@@ -20,6 +20,7 @@ function ChangePasswordForm(props) {
     const onSubmit = (values, helpers) =>{
         console.log("Form data", values)
         props.onSubmit(values)
+        helpers.resetForm()
     }
     return (
         <Formik enableReinitialize initialValues={initialValues} validationSchema={validation} onSubmit={onSubmit}>

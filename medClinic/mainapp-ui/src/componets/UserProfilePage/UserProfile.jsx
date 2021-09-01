@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import TopBlockTitle from '../SupportsComponents/TopBlockTitle';
 import ProfileNavigation from './ProfileNavigation';
 import '../../styles/ProfilePage/ProfilePage.scss'
@@ -9,232 +9,22 @@ import { connect } from 'react-redux';
 import SERVER_API_START_URL, { getApiResponse, postApiRequest } from '../../support_functions/api_requests';
 
 function UserProfile(props) {
+
+    const [userOrders, setUserOrders] = useState([])
+    // const [isSend, setIsSend] = useState(false)
     const TitleWrapperClass = "user-profile-page__top-block"
     const page_title = "Личный кабинет"
+
+    useEffect(() => {
+        if (props.auth.user.token){
+            getUserOrders(props.auth.user.token, setUserOrders)
+        }
+    }, [props.auth.user.token])
 
     const navigation_categories = [
         {id: 1, title: 'Общая информация', slug: 'base_information'},
         {id: 2, title: 'История заказов', slug: 'orders'},
         {id: 3, title: 'Сменить пароль', slug: 'change_password'},
-    ]
-
-    const userOrders = [
-        {
-            id: 100247,
-            customer: {
-                phone: null,
-                address: null
-            },
-            cart: {
-                id: 15,
-                products: [
-                    {
-                        id: 25,
-                        product: {
-                            id: 15,
-                            completion_time: "1 рабочий день",
-                            vendor_code: "9",
-                            title: "Креатинин (в крови) (Creatinine)",
-                            title_min: "Креатинин в крови",
-                            price: "270.00",
-                            preview_description: "Описание появится позже",
-                            slug: "creatinine"
-                        },
-                        qty: 1,
-                        final_price: "270.00"
-                    },
-                    {
-                        id: 26,
-                        product: {
-                            id: 14,
-                            completion_time: "1 рабочий день",
-                            vendor_code: "8",
-                            title: "Холестерин общий (холестерин, Cholesterol total)",
-                            title_min: "Холестерин общий",
-                            price: "320.00",
-                            preview_description: "Описание появится позже",
-                            slug: "cholesterol_total"
-                        },
-                        qty: 1,
-                        final_price: "320.00"
-                    },
-                    {
-                        id: 27,
-                        product: {
-                            id: 19,
-                            completion_time: "3 рабочих дня",
-                            vendor_code: "13u",
-                            title: "Диагностика ОРВИ",
-                            title_min: "Диагностика ОРВИ",
-                            price: "1490.00",
-                            preview_description: "Описание появится позже",
-                            slug: "unic_orvi"
-                        },
-                        qty: 1,
-                        final_price: "1490.00"
-                    },
-                ],
-                qty: 3,
-                total_price: "2400.00",
-                for_anonymous_user: false,
-                owner: {
-                    id: 11,
-                    user: "Вася Васильевич",
-                    phone: null,
-                    address: null
-                },
-                in_order: true
-            },
-            place_type: "OFFICE",
-            place: null,
-            status: "В обработке",
-            date_create: "2021-01-01T06:20:50.191455Z",
-            date_done: null
-        },
-        {
-            id: 12342,
-            customer: {
-                phone: null,
-                address: null
-            },
-            cart: {
-                id: 15,
-                products: [
-                    {
-                        id: 25,
-                        product: {
-                            id: 15,
-                            completion_time: "1 рабочий день",
-                            vendor_code: "9",
-                            title: "Креатинин (в крови) (Creatinine)",
-                            title_min: "Креатинин в крови",
-                            price: "270.00",
-                            preview_description: "Описание появится позже",
-                            slug: "creatinine"
-                        },
-                        qty: 1,
-                        final_price: "270.00"
-                    },
-                    {
-                        id: 26,
-                        product: {
-                            id: 14,
-                            completion_time: "1 рабочий день",
-                            vendor_code: "8",
-                            title: "Холестерин общий (холестерин, Cholesterol total)",
-                            title_min: "Холестерин общий",
-                            price: "320.00",
-                            preview_description: "Описание появится позже",
-                            slug: "cholesterol_total"
-                        },
-                        qty: 1,
-                        final_price: "320.00"
-                    },
-                    {
-                        id: 27,
-                        product: {
-                            id: 19,
-                            completion_time: "3 рабочих дня",
-                            vendor_code: "13u",
-                            title: "Диагностика ОРВИ",
-                            title_min: "Диагностика ОРВИ",
-                            price: "1490.00",
-                            preview_description: "Описание появится позже",
-                            slug: "unic_orvi"
-                        },
-                        qty: 1,
-                        final_price: "1490.00"
-                    },
-                ],
-                qty: 3,
-                total_price: "2400.00",
-                for_anonymous_user: false,
-                owner: {
-                    id: 11,
-                    user: "Вася Васильевич",
-                    phone: null,
-                    address: null
-                },
-                in_order: true
-            },
-            place_type: "OFFICE",
-            place: null,
-            status: "Ожидает оплаты",
-            date_create: "2021-09-31T06:20:50.191455Z",
-            date_done: null
-        },
-        {
-            id: 83769,
-            customer: {
-                phone: null,
-                address: null
-            },
-            cart: {
-                id: 15,
-                products: [
-                    {
-                        id: 25,
-                        product: {
-                            id: 15,
-                            completion_time: "1 рабочий день",
-                            vendor_code: "9",
-                            title: "Креатинин (в крови) (Creatinine)",
-                            title_min: "Креатинин в крови",
-                            price: "270.00",
-                            preview_description: "Описание появится позже",
-                            slug: "creatinine"
-                        },
-                        qty: 1,
-                        final_price: "270.00"
-                    },
-                    {
-                        id: 26,
-                        product: {
-                            id: 14,
-                            completion_time: "1 рабочий день",
-                            vendor_code: "8",
-                            title: "Холестерин общий (холестерин, Cholesterol total)",
-                            title_min: "Холестерин общий",
-                            price: "320.00",
-                            preview_description: "Описание появится позже",
-                            slug: "cholesterol_total"
-                        },
-                        qty: 1,
-                        final_price: "320.00"
-                    },
-                    {
-                        id: 27,
-                        product: {
-                            id: 19,
-                            completion_time: "3 рабочих дня",
-                            vendor_code: "13u",
-                            title: "Диагностика ОРВИ",
-                            title_min: "Диагностика ОРВИ",
-                            price: "1490.00",
-                            preview_description: "Описание появится позже",
-                            slug: "unic_orvi"
-                        },
-                        qty: 1,
-                        final_price: "1490.00"
-                    },
-                ],
-                qty: 3,
-                total_price: "2400.00",
-                for_anonymous_user: false,
-                owner: {
-                    id: 11,
-                    user: "Вася Васильевич",
-                    phone: null,
-                    address: null
-                },
-                in_order: true
-            },
-            place_type: "OFFICE",
-            place: null,
-            status: "Завершен",
-            date_create: "2021-11-01T06:20:50.191455Z",
-            date_done: null
-        },
     ]
 
     // user has not authentificate
@@ -265,7 +55,7 @@ function UserProfile(props) {
         updateUserData(props.auth.user.token, formdata)
     }
     const changePasswordSubmithandler = (formdata) => {
-        changeUserPassword(props.auth.uset.token, formdata)
+        changeUserPassword(props.auth.user.token, formdata)
     }
 
     return (
@@ -325,4 +115,14 @@ function updateUserData(token, data){
     }
   
     postApiRequest(url, data, responseHandler, ()=>{}, token)
+  }
+
+  function getUserOrders(token, setUserOrders){
+    const url = `${SERVER_API_START_URL}orders/current_user_orders/`
+    const responseHandler = (responseData) => {
+      console.log(responseData)
+      setUserOrders(responseData)
+    }
+  
+    getApiResponse(url, token, responseHandler)
   }

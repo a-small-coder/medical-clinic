@@ -7,10 +7,10 @@ import HeaderMainContainer from './Navigation/HeaderMainContainer'
 const Header = (props) => {
     
     useEffect(() => {
-        if (props.user && props.user.token){
+        if (props.user.token){
             getUserCart(props.user.token, props.setCart, ()=>{})
         }
-    }, [props.user, props.setCart])
+    }, [props.user.token, props.setCart])
 
     // icon-menu
     const [isIconMenuActive, setIsIconMenuActive] = useState(false)
