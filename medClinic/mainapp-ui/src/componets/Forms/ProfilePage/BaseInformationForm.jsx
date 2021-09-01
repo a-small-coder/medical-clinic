@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Formik, Form} from 'formik';
 import * as Yup from 'yup'
 import { getInitValuesFromCheckboxData } from '../CatalogPage/CatalogFilterForm';
@@ -9,29 +9,40 @@ function BaseInformationForm(props) {
     const checkBoxOptions = [
         {key: 'Подписаться на рассылку', value: 'confirmSending', chebox_value: true,},
     ]
-    const initialValues = {
-        firstName: props.init.firstName != null? props.init.firstName : '',
-        secondName: props.init.secondName != null? props.init.secondName : '',
-        fatherName: props.init.fatherName != null? props.init.fatherName : '',
-        adress: props.init.adress != null? props.init.adress : '',
-        phoneNumber: props.init.phone != null? props.init.phone : '',
+
+    const initialValues =
+    {
+        firstName: props.init.firstName != null ? props.init.firstName : '',
+        secondName: props.init.secondName != null ? props.init.secondName : '',
+        fatherName: props.init.fatherName != null ? props.init.fatherName : '',
+        adress: props.init.adress != null ? props.init.adress : '',
+        phoneNumber: props.init.phone != null ? props.init.phone : '',
         confirmSending: getInitValuesFromCheckboxData(checkBoxOptions),
     }
+    console.log("initialValues ", initialValues)
+    
 
-    const validation = Yup.object({ })
+    const validation = Yup.object({
+        firstName: Yup.string(),
+        secondName: Yup.string(),
+        fatherName: Yup.string(),
+        adress: Yup.string(),
+        phoneNumber: Yup.string(),
+        confirmSending: Yup.array(),
+     })
 
     const onSubmit = (values, helpers) =>{
         values.confirmSending = values.confirmSending.length > 0
-        console.log("Form data", values)
-        props.onSubmit(values)
-        values.confirmSending=getInitValuesFromCheckboxData(checkBoxOptions)
-        helpers.resetForm()
+        let formdata = {...values, confirmSending: values.confirmSending.length > 0}
+        console.log("Form data", formdata)
+        props.onSubmit(formdata)
     }
 
     return (
-        <Formik initialValues={initialValues} validationSchema={validation} onSubmit={onSubmit}>
+        <Formik enableReinitialize initialValues={initialValues} validationSchema={validation} onSubmit={onSubmit}>
             {
-                ({ values, errors, touched, isValid, handleBlur, handleChange, fo}) => {
+                ({ values, errors, touched, isValid, handleBlur, handleChange}) => {
+                    console.log("initialValues ", initialValues)
                     return (
                         <Form className="user-info-form" autoComplete="off">
                             <div className="user-info__form">

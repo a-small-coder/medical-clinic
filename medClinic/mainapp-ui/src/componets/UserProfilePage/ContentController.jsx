@@ -5,13 +5,13 @@ import ChangePassword from './Content/ChangePassword';
 import UserOrders from './Content/UserOrders';
 
 function ContentController(props) {
-    const {control, ...rest} = props
+    const {control, user_info, ...rest} = props
     switch (control){
         case "base_information":{
-            return <BaseInformation {...rest}/>
+            return <BaseInformation {...rest} init={user_info}/>
         }
         case "orders":{
-            return <UserOrders {...rest}/>
+            return <UserOrders {...rest} />
         }
         case "change_password":{
             return <ChangePassword {...rest}/>

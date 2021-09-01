@@ -28,6 +28,20 @@ function UserProfile(props) {
         return <Redirect to="/user/profile/base_information"/>
     }
 
+    
+    let user_info = {}
+    if (props.auth.user.first_name && !props.auth.user.is_anon){
+        let user = props.auth.user
+        user_info = {
+            firstName: user.first_name,
+            secondName: user.username.split(' ')[1],
+            fatherName: user.last_name,
+            adress: user.customer.adress,
+            phone: user.customer.phone,
+            email: user.email,
+        }
+    }
+
     return (
         <main className="page">
             <section className="page__base user-profile-page">
@@ -42,7 +56,7 @@ function UserProfile(props) {
                         </div>
 
                         <div className="user-profile-page__main-block">
-                            <ContentController control={currentPage}/>
+                            <ContentController control={currentPage} user_info={user_info}/>
                         </div>
                     </div>
                 </div>
