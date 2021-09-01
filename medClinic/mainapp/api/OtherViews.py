@@ -135,7 +135,9 @@ class OrderView(viewsets.ModelViewSet):
         cart = Cart.objects.get(pk=cart_id)
         place_type_key = int(self.request.data['place_type'])  # 0 or 1
         place_type = ADDRESS_TYPE[place_type_key][0]
+        cart.put_in_order()
         Order.objects.create(customer=customer, cart=cart, place_type=place_type)
+        Cart.objects.create(owner=customer)
         return response.Response({'detail': 'success'}, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False, url_path='current_user_orders')

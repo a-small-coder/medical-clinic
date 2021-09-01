@@ -28,7 +28,7 @@ class CartViewSet(viewsets.ModelViewSet):
                 cart = Cart.objects.create(owner=customer, for_anonymous_user=is_anon)
                 cart.save()
             else:
-                cart = Cart.objects.filter(owner=customer[0]).first()
+                cart = Cart.objects.filter(owner=customer[0]).last()
         else:
             print('\n\n', user, ' hello \n\n')
             cart, created = Cart.objects.create(for_anonymous_user=True)
