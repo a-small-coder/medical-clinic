@@ -141,7 +141,6 @@ export function createOrder(token, data, setCart){
         }
         setCart(response.cart)
       }
-    debugger
     postApiRequest(url, data, setNewCartResponse, ()=>{}, token)
 }
   

@@ -17,9 +17,10 @@ const FilterPopup = (props) => {
         category = {items: []};
     }
     let popupElements = category.items.map(
-        ctgry => (
-            {key:  ctgry.text, value:  ctgry.slug, link: null, chebox_value: ctgry.is_active}
-        )
+        ctgry => {
+            return (
+            {key:  ctgry.text, value:  `${category.slug}__${ctgry.slug}`, link: null, chebox_value: ctgry.is_active}
+        )}
     );
 
     const submitPopupFormHandler = (formData) =>{
@@ -29,7 +30,7 @@ const FilterPopup = (props) => {
             newCategoryItems = category.items.map(
                 item => {
                     for (const category in formData.categories){
-                        if (formData.categories[category] === item.slug){
+                        if (formData.categories[category].split('__')[1] === item.slug){
                             active_count += 1
                             return {...item, is_active: true}
                         }
@@ -45,8 +46,8 @@ const FilterPopup = (props) => {
                     return {...item, is_active: false}
                 }
             )
+            props.activateCheckBoxHandler(category.slug, newCategoryItems, active_count)
         }
-        props.activateCheckBoxHandler(category.slug, newCategoryItems, active_count)
         props.showHiddenPopup("")
     }
     return (
@@ -55,6 +56,7 @@ const FilterPopup = (props) => {
             wrapperClassName={popupClassName} 
             onSubmitForm={submitPopupFormHandler}
             checkboxesData={popupElements}
+            category={`${category.slug}__`}
         />
     );
 }

@@ -21,10 +21,13 @@ function CatalogFilterForm(props) {
         <Formik initialValues={initialValues} validationSchema={validation} onSubmit={onSubmit}>
             {
                 
-                ({values, errors, resetForm, handleChange}) => {
+                ({values, errors, resetForm, handleChange, setValues}) => {
                     const clearForm = () => {
-                        props.onSubmitForm();
-                        resetForm();
+                        let data = {}
+                        data.categories = removeCheckboxesDataByCategory(values.categories, props.category)
+                        debugger
+                        setValues(data)
+                        props.onSubmitForm(data);
                     }
                     return (
                         <Form className="filter-form__item" autoComplete="off">
@@ -70,4 +73,19 @@ export function getInitValuesFromCheckboxData (checkboxesDataArray){
         }
     });
     return categoriesInit
+}
+
+export function removeCheckboxesDataByCategory (checkboxesDataArray, category){
+    let categoriesInit = []
+    if (category){
+        checkboxesDataArray.forEach((element, i) => {
+            if (!(element.indexOf(category)+1)){
+                categoriesInit.push(element)
+            }
+        });
+        return categoriesInit
+    }
+    else{
+        return checkboxesDataArray
+    }
 }
