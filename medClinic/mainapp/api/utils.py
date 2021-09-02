@@ -93,3 +93,33 @@ def create_new_anon():
     token, created = Token.objects.get_or_create(user=new_anonymous)
     return new_anonymous, token.key
 
+
+def get_complexes_by_type(complex_types):  # list of qs
+    complexes = []
+    for complex_type in complex_types:
+        complex_type_obj = ComplexType.objects.get(slug=complex_type)
+        qs_c = AnalyzeComplex.objects.filter(complex_type=complex_type_obj)
+        complexes.extend(get_product_list_from_qs(qs_c))
+
+    return complexes
+
+
+def get_analyzes_by_search_group(search_groups):  # list of qs
+    analyzes = []
+    for search_group in search_groups:
+        search_group_obj = SearchGroup.objects.get(slug=search_group)
+        qs_a = Analyze.objects.filter(search_group=search_group_obj)
+        analyzes.extend(get_product_list_from_qs(qs_a))
+    return analyzes
+
+
+def get_product_list_from_qs(complex_qs):  # list of model obj
+    products = []
+    for item in complex_qs:
+        product_id = item.id
+        product = Product.objects.get(pk=product_id)
+        products.append(ProductSerializer(product).data)
+    return products
+
+
+
