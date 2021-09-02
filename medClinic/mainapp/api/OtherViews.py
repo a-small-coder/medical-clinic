@@ -157,10 +157,24 @@ class OrderView(viewsets.ModelViewSet):
         place_type_key = int(self.request.data['place_type'])  # 0 or 1
         place_type = ADDRESS_TYPE[place_type_key][0]
         place = self.request.data['customer']['address']
-        # email = self.request.data['customer']['email']
-        # full_name = self.request.data['customer']['fullName']
+        if place_type_key == 0:
+            email = self.request.user.email
+            full_name = customer.get_full_name
+            phone = customer.phone
+        else:
+            email = self.request.data['customer']['email']
+            full_name = self.request.data['customer']['fullName']
+            phone = self.request.data['customer']['phone']
         cart.put_in_order()
-        Order.objects.create(customer=customer, cart=cart, place_type=place_type, place=place)
+        Order.objects.create(
+            customer=customer,
+            cart=cart,
+            place_type=place_type,
+            place=place,
+            email=email,
+            customer_full_name=full_name,
+            phone=phone
+        )
         Cart.objects.create(owner=customer)
         return response.Response({'detail': 'success'}, status=status.HTTP_200_OK)
 

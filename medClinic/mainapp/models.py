@@ -272,14 +272,18 @@ class Customer(models.Model):
 
     @property
     def get_full_name(self):
-        return f'{self.first_name}  {self.second_name} {self.father_name}'
+        return f'{self.second_name} {self.first_name} {self.father_name}'
 
 
 class Order(models.Model):
 
     customer = models.ForeignKey(Customer, verbose_name='Покупатель', on_delete=models.PROTECT)
     cart = models.ForeignKey(Cart, verbose_name='Товары', on_delete=models.PROTECT)
-    # notification_email = models.EmailField(verbose_name='почта для рассылки оповещений')
+
+    email = models.EmailField(verbose_name='почта для рассылки оповещений', null=True, default=None)
+    phone = models.CharField(max_length=127, verbose_name='Номер телефона', null=True, default=None)
+    customer_full_name = models.CharField(max_length=127, verbose_name='ФИО покупателя', null=True, default=None)
+
     place = models.CharField(max_length=255, verbose_name='Адрес', null=True)
     place_type = models.CharField(max_length=8, choices=ADDRESS_TYPE, default=None, verbose_name='Тип адреса')
     status = models.CharField(max_length=32, choices=ORDER_STATUSES, default=IN_PROCESSING, verbose_name='Статус')
