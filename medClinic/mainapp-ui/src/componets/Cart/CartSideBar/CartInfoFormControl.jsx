@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { setCustomerAC } from '../../../redux/order-reducer';
 import OrderConformationForm from '../../Forms/CartPage/OrderConformationForm';
@@ -6,6 +6,8 @@ import OfficeVisitOption from './OfficeVisitOption';
 
 function CartInfoFormControl(props) {
     const {control, ...rest} = props
+
+    const [office_addres, setOfficeAddres] = useState('Палата №6 (ул. Лечебная)')
 
     let user = {...props.userData}
     
@@ -22,7 +24,9 @@ function CartInfoFormControl(props) {
         props.history.push('/cart/order-conformation');
     }
     const confirmClickHandler= () => {
-        props.setCustomer(getCustomerData(user))
+        const customer_data = getCustomerData(user)
+        customer_data.address = office_addres
+        props.setCustomer(customer_data)
         props.history.push("/cart/order-conformation")
     }
     
@@ -30,7 +34,7 @@ function CartInfoFormControl(props) {
         case 'home':
             return <OrderConformationForm {...rest} init={home_visit_form_init} onSubmit={formSubmitHandler}/>
         case 'in office':
-            return <OfficeVisitOption {...rest} type_office={control} onButtonClick={confirmClickHandler}/>
+            return <OfficeVisitOption {...rest} type_office={control} onButtonClick={confirmClickHandler} office_address={office_addres}/>
         default:
             return (
                 <button

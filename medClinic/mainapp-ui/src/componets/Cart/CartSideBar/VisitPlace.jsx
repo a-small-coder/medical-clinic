@@ -13,7 +13,7 @@ function VisitPlace(props) {
                         Медицинский оффис:
                     </div>
                     <div className="visit-place__item _icon-aid-kit">
-                        <span>Палата №6 (ул. Лечебная) </span>
+                        <span>{props.office_address} </span>
                     </div>
                 </div>
         </div>

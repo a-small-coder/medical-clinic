@@ -76,7 +76,12 @@ class OrderSerializer(serializers.ModelSerializer):
 
     customer = CustomerSerializer()
     cart = CartSerializer()
+    email = serializers.SerializerMethodField()
 
     class Meta:
         model = Order
-        fields = ['id', 'customer', 'cart', 'place_type', 'place', 'status', 'date_create', 'date_done']
+        fields = ['id', 'email', 'place_type', 'place', 'status', 'date_create', 'date_done', 'customer', 'cart']
+
+    @staticmethod
+    def get_email(obj):
+        return User.objects.get(customer=obj.customer).email

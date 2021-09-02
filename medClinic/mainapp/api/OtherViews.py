@@ -120,9 +120,7 @@ class RegisterView(viewsets.ModelViewSet):
         userEmail = self.request.data['email']
 
         user = User.objects.filter(email=userEmail)
-        print(user)
         if not user:
-            print(self.request.data)
             userfirstname = self.request.data['firstName']
             userlastname = self.request.data['secondName']
             fatherName = self.request.data['fatherName']
@@ -158,8 +156,11 @@ class OrderView(viewsets.ModelViewSet):
         cart = Cart.objects.get(pk=cart_id)
         place_type_key = int(self.request.data['place_type'])  # 0 or 1
         place_type = ADDRESS_TYPE[place_type_key][0]
+        place = self.request.data['customer']['address']
+        # email = self.request.data['customer']['email']
+        # full_name = self.request.data['customer']['fullName']
         cart.put_in_order()
-        Order.objects.create(customer=customer, cart=cart, place_type=place_type)
+        Order.objects.create(customer=customer, cart=cart, place_type=place_type, place=place)
         Cart.objects.create(owner=customer)
         return response.Response({'detail': 'success'}, status=status.HTTP_200_OK)
 

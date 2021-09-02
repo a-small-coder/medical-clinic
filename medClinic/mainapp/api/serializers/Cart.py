@@ -39,5 +39,4 @@ class CartSerializer(serializers.ModelSerializer):
 
     @staticmethod
     def get_products(obj):
-        print(CartItem.objects.filter(cart=obj))
         return CartItemSerializer(CartItem.objects.filter(cart=obj), many=True).data
