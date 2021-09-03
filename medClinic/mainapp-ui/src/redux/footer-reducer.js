@@ -9,7 +9,7 @@ let initialState = {
             {
                 category: "Меню",
                 sub_categories: [
-                    {id: 1, sub_category: "Каталог анализов", link: "/analyzes"},
+                    {id: 1, sub_category: "Каталог анализов", link: "/catalog/all-analyzes"},
                     {id: 2, sub_category: "Наши услуги", link: "/service"},
                     {id: 3, sub_category: "Вакцинация", link: "/service/vac"},
                     {id: 4, sub_category: "Акции", link: "/stocks"},
@@ -30,12 +30,13 @@ let initialState = {
             },
             {
                 category: "Мы в соцсетях",
+                societies: true,
                 sub_categories: [
-                    {id: 1, sub_category: "Instagramm", link: "/brokelink"},
-                    {id: 2, sub_category: "Facebook", link: "/brokelink"},
-                    {id: 3, sub_category: "Twitter", link: "/brokelink"},
-                    {id: 4, sub_category: "Telegram", link: "/brokelink"},
-                    {id: 5, sub_category: "Вконтакте", link: "/brokelink"},
+                    {id: 1, sub_category: "Instagram", link: "https://www.instagram.com/?hl=ru", icon: "_icon-instagram"},
+                    {id: 2, sub_category: "Facebook", link: "https://ru-ru.facebook.com/", icon: "_icon-facebook"},
+                    {id: 3, sub_category: "Twitter", link: "https://twitter.com/?lang=ru", icon: "_icon-twitter"},
+                    {id: 4, sub_category: "Telegram", link: "https://web.telegram.org/k/", icon: "_icon-telegram"},
+                    {id: 5, sub_category: "Вконтакте", link: "https://vk.com/", icon: "_icon-vk"},
                 ],
                 id: 3,
                 spoilerActive: false,

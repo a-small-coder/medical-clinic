@@ -82,9 +82,9 @@ const MainPage = (props) => {
             <AnalyzeComplexes analyzes={props.analiyzesComplex}/>: 
             <LoadingSheme block={true}/>} 
 
-            {props.mainPage.stocks.length !== 0 ?
+            {/* {props.mainPage.stocks.length !== 0 ?
             <Stocks stocks={props.mainPage.stocks}/> : 
-            <LoadingSheme block={true}/>}  
+            <LoadingSheme block={true}/>}   */}
             
             {props.aboutUs.length !== 0 ?
             <AboutUs aboutUs={props.aboutUs}/>: 

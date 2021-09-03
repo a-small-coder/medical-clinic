@@ -14,7 +14,15 @@ const MenuColumn = (props) => {
         contentClassName += " _hidden"
     }
     let menuElements = props.category.sub_categories.map(s =>
-        <MenuSubItem key={s.id} title={s.sub_category} link={s.link} classLi={""} classLink={"menu-footer__link"}/>
+        <MenuSubItem 
+            key={s.id} 
+            title={s.sub_category} 
+            link={s.link} 
+            classLi={""} 
+            classLink={"menu-footer__link"} 
+            icon_class={s.icon} 
+            societies={props.category.societies}
+        />
     )
 
     const onSpoilerClick = () =>{

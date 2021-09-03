@@ -1688,6 +1688,14 @@ body.ie ._ibg img {
   transition: color 0.3s ease 0s;
   line-height: 120%;
   font-weight: 500;
+  display: flex;
+  justify-content: flex-start;
+
+}
+
+.menu-footer__link::before{
+  margin-right: 15px;
+  font-size: 20px;
 }
 
 .subscribe__title {
