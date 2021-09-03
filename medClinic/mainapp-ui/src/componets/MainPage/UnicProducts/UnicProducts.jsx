@@ -14,14 +14,14 @@ const UnicProducts = (props) => {
     return (
         <section className="page__products products">
             <div className="products__container _container">
-                <h2 className="products__title _title">Our Products</h2>
+                <h2 className="products__title _title">Уникальные анализы</h2>
                 <div className="products__items">
                     {productElements}
                 </div>
                 <div className="products__footer">
                     <button to="" onClick={showMoreClickHandler}
                         className={!props.isButtonHidden ? "products__more btn btn_white" : "products__more _disable btn btn_white"}>
-                        Show More</button>
+                        Показать ещё</button>
                 </div>
             </div>
         </section>

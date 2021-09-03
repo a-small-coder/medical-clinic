@@ -19,7 +19,7 @@ const Catalog = (props) => {
                 <div className="catalog__body">
                     <h1 className="catalog__title _title"><span>Catalog</span></h1>
                     <div className="catalog__content">
-                        <CatalogFilter/>
+                        <CatalogFilter setCurrentPage={props.setCurrentPage}/>
                         <ProductsContainer history={props.history} category={category}/>
                     </div>
                 </div>

@@ -9,7 +9,7 @@ const AnalyzeComplexes = (props) => {
     if (props.analyzes.length === 0){
         return <LoadingSheme page={true}/>
     }
-    let analyzeEkements = props.analyzes.map(a => <Analyze key={a.id} number={`0 ${a.id}`} title={a.title_min} text={"популярный комплекс"} img={a.small_image} link={a.slug}/>)
+    let analyzeEkements = props.analyzes.map(a => <Analyze key={a.id} number={`0 ${a.id}`} title={a.title_min} text={"популярный комплекс"} img={a.small_image} link={`catalog/complex-analyzes/${a.id}`}/>)
 
     const goNext = () => {
       if (sliderRef.current && sliderRef.current.swiper) {
@@ -46,12 +46,13 @@ const AnalyzeComplexes = (props) => {
         <section className="page__sub-slider-big sub-slider-big">
             <div className="sub-slider-big__container _container">
                 <div className="sub-slider-big__body">
-                    <h2 className="sub-slider-big__title _title">50+ Beautiful rooms inspiration</h2>
+                    <h2 className="sub-slider-big__title _title">Популярные анализы собраны в комплексы</h2>
                     <div className="sub-slider-big__text">
-                        Our designer already made a lot of beautiful
-                        prototipe of rooms that inspire you
+                        Наша клиника заботится о своих клиента. 
+                        Теперь не придется набирать полную корзину анализов, 
+                        достаточно выбрать нужный комплекс.
                     </div>
-                    <Link to="" className="sub-slider-big__button btn" >Explore More</Link>
+                    <Link to="catalog/complex-analyzes" className="sub-slider-big__button btn" >В каталог</Link>
                 </div>
                 <div className="sub-slider-big__slider slider-sub-slider-big">
 

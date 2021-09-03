@@ -9,7 +9,7 @@ const Content = (props) => {
             <div className="content-main__text">
                 {props.content.text}
             </div>
-            <Link to={props.content.link} data-da=".main-slider__body, 991.98" className="content-main__button btn">Shop Now</Link>
+            <Link to={props.content.link} data-da=".main-slider__body, 991.98" className="content-main__button btn">Перейти в каталог</Link>
         </div>
     );
 }
