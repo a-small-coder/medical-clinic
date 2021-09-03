@@ -57,7 +57,7 @@ const MenuItem = (props) => {
     if (subMenuElements.length > 0){
         return (
             <li className={menuItemClassName}>
-                <div className="menu__link" >{props.category.category}</div>
+                <Link to={menuItemLink} className="menu__link" >{props.category.category}</Link>
     
                 <button type="button"
                     className={buttonClassName}

@@ -18,7 +18,6 @@ const ProductPage = (props) => {
     if (currentLink !== productLink){
         let product_url = productLink.split('/')
         product_url = `catalog/all/product/${product_url[product_url.length - 1]}/`
-        // debugger
         getProductData(product_url, props.setProduct, setNeedRender)
         setCurrentLink(productLink)
     }
@@ -100,7 +99,6 @@ export default ProductPageContainer;
 function getProductData(productLink, setProduct, setNeedRender) {
     const url = `${urlStart}${productLink}`
     const goodResponseHandler = (response) =>{
-        // debugger
         let product = response
         let isAcomplex = product.complex_type != null
         if (!isAcomplex){
