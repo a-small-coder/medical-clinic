@@ -16,7 +16,10 @@ const ProductPage = (props) => {
     const [Badresponse, setNeedRender] = useState(false);
 
     if (currentLink !== productLink){
-        getProductData(productLink, props.setProduct, setNeedRender)
+        let product_url = productLink.split('/')
+        product_url = `catalog/all/product/${product_url[product_url.length - 1]}/`
+        // debugger
+        getProductData(product_url, props.setProduct, setNeedRender)
         setCurrentLink(productLink)
     }
 
