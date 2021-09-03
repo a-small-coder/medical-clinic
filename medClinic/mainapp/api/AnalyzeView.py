@@ -1,6 +1,7 @@
 import math
 from collections import OrderedDict
 
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, response, status, filters
 from rest_framework.decorators import action
 from django.core.paginator import Paginator
@@ -16,23 +17,16 @@ class ProductsView(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     pagination_class = CatalogPagination
 
-
-class ComplexesView(viewsets.ModelViewSet):
-    queryset = AnalyzeComplex.objects.order_by('price')
-    serializer_class = AnalyzeComplexRetrieveSerializer
-    pagination_class = CatalogPagination
-
-    action_to_serializer = {
-        "list": ProductSerializer,
-        "retrieve": AnalyzeComplexRetrieveSerializer
-    }
-
-    def get_serializer_class(self):
-        print(self.action)
-        return self.action_to_serializer.get(
-            self.action,
-            self.serializer_class
-        )
+    @action(methods=['get'], detail=False, url_path='product/(?P<product_id>\d+)')
+    def get_product_by_id(self, *args, **kwargs):
+        product = get_object_or_404(Product, id=kwargs['product_id'])
+        analyze_qs = Analyze.objects.filter(slug=product.slug)
+        if not analyze_qs:
+            complex_qs = AnalyzeComplex.objects.filter(slug=product.slug)
+            if not complex_qs:
+                return response.Response(status=status.HTTP_404_NOT_FOUND)
+            return response.Response(AnalyzeComplexRetrieveSerializer(complex_qs[0]).data)
+        return response.Response(AnalyzeRetrieveSerializer(analyze_qs[0]).data)
 
     @action(methods=['post'], detail=False, url_path='filter')
     def get_complex_with_filter(self, *args, **kwargs):
@@ -63,6 +57,22 @@ class ComplexesView(viewsets.ModelViewSet):
         ]))
 
 
+class ComplexesView(viewsets.ModelViewSet):
+    queryset = AnalyzeComplex.objects.order_by('price')
+    serializer_class = AnalyzeComplexRetrieveSerializer
+    pagination_class = CatalogPagination
+
+    action_to_serializer = {
+        "list": ProductSerializer,
+        "retrieve": AnalyzeComplexRetrieveSerializer
+    }
+
+    def get_serializer_class(self):
+        print(self.action)
+        return self.action_to_serializer.get(
+            self.action,
+            self.serializer_class
+        )
 
 
 class ComplexAnalyzesTopServicesViewSet(viewsets.ModelViewSet):
