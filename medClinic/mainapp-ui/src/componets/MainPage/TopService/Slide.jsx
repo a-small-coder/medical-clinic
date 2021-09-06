@@ -6,7 +6,7 @@ const Slide = (props) => {
             <div className="slider-main__image _ibg">
                 <img src={props.img} alt="vaccination" />
             </div>
-            <Link to={props.link}  className="slider-main__content">
+            <Link to={props.link} data-swiper-parallax-opacity="0.0" data-swiper-parallax-x="-100%" className="slider-main__content">
                 <div className="slider-main__title">{props.title}</div>
                 <div className="slider-main__text">{props.text}</div>
                 <div className="slider-main__price _icon-arrow-link">{props.price}</div>

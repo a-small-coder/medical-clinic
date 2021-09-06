@@ -66,7 +66,7 @@ const AuthPageBody = (props) =>{
         }
         postApiRequest(loginUrl, userData, goodResponseHandler, badResponseHandler)
     }
-    if (props.auth.isNeedRedirect || props.auth.isAuth) {
+    if (props.auth.isNeedRedirect || !props.auth.user.is_anon) {
         return (
         redirectByPageType(MAIN_PAGE_NAME)
         )

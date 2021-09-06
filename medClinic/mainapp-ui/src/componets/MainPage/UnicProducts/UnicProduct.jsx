@@ -17,8 +17,30 @@ const UnicProduct = (props) => {
     else {
         labelElements = ""
     }
-    
-// sorry for this code...
+
+    const productPrice = () =>{
+        if (props.price == null){
+            return null
+        }
+        const product_markers = productMarkers()
+        return (
+            <div class="item-product__prices">
+                <div class="item-product__price">{props.price}</div>
+                {product_markers}
+            </div>
+        )
+    }
+
+    const productMarkers = () =>{
+        if (props.markers != null && props.markers.length > 0 && stockSize > 0){
+            return (
+                <div class="item-product__price item-product__price_old">{props.price * stockSize}</div>
+            )
+        }
+        return null
+    }
+
+    const product_price = productPrice()
     return (
         <article data-pid="1" className="products__item item-product">
             <div className="item-product__labels">
@@ -32,26 +54,11 @@ const UnicProduct = (props) => {
                     <h5 className="item-product__title">{props.title}</h5>
                     <div className="item-product__text">{props.description}</div>
                 </div>
-                {props.price != null ? (
-                    <div class="item-product__prices">
-                        <div class="item-product__price">{props.price}</div>
-                        {props.markers != null && props.markers.length > 0 && stockSize > 0 ? (
-                            <div class="item-product__price item-product__price_old">{props.price * stockSize}</div>
-                        ) : (
-                            ""
-                        )}
-                        
-                    </div>
-                ) :
-                    (
-                        ""
-                    )
-
-                }
-
+                {product_price}
             </div>
         </article>
-    );
+        
+    )
 }
 
 export default UnicProduct;
