@@ -88,7 +88,7 @@ class UserView(viewsets.ModelViewSet):
         else:
             user, token_key = create_new_anon()
             customer = Customer.objects.create(user=user)
-            customer.save()
+            Cart.objects.create(owner=customer, for_anonymous_user=True)
             is_anon = True
         return response.Response({'user': UserSerializer(user).data, 'is_anon': is_anon, 'token': token_key})
 

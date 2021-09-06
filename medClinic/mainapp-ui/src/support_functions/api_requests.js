@@ -1,4 +1,5 @@
 import * as axios from 'axios'
+import { setStorageUser } from './utils'
 const SERVER_API_START_URL = "http://127.0.0.1:8000/api/"
 export function getApiResponse(apiUrl, token=false, goodResponseHandler = standartGoodResponseHandler, badResponseHandler = standartErrorResponseHandler) {
     console.log(`Send get response: ${apiUrl}`)
@@ -125,6 +126,9 @@ export function getUserCart(token, setCart, onBadResponse){
         customer: response.user.customer,
         token: response.token,
         is_anon: response.is_anon,
+      }
+      if (response.is_anon){
+        setStorageUser(response.token)
       }
       setUserData(userData)
       setIsAuth(true)

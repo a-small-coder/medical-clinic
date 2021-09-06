@@ -1,6 +1,6 @@
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import { connect } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { setIsAuthAC, setUserDataAC } from './redux/auth-reducer';
 import { setCartAC, switchSpoilerModAC } from './redux/header-reducer';
 import './styles/style.css';
@@ -21,11 +21,16 @@ import UserProfile from "./componets/UserProfilePage/UserProfile";
 
 function App(props) {
 
+  const [oldToken, setToken] = useState(null)
+
+  let token = getStorageUserToken()
+  if (token != oldToken){
+    setToken(token)
+  }
   useEffect(() => {
-    let token = getStorageUserToken()
-    getActualUser(token, props.setUserData, props.setIsAuth)
+    getActualUser(oldToken, props.setUserData, props.setIsAuth)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [oldToken])
   console.log('state', props.state)
 
   const goToOrders = (path) =>{
