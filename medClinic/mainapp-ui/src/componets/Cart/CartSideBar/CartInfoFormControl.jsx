@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { setCookie } from 'react-use-cookie';
 import { setCustomerAC } from '../../../redux/order-reducer';
 import OrderConformationForm from '../../Forms/CartPage/OrderConformationForm';
 import OfficeVisitOption from './OfficeVisitOption';
@@ -13,6 +14,13 @@ function CartInfoFormControl(props) {
     
     const home_visit_form_init = getCustomerData(user)
 
+    const setCustomerData = (customer, place_type=0) => {
+        setCookie('customer', customer);
+        setCookie('place', customer.address);
+        setCookie('place_type', place_type) // 1 - in user home, 0 - in office
+        props.setCustomer(customer)
+    }
+
     const formSubmitHandler = (formData) => {
         const customer_data = {
             fullName: formData.fullName,
@@ -20,13 +28,13 @@ function CartInfoFormControl(props) {
             phone: formData.phoneNumber,
             email: formData.email
         }
-        props.setCustomer(customer_data)
+        setCustomerData(customer_data, 1)
         props.history.push('/cart/order-conformation');
     }
     const confirmClickHandler= () => {
         const customer_data = getCustomerData(user)
         customer_data.address = office_addres
-        props.setCustomer(customer_data)
+        setCustomerData(customer_data, 0)
         props.history.push("/cart/order-conformation")
     }
     

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { setCookie } from 'react-use-cookie';
+import { getCookie, setCookie } from 'react-use-cookie';
 import { setCartAC } from '../../redux/header-reducer';
 import '../../styles/OrderConfirmPage/OrderConfirmPage.scss';
 import { createOrder } from '../../support_functions/api_requests';
@@ -48,13 +48,8 @@ function OrderConformation(props) {
         const data = {
             cart_id: props.cart.id,
         }
-        let place
-        if (props.order.type_office === 'in office'){
-            place = 0
-        }else {
-            place = 1
-        }
-        data.place_type = place
+        let place_type = getCookie("place_type")
+        data.place_type = place_type
         data.customer = props.order.customer
         console.log("customer data:", props.order.customer)
         createOrder(props.userToken, data, props.setCart)

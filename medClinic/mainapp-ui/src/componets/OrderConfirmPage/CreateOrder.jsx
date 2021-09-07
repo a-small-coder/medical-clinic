@@ -2,8 +2,8 @@ import React from 'react';
 import ButtonsBlock from '../SupportsComponents/ButtonsBlock';
 
 function CreateOrder(props) {
-
     if (props.needAuth){
+        debugger
         return (
             <div className="order-conformation-page__confirm-block confirm-block-order">
                 <div className="confirm-block-order__confirm confirm-order">
