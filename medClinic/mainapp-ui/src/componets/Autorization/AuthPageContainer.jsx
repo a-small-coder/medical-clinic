@@ -9,7 +9,7 @@ import LoadingSheme from '../SupportsComponents/LoadingSheme';
 import AuthFormControl from './AutorizationTypes/AuthFormControl';
 import { setStorageUser, removeStorageUser } from '../../support_functions/utils';
 
-const AuthPageBody = (props) =>{
+const AuthPageBody = (props) => {
 
     function authUser (userdata, errorMessageSetter, errorFieldName, needRemember=false) {
         const loginUrl = "http://127.0.0.1:8000/auth/"
@@ -32,9 +32,13 @@ const AuthPageBody = (props) =>{
                 }           
             }
             const badResponseHandler = (err) => {
-                if (err.response.status === 400){
-                    errorMessageSetter(errorFieldName, "Неверный логин или пароль")
+                if (err.response){
+                    if (err.response.status === 400){
+                        errorMessageSetter(errorFieldName, "Неверный логин или пароль")
+                    }
                 }
+                errorMessageSetter(errorFieldName, "Что-то пошло не так, перезагрузите страницу и попробуйте снова")
+                
                 
             }
             postApiRequest(loginUrl, userdata, goodResponseHandler, badResponseHandler)

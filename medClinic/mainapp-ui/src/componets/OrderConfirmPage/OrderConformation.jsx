@@ -56,6 +56,7 @@ function OrderConformation(props) {
         data.place_type = place_type
         data.customer = props.order.customer
         console.log("customer data:", props.order.customer)
+        debugger
         createOrder(props.userToken, data, props.setCart)
         props.history.push("/user/profile/orders")
     }
@@ -77,9 +78,8 @@ function OrderConformation(props) {
     }, [props.is_anon, props.order.type_office])
     
     useEffect(()=>{
-        const place_type = getCookie('place_type') 
-        debugger
-        if (place_type == 0){
+        const place_type = getCookie('place_type')
+        if (place_type == 0 && !props.order.type_office){
             props.setOfficeType("in office")
         }
         

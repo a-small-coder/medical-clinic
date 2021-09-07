@@ -123,10 +123,11 @@ class RegisterView(viewsets.ModelViewSet):
 
         user = User.objects.filter(email=userEmail)
         if not user:
+            user_id = User.objects.all().last().id
             userfirstname = self.request.data['firstName']
             userlastname = self.request.data['secondName']
             fatherName = self.request.data['fatherName']
-            username = f'Пользователь _{user.id}'
+            username = f'Пользователь _{user_id}'
             new_user = User.objects.create(
                 username=username,
                 email=userEmail
