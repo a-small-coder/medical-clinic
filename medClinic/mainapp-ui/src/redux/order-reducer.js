@@ -6,7 +6,7 @@ const SET_CUSTOMER = "SET_CUSTOMER"
 let initialState = {
     cart_id: 0,
     type_office: "", // 0 - "in office" or 1 - "home"
-    choosen_office: 'Палата №6',
+    choosen_office: "",
     
     
 }
@@ -14,18 +14,15 @@ let initialState = {
 const orderReducer = (state = initialState, action) =>{
     switch (action.type){
         case CART_ID: {
-            let stateCopy= {...state, cart_id: action.cart_id}
-            return stateCopy
+            return {...state, cart_id: action.cart_id}
         }
         case SET_OFFICE_TYPE: {
             
-            let stateCopy = {...state, type_office: action.type_office}
-            return stateCopy
+            return {...state, type_office: action.type_office}
         }
         case SET_CHOOSEN_OFFICE:{
             
-            let stateCopy = {...state, choosen_office: action.choosen_office}
-            return stateCopy
+            return {...state, choosen_office: action.choosen_office}
         }
         case SET_CUSTOMER: {
             let stateCopy = {...state}

@@ -29,14 +29,9 @@ function App(props) {
   }
 
   useEffect(() => {
-    debugger
     getActualUser(oldToken, props.setUserData, props.setIsAuth)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [oldToken])
-
-  useEffect(() => {
-    // const 
-  }, [])
 
   console.log('state', props.state)
 

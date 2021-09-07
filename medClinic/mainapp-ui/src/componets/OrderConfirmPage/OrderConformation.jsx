@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { getCookie, setCookie } from 'react-use-cookie';
 import { setCartAC } from '../../redux/header-reducer';
+import { setOfficeTypeAC } from '../../redux/order-reducer';
 import '../../styles/OrderConfirmPage/OrderConfirmPage.scss';
 import { createOrder } from '../../support_functions/api_requests';
 import PriceInfoBlock from '../Cart/CartSideBar/PriceInfoBlock';
@@ -9,6 +11,8 @@ import TopBlockTitle from '../SupportsComponents/TopBlockTitle';
 import CreateOrder from './CreateOrder';
 
 function OrderConformation(props) {
+
+    const [needAuth, setNeedAuth] = useState(true)
 
     const saveCart = (cart_id, place) => {
         setCookie('cart_id', cart_id);
@@ -58,7 +62,6 @@ function OrderConformation(props) {
     const btnActions = {
         auth: (path) => {
             let place
-            debugger
             if (props.order.type_office === 'in office'){
                 place = 0
             }else {
@@ -69,8 +72,26 @@ function OrderConformation(props) {
             props.history.push(path)
         },
     }
-    const needAuth = props.is_anon && props.order.type_office === "in office";
+    useEffect(()=>{
+        setNeedAuth(props.is_anon && props.order.type_office === "in office")
+    }, [props.is_anon, props.order.type_office])
+    
+    useEffect(()=>{
+        const place_type = getCookie('place_type') 
+        debugger
+        if (place_type == 0){
+            props.setOfficeType("in office")
+        }
+        
+    }, [props])
+
+    if(props.order.type_office == null){
+        return (
+            <Redirect to="/cart"/>
+        )
+    }
     return (
+        
         <main className="page">
             <section className="page__base order-conformation-page">
                 <div className="order-conformation-page__container _container">
@@ -111,6 +132,9 @@ let mapDispatchToProps = (dispatch)=>{
         setCart: (cart) =>{
             dispatch(setCartAC(cart));
         },
+        setOfficeType: (place_type) => {
+            dispatch(setOfficeTypeAC(place_type))
+        }
     }
 }
 const OrderConformationContainer = connect(mapStateToProps, mapDispatchToProps)(OrderConformation);

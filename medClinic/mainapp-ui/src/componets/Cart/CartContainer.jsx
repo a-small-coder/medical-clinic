@@ -51,14 +51,14 @@ const Cart = (props) =>{
     }, [])
 
     // fail to get cart data from server
-    if (props.cart == null || !props.isAuth) {
+    if (props.cart == null) {
         return (
             redirectByPageType(MAIN_PAGE_NAME)
         )
     }
 
     // successfully getting cart data from server
-    if (isRequest) {
+    if (props.cart && props.cart.total_products) {
         if (props.cart.total_products === 0) {
             return <EmptyCart />
         }
@@ -94,6 +94,7 @@ let mapStateToProps = (state)=>{
         userToken: state.auth.user.token,
         isAuth: state.auth.isAuth,
         order: state.order,
+        user: state.auth.user,
     }
 }
 let mapDispatchToProps = (dispatch)=>{
