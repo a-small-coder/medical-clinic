@@ -28,8 +28,9 @@ function UserProfile(props) {
     ]
 
     // user has not authentificate
-    if (props.auth.user.is_anon){
-        redirectByPageType(AUTHENTIFICATION)
+    
+    if (props.auth.user.is_anon == null || props.auth.user.is_anon){
+        return redirectByPageType(AUTHENTIFICATION)
     }
 
     // get subcomponent's control from url
