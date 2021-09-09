@@ -58,7 +58,7 @@ const Cart = (props) =>{
     }
 
     // successfully getting cart data from server
-    if (props.cart && props.cart.total_products) {
+    if (props.cart && props.cart.total_products != null) {
         if (props.cart.total_products === 0) {
             return <EmptyCart />
         }
@@ -83,7 +83,7 @@ const Cart = (props) =>{
         )
         
     }
-
+    debugger
     // waiting server response
     return <LoadingSheme page/>
 }

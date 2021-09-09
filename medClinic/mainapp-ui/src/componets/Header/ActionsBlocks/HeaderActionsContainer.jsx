@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { MAIN_PAGE_NAME, redirectByPageType } from '../../../App';
 import { setIsAuthAC, setIsNeedRedirectAC, setUserDataAC } from '../../../redux/auth-reducer';
 import { setCartAC } from '../../../redux/header-reducer';
+import { removeStorageUser } from '../../../support_functions/utils';
 import UserActions from './UserActions';
 const HeaderActions = (props) => {
 
@@ -19,6 +21,8 @@ const HeaderActions = (props) => {
             total_products: 0,
             products: [],
         })
+        removeStorageUser()
+        redirectByPageType(MAIN_PAGE_NAME)
     }
     return(
         <div className="header__actions actions-header">
