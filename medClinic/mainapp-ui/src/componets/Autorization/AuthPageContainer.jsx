@@ -38,8 +38,6 @@ const AuthPageBody = (props) => {
                     }
                 }
                 errorMessageSetter(errorFieldName, "Что-то пошло не так, перезагрузите страницу и попробуйте снова")
-                
-                
             }
             postApiRequest(loginUrl, userdata, goodResponseHandler, badResponseHandler)
     }
@@ -66,7 +64,6 @@ const AuthPageBody = (props) => {
             if (err.response.status === 400){
                 errorMessageSetter(errorFieldName, err.detail)
             }
-            
         }
         postApiRequest(loginUrl, userData, goodResponseHandler, badResponseHandler)
     }

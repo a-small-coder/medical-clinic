@@ -30,7 +30,6 @@ function App(props) {
 
   useEffect(() => {
     getActualUser(oldToken, props.setUserData, props.setIsAuth)
-    debugger
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [oldToken])
 
@@ -40,7 +39,7 @@ function App(props) {
     return <Redirect to={path}/>
   }
 
-  createOrderAfterAuth(props.user, props.customer, createOrder, props.setCart, goToOrders)
+  createOrderAfterAuth(props.user, props.customer, props.setCart, goToOrders)
 
   return (
     <BrowserRouter>
@@ -115,9 +114,9 @@ export const MAIN_PAGE_NAME = 'Main'
 export const IN_WORK_PAGE_NAME = 'InWork'
 export const BAD_LINK = 'BadLink'
 
-export function createOrderAfterAuth(user, customer, createOrder, setCart, goToOrders=()=>{}) {
+export function createOrderAfterAuth(user, customer, setCart, goToOrders=()=>{}) {
   let make_order = getCookie('make_order')
-  if (make_order == true) {
+  if (make_order == "true") {
     debugger
     if (user && !user.is_anon) {
       const data = {

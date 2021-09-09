@@ -22,7 +22,7 @@ const HeaderActions = (props) => {
             products: [],
         })
         removeStorageUser()
-        redirectByPageType(MAIN_PAGE_NAME)
+        return redirectByPageType(MAIN_PAGE_NAME)
     }
     return(
         <div className="header__actions actions-header">
