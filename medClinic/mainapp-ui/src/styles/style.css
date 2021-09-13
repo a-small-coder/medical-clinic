@@ -4542,3 +4542,21 @@ body.ie ._ibg img {
     border-color: #0FC0FC;
   }
 }
+
+.swiper-slide .slider-main__content{
+  visibility: hidden;
+  opacity: 0;
+}
+.swiper-slide-active .slider-main__content{
+  visibility: visible;
+  opacity: 1;
+}
+.swiper-slide .slider-sub-slider-big__content{
+  visibility: hidden;
+  opacity: 0;
+}
+.swiper-slide-active .slider-sub-slider-big__content{
+  visibility: visible;
+  opacity: 1;
+}
+
