@@ -1,4 +1,5 @@
 import * as axios from 'axios'
+import { createOrderAfterAuth } from '../App'
 import { setStorageUser } from './utils'
 const SERVER_API_START_URL = "http://127.0.0.1:8000/api/"
 export function getApiResponse(apiUrl, token=false, goodResponseHandler = standartGoodResponseHandler, badResponseHandler = standartErrorResponseHandler) {
@@ -132,6 +133,7 @@ export function getUserCart(token, setCart, onBadResponse){
       }
       setUserData(userData)
       setIsAuth(true)
+      createOrderAfterAuth(userData, userData.customer)
     }
   
     getApiResponse(url, token, setUserFromResponse)

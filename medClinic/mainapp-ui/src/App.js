@@ -29,17 +29,11 @@ function App(props) {
   }
 
   useEffect(() => {
-    getActualUser(oldToken, props.setUserData, props.setIsAuth)
+    getActualUser(oldToken, props.setUserData, props.setIsAuth, createOrderAfterAuth)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [oldToken])
 
   console.log('state', props.state)
-
-  const goToOrders = (path) =>{
-    return <Redirect to={path}/>
-  }
-
-  createOrderAfterAuth(props.user, props.customer, props.setCart, goToOrders)
 
   return (
     <BrowserRouter>
@@ -114,19 +108,23 @@ export const MAIN_PAGE_NAME = 'Main'
 export const IN_WORK_PAGE_NAME = 'InWork'
 export const BAD_LINK = 'BadLink'
 
-export function createOrderAfterAuth(user, customer, setCart, goToOrders=()=>{}) {
+export function createOrderAfterAuth(user, customer, setCart) {
   let make_order = getCookie('make_order')
   if (make_order == "true") {
-    debugger
-    if (user && !user.is_anon) {
+    if (user != null && !user.is_anon) {
       const data = {
         cart_id: getCookie('cart_id'),
         place_type: getCookie('place_type'),
         customer: customer
-    }
+      }
+      debugger
       createOrder(user.token, data, setCart)
       setCookie('make_order', false);
       goToOrders("/user/profile/orders")
     }
   }
+}
+
+const goToOrders = (path) =>{
+  return <Redirect to={path}/>
 }
